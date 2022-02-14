@@ -1,0 +1,4 @@
+@import 'src/styles/mixins';
+
+// Example
+@include font-face('Inter', '../assets/fonts/Inter-Regular', 400, normal, 'ttf');
