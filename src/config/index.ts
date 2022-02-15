@@ -2,7 +2,7 @@ import { INetwork } from '@amfi/connect-wallet/dist/interface';
 
 import { chainsEnum, IConnectWallet, IContracts } from 'types';
 
-import { stakingAbi } from './abi';
+import { erc721Abi, erc1155Abi, exchangeAbi } from './abi';
 
 export const is_production = false;
 
@@ -51,16 +51,36 @@ export const connectWallet = (chainName: chainsEnum): IConnectWallet => {
 
 export const contracts: IContracts = {
   type: is_production ? 'mainnet' : 'testnet',
-  names: ['STAKING'],
+  names: ['EXCHANGE', 'ERC721', 'ERC1155'],
   params: {
-    STAKING: {
+    EXCHANGE: {
       mainnet: {
-        address: '0xfab0fd2586e287746aaec8397109b5fe6d2ff053',
-        abi: stakingAbi,
+        address: '',
+        abi: exchangeAbi,
       },
       testnet: {
-        address: '0x3bEeA65fdf4C0C51055675800B142045Ed4c76A2',
-        abi: stakingAbi,
+        address: '0x6a7A180204c798ad5A5a6e3dEDF20a3bdaEbBFbc',
+        abi: exchangeAbi,
+      },
+    },
+    ERC721: {
+      mainnet: {
+        address: '',
+        abi: erc721Abi,
+      },
+      testnet: {
+        address: '0x74cdc21b4Bec25A464298918911902AF369B69D0',
+        abi: erc721Abi,
+      },
+    },
+    ERC1155: {
+      mainnet: {
+        address: '',
+        abi: erc1155Abi,
+      },
+      testnet: {
+        address: '0x513dDb3488c8FFC08b08394e4DBfe767cb21e465',
+        abi: erc1155Abi,
       },
     },
   },

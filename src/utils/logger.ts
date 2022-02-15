@@ -1,4 +1,4 @@
-import { is_production } from '../config';
+import { is_production } from 'config';
 
 type TLogger = 'log' | 'error' | 'warn' | 'info';
 
