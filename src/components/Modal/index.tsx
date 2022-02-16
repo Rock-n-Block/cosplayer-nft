@@ -1,13 +1,17 @@
-import { FC, PropsWithChildren } from 'react';
+import { FC } from 'react';
 
 import cn from 'classnames';
 import Dialog from 'rc-dialog';
 
-import { IModalProps } from 'types';
-
 import s from './Modal.module.scss';
 
-const Modal: FC<PropsWithChildren<IModalProps>> = ({ className, visible, onClose, children }) => {
+export interface ModalProps {
+  className?: string;
+  visible: boolean;
+  onClose: () => void;
+}
+
+const Modal: FC<ModalProps> = ({ className, visible, onClose, children }) => {
   return (
     <Dialog
       prefixCls="modal"

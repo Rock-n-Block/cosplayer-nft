@@ -1,0 +1,55 @@
+@import 'src/styles/mixins';
+
+.categories {
+  margin-top: 18px;
+  padding: 0 33px;
+  @include flex(row, center, space-between, no-wrap);
+
+  @include b(desktop) {
+    @include flex(row, center, center, wrap);
+    gap: 13px;
+  }
+
+  .category {
+    padding: 10px;
+    @include flex(row, center, flex-start);
+    gap: 10px;
+
+    &_name {
+      font-weight: 700;
+      color: $dark;
+    }
+  }
+
+  .sort {
+    padding: 10px;
+    width: 140px;
+    height: 40px;
+    background: #fff;
+    border-radius: 20px;
+
+    &_icon {
+      margin-right: 5px;
+    }
+
+    &_arrow {
+      margin-left: 18px;
+      padding: 8px;
+    }
+  }
+
+  .active {
+    padding: 1px;
+    max-height: 40px;
+    background: $blue-gradient;
+    border-radius: 20px;
+
+    &_content {
+      padding: 10px 10px 8px;
+      @include flex(row, center, flex-start);
+      gap: 10px;
+      background: #fff;
+      border-radius: 20px;
+    }
+  }
+}

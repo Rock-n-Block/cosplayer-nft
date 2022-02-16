@@ -1,0 +1,17 @@
+import { VFC } from 'react';
+
+import clsx from 'clsx';
+
+export interface {{ properCase name }} {
+  className?: string;
+}
+
+import s from './{{ properCase name}}.module.scss';
+
+export const {{ properCase name }}: VFC<{{ properCase name }}> = ({ className }) => {
+  return (
+    <div className={clsx(s.root, className)}>
+      Hello World!
+    </div>
+  );
+};

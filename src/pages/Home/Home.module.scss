@@ -15,5 +15,9 @@
     @include b(1110) {
       @include grid(repeat(2, 1fr), repeat(auto-fill, 1fr), 20px);
     }
+
+    @include b(925) {
+      @include grid(1fr, repeat(auto-fill, 1fr), 20px);
+    }
   }
 }
