@@ -27,7 +27,7 @@
   gap: $gap;
 }
 
-@mixin text-control($size: 15px, $height: 18px, $weight: 400) {
+@mixin text-control($size: 12px, $height: 18px, $weight: 400) {
   font-size: $size;
   font-weight: $weight;
   line-height: $height;

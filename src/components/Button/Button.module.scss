@@ -1,8 +1,7 @@
 @import 'src/styles/mixins';
 
-$bg-default: white;
+$bg-default: transparent;
 $color-default: black;
-$border-default: gray;
 
 .button {
   box-sizing: border-box;
@@ -17,37 +16,27 @@ $border-default: gray;
   border: none;
   @include flex(row, center, center, nowrap);
 
+  &:hover,
+  &:focus {
+    filter: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.12));
+  }
+
   &.default {
     color: $color-default;
     background: $bg-default;
-    border: 1px solid $border-default;
-    border-radius: 18px;
+    border-radius: 20px;
   }
 
-  &.sm {
-  }
-
-  &.md {
-  }
-
-  &.lg {
-  }
-
-  &.filled {
-    &:hover,
-    &:focus {
-    }
-  }
-
-  &.outline {
-    &:hover,
-    &:focus {
-    }
+  &.blue {
+    color: #fff;
+    background: $blue-gradient;
+    border-radius: 20px;
   }
 
   &.disabled {
     &:hover,
     &:focus {
+      cursor: not-allowed;
     }
   }
 }

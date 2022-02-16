@@ -8,12 +8,13 @@
 body {
   margin: 0;
 
-  font-family: Inter, sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: $font-size-default;
   font-weight: 400;
   line-height: $line-height-default;
 
   color: black;
+  background: $bg-color;
 
   span,
   div {
@@ -51,6 +52,8 @@ button {
   position: relative;
   z-index: 0;
 
+  @include grid(1fr, min-content auto min-content, 0px);
+
   overflow: hidden;
 
   min-height: 100vh;
@@ -58,11 +61,10 @@ button {
 
 .page_wrapper {
   margin: 0 auto;
-  padding: 0 73px 0 72px;
+  padding: 0 70px;
 
   width: 100%;
   max-width: 1440px;
-  min-height: 100vh;
 }
 
 .modal-root {

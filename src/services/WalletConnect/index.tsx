@@ -95,7 +95,7 @@ const Connect: FC = ({ children }) => {
 
   return (
     <WalletConnectContext.Provider value={WalletConnectValues}>
-      {children};
+      {children}
     </WalletConnectContext.Provider>
   );
 };

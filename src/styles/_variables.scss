@@ -11,5 +11,17 @@ $mediaWidthDesktop: 1024px;
 $mediaWidthTablet: 768px;
 $mediaWidthMobile: 550px;
 
-$font-size-default: 15px;
+$font-size-default: 12px;
 $line-height-default: 18px;
+
+// Colors
+$blue-gradient: linear-gradient(180deg, #229cf4 0%, #3798f1 100%);
+$light-grey: #f3f3f3;
+$grey: #afafaf;
+$dark-grey: #9b9b9b;
+$dark: #5b5b5b;
+$border-line: #e5edef;
+$bg-color: #f7f7f7;
+
+// Shadows
+$box-shadow: drop-shadow(0px 4px 12px rgba(0, 0, 0, 0.12));

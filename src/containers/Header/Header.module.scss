@@ -2,4 +2,79 @@
 @import 'src/styles/mixins';
 
 .header_wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 0 70px;
+  width: 100%;
+  height: 70px;
+  background-color: #fff;
+  @include grid(min-content auto min-content min-content min-content, 1fr, 20px);
+  align-items: center;
+  border-bottom: 1px solid $border-line;
+}
+
+.header_logo {
+  margin-right: 7px;
+  width: 144px;
+  height: 30px;
+  @include flex(row, center, center);
+}
+
+.header_input {
+  margin-right: 10px;
+  padding: 0 25px;
+  max-width: 744px;
+  height: 40px;
+  background-color: $light-grey;
+  border-radius: 20px;
+  @include flex(row, center, flex-start, no-wrap);
+
+  img {
+    margin-right: 4px;
+    width: 24px;
+    height: 24px;
+  }
+
+  input {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    @include text-control(12px, 18px, 700);
+    color: $grey;
+  }
+}
+
+.explore_btn {
+  margin-right: 10px;
+  border: none;
+  font-weight: 700;
+}
+
+.new_post_btn {
+  padding: 1px;
+  width: 150px;
+  height: 40px;
+
+  &_content {
+    width: 100%;
+    height: 100%;
+    @include flex(row, center, center);
+    background: #ffffff;
+    border-radius: 20px;
+    font-weight: 700;
+
+    &_text {
+      background: $blue-gradient;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+}
+
+.connect_wallet_btn {
+  width: 150px;
+  height: 40px;
+  @include flex(row, center, center, no-wrap);
+  font-weight: 700;
 }
