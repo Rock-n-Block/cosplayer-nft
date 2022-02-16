@@ -1,0 +1,139 @@
+@import 'src/styles/mixins';
+@import 'src/styles/variables';
+
+.token_card {
+  max-width: 310px;
+  max-height: 511px;
+  background: #fff;
+  border: 1px solid $border-line;
+  box-sizing: border-box;
+  border-radius: 12px;
+
+  &:hover {
+    filter: $box-shadow;
+  }
+
+  .header {
+    padding: 8px 15px 7px;
+    @include flex(row, center, flex-start, no-wrap);
+
+    .owner_logo {
+      margin-right: 11px;
+      max-width: 32px;
+      max-height: 32px;
+      border-radius: 50%;
+    }
+
+    .owner_info {
+      &_name {
+        @include flex(row, center, flex-start);
+        margin-right: 2px;
+        font-weight: 700;
+
+        img {
+          margin-left: 2px;
+        }
+      }
+
+      &_location {
+        color: $grey;
+        @include text-control(11px, 16.5px, 700);
+
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+  }
+
+  .preview {
+    max-width: 310px;
+    max-height: 307px;
+  }
+
+  .footer {
+    padding: 12px 15px 17px;
+
+    .info {
+      padding-bottom: 12px;
+      border-bottom: 1px solid $border-line;
+      @include flex(row, flex-start, space-between, no-wrap);
+
+      &_actions {
+        @include flex(row, center, flex-start);
+        gap: 10px;
+
+        .action {
+          @include flex(row, center, flex-start, no-wrap);
+          gap: 5px;
+        }
+      }
+
+      .price {
+        @include flex(column, flex-end, flex-start);
+
+        &_value {
+          @include flex(row, center, flex-end);
+          font-weight: 700;
+          color: $grey;
+
+          img {
+            margin-right: 5px;
+            max-width: 14px;
+            max-height: 14px;
+          }
+        }
+
+        &_usd {
+          font-weight: 700;
+          color: $grey;
+        }
+      }
+    }
+
+    .description {
+      margin-top: 11px;
+
+      &_text {
+        @include flex(row, center, flex-start, no-wrap);
+        @include ellipsis;
+
+        .title {
+          font-weight: 700;
+        }
+      }
+
+      .tags {
+        margin-top: 6px;
+        @include flex(row, center, flex-start);
+        gap: 5px;
+
+        button {
+          @include gradient-text($blue-gradient);
+          border-radius: 0;
+
+          &:hover {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+
+    .current_owner {
+      margin-top: 6px;
+      @include flex(row, center, flex-start);
+      color: $grey;
+
+      img {
+        margin-right: 5px;
+        max-width: 14px;
+        max-height: 14px;
+      }
+    }
+
+    .blue_text {
+      font-weight: 700;
+      @include gradient-text($blue-gradient);
+    }
+  }
+}

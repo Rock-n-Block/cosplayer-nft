@@ -65,9 +65,7 @@
     font-weight: 700;
 
     &_text {
-      background: $blue-gradient;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      @include gradient-text($blue-gradient);
     }
   }
 }
