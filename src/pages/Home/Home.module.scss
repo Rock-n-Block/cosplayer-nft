@@ -2,6 +2,8 @@
 @import 'src/styles/mixins';
 
 .home_wrapper {
+  overflow: hidden;
+
   .token_cards {
     width: 100%;
     margin: 28px 0 28px;

@@ -2,7 +2,7 @@
 @import 'src/styles/mixins';
 
 .header_wrapper {
-  position: sticky;
+  position: fixed;
   top: 0;
   z-index: 10;
   padding: 0 70px;

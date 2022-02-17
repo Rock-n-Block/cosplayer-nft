@@ -10,7 +10,7 @@
   border-radius: 12px;
 
   &:hover {
-    filter: $box-shadow;
+    box-shadow: $block-shadow;
   }
 
   .header {

@@ -51,8 +51,9 @@ button {
 .main_wrapper {
   position: relative;
   z-index: 0;
+  padding-top: 70px;
 
-  @include grid(1fr, min-content auto min-content, 0px);
+  @include grid(1fr, auto min-content, 0px);
 
   overflow: hidden;
 
