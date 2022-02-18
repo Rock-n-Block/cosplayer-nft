@@ -58,14 +58,28 @@ button {
   overflow: hidden;
 
   min-height: 100vh;
+
+  @include b(mobile) {
+    padding-top: 48px;
+  }
 }
 
 .page_wrapper {
   margin: 0 auto;
   padding: 0 70px;
+  overflow-x: hidden;
 
   width: 100%;
   max-width: 1440px;
+
+  @include b(tablet) {
+    padding: 0 15px;
+    max-width: 100%;
+  }
+
+  @include b(mobile) {
+    padding: 0 5px;
+  }
 }
 
 .modal-root {

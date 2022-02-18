@@ -2,8 +2,6 @@
 @import 'src/styles/mixins';
 
 .home_wrapper {
-  overflow: hidden;
-
   .token_cards {
     width: 100%;
     margin: 28px 0 28px;
@@ -18,7 +16,9 @@
       @include grid(repeat(2, 1fr), repeat(auto-fill, 1fr), 20px);
     }
 
-    @include b(925) {
+    @include b(mobile) {
+      margin-top: 70px;
+      margin-bottom: 190px;
       @include grid(1fr, repeat(auto-fill, 1fr), 20px);
     }
   }

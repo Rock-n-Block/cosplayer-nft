@@ -3,13 +3,43 @@
 .categories {
   margin-top: 18px;
   padding: 0 33px;
-  @include flex(row, center, space-between, no-wrap);
+  @include flex(row, center, flex-start, no-wrap);
   gap: 13px;
+  max-width: 1440px;
+
+  @include b(desktop) {
+    padding: 0 5px;
+    min-width: 100%;
+  }
+
+  @include b(mobile) {
+    position: fixed;
+    top: 40px;
+    margin-top: 0;
+    padding-top: 15px;
+    background: $bg-color;
+    width: 100%;
+  }
+
+  &_scroll {
+    width: 100%;
+    overflow-x: scroll;
+
+    &_content {
+      padding: 10px;
+      @include flex(row, center, space-between, no-wrap);
+
+      @include b(desktop) {
+        width: 1150px;
+      }
+    }
+  }
 
   .category {
     padding: 10px;
     @include flex(row, center, flex-start, no-wrap);
-    gap: 10px;
+    gap: 13px;
+    box-sizing: border-box;
 
     &_name {
       font-weight: 700;
@@ -19,16 +49,25 @@
 
   .active {
     padding: 1px;
-    max-height: 40px;
+    @include flex(row, center, center);
     background: $blue-gradient;
     border-radius: 20px;
+    box-sizing: border-box;
+
+    @include b(desktop) {
+      max-width: 181px;
+      min-height: 40px;
+    }
 
     &_content {
-      padding: 9px 9px 8px;
+      height: 100%;
+      width: 100%;
+      padding: 9px;
       @include flex(row, center, flex-start, no-wrap);
-      gap: 10px;
+      gap: 13px;
       background: #fff;
       border-radius: 20px;
+      box-sizing: border-box;
     }
   }
 }

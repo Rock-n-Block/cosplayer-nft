@@ -1,7 +1,5 @@
 import { FC, useState } from 'react';
 
-import cn from 'classnames';
-
 import { Button } from 'components';
 
 import { ICategory } from 'types';
@@ -32,25 +30,29 @@ export const Categories: FC = () => {
   return (
     <div className={s.categories}>
       <SortSelect sorts={sorts} />
-      {categories.map((category, index) => (
-        <Button
-          onClick={() => handleSetCategory(index)}
-          className={cn(s.category, category.isActive && s.active)}
-          key={category.name}
-        >
-          {category.isActive ? (
-            <div className={s.active_content}>
-              <img src={category.logo} alt={category.name} />
-              <div className={s.category_name}>{category.name}</div>
-            </div>
-          ) : (
-            <>
-              <img src={category.logo} alt={category.name} />
-              <div className={s.category_name}>{category.name}</div>
-            </>
-          )}
-        </Button>
-      ))}
+      <div className={s.categories_scroll}>
+        <div className={s.categories_scroll_content}>
+          {categories.map((category, index) => (
+            <Button
+              onClick={() => handleSetCategory(index)}
+              className={category.isActive ? s.active : s.category}
+              key={category.name}
+            >
+              {category.isActive ? (
+                <div className={s.active_content}>
+                  <img src={category.logo} alt={category.name} />
+                  <div className={s.category_name}>{category.name}</div>
+                </div>
+              ) : (
+                <>
+                  <img src={category.logo} alt={category.name} />
+                  <div className={s.category_name}>{category.name}</div>
+                </>
+              )}
+            </Button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

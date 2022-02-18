@@ -32,7 +32,7 @@ const Footer: FC = () => {
         <a href="#disclaimer" target="_blank" rel="noreferrer">
           Disclaimers
         </a>
-        <a href="#tech" target="_blank" rel="noreferrer">
+        <a className={s.nav_links_hide_link} href="#tech" target="_blank" rel="noreferrer">
           Technical Support
         </a>
         <a href="#privacy" target="_blank" rel="noreferrer">
