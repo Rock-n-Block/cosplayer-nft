@@ -12,4 +12,28 @@
     margin: 0 -15px 0 -15px;
     width: 100vw;
   }
+
+  @include b(tablet) {
+    overflow-y: scroll;
+    height: 100%;
+    @include flex(column, center, flex-start, no-wrap);
+  }
+
+  @include b(mobile) {
+    margin: 0 -5px;
+  }
+
+  &_preview {
+    position: relative;
+    padding: 48px 57px;
+    width: 100%;
+    height: 100%;
+    @include flex(row, center, center);
+
+    @include b(tablet) {
+      padding: 10px 5px;
+      height: unset;
+      display: block;
+    }
+  }
 }

@@ -8,7 +8,9 @@ import s from './Token.module.scss';
 const Token: FC = () => {
   return (
     <div className={s.token_wrapper}>
-      <TokenPreview />
+      <div className={s.token_wrapper_preview}>
+        <TokenPreview />
+      </div>
       <TokenMenu />
     </div>
   );

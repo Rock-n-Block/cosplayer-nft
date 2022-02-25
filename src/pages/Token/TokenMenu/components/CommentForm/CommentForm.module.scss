@@ -13,6 +13,16 @@
   @include flex(row, center, space-between, no-wrap);
   gap: 23px;
 
+  @include b(tablet) {
+    top: unset;
+    bottom: 0;
+    width: 100%;
+  }
+
+  @include b(mobile) {
+    margin-left: -10px;
+  }
+
   &_input {
     width: 100%;
     border: none;

@@ -1,12 +1,24 @@
+@import 'src/styles/mixins';
+
 .token {
   &_preview {
     position: relative;
     margin: auto auto;
     height: 80%;
+
+    @include b(tablet) {
+      margin: 0;
+      width: 100%;
+      @include flex(row, center, center);
+    }
   }
 
   &_image {
-    width: auto;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+
+    @include b(tablet) {
+      max-height: unset;
+    }
   }
 }

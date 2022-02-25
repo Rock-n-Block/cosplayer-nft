@@ -5,6 +5,8 @@ import cn from 'classnames';
 
 import { Button } from 'components';
 
+import { Footer } from '..';
+
 import { BurgerImg, CloseImg, SearchBlackImg, SearchImg } from 'assets/img/icons';
 import LogoImg from 'assets/img/logo.svg';
 
@@ -71,6 +73,7 @@ const Header: FC = () => {
               Connect wallet
             </Button>
           </div>
+          <Footer />
         </div>
       )}
     </>

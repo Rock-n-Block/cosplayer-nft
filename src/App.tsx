@@ -15,7 +15,7 @@ const App: FC = () => {
         <div className="page_wrapper">
           <RouterManager />
         </div>
-        {location.pathname === '/' && <Footer />}
+        {location.pathname === '/' && <Footer className="mobile_hidden" />}
       </div>
     </WalletConnect>
   );

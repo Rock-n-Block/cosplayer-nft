@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import cn from 'classnames';
+
 import {
   InstagramImg,
   MediumImg,
@@ -12,9 +14,13 @@ import LogoImg from 'assets/img/logo.svg';
 
 import s from './Footer.module.scss';
 
-const Footer: FC = () => {
+interface FooterProps {
+  className?: string;
+}
+
+const Footer: FC<FooterProps> = ({ className }) => {
   return (
-    <footer className={s.footer}>
+    <footer className={cn(s.footer, className)}>
       <div className={s.description}>
         <img src={LogoImg} alt="CosplayerNFT logo" />
         <div className={s.description_text}>

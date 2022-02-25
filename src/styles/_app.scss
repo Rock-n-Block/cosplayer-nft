@@ -124,6 +124,12 @@ button {
   margin-bottom: 22px;
   @include flex(row, center, space-between, no-wrap);
   border-bottom: 1px solid $border-line;
+
+  @include b(mobile) {
+    width: 100vw;
+    overflow-x: scroll;
+    @include grid(repeat(5, max-content), 1fr);
+  }
 }
 
 .rc-tabs-tab {
@@ -142,5 +148,9 @@ button {
 .rc-tabs-ink-bar,
 .rc-tabs-nav-operations,
 .rc-tabs-dropdown {
+  display: none;
+}
+
+.mobile_hidden {
   display: none;
 }
