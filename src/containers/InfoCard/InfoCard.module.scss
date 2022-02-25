@@ -1,0 +1,65 @@
+@import 'src/styles/mixins';
+
+.info_card {
+  width: 100%;
+  @include flex(row, center, space-between, no-wrap);
+
+  .content {
+    @include flex(row, center, flex-start, no-wrap);
+  }
+
+  .avatar {
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+  }
+
+  .text {
+    &_blue {
+      @include gradient-text();
+    }
+
+    &_black {
+      color: #000;
+    }
+  }
+
+  .verified {
+    margin-left: 5px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .action {
+    margin-left: 11px;
+
+    &_description {
+      @include flex(row, center, flex-start);
+      @include text-control(14px, 21px, 700);
+      color: $grey;
+    }
+
+    &_time {
+      @include flex(row, center, flex-start);
+      font-weight: 700;
+      color: $grey;
+    }
+  }
+
+  .link {
+    margin-left: 10px;
+    width: 28px;
+    height: 28px;
+    border: 1px solid $border-line;
+    border-radius: 50%;
+  }
+
+  .button {
+    margin-left: 8px;
+    width: 91px;
+    height: 40px;
+    font-weight: 700;
+  }
+}

@@ -1,4 +1,4 @@
-import { ICategory, ISort } from 'types';
+import { ICategory, IDropdownItem } from 'types';
 
 import {
   AllImg,
@@ -20,7 +20,7 @@ import {
   TrendingImg,
 } from 'assets/img/icons/navbar';
 
-export const sorts: ISort[] = [
+export const sorts: IDropdownItem[] = [
   {
     value: 'trending',
     label: 'Trending',

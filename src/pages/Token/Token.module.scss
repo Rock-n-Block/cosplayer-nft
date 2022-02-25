@@ -1,0 +1,15 @@
+@import 'src/styles/mixins';
+
+.token_wrapper {
+  position: relative;
+  margin: 0 -70px 0 -70px;
+  width: 100%;
+  height: calc(100vh - 70px);
+  overflow-y: hidden;
+  @include flex(row, flex-start, space-between, no-wrap);
+
+  @include b(desktop) {
+    margin: 0 -15px 0 -15px;
+    width: 100vw;
+  }
+}

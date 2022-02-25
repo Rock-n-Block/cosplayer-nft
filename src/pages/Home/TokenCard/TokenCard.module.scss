@@ -15,35 +15,6 @@
 
   .header {
     padding: 8px 15px 7px;
-    @include flex(row, center, flex-start, no-wrap);
-
-    .owner_logo {
-      margin-right: 11px;
-      max-width: 32px;
-      max-height: 32px;
-      border-radius: 50%;
-    }
-
-    .owner_info {
-      &_name {
-        @include flex(row, center, flex-start);
-        margin-right: 2px;
-        font-weight: 700;
-
-        img {
-          margin-left: 2px;
-        }
-      }
-
-      &_location {
-        color: $grey;
-        @include text-control(11px, 16.5px, 700);
-
-        &:hover {
-          color: #000;
-        }
-      }
-    }
   }
 
   .preview {
@@ -66,6 +37,12 @@
         .action {
           @include flex(row, center, flex-start, no-wrap);
           gap: 5px;
+
+          .like {
+            &:hover {
+              stroke: #000;
+            }
+          }
         }
       }
 

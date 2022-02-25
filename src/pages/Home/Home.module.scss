@@ -3,22 +3,26 @@
 
 .home_wrapper {
   .token_cards {
+    position: relative;
+    top: 40px;
+    overflow-y: scroll;
     width: 100%;
-    margin: 28px 0 28px;
+    margin: 28px 0 158px;
     @include grid(repeat(4, 1fr), repeat(auto-fill, 1fr), 20px);
     justify-items: center;
 
-    @include b(desktop) {
+    @include b(1330) {
       @include grid(repeat(3, 1fr), repeat(auto-fill, 1fr), 20px);
     }
 
     @include b(1110) {
-      @include grid(repeat(2, 1fr), repeat(auto-fill, 1fr), 20px);
+      margin-bottom: 178px;
+      @include grid(repeat(2, 1fr), repeat(auto-fill, 1fr), 10px);
     }
 
     @include b(mobile) {
-      margin-top: 70px;
-      margin-bottom: 190px;
+      margin-top: 40px;
+      margin-bottom: 230px;
       @include grid(1fr, repeat(auto-fill, 1fr), 20px);
     }
   }

@@ -6,9 +6,10 @@ import cn from 'classnames';
 import s from './Button.module.scss';
 
 export interface IButton {
-  color?: 'default' | 'blue' | 'white' | 'disabled';
+  color?: 'default' | 'orange' | 'blue' | 'white' | 'disabled';
   size?: 'lg' | 'md' | 'sm';
   className?: string;
+  onDoubleClick?: (event: never) => void;
   onClick?: (event: never) => void;
   type?: 'button' | 'submit';
   disabled?: boolean;
@@ -22,6 +23,7 @@ export interface IButton {
 const Button: FC<PropsWithChildren<IButton>> = ({
   color = 'default',
   size = 'lg',
+  onDoubleClick = () => {},
   onClick = () => {},
   className,
   type = 'button',
@@ -50,6 +52,7 @@ const Button: FC<PropsWithChildren<IButton>> = ({
       className={cn(s.button, s[color], s[size], className, {
         [s.disabled]: disabled || color === 'disabled',
       })}
+      onDoubleClick={onDoubleClick}
       onClick={onClick}
       disabled={disabled}
       onMouseLeave={onMouseLeave}

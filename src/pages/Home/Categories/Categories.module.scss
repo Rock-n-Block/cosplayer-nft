@@ -1,11 +1,14 @@
 @import 'src/styles/mixins';
 
 .categories {
-  margin-top: 18px;
-  padding: 0 33px;
+  position: fixed;
+  top: 70px;
+  z-index: 5;
+  padding: 8px 33px 0;
   @include flex(row, center, flex-start, no-wrap);
   gap: 13px;
-  max-width: 1440px;
+  width: 1300px;
+  background: $bg-color;
 
   @include b(desktop) {
     padding: 0 5px;
@@ -13,9 +16,7 @@
   }
 
   @include b(mobile) {
-    position: fixed;
     top: 40px;
-    margin-top: 0;
     padding-top: 15px;
     background: $bg-color;
     width: 100%;

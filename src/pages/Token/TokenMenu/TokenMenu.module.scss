@@ -1,0 +1,89 @@
+@import 'src/styles/mixins';
+
+.token_menu {
+  position: relative;
+  width: 479px;
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+  background: #ffffff;
+  border-left: 1px solid $border-line;
+
+  &_header {
+    padding: 12px 30px 12px 35px;
+    @include flex(row, center, space-between, no-wrap);
+    border-bottom: 1px solid $border-line;
+
+    .purchase_btn {
+      width: 150px;
+      height: 40px;
+      font-weight: 700;
+    }
+  }
+
+  .content {
+    padding: 10px 30px;
+
+    .activity {
+      @include flex(row, center, space-between, no-wrap);
+
+      &_actions {
+        @include flex(row, center, flex-start);
+      }
+
+      &_btn {
+        margin-right: 4px;
+        padding: 0 7px;
+        @include flex(row, center, center);
+        min-width: 28px;
+        height: 28px;
+        border: 1px solid $border-line;
+        border-radius: 14px;
+        @include text-control(14px, 21px, 700);
+        color: #000;
+      }
+
+      .price {
+        @include flex(row, center, flex-start, no-wrap);
+        gap: 5px;
+
+        .blue_text {
+          @include gradient-text();
+        }
+
+        .grey_text {
+          color: $grey;
+        }
+      }
+    }
+
+    .description {
+      margin: 37px 6px 54px;
+
+      &_text {
+        margin-bottom: 6px;
+
+        .bold_text {
+          font-weight: 700;
+        }
+      }
+
+      .tags {
+        @include flex(row, center, flex-start);
+        gap: 5px;
+
+        .tag {
+          @include gradient-text();
+          border-radius: 0;
+
+          &:hover {
+            font-weight: 700;
+          }
+        }
+      }
+    }
+
+    .tabs {
+      margin-bottom: 60px;
+    }
+  }
+}

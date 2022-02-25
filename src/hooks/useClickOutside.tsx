@@ -1,14 +1,16 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useCallback, useEffect, useRef } from 'react';
 
-const useClickOutside = (initialState: boolean) => {
-  const [isVisible, setVisible] = useState(initialState);
+const useClickOutside = (visible: boolean, setVisible: Dispatch<SetStateAction<boolean>>) => {
   const ref = useRef<any>(null);
 
-  const handleClickOutside = useCallback((e: Event) => {
-    if (ref.current && !ref.current.contains(e.target)) {
-      setVisible(false);
-    }
-  }, []);
+  const handleClickOutside = useCallback(
+    (e: Event) => {
+      if (ref.current && !ref.current.contains(e.target)) {
+        setVisible(false);
+      }
+    },
+    [setVisible],
+  );
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
@@ -18,7 +20,7 @@ const useClickOutside = (initialState: boolean) => {
     };
   }, [handleClickOutside]);
 
-  return { ref, isVisible, setVisible };
+  return { ref };
 };
 
 export default useClickOutside;

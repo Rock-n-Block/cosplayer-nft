@@ -1,0 +1,28 @@
+@import 'src/styles/mixins';
+
+.form {
+  position: fixed;
+  top: calc(100vh - 60px);
+  z-index: 2;
+  margin-left: -30px;
+  padding: 10px 30px;
+  width: 480px;
+  height: 60px;
+  background: #fff;
+  border-top: 1px solid $blue;
+  @include flex(row, center, space-between, no-wrap);
+  gap: 23px;
+
+  &_input {
+    width: 100%;
+    border: none;
+    font-weight: 700;
+  }
+
+  &_submit {
+    width: 91px;
+    height: 40px;
+    border-radius: 20px;
+    font-weight: 700;
+  }
+}

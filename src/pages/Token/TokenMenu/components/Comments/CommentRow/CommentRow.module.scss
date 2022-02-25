@@ -1,0 +1,49 @@
+@import 'src/styles/mixins';
+
+.comment {
+  @include flex(row, flex-start, space-between, no-wrap);
+
+  &_content {
+    @include flex(row, flex-start, flex-start, no-wrap);
+
+    img {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &_info {
+    margin-left: 11px;
+    @include flex(column, flex-start, flex-start, no-wrap);
+    gap: 4px;
+  }
+
+  &_author {
+    font-weight: 700;
+  }
+
+  &_text {
+    @include text-control(14px, 21px);
+  }
+
+  &_footer {
+    color: $grey;
+  }
+
+  .like {
+    width: 28px;
+    height: 28px;
+    @include flex(row, center, center);
+    border: 1px solid $border-line;
+    border-radius: 50%;
+
+    &:hover {
+      background: $border-line;
+    }
+
+    &_active {
+      margin-top: 1px;
+      margin-left: 1px;
+    }
+  }
+}

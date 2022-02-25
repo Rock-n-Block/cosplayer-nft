@@ -72,9 +72,8 @@ button {
   width: 100%;
   max-width: 1440px;
 
-  @include b(tablet) {
+  @include b(desktop) {
     padding: 0 15px;
-    max-width: 100%;
   }
 
   @include b(mobile) {
@@ -115,4 +114,33 @@ button {
     outline: 0;
     @include flex(row, center, center);
   }
+}
+
+.rc-tabs-nav-wrap {
+  width: 100%;
+}
+
+.rc-tabs-nav-list {
+  margin-bottom: 22px;
+  @include flex(row, center, space-between, no-wrap);
+  border-bottom: 1px solid $border-line;
+}
+
+.rc-tabs-tab {
+  padding: 0 5px 14px;
+  font-weight: 700;
+  color: $dark;
+  cursor: pointer;
+}
+
+.rc-tabs-tab-active {
+  padding: 0 5px 11px;
+  border-bottom: 3px solid $blue;
+  color: #000;
+}
+
+.rc-tabs-ink-bar,
+.rc-tabs-nav-operations,
+.rc-tabs-dropdown {
+  display: none;
 }

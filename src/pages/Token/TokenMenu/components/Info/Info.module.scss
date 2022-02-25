@@ -1,0 +1,12 @@
+@import 'src/styles/mixins';
+
+.info {
+  &_item {
+    @include flex(row, center, space-between, no-wrap);
+    @include text-control(14px, 32px, 700);
+
+    .value {
+      @include gradient-text();
+    }
+  }
+}

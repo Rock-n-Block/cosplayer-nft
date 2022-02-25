@@ -27,6 +27,12 @@ $color-default: black;
     border-radius: 20px;
   }
 
+  &.orange {
+    color: #fff;
+    background: $orange;
+    border-radius: 20px;
+  }
+
   &.blue {
     color: #fff;
     background: $blue-gradient;
@@ -40,7 +46,8 @@ $color-default: black;
   }
 
   &.disabled {
-    opacity: 0.5;
+    background: $border-line;
+    color: $grey;
     cursor: not-allowed;
   }
 }

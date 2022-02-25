@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import cn from 'classnames';
 
@@ -16,9 +17,9 @@ const Header: FC = () => {
   return (
     <>
       <header className={s.header_wrapper}>
-        <div className={s.header_logo}>
+        <Link to="/" className={s.header_logo}>
           <img src={LogoImg} alt="CosplayerNFT logo" />
-        </div>
+        </Link>
         <div className={cn(s.search, s.search_hidden)}>
           <img src={SearchImg} alt="search icon" />
           <input type="search" placeholder="Search by user name or hashtag" />

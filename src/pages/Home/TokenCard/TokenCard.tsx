@@ -1,9 +1,13 @@
 import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { CreatorCard } from 'containers';
 
 import { Button } from 'components';
+import { logger } from 'utils';
 
-import { BnbImg } from 'assets/img/icons';
-import { CommentImg, LikeImg, VerifiedImg } from 'assets/img/icons/token-card';
+import { BnbImg, LikeActiveImg, LikeImg } from 'assets/img/icons';
+import { CommentImg } from 'assets/img/icons/token-card';
 import NftImg from 'assets/img/nft-image.png';
 import AvatarImg from 'assets/img/owner-avatar.png';
 
@@ -11,28 +15,41 @@ import s from './TokenCard.module.scss';
 
 export const TokenCard: FC = () => {
   const [isLiked, setLiked] = useState(false);
+  let clickTimeout: unknown = null;
+  const navigate = useNavigate();
 
   const handleLike = () => {
     setLiked(!isLiked);
+    logger('isLiked:', isLiked.toString());
+  };
+
+  const handleNavigate = () => {
+    navigate('/tokens/1');
+  };
+
+  const handleClick = () => {
+    if (clickTimeout !== null) {
+      logger('double click executes');
+      clearTimeout(clickTimeout as NodeJS.Timeout);
+      clickTimeout = null;
+      handleLike();
+    } else {
+      logger('single click');
+      clickTimeout = setTimeout(() => {
+        logger('first click executes ');
+        clearTimeout(clickTimeout as NodeJS.Timeout);
+        clickTimeout = null;
+        handleNavigate();
+      }, 500);
+    }
   };
 
   return (
     <div className={s.token_card}>
       <div className={s.header}>
-        <Button className={s.owner_logo} onClick={() => {}}>
-          <img src={AvatarImg} alt="owner avatar" />
-        </Button>
-        <div className={s.owner_info}>
-          <div className={s.owner_info_name}>
-            Jakepaul
-            <img src={VerifiedImg} alt="verified icon" />
-          </div>
-          <Button className={s.owner_info_location} onClick={() => {}}>
-            United States of America
-          </Button>
-        </div>
+        <CreatorCard />
       </div>
-      <Button className={s.preview} onClick={() => {}}>
+      <Button className={s.preview} onClick={handleClick}>
         <img src={NftImg} alt="nft token preview" />
       </Button>
       <div className={s.footer}>
@@ -40,13 +57,13 @@ export const TokenCard: FC = () => {
           <div className={s.info_actions}>
             <div className={s.action}>
               <Button onClick={handleLike}>
-                <img src={LikeImg} alt="like icon" />
+                {isLiked ? <LikeActiveImg /> : <LikeImg className={s.like} />}
               </Button>
               552
             </div>
             <div className={s.action}>
               <Button onClick={() => {}}>
-                <img src={CommentImg} alt="comment icon" />
+                <CommentImg />
               </Button>
               552
             </div>

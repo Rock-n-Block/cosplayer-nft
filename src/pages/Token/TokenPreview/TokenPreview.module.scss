@@ -1,0 +1,12 @@
+.token {
+  &_preview {
+    position: relative;
+    margin: auto auto;
+    height: 80%;
+  }
+
+  &_image {
+    width: auto;
+    height: 100%;
+  }
+}

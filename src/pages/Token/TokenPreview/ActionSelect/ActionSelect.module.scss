@@ -1,0 +1,16 @@
+.actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  &_control {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px !important;
+  }
+
+  &_options {
+    right: 0;
+    width: 177px;
+  }
+}
