@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import cn from 'classnames';
 
 import { Button } from 'components';
+import { ConnectWalletModal } from 'components/Modals';
+
+import { useModal } from 'hooks';
 
 import { Footer } from '..';
 
@@ -15,6 +18,7 @@ import s from './Header.module.scss';
 const Header: FC = () => {
   const [isOpenMenu, setOpenMenu] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
+  const [isVisibleModal, handleOpenModal, handleCloseModal] = useModal(false);
 
   return (
     <>
@@ -34,7 +38,7 @@ const Header: FC = () => {
             <div className={s.new_post_btn_content_text}>New post</div>
           </div>
         </Button>
-        <Button color="blue" className={s.connect_wallet_btn} onClick={() => {}}>
+        <Button color="blue" className={s.connect_wallet_btn} onClick={handleOpenModal}>
           Connect wallet
         </Button>
         <div className={s.header_nav}>
@@ -69,13 +73,14 @@ const Header: FC = () => {
                 <div className={s.btn_content_text}>New Post</div>
               </div>
             </Button>
-            <Button color="blue" className={s.btn}>
+            <Button color="blue" className={s.btn} onClick={handleOpenModal}>
               Connect wallet
             </Button>
           </div>
           <Footer />
         </div>
       )}
+      <ConnectWalletModal visible={isVisibleModal} onClose={handleCloseModal} />
     </>
   );
 };
