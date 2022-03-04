@@ -1,10 +1,26 @@
 import { INetwork } from '@amfi/connect-wallet/dist/interface';
+import WalletConnectProvider from '@walletconnect/web3-provider';
 
 import { chainsEnum, IConnectWallet, IContracts } from 'types';
 
 import { erc721Abi, erc1155Abi, exchangeAbi } from './abi';
 
 export const is_production = false;
+
+const OPTIONS = {
+  rpc: {
+    56: 'https://bsc-dataseed1.binance.org',
+    97: 'https://data-seed-prebsc-1-s1.binance.org:8545',
+  },
+  chainId: is_production ? 56 : 97,
+};
+
+export const providerOptions = {
+  walletconnect: {
+    package: WalletConnectProvider,
+    options: OPTIONS,
+  },
+};
 
 export const chains: {
   [key: string]: {
@@ -33,6 +49,13 @@ export const chains: {
     },
     provider: {
       MetaMask: { name: 'MetaMask' },
+      WalletConnect: {
+        name: 'WalletConnect',
+        useProvider: 'rpc',
+        provider: {
+          rpc: OPTIONS,
+        },
+      },
     },
     explorer: is_production ? 'https://bscscan.com' : 'https://testnet.bscscan.com',
   },
@@ -42,7 +65,7 @@ export const connectWallet = (chainName: chainsEnum): IConnectWallet => {
   const chain = chains[chainName];
 
   return {
-    wallets: ['MetaMask'],
+    wallets: ['MetaMask', 'WalletConnect'],
     network: chain.network,
     provider: chain.provider,
     settings: { providerType: true },

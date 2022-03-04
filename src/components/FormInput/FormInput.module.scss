@@ -1,0 +1,52 @@
+@import 'src/styles/mixins';
+
+.field {
+  @include flex(column, flex-start, flex-start, no-wrap);
+}
+
+.wrap {
+  min-width: 100%;
+}
+
+.label {
+  margin-bottom: 7px;
+  font-weight: 700;
+}
+
+.note {
+  margin-bottom: 3px;
+  @include text-control(13px, 19.5px);
+}
+
+.input {
+  @include flex(row, center, flex-start, no-wrap);
+  width: 100%;
+  @include text-control(13px, 19.5px);
+
+  &::placeholder {
+    color: $grey;
+  }
+}
+
+.grey {
+  padding: 0 10px;
+  height: 52px;
+  max-width: 440px;
+  background: $light-grey;
+  border-radius: 12px;
+}
+
+.white {
+  padding: 0 10px;
+  height: 52px;
+  max-width: 400px;
+  background: #ffffff;
+  border: 1px solid $border-line;
+  border-radius: 12px;
+}
+
+.bordered {
+  padding: 7px 0;
+  background: transparent;
+  border-bottom: 1px solid $bottom-grey;
+}

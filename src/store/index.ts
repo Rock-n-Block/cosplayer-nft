@@ -1,4 +1,4 @@
-import { UserReducer } from './reducers';
+import UserReducer from './user/reducer';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 

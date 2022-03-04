@@ -1,4 +1,4 @@
-import { CSSProperties, FC, PropsWithChildren, RefObject, SyntheticEvent } from 'react';
+import { FC, PropsWithChildren, RefObject, SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 import cn from 'classnames';
@@ -15,7 +15,6 @@ export interface IButton {
   disabled?: boolean;
   onMouseLeave?: (event: never) => void;
   onMouseOver?: (event: SyntheticEvent) => void;
-  style?: CSSProperties;
   href?: string;
   btnRef?: RefObject<HTMLButtonElement>;
 }

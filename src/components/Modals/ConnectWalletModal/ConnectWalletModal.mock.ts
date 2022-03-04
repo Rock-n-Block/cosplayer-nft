@@ -1,8 +1,10 @@
-import { MetaMaskImg, SafePalImg, TrustImg } from 'assets/img/wallets';
+import { TAvailableProviders } from 'types';
+
+import { MetaMaskImg, TrustImg, WalletConnectImg } from 'assets/img/wallets';
 
 type Wallet = {
   name: string;
-  provider: string;
+  provider: TAvailableProviders;
   logo: string;
 };
 
@@ -18,8 +20,8 @@ export const wallets: Wallet[] = [
     logo: TrustImg,
   },
   {
-    name: 'SafePal',
-    provider: 'SafePal',
-    logo: SafePalImg,
+    name: 'Wallet Connect',
+    provider: 'WalletConnect',
+    logo: WalletConnectImg,
   },
 ];

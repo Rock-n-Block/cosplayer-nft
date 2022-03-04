@@ -11,7 +11,7 @@ export enum chainsEnum {
   Ethereum = 'Ethereum',
 }
 
-const AvailableProviders = ['MetaMask'] as const;
+const AvailableProviders = ['MetaMask', 'WalletConnect', 'TrustWallet'] as const;
 export type TAvailableProviders = typeof AvailableProviders[number];
 
 export interface IConnectWallet {

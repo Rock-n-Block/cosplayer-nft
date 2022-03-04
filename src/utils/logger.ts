@@ -7,9 +7,9 @@ type TLogger = 'log' | 'error' | 'warn' | 'info';
  * @param {string} [msg] main block of the info
  * @param {string} [type] type of log
  */
-const logger = (title?: string, msg?: string, type: TLogger = 'info'): void => {
+const logger = (title?: string, msg?: string | any, type: TLogger = 'info'): void => {
   if (!is_production) {
-    console[type](`${title}\n${msg}`);
+    console[type](title, msg);
   }
 };
 

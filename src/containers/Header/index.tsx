@@ -1,12 +1,16 @@
 import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useTypedSelector } from 'store';
+
 import cn from 'classnames';
 
 import { Button } from 'components';
 import { ConnectWalletModal } from 'components/Modals';
+import { addressWithDots } from 'utils';
 
 import { useModal } from 'hooks';
+import { useWalletConnectorContext } from 'services';
 
 import { Footer } from '..';
 
@@ -19,6 +23,12 @@ const Header: FC = () => {
   const [isOpenMenu, setOpenMenu] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isVisibleModal, handleOpenModal, handleCloseModal] = useModal(false);
+  const { address } = useTypedSelector((state) => state.UserReducer);
+  const { disconnect } = useWalletConnectorContext();
+
+  const handleDisconnect = () => {
+    disconnect();
+  };
 
   return (
     <>
@@ -38,9 +48,13 @@ const Header: FC = () => {
             <div className={s.new_post_btn_content_text}>New post</div>
           </div>
         </Button>
-        <Button color="blue" className={s.connect_wallet_btn} onClick={handleOpenModal}>
-          Connect wallet
-        </Button>
+        {address ? (
+          <Button onClick={handleDisconnect}>{addressWithDots(address)}</Button>
+        ) : (
+          <Button color="blue" className={s.connect_wallet_btn} onClick={handleOpenModal}>
+            Connect wallet
+          </Button>
+        )}
         <div className={s.header_nav}>
           <Button color="default" onClick={() => setSearchOpen(true)}>
             <img src={SearchBlackImg} alt="search black icon" />

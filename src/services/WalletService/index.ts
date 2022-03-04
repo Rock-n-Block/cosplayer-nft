@@ -1,5 +1,6 @@
 import { ConnectWallet } from '@amfi/connect-wallet';
 import { IConnect, IError, IEvent, IEventError } from '@amfi/connect-wallet/dist/interface';
+import { WalletsConnect } from '@amfi/connect-wallet/dist/wallet-connect';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
@@ -96,6 +97,24 @@ class WalletService {
 
   public getCurrentChain() {
     return this.currentChain;
+  }
+
+  public async signMsg(providerName: TAvailableProviders, walletAddress: string, msg: string) {
+    if (providerName === 'WalletConnect') {
+      const msgLength = new Blob([msg]).size;
+      let message = `\x19Ethereum Signed Message:\n${msgLength}${msg}`;
+      message = Web3.utils.keccak256(message);
+      const params = [walletAddress, message];
+      const connector = this.connectWallet.getConnector();
+      if (connector instanceof WalletsConnect) {
+        return connector.connector.request({
+          method: 'eth_sign',
+          params,
+        });
+      }
+      return Error('Cannot sign message with WalletConnect');
+    }
+    return this.connectWallet.signMsg(walletAddress, msg);
   }
 
   public eventSubscribe(callbacks?: IEventSubscriberCallbacks): void {
