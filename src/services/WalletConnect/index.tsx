@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, FC, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 
 import { useTypedDispatch, useTypedSelector } from 'store';
@@ -10,8 +11,7 @@ import Web3Modal from 'web3modal';
 import { providerOptions } from 'config';
 import { logger } from 'utils';
 
-import useLocalStorage from 'hooks/useLocalStorage';
-import { userApi } from 'services/api';
+import { ipDataApi, userApi } from 'services/api';
 import WalletService, { TWalletService } from 'services/WalletService';
 import { chainsEnum, IEventSubscriberCallbacks, IWalletContext, TAvailableProviders } from 'types';
 
@@ -29,15 +29,16 @@ const Connect: FC = ({ children }) => {
   const { address } = useTypedSelector((state) => state.UserReducer);
 
   const provider = useRef<TWalletService>(WalletService);
-  const [localProviderName, setLocalProviderName] = useLocalStorage(`CosplayerNFT-provider`, '');
-  const [localToken, setLocalToken] = useLocalStorage(`CosplayerNFT-token`, '');
+  const localToken = 'cosplayer_nft_token';
+  const localProvider = 'cosplayer_nft_provider';
 
   const disconnect = useCallback(() => {
-    setLocalProviderName('');
-    setLocalToken('');
+    localStorage.removeItem(localProvider);
+    localStorage.removeItem(localToken);
+    localStorage.removeItem('walletconnect');
     dispatch(setAddress(''));
     dispatch(setBalance('0'));
-  }, [dispatch, setAddress, setBalance, setLocalProviderName, setLocalToken]);
+  }, [dispatch]);
 
   const getUserData = useCallback(
     async (providerName: TAvailableProviders, web3provider: TWalletService | Web3) => {
@@ -51,7 +52,7 @@ const Connect: FC = ({ children }) => {
         res.address = accounts[0];
       }
       if ('address' in res) {
-        if (!localToken) {
+        if (!localStorage.getItem(localToken)) {
           const msg: any = await userApi.getMsg();
           const signedMsg = await provider.current.signMsg(providerName, res.address, msg.data);
           const login = await userApi.login({
@@ -59,36 +60,45 @@ const Connect: FC = ({ children }) => {
             msg: msg.data,
             signedMsg,
           });
-          setLocalToken(login.data.key);
+          localStorage[localToken] = login.data.key;
         }
         const balance = await provider.current.getBalance(res.address);
         dispatch(setAddress(res.address));
         dispatch(setBalance(balance.toString()));
-        setLocalProviderName(providerName);
+        localStorage[localProvider] = providerName;
+        const response = await ipDataApi.getIpData();
+        logger('ip response', response);
+        return userApi.getMe();
       }
+      return undefined;
     },
-    [address, dispatch, localToken, setAddress, setBalance, setLocalProviderName, setLocalToken],
+    [address],
   );
 
   const connect = useCallback(
-    async (chainName: chainsEnum, providerName: TAvailableProviders) => {
+    async (chainName: chainsEnum, providerName: TAvailableProviders): Promise<boolean> => {
       dispatch(setIsLoading(true));
       if ((providerName === 'MetaMask' && window.ethereum) || providerName === 'WalletConnect') {
         try {
           const connected = await provider.current.initWalletConnect(chainName, providerName);
           if (connected) {
             try {
-              await getUserData(providerName, provider.current);
+              const user = await getUserData(providerName, provider.current);
+              logger('user', user);
               const callbacks: IEventSubscriberCallbacks = {
                 success: [{ accountsChanged: () => getUserData(providerName, provider.current) }],
               };
               provider.current.eventSubscribe(callbacks);
+              return true;
             } catch (err: any) {
               logger('Getting address or balance error', err, 'error');
+              return false;
             }
           }
+          return false;
         } catch (err: any) {
           logger('Ethereum', err, 'error');
+          return false;
         }
       }
       if (providerName === 'TrustWallet') {
@@ -102,13 +112,20 @@ const Connect: FC = ({ children }) => {
           await web3Modal.toggleModal();
           const newWeb3 = new Web3(web3Provider);
           await getUserData(providerName, newWeb3);
+          const callbacks: IEventSubscriberCallbacks = {
+            success: [{ accountsChanged: () => getUserData(providerName, newWeb3) }],
+          };
+          provider.current.eventSubscribe(callbacks);
+          return true;
         } catch (e) {
           logger('TrustWallet connect', e);
+          return false;
         }
       }
       dispatch(setIsLoading(false));
+      return false;
     },
-    [dispatch, getUserData, setIsLoading],
+    [dispatch, getUserData],
   );
 
   const WalletConnectValues = useMemo(
@@ -121,14 +138,20 @@ const Connect: FC = ({ children }) => {
   );
 
   const firstConnection = useCallback(async () => {
-    if (localToken && localProviderName && !address) {
-      await connect(provider.current.getCurrentChain(), localProviderName as TAvailableProviders);
+    if (
+      localStorage.getItem(localProvider) ||
+      (localStorage[localProvider] === 'WalletConnect' && localStorage.getItem('walletconnect'))
+    ) {
+      await connect(
+        provider.current.getCurrentChain(),
+        localStorage[localProvider] as TAvailableProviders,
+      );
     }
-  }, [address, connect, localProviderName, localToken]);
+  }, []);
 
   useEffect(() => {
     firstConnection();
-  }, [firstConnection]);
+  }, []);
 
   return (
     <WalletConnectContext.Provider value={WalletConnectValues}>

@@ -1,7 +1,6 @@
 import { FC, useState } from 'react';
 
-import { useTypedSelector } from 'store';
-
+// import { useTypedSelector } from 'store';
 import { Button, Modal } from 'components';
 import { ModalProps } from 'components/Modal';
 
@@ -16,14 +15,15 @@ import s from './ConnectWalletModal.module.scss';
 
 const ConnectWalletModal: FC<ModalProps> = ({ onClose, visible }) => {
   const [connectError, setConnectError] = useState<TAvailableProviders | ''>('');
+  // const [isOpenLoginModal, setOpenLoginModal] = useState(false);
   const { connect } = useWalletConnectorContext();
-  const { address } = useTypedSelector((state) => state.UserReducer);
+  // const { address } = useTypedSelector((state) => state.UserReducer);
   const errorWallet = wallets.find((wallet) => wallet.provider === connectError);
 
   const handleConnect = (provider: TAvailableProviders) => {
     return async () => {
-      await connect(chainsEnum['Binance-Smart-Chain'], provider);
-      if (!address) setConnectError(provider);
+      const isConnected = await connect(chainsEnum['Binance-Smart-Chain'], provider);
+      if (!isConnected) setConnectError(provider);
     };
   };
 
