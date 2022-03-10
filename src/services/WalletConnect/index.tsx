@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, FC, useCallback, useContext, useEffect, useMemo, useRef } from 'react';
 
 import { useTypedDispatch, useTypedSelector } from 'store';
@@ -38,7 +37,7 @@ const Connect: FC = ({ children }) => {
     localStorage.removeItem('walletconnect');
     dispatch(setAddress(''));
     dispatch(setBalance('0'));
-  }, [dispatch]);
+  }, [dispatch, setAddress, setBalance]);
 
   const getUserData = useCallback(
     async (providerName: TAvailableProviders, web3provider: TWalletService | Web3) => {
@@ -72,7 +71,7 @@ const Connect: FC = ({ children }) => {
       }
       return undefined;
     },
-    [address],
+    [address, dispatch, setAddress, setBalance],
   );
 
   const connect = useCallback(
@@ -125,7 +124,7 @@ const Connect: FC = ({ children }) => {
       dispatch(setIsLoading(false));
       return false;
     },
-    [dispatch, getUserData],
+    [dispatch, getUserData, setIsLoading],
   );
 
   const WalletConnectValues = useMemo(
@@ -147,11 +146,11 @@ const Connect: FC = ({ children }) => {
         localStorage[localProvider] as TAvailableProviders,
       );
     }
-  }, []);
+  }, [connect]);
 
   useEffect(() => {
     firstConnection();
-  }, []);
+  }, [firstConnection]);
 
   return (
     <WalletConnectContext.Provider value={WalletConnectValues}>

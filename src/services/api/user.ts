@@ -1,13 +1,9 @@
 import axios from 'core/axios';
 
-type ILogin = {
-  address: string;
-  signedMsg: string;
-  msg: string;
-};
+import { MetamaskLogin } from 'types/api';
 
 export default {
-  login: (data: ILogin) =>
+  login: (data: MetamaskLogin) =>
     axios.post('account/metamask_login/', {
       address: data.address,
       signed_msg: data.signedMsg,
