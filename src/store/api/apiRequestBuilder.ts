@@ -37,25 +37,11 @@ export const baseApi = {
       url: URL.getSelfInfo,
     });
   },
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  presearchNfts(params: any) {
-    return ajax({
-      method: 'get',
-      url: URL.presearchNfts,
-      params,
-    });
-  },
   searchNfts({ items_per_page = 6, ...params }: SearchNftReq) {
     return ajax({
       method: 'get',
       url: URL.searchNfts,
       params: { ...params, items_per_page },
-    });
-  },
-  getCategories() {
-    return ajax({
-      method: 'get',
-      url: URL.getCategories,
     });
   },
   createNewToken(token: Token) {
