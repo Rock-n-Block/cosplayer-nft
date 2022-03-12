@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 
 import { Provider } from 'react-redux';
-import { setupStore } from 'store';
+import { store } from 'store/configureStore';
 
 import App from 'App';
 
@@ -11,8 +11,6 @@ import { combineProviders } from 'utils';
 import { Connect } from 'services';
 
 import 'styles/index.scss';
-
-const store = setupStore();
 
 const Providers = combineProviders([Connect, [Provider, { store }], BrowserRouter]);
 

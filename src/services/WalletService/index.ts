@@ -1,5 +1,5 @@
 import { ConnectWallet } from '@amfi/connect-wallet';
-import { IConnect, IError, IEvent, IEventError } from '@amfi/connect-wallet/dist/interface';
+import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
 import { WalletsConnect } from '@amfi/connect-wallet/dist/wallet-connect';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
@@ -8,7 +8,7 @@ import { connectWallet } from 'config';
 import { bep20Abi, erc20Abi } from 'config/abi';
 import { logger } from 'utils';
 
-import { chainsEnum, IEventSubscriberCallbacks, TAvailableProviders } from 'types/connect';
+import { chainsEnum, TAvailableProviders } from 'types/connect';
 
 type TokenAbiType = {
   [key in chainsEnum]: Array<AbiItem>;
@@ -20,7 +20,7 @@ const tokenAbis: TokenAbiType = {
 };
 
 class WalletService {
-  private connectWallet;
+  public connectWallet;
 
   private currentChain: chainsEnum = chainsEnum['Binance-Smart-Chain'];
 
@@ -71,24 +71,8 @@ class WalletService {
     return contract.methods.decimals.call();
   }
 
-  public getAccount(address: string): Promise<IConnect | IError | { address: string }> {
-    return new Promise((resolve: any, reject: any) => {
-      this.connectWallet.getAccounts().then(
-        async (userAccount: any) => {
-          if (userAccount.address !== address) {
-            resolve(userAccount);
-          }
-        },
-        (err: any) => {
-          if (err.code && err.code === 6) {
-            logger('Disconnect');
-          } else {
-            logger('Getting account error', err, 'error');
-            reject(err);
-          }
-        },
-      );
-    });
+  public getAccount(): Promise<IConnect | IError | { address: string }> {
+    return this.connectWallet.getAccounts();
   }
 
   public getBalance(address: string): Promise<string | number> {
@@ -100,7 +84,7 @@ class WalletService {
   }
 
   public async signMsg(providerName: TAvailableProviders, walletAddress: string, msg: string) {
-    if (providerName === 'WalletConnect') {
+    if (providerName === ('WalletConnect' || 'TrustWallet')) {
       const msgLength = new Blob([msg]).size;
       let message = `\x19Ethereum Signed Message:\n${msgLength}${msg}`;
       message = Web3.utils.keccak256(message);
@@ -117,26 +101,8 @@ class WalletService {
     return this.connectWallet.signMsg(walletAddress, msg);
   }
 
-  public eventSubscribe(callbacks?: IEventSubscriberCallbacks): void {
-    this.connectWallet.eventSubscriber().subscribe(
-      (data: IEvent) => {
-        const successCallbacks = callbacks?.success;
-        successCallbacks?.forEach((callback) => {
-          if (callback[data.name]) {
-            callback[data.name](data);
-          }
-        });
-      },
-      (error: IEventError) => {
-        const successCallbacks = callbacks?.error;
-        successCallbacks?.forEach((callback) => {
-          if (callback[error.code]) {
-            callback[error.code](error);
-          }
-        });
-        this.eventSubscribe(callbacks);
-      },
-    );
+  public eventSubscriber() {
+    return this.connectWallet.eventSubscriber();
   }
 }
 const WalletServiceInstance = new WalletService();

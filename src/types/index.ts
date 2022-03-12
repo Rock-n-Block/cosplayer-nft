@@ -1,9 +1,16 @@
-export * from './connect';
 export * from './context';
 export * from './store';
+export * from './api';
+export * from './connect';
 
 export type TNullable<T> = T | null;
 export type TOptionable<T> = T | undefined;
+
+declare global {
+  interface Window {
+    ethereum: any;
+  }
+}
 
 export interface IDropdownItem {
   value: string;
@@ -50,4 +57,35 @@ export interface IAdditionalInfo {
   contractAddress: string;
   tokenID: number;
   blockchain: 'Binance Smart Chain' | 'Binance Smart Chain Testnet';
+}
+
+export interface ICurrency {
+  image: string;
+  name: string;
+  rate: string;
+  symbol: string;
+}
+
+export interface IBaseInfo {
+  is_verificated: TOptionable<boolean>;
+  address: string;
+  avatar: string;
+  id: number;
+  name: string;
+  display_theme: 'Padded' | 'Contained' | 'Covered';
+}
+
+export interface IBidder {
+  amount: string | number;
+  bidder: string;
+  bidder_avatar: string;
+  bidder_id: number | string;
+  currency: ICurrency;
+  id: number | string;
+}
+
+export interface IOwner extends Omit<IBaseInfo, 'address'> {
+  price: number;
+  quantity: number;
+  currency: ICurrency;
 }

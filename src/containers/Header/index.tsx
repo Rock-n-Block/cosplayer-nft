@@ -1,7 +1,7 @@
-import { FC, useState } from 'react';
+import { FC, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useTypedSelector } from 'store';
+import userSelector from 'store/user/selectors';
 
 import cn from 'classnames';
 
@@ -9,7 +9,7 @@ import { Button } from 'components';
 import { ConnectWalletModal } from 'components/Modals';
 import { addressWithDots } from 'utils';
 
-import { useModal } from 'hooks';
+import { useModal, useShallowSelector } from 'hooks';
 import { useWalletConnectorContext } from 'services';
 
 import { Footer } from '..';
@@ -23,7 +23,7 @@ const Header: FC = () => {
   const [isOpenMenu, setOpenMenu] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isVisibleModal, handleOpenModal, handleCloseModal] = useModal(false);
-  const { address } = useTypedSelector((state) => state.UserReducer);
+  const { address } = useShallowSelector(userSelector.getUser);
   const { disconnect } = useWalletConnectorContext();
 
   const handleDisconnect = () => {
@@ -99,4 +99,4 @@ const Header: FC = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

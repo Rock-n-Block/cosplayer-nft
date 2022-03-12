@@ -1,30 +1,36 @@
-import { FC } from 'react';
+import { FC, memo, useEffect, useState } from 'react';
 
-import { useTypedSelector } from 'store';
+import userSelector from 'store/user/selectors';
 
 import { Button, Modal } from 'components';
-import { ModalProps } from 'components/Modal';
 import { addressWithDots } from 'utils';
 
-import { TAvailableProviders } from 'types';
+import { useShallowSelector } from 'hooks';
 
 import { CloseImg } from 'assets/img/icons';
 
 import s from './LoginModal.module.scss';
 
-interface LoginModalProps extends ModalProps {
-  provider: TAvailableProviders;
-}
+const LoginModal: FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const { address, displayName, provider } = useShallowSelector(userSelector.getUser);
 
-const LoginModal: FC<LoginModalProps> = ({ visible, provider, onClose }) => {
-  const { address } = useTypedSelector((state) => state.UserReducer);
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  useEffect(() => {
+    if (address && !displayName) {
+      setIsOpen(true);
+    }
+  }, [address, displayName]);
 
   return (
-    <Modal onClose={onClose} visible={visible} className={s.login_modal}>
+    <Modal onClose={closeModal} visible={isOpen} className={s.login_modal}>
       <div className={s.header}>
         <div className={s.header_title}>Create Account</div>
-        <Button onClick={onClose}>
-          <CloseImg />
+        <Button onClick={closeModal}>
+          <img src={CloseImg} alt="close icon" />
         </Button>
       </div>
       <div className="grey-box">
@@ -40,4 +46,4 @@ const LoginModal: FC<LoginModalProps> = ({ visible, provider, onClose }) => {
   );
 };
 
-export default LoginModal;
+export default memo(LoginModal);

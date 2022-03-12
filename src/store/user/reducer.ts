@@ -1,26 +1,43 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserState } from 'types/store';
+
+import { TAvailableProviders, UserState } from 'types';
 
 const initialState: UserState = {
+  id: null,
+  avatar: '',
   address: '',
-  balance: '',
-  isLoading: false,
+  balance: 0,
+  key: '',
+  provider: '' as TAvailableProviders,
+  displayName: '',
 };
 
-export const UserSlice = createSlice({
+export const userReducer = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setIsLoading(state, action: PayloadAction<boolean>) {
-      state.isLoading = action.payload;
-    },
-    setAddress(state, action: PayloadAction<string>) {
-      state.address = action.payload;
-    },
-    setBalance(state, action: PayloadAction<string>) {
-      state.balance = action.payload;
+    updateWallet: (state, action: PayloadAction<Partial<UserState>>) => ({
+      ...state,
+      ...action.payload,
+    }),
+    updateProvider: (state, action: PayloadAction<Partial<UserState>>) => ({
+      ...state,
+      ...action.payload,
+    }),
+    connectWalletState: (state, action: PayloadAction<Partial<UserState>>) => ({
+      ...state,
+      ...action.payload,
+    }),
+    disconnectWalletState: () => {
+      localStorage.removeItem('phenom-wallet-connect');
+      return {
+        ...initialState,
+      };
     },
   },
 });
 
-export default UserSlice.reducer;
+export const { connectWalletState, disconnectWalletState, updateWallet, updateProvider } =
+  userReducer.actions;
+
+export default userReducer.reducer;
