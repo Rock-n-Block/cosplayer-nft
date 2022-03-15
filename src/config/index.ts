@@ -7,6 +7,8 @@ import { erc721Abi, erc1155Abi, exchangeAbi } from './abi';
 
 export const is_production = false;
 
+export const IP_API_KEY = '9440a3014b0b37f2a8798536eeb357504e2973ee1fa2a41af5caceab';
+
 const OPTIONS = {
   rpc: {
     56: 'https://bsc-dataseed1.binance.org',

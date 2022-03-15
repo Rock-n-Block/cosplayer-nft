@@ -1,3 +1,5 @@
+import { ActiveModal } from './store';
+
 export * from './context';
 export * from './store';
 export * from './api';
@@ -11,6 +13,10 @@ declare global {
     ethereum: any;
   }
 }
+
+export type StoreModalProps = {
+  id: ActiveModal;
+};
 
 export interface IDropdownItem {
   value: string;

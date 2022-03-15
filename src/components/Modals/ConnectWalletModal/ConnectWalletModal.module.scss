@@ -1,24 +1,5 @@
 @import 'src/styles/mixins';
 
-.header {
-  padding: 0 19px 0 30px;
-  @include flex(row, center, space-between);
-  width: 100%;
-  height: 52px;
-  background: $light-grey;
-  border-radius: 15px 15px 0 0;
-
-  &_title {
-    font-weight: 700;
-  }
-}
-
-.wallets {
-  padding: 30px;
-  @include flex(column, center, flex-start);
-  gap: 10px;
-}
-
 .wallet {
   padding: 10px;
   @include flex(row, center, flex-start, no-wrap);

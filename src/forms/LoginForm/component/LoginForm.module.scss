@@ -1,0 +1,38 @@
+@import 'src/styles/mixins';
+
+.login_form {
+  margin-top: 10px;
+
+  .inputs {
+    @include grid(1fr, auto auto, 20px);
+  }
+
+  .terms {
+    margin: 14px 0 20px;
+    @include text-control(13px, 20px);
+  }
+
+  .checkers {
+    margin-bottom: 30px;
+    @include grid(1fr, 1fr 1fr, 14px);
+
+    .checker {
+      @include flex(row, center, flex-start, no-wrap);
+
+      .checkbox {
+        @include flex(row, center, center);
+
+        input {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
+
+  .submit_btn {
+    width: 100%;
+    height: 40px;
+    font-weight: 700;
+  }
+}

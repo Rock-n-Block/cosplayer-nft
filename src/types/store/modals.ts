@@ -1,18 +1,17 @@
-export enum Modals {
-  ApprovePending = 'ApprovePending',
-  ApproveRejected = 'ApproveRejected',
-  SendPending = 'SendPending',
-  SendRejected = 'SendRejected',
-  SendSuccess = 'SendSuccess',
-  none = '',
-}
+// export enum Modals {
+//   ConnectWallet = 'ConnectWallet',
+//   Login = 'Login',
+//   AvatarRequired = 'AvatarRequired',
+//   none = '',
+// }
+
+export type ActiveModal = 'ConnectWallet' | 'Login' | 'AvatarRequired' | '';
 
 export interface ModalState {
-  activeModal: Modals;
-  txHash: string;
-  open: boolean;
+  activeModal: ActiveModal;
+  visible: boolean;
 }
 
-export type ModalsInitialState = {
+export interface ModalsInitialState {
   modalState: ModalState;
-};
+}

@@ -69,3 +69,15 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+@mixin spinner-color($color: white) {
+  @if $color == white {
+    border: 5px solid #fff;
+    border-color: #fff transparent transparent transparent;
+  }
+
+  @if $color == blue {
+    border: 5px solid $blue;
+    border-color: $blue transparent transparent transparent;
+  }
+}

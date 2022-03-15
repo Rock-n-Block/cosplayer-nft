@@ -1,17 +1,27 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 
-const useModal = (initialVisible: boolean): [boolean, () => void, () => void] => {
-  const [isVisibleModal, setVisibleModal] = useState(initialVisible);
+import { useDispatch } from 'react-redux';
+import { closeModal } from 'store/modals/reducer';
+import modalsSelector from 'store/modals/selectors';
 
-  const handleOpenModal = useCallback(() => {
-    setVisibleModal(true);
-  }, []);
+import { useShallowSelector } from './index';
+
+import { ActiveModal } from 'types';
+
+const useModal = (id: ActiveModal): [boolean, () => void] => {
+  const { visible, activeModal } = useShallowSelector(modalsSelector.getProp('modalState'));
+  const dispatch = useDispatch();
+  const isVisibleModal = activeModal === id && visible;
+
+  // const handleOpenModal = useCallback(() => {
+  //   dispatch(setActiveModal({ activeModal: id, visible: true }));
+  // }, [dispatch, id]);
 
   const handleCloseModal = useCallback(() => {
-    setVisibleModal(false);
-  }, []);
+    dispatch(closeModal());
+  }, [dispatch]);
 
-  return [isVisibleModal, handleOpenModal, handleCloseModal];
+  return [isVisibleModal, handleCloseModal];
 };
 
 export default useModal;

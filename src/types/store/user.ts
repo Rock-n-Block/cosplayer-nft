@@ -8,6 +8,7 @@ export type UserState = {
   key: string;
   provider: TAvailableProviders;
   displayName: string;
+  customUrl: string;
 };
 
 export type LoginReq = {

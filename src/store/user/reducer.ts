@@ -6,6 +6,7 @@ const initialState: UserState = {
   id: null,
   avatar: '',
   address: '',
+  customUrl: '',
   balance: 0,
   key: '',
   provider: '' as TAvailableProviders,
@@ -16,15 +17,7 @@ export const userReducer = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    updateWallet: (state, action: PayloadAction<Partial<UserState>>) => ({
-      ...state,
-      ...action.payload,
-    }),
-    updateProvider: (state, action: PayloadAction<Partial<UserState>>) => ({
-      ...state,
-      ...action.payload,
-    }),
-    connectWalletState: (state, action: PayloadAction<Partial<UserState>>) => ({
+    updateUserState: (state, action: PayloadAction<Partial<UserState>>) => ({
       ...state,
       ...action.payload,
     }),
@@ -37,7 +30,6 @@ export const userReducer = createSlice({
   },
 });
 
-export const { connectWalletState, disconnectWalletState, updateWallet, updateProvider } =
-  userReducer.actions;
+export const { disconnectWalletState, updateUserState } = userReducer.actions;
 
 export default userReducer.reducer;

@@ -23,7 +23,7 @@ interface Props {
   onBlur?: (value: any) => void;
   value?: string;
   disabled?: boolean;
-  error?: boolean;
+  error?: string;
   icon?: any;
   integer?: boolean;
   positiveOnly?: boolean;
@@ -135,19 +135,19 @@ const FormInput: FC<Props> = ({
   }, [prefix]);
 
   return (
-    <div className={cn(s.field, s[color], className)}>
+    <div className={cn(s.field, className)}>
       {label && <div className={s.label}>{label}</div>}
-      {note ? (
-        <div className={s.note}>{note}</div>
+      {error ? (
+        <div className="text-red">{error}</div>
       ) : (
-        error && <div className={s.error_msg}>{error}</div>
+        note && <div className={s.note}>{note}</div>
       )}
       <div className={s.wrap}>
         {prefixElement}
         <input
           id={name}
           value={value}
-          className={cn(s.input, { [s.error]: error, [s.withIcon]: icon })}
+          className={cn(s.input, s[color], { [s.error]: !!error, [s.withIcon]: icon })}
           onChange={handleInputChange}
           onWheel={(e) => e.currentTarget.blur()}
           disabled={disabled}

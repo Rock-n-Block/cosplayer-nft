@@ -5,7 +5,7 @@
   "scripts": {
     "prepare": "husky install",
     "new": "plop --plopfile generators/index.js",
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "preview": "yarn build && vite preview",
     "lint": "npm-run-all lint:*",
@@ -53,6 +53,7 @@
     "node-fetch": "2.6.1",
     "node-sass": "^7.0.1",
     "plop": "^3.0.5",
+    "rc-checkbox": "^2.3.2",
     "rc-dialog": "^8.6.0",
     "rc-tabs": "^11.10.5",
     "react": "^17.0.2",

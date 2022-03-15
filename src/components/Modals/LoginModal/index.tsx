@@ -1,46 +1,62 @@
-import { FC, memo, useEffect, useState } from 'react';
+import { FC, memo, useEffect } from 'react';
 
+import { useDispatch } from 'react-redux';
+import { setActiveModal } from 'store/modals/reducer';
 import userSelector from 'store/user/selectors';
+
+import { LoginForm } from 'forms';
 
 import { Button, Modal } from 'components';
 import { addressWithDots } from 'utils';
 
-import { useShallowSelector } from 'hooks';
+import { useModal, useShallowSelector } from 'hooks';
+import { useWalletConnectorContext } from 'services';
+import { StoreModalProps } from 'types';
 
 import { CloseImg } from 'assets/img/icons';
 
 import s from './LoginModal.module.scss';
 
-const LoginModal: FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const LoginModal: FC<StoreModalProps> = ({ id }) => {
+  const { disconnect } = useWalletConnectorContext();
+  const [isVisibleModal, handleCloseModal] = useModal(id);
   const { address, displayName, provider } = useShallowSelector(userSelector.getUser);
+  const dispatch = useDispatch();
 
-  const closeModal = () => {
-    setIsOpen(false);
+  const handleGoBack = () => {
+    handleCloseModal();
+    disconnect();
+    dispatch(setActiveModal({ activeModal: 'ConnectWallet', visible: true }));
   };
 
   useEffect(() => {
     if (address && !displayName) {
-      setIsOpen(true);
+      dispatch(setActiveModal({ activeModal: 'Login', visible: true }));
     }
-  }, [address, displayName]);
+  }, [address, dispatch, displayName]);
 
   return (
-    <Modal onClose={closeModal} visible={isOpen} className={s.login_modal}>
-      <div className={s.header}>
-        <div className={s.header_title}>Create Account</div>
-        <Button onClick={closeModal}>
-          <img src={CloseImg} alt="close icon" />
+    <Modal onClose={handleCloseModal} visible={isVisibleModal} className={s.login_modal}>
+      <div className="modal-header">
+        <div className="modal-header_title">Create Account</div>
+        <Button onClick={handleCloseModal}>
+          <CloseImg />
         </Button>
       </div>
-      <div className="grey-box">
-        <div className={s.connect}>
-          <div className={s.connect_provider}>Connect with {provider}</div>
-          <div className={s.user}>
-            <div className={s.user_avatar} />
-            <div className={s.user_address}>{address ? addressWithDots(address) : ''}</div>
+      <div className="modal-inner">
+        <div className="grey-box">
+          <div className={s.connect}>
+            <div className={s.connect_provider}>Connect with {provider}</div>
+            <div className={s.user}>
+              <div className={s.user_avatar} />
+              <div className={s.user_address}>{address ? addressWithDots(address) : ''}</div>
+            </div>
           </div>
+          <Button color="white" className={s.change_btn} onClick={handleGoBack}>
+            Change
+          </Button>
         </div>
+        <LoginForm />
       </div>
     </Modal>
   );

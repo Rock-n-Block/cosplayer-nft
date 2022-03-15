@@ -1,9 +1,10 @@
-import { disconnectWalletState, updateWallet } from '../reducer';
+import { disconnectWalletState, updateUserState } from '../reducer';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
 
 import { logger } from 'utils';
+import { camelize } from 'utils/camelize';
 
 import { updateUserInfo } from '../actions';
 import actionTypes from '../actionTypes';
@@ -19,7 +20,7 @@ export function* updateUserInfoSaga({
     const balance = yield call(web3Provider.eth.getBalance, address);
     const { data } = yield call(baseApi.getSelfInfo);
 
-    yield put(updateWallet({ ...data, balance }));
+    yield put(updateUserState({ ...camelize(data), balance }));
 
     yield put(success(type));
   } catch (err) {

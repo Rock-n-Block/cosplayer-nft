@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from 'store/configureStore';
 
 import App from 'App';
+import { ModalsManager } from 'containers';
 
 import { combineProviders } from 'utils';
 
@@ -18,6 +19,7 @@ const root = document.getElementById('root');
 const app = (
   <Providers>
     <App />
+    <ModalsManager />
   </Providers>
 );
 

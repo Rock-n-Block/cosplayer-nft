@@ -1,15 +1,18 @@
 import { FC, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+import { setActiveModal } from 'store/modals/reducer';
 import userSelector from 'store/user/selectors';
 
 import cn from 'classnames';
 
 import { Button } from 'components';
-import { ConnectWalletModal } from 'components/Modals';
 import { addressWithDots } from 'utils';
 
-import { useModal, useShallowSelector } from 'hooks';
+import { Explore, NewPost, Search } from './components';
+
+import { useShallowSelector } from 'hooks';
 import { useWalletConnectorContext } from 'services';
 
 import { Footer } from '..';
@@ -22,9 +25,13 @@ import s from './Header.module.scss';
 const Header: FC = () => {
   const [isOpenMenu, setOpenMenu] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
-  const [isVisibleModal, handleOpenModal, handleCloseModal] = useModal(false);
   const { address } = useShallowSelector(userSelector.getUser);
   const { disconnect } = useWalletConnectorContext();
+  const dispatch = useDispatch();
+
+  const handleOpenModal = () => {
+    dispatch(setActiveModal({ activeModal: 'ConnectWallet', visible: true }));
+  };
 
   const handleDisconnect = () => {
     disconnect();
@@ -36,18 +43,9 @@ const Header: FC = () => {
         <Link to="/" className={s.header_logo}>
           <img src={LogoImg} alt="CosplayerNFT logo" />
         </Link>
-        <div className={cn(s.search, s.search_hidden)}>
-          <img src={SearchImg} alt="search icon" />
-          <input type="search" placeholder="Search by user name or hashtag" />
-        </div>
-        <Button className={s.explore_btn} onClick={() => {}}>
-          Explore
-        </Button>
-        <Button color="blue" className={s.new_post_btn} onClick={() => {}}>
-          <div className={s.new_post_btn_content}>
-            <div className={s.new_post_btn_content_text}>New post</div>
-          </div>
-        </Button>
+        <Search className={cn(s.search, s.search_hidden)} />
+        <Explore className={s.explore_btn} />
+        <NewPost />
         {address ? (
           <Button onClick={handleDisconnect}>{addressWithDots(address)}</Button>
         ) : (
@@ -60,11 +58,7 @@ const Header: FC = () => {
             <img src={SearchBlackImg} alt="search black icon" />
           </Button>
           <Button color="default" onClick={() => setOpenMenu(!isOpenMenu)}>
-            {isOpenMenu ? (
-              <img src={CloseImg} alt="close icon" />
-            ) : (
-              <img src={BurgerImg} alt="burger icon" />
-            )}
+            {isOpenMenu ? <CloseImg /> : <BurgerImg />}
           </Button>
         </div>
       </header>
@@ -75,7 +69,7 @@ const Header: FC = () => {
             <input type="search" placeholder="Search by user name or hashtag" />
           </div>
           <Button className={s.search_menu_close} onClick={() => setSearchOpen(false)}>
-            <img src={CloseImg} alt="close icon" />
+            CloseImg
           </Button>
         </div>
       )}
@@ -94,7 +88,6 @@ const Header: FC = () => {
           <Footer />
         </div>
       )}
-      <ConnectWalletModal visible={isVisibleModal} onClose={handleCloseModal} />
     </>
   );
 };

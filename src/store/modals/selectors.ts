@@ -1,8 +1,7 @@
 import type { ModalsInitialState, StoreState } from 'types';
 
 export default {
-  getModals: (state: StoreState): ModalsInitialState => state.modals,
-  // eslint-disable-next-line max-len
+  getModalState: (state: StoreState): ModalsInitialState => state.modals,
   getProp:
     <T extends keyof ModalsInitialState>(propKey: T) =>
     (state: StoreState) =>

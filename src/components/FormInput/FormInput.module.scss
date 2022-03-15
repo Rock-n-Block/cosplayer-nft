@@ -14,14 +14,15 @@
 }
 
 .note {
-  margin-bottom: 3px;
   @include text-control(13px, 19.5px);
+  color: $grey;
 }
 
 .input {
   @include flex(row, center, flex-start, no-wrap);
   width: 100%;
   @include text-control(13px, 19.5px);
+  border: none;
 
   &::placeholder {
     color: $grey;

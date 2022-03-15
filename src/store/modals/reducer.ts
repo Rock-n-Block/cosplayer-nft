@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Modals, ModalsInitialState, ModalState } from 'types';
+import { ModalsInitialState, ModalState } from 'types';
 
 const initialState: ModalsInitialState = {
   modalState: {
-    activeModal: Modals.none,
-    txHash: '',
-    open: false,
+    activeModal: '',
+    visible: false,
   },
 };
 
@@ -14,9 +13,10 @@ export const modalsReducer = createSlice({
   name: 'modals',
   initialState,
   reducers: {
-    setActiveModal: (state, action: PayloadAction<ModalState>) => ({
+    setActiveModal: (state, action: PayloadAction<Partial<ModalState>>) => ({
       ...state,
       modalState: {
+        ...state.modalState,
         ...action.payload,
       },
     }),
@@ -24,14 +24,13 @@ export const modalsReducer = createSlice({
     closeModal: (state) => ({
       ...state,
       modalState: {
-        activeModal: Modals.none,
-        txHash: '',
-        open: false,
+        activeModal: '',
+        visible: false,
       },
     }),
   },
 });
 
-export const { setActiveModal } = modalsReducer.actions;
+export const { setActiveModal, closeModal } = modalsReducer.actions;
 
 export default modalsReducer.reducer;

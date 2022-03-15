@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
 import { login, updateUserInfo } from 'store/user/actions';
-import { disconnectWalletState, updateProvider } from 'store/user/reducer';
+import { disconnectWalletState } from 'store/user/reducer';
 import userSelector from 'store/user/selectors';
 
 import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
@@ -74,11 +74,11 @@ const Connect: FC = ({ children }) => {
   const connect = useCallback(
     async (chainName: chainsEnum, providerName: TAvailableProviders): Promise<boolean> => {
       try {
-        let web3Provider: Web3 = {} as Web3;
+        let web3provider: Web3 = {} as Web3;
         let connected = false;
         if ((providerName === 'MetaMask' && window.ethereum) || providerName === 'WalletConnect') {
           connected = await walletService.current.initWalletConnect(chainName, providerName);
-          web3Provider = walletService.current.Web3();
+          web3provider = walletService.current.Web3();
         } else {
           try {
             const web3Modal = new Web3Modal({
@@ -88,7 +88,7 @@ const Connect: FC = ({ children }) => {
 
             const web3 = await web3Modal.connect();
             await web3Modal.toggleModal();
-            web3Provider = new Web3(web3);
+            web3provider = new Web3(web3);
             connected = true;
           } catch (e) {
             logger('connect TrustWallet', e, 'error');
@@ -101,7 +101,7 @@ const Connect: FC = ({ children }) => {
               .subscribe(subscriberSuccess, subscriberError);
             let accountInfo = {} as IConnect | IError | { address: string };
             if (providerName === 'TrustWallet') {
-              const accounts = await web3Provider.eth.getAccounts();
+              const accounts = await web3provider.eth.getAccounts();
               if ('address' in accountInfo) {
                 // eslint-disable-next-line prefer-destructuring
                 accountInfo.address = accounts[0];
@@ -110,16 +110,15 @@ const Connect: FC = ({ children }) => {
               accountInfo = await walletService.current.getAccount();
             }
             if (key?.length && 'address' in accountInfo && address === accountInfo.address) {
-              dispatch(updateUserInfo({ web3Provider, address }));
+              dispatch(updateUserInfo({ web3Provider: web3provider, address }));
             } else if ('address' in accountInfo) {
               dispatch(
                 login({
                   address: accountInfo.address,
                   providerName,
-                  web3Provider,
+                  web3Provider: web3provider,
                 }),
               );
-              dispatch(updateProvider({ provider: providerName }));
             }
             setCurrentSubscriber(sub);
             return true;

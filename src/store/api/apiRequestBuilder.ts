@@ -37,6 +37,13 @@ export const baseApi = {
       url: URL.getSelfInfo,
     });
   },
+  patchSelfInfo(data: FormData) {
+    return ajax({
+      method: 'patch',
+      url: URL.getSelfInfo,
+      data,
+    });
+  },
   searchNfts({ items_per_page = 6, ...params }: SearchNftReq) {
     return ajax({
       method: 'get',

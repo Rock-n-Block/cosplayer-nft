@@ -1,10 +1,10 @@
 import { disconnectWalletState } from '../user/reducer';
 import { call, CallEffect, put, PutEffect, select, SelectEffect } from 'redux-saga/effects';
+import userSelector from 'store/user/selectors';
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { validateStatus } from '../../utils/validateStatus';
-import userSelector from '../user/selectors';
+import { validateStatus } from 'utils/validateStatus';
 
 const client: AxiosInstance = axios.create({
   baseURL: 'https://cosplayer.rocknblock.io/api/v1/',

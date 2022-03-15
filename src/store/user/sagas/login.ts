@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-import { disconnectWalletState, updateWallet } from '../reducer';
+import { disconnectWalletState, updateUserState } from '../reducer';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
@@ -35,9 +35,10 @@ export function* loginSaga({
     });
 
     yield put(
-      updateWallet({
+      updateUserState({
         address,
         key,
+        provider: providerName,
       }),
     );
 
