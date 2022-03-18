@@ -1,5 +1,3 @@
-import { toast } from 'react-toastify';
-
 import { disconnectWalletState, updateUserState } from '../reducer';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
@@ -43,8 +41,6 @@ export function* loginSaga({
     );
 
     yield put(updateUserInfo({ web3Provider, address }));
-
-    toast.success(`Wallet connected: ${address.slice(0, 5)}...${address.slice(-5)}`);
 
     yield put(success(type));
   } catch (err) {

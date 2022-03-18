@@ -15,14 +15,14 @@ import s from './ProfilePictureRequiredModal.module.scss';
 
 const ProfilePictureRequiredModal: FC<StoreModalProps> = ({ id }) => {
   const [isVisibleModal, handleCloseModal] = useModal(id);
-  const { address, displayName, avatar } = useShallowSelector(userSelector.getUser);
+  const { address, balance, displayName, avatar } = useShallowSelector(userSelector.getUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (address && displayName && !avatar) {
+    if (address && displayName && balance && !avatar) {
       dispatch(setActiveModal({ activeModal: 'AvatarRequired', visible: true }));
     }
-  }, [address, avatar, dispatch, displayName]);
+  }, [address, avatar, balance, dispatch, displayName]);
 
   return (
     <Modal visible={isVisibleModal} onClose={handleCloseModal} className={s.avatar_required_modal}>

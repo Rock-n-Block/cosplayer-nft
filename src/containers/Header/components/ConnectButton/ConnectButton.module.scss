@@ -1,0 +1,45 @@
+@import 'src/styles/mixins';
+
+.user {
+  &_btn {
+    padding: 0 4px 0 20px;
+    width: 150px;
+    height: 40px;
+    @include flex(row, center, space-between, no-wrap);
+
+    @include b(mobile) {
+      display: none;
+    }
+  }
+
+  &_info {
+    @include flex(column, flex-start, flex-start, no-wrap);
+    @include text-control(11px, 16px);
+
+    &_name {
+      @include text-control(12px, 18px, 700);
+    }
+  }
+
+  &_avatar {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #fff;
+    border-radius: 50%;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+}
+
+.connect_wallet_btn {
+  width: 150px;
+  height: 40px;
+  @include flex(row, center, center, no-wrap);
+  font-weight: 700;
+
+  @include b(mobile) {
+    display: none;
+  }
+}

@@ -16,10 +16,12 @@ export function* patchUserInfoSaga({ type, payload }: ReturnType<typeof patchUse
   try {
     const { data } = yield call(baseApi.patchSelfInfo, payload);
 
-    if (data.custom_url === 'this custom_url is occupied') {
-      toast.error('This username is occupied');
+    logger('patch response', data);
+
+    if (data.custom_url[0] === 'user with this custom url already exists.') {
+      toast.error('User with this custom url already exists');
       yield put(error(type));
-      return;
+      throw Error;
     }
 
     const { displayName, customUrl, avatar, id } = camelize(data);

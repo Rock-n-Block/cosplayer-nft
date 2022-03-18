@@ -1,0 +1,31 @@
+@import 'src/styles/mixins';
+
+.new_post_btn {
+  padding: 1px;
+  width: 150px;
+  height: 40px;
+
+  @include b(mobile) {
+    display: none;
+  }
+
+  &_content {
+    @include flex(row, center, center);
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 20px;
+
+    &_text {
+      @include gradient-text();
+      font-weight: 700;
+    }
+  }
+}
+
+.mobile {
+  @include b(tablet) {
+    display: block;
+    width: 100%;
+  }
+}

@@ -5,7 +5,6 @@
   .token_cards {
     position: relative;
     top: 40px;
-    overflow-y: scroll;
     width: 100%;
     margin: 28px 0 158px;
     @include grid(repeat(4, 1fr), repeat(auto-fill, 1fr), 20px);
@@ -22,7 +21,8 @@
 
     @include b(mobile) {
       margin-top: 40px;
-      margin-bottom: 230px;
+      margin-bottom: 0;
+      padding-bottom: 30px;
       @include grid(1fr, repeat(auto-fill, 1fr), 20px);
     }
   }

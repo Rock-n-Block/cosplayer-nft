@@ -1,0 +1,30 @@
+@import 'src/styles/mixins';
+
+.social_links {
+  margin-top: 12px;
+  @include flex(column, flex-end, flex-start, no-wrap);
+
+  &_list {
+    margin-bottom: 10px;
+    @include flex(row, center, flex-end, no-wrap);
+    gap: 15px;
+  }
+
+  .copyright {
+    opacity: 0.6;
+
+    @include b(mobile) {
+      opacity: 1;
+    }
+  }
+}
+
+.grey_links {
+  margin: 0;
+  padding: 16px 0 20px;
+  max-width: 300px;
+  width: 300px;
+  @include flex(row, center, center);
+  background: $bg-color;
+  border-radius: 0 0 30px 30px;
+}

@@ -20,7 +20,7 @@ import s from './LoginModal.module.scss';
 const LoginModal: FC<StoreModalProps> = ({ id }) => {
   const { disconnect } = useWalletConnectorContext();
   const [isVisibleModal, handleCloseModal] = useModal(id);
-  const { address, displayName, provider } = useShallowSelector(userSelector.getUser);
+  const { address, balance, displayName, provider } = useShallowSelector(userSelector.getUser);
   const dispatch = useDispatch();
 
   const handleGoBack = () => {
@@ -30,10 +30,10 @@ const LoginModal: FC<StoreModalProps> = ({ id }) => {
   };
 
   useEffect(() => {
-    if (address && !displayName) {
+    if (address && balance && !displayName) {
       dispatch(setActiveModal({ activeModal: 'Login', visible: true }));
     }
-  }, [address, dispatch, displayName]);
+  }, [address, balance, dispatch, displayName]);
 
   return (
     <Modal onClose={handleCloseModal} visible={isVisibleModal} className={s.login_modal}>

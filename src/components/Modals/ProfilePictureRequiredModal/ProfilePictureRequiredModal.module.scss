@@ -18,6 +18,7 @@
 
     .title {
       margin-bottom: 3px;
+      text-align: center;
       @include text-control(18px, 27px, 700);
     }
 

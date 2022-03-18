@@ -14,22 +14,20 @@
     align-items: center;
     border-bottom: 1px solid $border-line;
 
-    @include b(tablet) {
-      @include flex(row, center, space-between);
-
-      .header_nav {
-        @include flex(row, center, flex-end);
-        gap: 20px;
-      }
-
-      .search_hidden {
-        display: none;
-      }
+    @include b(desktop) {
+      padding: 0 15px;
     }
 
     @include b(mobile) {
       padding: 0 12px;
       height: 48px;
+      @include flex(row, center, space-between);
+      border-bottom: none;
+
+      .header_nav {
+        @include flex(row, center, flex-end);
+        gap: 20px;
+      }
     }
   }
 
@@ -46,47 +44,6 @@
       width: 101px;
     }
   }
-
-  &_menu {
-    position: fixed;
-    top: 48px;
-    z-index: 99;
-    padding: 0 10px;
-    width: 100%;
-    height: calc(100vh - 48px);
-    background: #fff;
-
-    &_btns {
-      margin-top: 30px;
-      padding-top: 20px;
-      @include flex(column, center, flex-start);
-      gap: 20px;
-      border-top: 1px solid $border-line;
-
-      button {
-        width: 100%;
-        height: 40px;
-        @include flex(row, center, center);
-        font-weight: 700;
-      }
-
-      .btn {
-        padding: 1px;
-
-        &_content {
-          width: 100%;
-          height: 100%;
-          @include flex(row, center, center);
-          background: #fff;
-          border-radius: 20px;
-
-          &_text {
-            @include gradient-text();
-          }
-        }
-      }
-    }
-  }
 }
 
 .explore_btn {
@@ -94,71 +51,7 @@
   border: none;
   font-weight: 700;
 
-  @include b(tablet) {
-    display: none;
-  }
-}
-
-.new_post_btn {
-  padding: 1px;
-  width: 150px;
-  height: 40px;
-
-  @include b(tablet) {
-    display: none;
-  }
-
-  &_content {
-    width: 100%;
-    height: 100%;
-    @include flex(row, center, center);
-    background: #ffffff;
-    border-radius: 20px;
-    font-weight: 700;
-
-    &_text {
-      @include gradient-text($blue-gradient);
-    }
-  }
-}
-
-.search {
-  margin-right: 10px;
-  padding: 0 25px;
-  min-width: 100px;
-  width: 100%;
-  height: 40px;
-  background-color: $light-grey;
-  border-radius: 20px;
-  @include flex(row, center, flex-start, no-wrap);
-
-  &::placeholder {
-    color: $dark-grey;
-    @include ellipsis;
-  }
-
-  img {
-    margin-right: 4px;
-    width: 24px;
-    height: 24px;
-  }
-
-  input {
-    width: 100%;
-    border: none;
-    background-color: transparent;
-    @include text-control(12px, 18px, 700);
-    color: $dark;
-  }
-}
-
-.connect_wallet_btn {
-  width: 150px;
-  height: 40px;
-  @include flex(row, center, center, no-wrap);
-  font-weight: 700;
-
-  @include b(tablet) {
+  @include b(mobile) {
     display: none;
   }
 }

@@ -10,3 +10,5 @@ export { ReactComponent as SmileImg } from './smile.svg';
 export { ReactComponent as LikeImg } from './like.svg';
 export { ReactComponent as LikeActiveImg } from './like-active.svg';
 export { default as VerifiedImg } from './verified.svg';
+export { ReactComponent as CopyImg } from './copy.svg';
+export { default as DefaultAvatarImg } from './default-avatar.svg';

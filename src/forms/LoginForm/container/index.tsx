@@ -1,11 +1,13 @@
 import { FC, memo } from 'react';
+import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
-import { closeModal, setActiveModal } from 'store/modals/reducer';
 import { patchUserInfo } from 'store/user/actions';
 
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
+
+import { logger } from 'utils';
 
 import { getIpData } from 'services/api/getIpData';
 import { UserSlim } from 'types';
@@ -39,16 +41,19 @@ const LoginForm: FC = () => {
     }),
 
     handleSubmit: async (values, { setFieldValue }) => {
-      setFieldValue('isLoading', true);
-      const formData = new FormData();
-      const { data } = await getIpData();
-      formData.append('country', data.country_name);
-      formData.append('display_name', values.displayName || '');
-      formData.append('custom_url', values.customUrl || '');
-      dispatch(patchUserInfo(formData));
-      setFieldValue('isLoading', false);
-      dispatch(closeModal());
-      dispatch(setActiveModal({ activeModal: 'AvatarRequired', visible: true }));
+      try {
+        setFieldValue('isLoading', true);
+        const formData = new FormData();
+        const { data } = await getIpData();
+        formData.append('country', data.country_name);
+        formData.append('display_name', values.displayName || '');
+        formData.append('custom_url', values.customUrl || '');
+        dispatch(patchUserInfo(formData));
+        setFieldValue('isLoading', false);
+      } catch (e) {
+        logger('submit login form', e);
+        toast.error('Something went wrong');
+      }
     },
 
     displayName: 'LoginForm',

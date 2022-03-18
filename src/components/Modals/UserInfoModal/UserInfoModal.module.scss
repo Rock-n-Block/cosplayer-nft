@@ -1,0 +1,18 @@
+@import 'src/styles/mixins';
+
+.user_info_modal {
+  position: absolute;
+  top: 70px;
+  right: 70px;
+  padding-top: 20px;
+  max-width: 300px;
+  border-radius: 30px;
+
+  @include b(desktop) {
+    right: 15px;
+  }
+
+  @include b(mobile) {
+    display: none;
+  }
+}

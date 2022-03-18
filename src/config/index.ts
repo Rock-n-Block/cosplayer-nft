@@ -3,7 +3,7 @@ import WalletConnectProvider from '@walletconnect/web3-provider';
 
 import { chainsEnum, IConnectWallet, IContracts } from 'types';
 
-import { erc721Abi, erc1155Abi, exchangeAbi } from './abi';
+import { erc20Abi, erc721Abi, erc1155Abi, exchangeAbi } from './abi';
 
 export const is_production = false;
 
@@ -76,7 +76,7 @@ export const connectWallet = (chainName: chainsEnum): IConnectWallet => {
 
 export const contracts: IContracts = {
   type: is_production ? 'mainnet' : 'testnet',
-  names: ['EXCHANGE', 'ERC721', 'ERC1155'],
+  names: ['EXCHANGE', 'REC', 'COSNFT', 'ERC721', 'ERC1155'],
   params: {
     EXCHANGE: {
       mainnet: {
@@ -86,6 +86,26 @@ export const contracts: IContracts = {
       testnet: {
         address: '0x6a7A180204c798ad5A5a6e3dEDF20a3bdaEbBFbc',
         abi: exchangeAbi,
+      },
+    },
+    REC: {
+      mainnet: {
+        address: '',
+        abi: erc20Abi,
+      },
+      testnet: {
+        address: '0xC016ade316C401fFFd2998Da3F00683b2D793350',
+        abi: erc20Abi,
+      },
+    },
+    COSNFT: {
+      mainnet: {
+        address: '',
+        abi: erc20Abi,
+      },
+      testnet: {
+        address: '0xe28a6FE1d5412f43fF33b8D302c3c2E1C6ca13f5',
+        abi: erc20Abi,
       },
     },
     ERC721: {

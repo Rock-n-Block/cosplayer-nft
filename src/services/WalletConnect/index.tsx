@@ -1,6 +1,7 @@
 import {
   createContext,
   FC,
+  memo,
   useCallback,
   useContext,
   useEffect,
@@ -11,6 +12,7 @@ import {
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
+import { closeModal } from 'store/modals/reducer';
 import { login, updateUserInfo } from 'store/user/actions';
 import { disconnectWalletState } from 'store/user/reducer';
 import userSelector from 'store/user/selectors';
@@ -49,7 +51,6 @@ const Connect: FC = ({ children }) => {
             web3Provider: walletService.current.Web3(),
           }),
         );
-        toast.info('Please sign login message at MetaMask');
       }
     },
     [WalletProvider, dispatch],
@@ -138,6 +139,7 @@ const Connect: FC = ({ children }) => {
 
   const disconnect = useCallback(() => {
     dispatch(disconnectWalletState());
+    dispatch(closeModal());
     currentSubscriber?.unsubscribe();
   }, [currentSubscriber, dispatch]);
 
@@ -163,6 +165,6 @@ const Connect: FC = ({ children }) => {
   );
 };
 
-export default Connect;
+export default memo(Connect);
 
 export const useWalletConnectorContext = () => useContext(WalletConnectContext);

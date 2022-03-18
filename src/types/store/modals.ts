@@ -1,11 +1,4 @@
-// export enum Modals {
-//   ConnectWallet = 'ConnectWallet',
-//   Login = 'Login',
-//   AvatarRequired = 'AvatarRequired',
-//   none = '',
-// }
-
-export type ActiveModal = 'ConnectWallet' | 'Login' | 'AvatarRequired' | '';
+export type ActiveModal = 'ConnectWallet' | 'Login' | 'AvatarRequired' | 'UserInfo' | '';
 
 export interface ModalState {
   activeModal: ActiveModal;

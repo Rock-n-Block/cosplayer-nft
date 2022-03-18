@@ -81,12 +81,14 @@ button {
   }
 }
 
-.modal-root {
-  z-index: 100;
+.modal {
+  &-root {
+    z-index: 100;
 
-  overflow: hidden;
+    overflow: hidden;
+  }
 
-  .modal-mask {
+  &-mask {
     position: fixed;
     top: 0;
     right: 0;
@@ -98,7 +100,7 @@ button {
     background: rgb(0 0 0 / 80%);
   }
 
-  .modal-wrap {
+  &-wrap {
     position: fixed;
     top: 0;
     right: 0;
@@ -115,7 +117,7 @@ button {
     @include flex(row, center, center);
   }
 
-  .modal-header {
+  &-header {
     padding: 0 19px 0 30px;
     @include flex(row, center, space-between);
     width: 100%;
@@ -128,7 +130,7 @@ button {
     }
   }
 
-  .modal-inner {
+  &-inner {
     padding: 30px;
     @include flex(column, center, flex-start);
     gap: 10px;
@@ -171,7 +173,7 @@ button {
 }
 
 .mobile_hidden {
-  @include b(tablet) {
+  @include b(mobile) {
     display: none;
   }
 }
