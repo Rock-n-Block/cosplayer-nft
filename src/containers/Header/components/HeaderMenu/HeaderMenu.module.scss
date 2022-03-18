@@ -69,6 +69,14 @@
     .balance {
       @include flex(row, center, flex-start, no-wrap);
 
+      .default_currency_icon {
+        margin-right: 11px;
+        width: 32px;
+        height: 32px;
+        background: $dark-grey;
+        border-radius: 50%;
+      }
+
       img {
         margin-right: 11px;
         width: 32px;
@@ -82,7 +90,14 @@
       }
 
       &_value {
+        @include flex(row, center, flex-start, no-wrap);
+        gap: 10px;
         font-weight: 700;
+
+        &_usd {
+          @include text-control(13px, 20px, 400);
+          color: $grey;
+        }
       }
     }
   }

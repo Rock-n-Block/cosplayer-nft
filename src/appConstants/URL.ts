@@ -11,4 +11,5 @@ export default {
   searchNfts: 'store/search/',
   getCategories: '/store/categories/',
   createNewToken: '/store/create_token/',
+  getRates: '/rates/',
 };

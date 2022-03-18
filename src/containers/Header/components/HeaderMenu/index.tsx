@@ -23,8 +23,12 @@ import { BnbImg, CopyImg } from 'assets/img/icons';
 import s from './HeaderMenu.module.scss';
 
 const HeaderMenu: FC<{ isModal: boolean }> = ({ isModal }) => {
-  const { address, displayName, balance } = useShallowSelector(userSelector.getUser);
+  const { address, displayName, balance, rates } = useShallowSelector(userSelector.getUser);
   const { disconnect } = useWalletConnectorContext();
+
+  const bnbBalance = new BigNumber(balance.bnb).div(10 ** 18).toFixed(5, 1);
+  const cosnftBalance = new BigNumber(balance.cosnft).div(10 ** 18).toFixed(5, 1);
+  const recBalance = new BigNumber(balance.rec).div(10 ** 18).toFixed(5, 1);
 
   const handleCopyToClipboard = () => {
     toast.success('Address was copied to clipboard');
@@ -51,16 +55,43 @@ const HeaderMenu: FC<{ isModal: boolean }> = ({ isModal }) => {
               <div>
                 <div className={s.balance_title}>Balance</div>
                 <div className={s.balance_value}>
-                  {new BigNumber(balance).div(10 ** 18).toFixed(5, 1)}&nbsp;BNB
+                  {new BigNumber(bnbBalance).toString(10)}&nbsp;BNB
+                  <div className={s.balance_value_usd}>
+                    $
+                    {new BigNumber(
+                      new BigNumber(bnbBalance).times(rates.bnb).toFixed(5, 1),
+                    ).toString(10)}
+                  </div>
                 </div>
               </div>
             </div>
             <div className={s.balance}>
-              <img src={BnbImg} alt="bnb logo" />
+              <div className={s.default_currency_icon} />
               <div className={s.balance_content}>
                 <div className={s.balance_title}>Balance</div>
                 <div className={s.balance_value}>
-                  {new BigNumber(balance).div(10 ** 18).toFixed(5, 1)}&nbsp;BNB
+                  {new BigNumber(cosnftBalance).toString(10)}&nbsp;COSNFT
+                  <div className={s.balance_value_usd}>
+                    $
+                    {new BigNumber(
+                      new BigNumber(cosnftBalance).times(rates.cosnft).toFixed(5, 1),
+                    ).toString(10)}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={s.balance}>
+              <div className={s.default_currency_icon} />
+              <div className={s.balance_content}>
+                <div className={s.balance_title}>Balance</div>
+                <div className={s.balance_value}>
+                  {new BigNumber(recBalance).toString(10)}&nbsp;REC
+                  <div className={s.balance_value_usd}>
+                    $
+                    {new BigNumber(
+                      new BigNumber(recBalance).times(rates.rec).toFixed(5, 1),
+                    ).toString(10)}
+                  </div>
                 </div>
               </div>
             </div>

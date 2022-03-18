@@ -7,7 +7,16 @@ const initialState: UserState = {
   avatar: '',
   address: '',
   customUrl: '',
-  balance: 0,
+  balance: {
+    bnb: '0',
+    cosnft: '0',
+    rec: '0',
+  },
+  rates: {
+    bnb: '0',
+    cosnft: '0',
+    rec: '0',
+  },
   key: '',
   provider: '' as TAvailableProviders,
   displayName: '',

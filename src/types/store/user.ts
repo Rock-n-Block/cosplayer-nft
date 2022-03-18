@@ -4,7 +4,16 @@ export type UserState = {
   id: number | null;
   avatar: string;
   address: string;
-  balance: string | number;
+  rates: {
+    bnb: string | number;
+    cosnft: string | number;
+    rec: string | number;
+  };
+  balance: {
+    bnb: string | number;
+    cosnft: string | number;
+    rec: string | number;
+  };
   key: string;
   provider: TAvailableProviders;
   displayName: string;

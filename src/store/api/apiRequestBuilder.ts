@@ -18,13 +18,6 @@ export const baseApi = {
       data,
     });
   },
-  getTrendingNfts(params: { type: string }) {
-    return ajax({
-      method: 'get',
-      url: URL.getTrendingNfts,
-      params,
-    });
-  },
   getProfileInfo(params: { id: string | number }) {
     return ajax({
       method: 'get',
@@ -42,6 +35,12 @@ export const baseApi = {
       method: 'patch',
       url: URL.getSelfInfo,
       data,
+    });
+  },
+  getRates(network = 'Binance-Smart-Chain') {
+    return ajax({
+      method: 'get',
+      url: `${URL.getRates}?network=${network}`,
     });
   },
   searchNfts({ items_per_page = 6, ...params }: SearchNftReq) {
