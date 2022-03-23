@@ -11,14 +11,14 @@ import actionTypes from '../actionTypes';
 
 export function* updateUserInfoSaga({
   type,
-  payload: { web3Provider, address },
+  payload: { web3Provider },
 }: ReturnType<typeof updateUserInfo>) {
   yield put(request(type));
   try {
     const { data } = yield call(baseApi.getSelfInfo);
 
     yield put(updateUserState({ ...camelize(data) }));
-    yield put(getBalance({ web3Provider, address }));
+    yield put(getBalance({ web3Provider }));
 
     yield put(success(type));
   } catch (err) {

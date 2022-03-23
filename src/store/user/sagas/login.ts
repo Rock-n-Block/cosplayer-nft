@@ -40,7 +40,7 @@ export function* loginSaga({
       }),
     );
 
-    yield put(updateUserInfo({ web3Provider, address }));
+    yield put(updateUserInfo({ web3Provider }));
 
     yield put(success(type));
   } catch (err) {

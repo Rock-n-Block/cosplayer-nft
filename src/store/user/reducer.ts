@@ -31,7 +31,6 @@ export const userReducer = createSlice({
       ...action.payload,
     }),
     disconnectWalletState: () => {
-      localStorage.removeItem('phenom-wallet-connect');
       return {
         ...initialState,
       };

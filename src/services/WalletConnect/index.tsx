@@ -6,7 +6,6 @@ import {
   useContext,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react';
 import { toast } from 'react-toastify';
@@ -17,146 +16,138 @@ import { login, updateUserInfo } from 'store/user/actions';
 import { disconnectWalletState } from 'store/user/reducer';
 import userSelector from 'store/user/selectors';
 
-import { IConnect, IError } from '@amfi/connect-wallet/dist/interface';
 import { Subscription } from 'rxjs';
-import Web3 from 'web3';
-import Web3Modal from 'web3modal';
 
-import { is_production, providerOptions } from 'config';
+import { is_production } from 'config';
 import { logger } from 'utils';
 
 import { useShallowSelector } from 'hooks';
-import WalletService, { TWalletService } from 'services/WalletService';
+import { WalletService } from 'services/WalletService';
 import { chainsEnum, IWalletContext, StoreState, TAvailableProviders, UserState } from 'types';
 
 const WalletConnectContext = createContext<IWalletContext>({} as IWalletContext);
 
 const Connect: FC = ({ children }) => {
   const [currentSubscriber, setCurrentSubscriber] = useState<Subscription | any>();
+  const walletService = useMemo(() => new WalletService(), []);
   const dispatch = useDispatch();
   const {
     address,
     key,
     provider: WalletProvider,
   } = useShallowSelector<StoreState, UserState>(userSelector.getUser);
-  const walletService = useRef<TWalletService>(WalletService);
+
+  const disconnect = useCallback(() => {
+    dispatch(disconnectWalletState());
+    dispatch(closeModal());
+    walletService.logOut();
+    currentSubscriber?.unsubscribe();
+    setCurrentSubscriber(null);
+  }, [currentSubscriber, dispatch, walletService]);
 
   const subscriberSuccess = useCallback(
     (data: any) => {
+      if (document.visibilityState !== 'visible') {
+        disconnect();
+        return;
+      }
+
       if (data.name === 'accountsChanged') {
         dispatch(
           login({
             address: data.address,
             providerName: WalletProvider,
-            web3Provider: walletService.current.Web3(),
+            web3Provider: walletService.Web3(),
           }),
         );
       }
     },
-    [WalletProvider, dispatch],
+    [WalletProvider, disconnect, dispatch, walletService],
   );
 
   const subscriberError = useCallback(
     (err: any) => {
       logger('subscriber', err, 'error');
       if (err.code === 4) {
-        walletService.current.logOut();
         toast.error(
           `You changed to wrong network. Please choose Binance Smart Chain ${
             is_production ? 'Mainnet' : 'Testnet'
           }`,
         );
-        dispatch(disconnectWalletState());
+        disconnect();
       }
     },
-    [dispatch],
+    [disconnect],
   );
 
   const connect = useCallback(
     async (chainName: chainsEnum, providerName: TAvailableProviders): Promise<boolean> => {
-      try {
-        let web3provider: Web3 = {} as Web3;
-        let connected = false;
-        if ((providerName === 'MetaMask' && window.ethereum) || providerName === 'WalletConnect') {
-          connected = await walletService.current.initWalletConnect(chainName, providerName);
-          web3provider = walletService.current.Web3();
-        } else {
-          try {
-            const web3Modal = new Web3Modal({
-              cacheProvider: true,
-              providerOptions,
-            });
-
-            const web3 = await web3Modal.connect();
-            await web3Modal.toggleModal();
-            web3provider = new Web3(web3);
-            connected = true;
-          } catch (e) {
-            logger('connect TrustWallet', e, 'error');
-          }
-        }
-        if (connected) {
-          try {
-            const sub = walletService.current
+      const connected = await walletService.initWalletConnect(chainName, providerName);
+      if (connected) {
+        try {
+          if (!currentSubscriber) {
+            const sub = walletService
               .eventSubscriber()
               .subscribe(subscriberSuccess, subscriberError);
-            let accountInfo = {} as IConnect | IError | { address: string };
-            if (providerName === 'TrustWallet') {
-              const accounts = await web3provider.eth.getAccounts();
-              if ('address' in accountInfo) {
-                // eslint-disable-next-line prefer-destructuring
-                accountInfo.address = accounts[0];
-              }
-            } else {
-              accountInfo = await walletService.current.getAccount();
-            }
-            if (key?.length && 'address' in accountInfo && address === accountInfo.address) {
-              dispatch(updateUserInfo({ web3Provider: web3provider, address }));
-            } else if ('address' in accountInfo) {
-              dispatch(
-                login({
-                  address: accountInfo.address,
-                  providerName,
-                  web3Provider: web3provider,
-                }),
-              );
-            }
             setCurrentSubscriber(sub);
-            return true;
-          } catch (err: any) {
-            logger('Getting address or balance error', err, 'error');
-            return false;
           }
+
+          const accountInfo = await walletService.getAccount();
+          if (key?.length && 'address' in accountInfo && address === accountInfo.address) {
+            dispatch(updateUserInfo({ web3Provider: walletService.Web3() }));
+            return true;
+          }
+
+          if ('address' in accountInfo) {
+            dispatch(
+              login({
+                address: accountInfo.address,
+                providerName,
+                web3Provider: walletService.Web3(),
+              }),
+            );
+          }
+          return true;
+        } catch (err: any) {
+          logger('Getting address or balance error', err, 'error');
+          if (err.code === 4) {
+            window.open(
+              `https://metamask.app.link/dapp/${
+                window.location.hostname + window.location.pathname
+              }/?utm_source=mm`,
+            );
+          }
+          return false;
         }
-        return false;
-      } catch (err: any) {
-        logger('initWalletConnect', err, 'error');
-        return false;
       }
+      return false;
     },
-    [address, dispatch, key?.length, subscriberError, subscriberSuccess],
-  );
-
-  const disconnect = useCallback(() => {
-    dispatch(disconnectWalletState());
-    dispatch(closeModal());
-    currentSubscriber?.unsubscribe();
-  }, [currentSubscriber, dispatch]);
-
-  const WalletConnectValues = useMemo(
-    () => ({
-      connect,
-      disconnect,
-      walletService: walletService.current,
-    }),
-    [connect, disconnect],
+    [
+      address,
+      currentSubscriber,
+      dispatch,
+      key?.length,
+      subscriberError,
+      subscriberSuccess,
+      walletService,
+    ],
   );
 
   useEffect(() => {
     if (WalletProvider) {
       connect(chainsEnum['Binance-Smart-Chain'], WalletProvider);
     }
-  }, [WalletProvider, connect]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const WalletConnectValues = useMemo(
+    () => ({
+      connect,
+      disconnect,
+      walletService,
+    }),
+    [connect, disconnect, walletService],
+  );
 
   return (
     <WalletConnectContext.Provider value={WalletConnectValues}>

@@ -36,10 +36,10 @@ const LoginModal: FC<StoreModalProps> = ({ id }) => {
   }, [address, balance, dispatch, displayName]);
 
   return (
-    <Modal onClose={handleCloseModal} visible={isVisibleModal} className={s.login_modal}>
+    <Modal onClose={handleGoBack} visible={isVisibleModal} className={s.login_modal}>
       <div className="modal-header">
         <div className="modal-header_title">Create Account</div>
-        <Button onClick={handleCloseModal}>
+        <Button onClick={handleGoBack}>
           <CloseImg />
         </Button>
       </div>

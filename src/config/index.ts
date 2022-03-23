@@ -1,5 +1,4 @@
 import { INetwork } from '@amfi/connect-wallet/dist/interface';
-import WalletConnectProvider from '@walletconnect/web3-provider';
 
 import { chainsEnum, IConnectWallet, IContracts } from 'types';
 
@@ -15,13 +14,6 @@ const OPTIONS = {
     97: 'https://data-seed-prebsc-1-s1.binance.org:8545',
   },
   chainId: is_production ? 56 : 97,
-};
-
-export const providerOptions = {
-  walletconnect: {
-    package: WalletConnectProvider,
-    options: OPTIONS,
-  },
 };
 
 export const chains: {

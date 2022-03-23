@@ -19,7 +19,7 @@ const tokenAbis: TokenAbiType = {
   'Ethereum': erc20Abi as Array<AbiItem>,
 };
 
-class WalletService {
+export class WalletService {
   public connectWallet;
 
   private currentChain: chainsEnum = chainsEnum['Binance-Smart-Chain'];
@@ -84,7 +84,7 @@ class WalletService {
   }
 
   public async signMsg(providerName: TAvailableProviders, walletAddress: string, msg: string) {
-    if (providerName === ('WalletConnect' || 'TrustWallet')) {
+    if (providerName === 'WalletConnect') {
       const msgLength = new Blob([msg]).size;
       let message = `\x19Ethereum Signed Message:\n${msgLength}${msg}`;
       message = Web3.utils.keccak256(message);
@@ -96,7 +96,7 @@ class WalletService {
           params,
         });
       }
-      return Error('Cannot sign message with WalletConnect');
+      return Error('Signing message with WalletConnect error');
     }
     return this.connectWallet.signMsg(walletAddress, msg);
   }
@@ -105,7 +105,3 @@ class WalletService {
     return this.connectWallet.eventSubscriber();
   }
 }
-const WalletServiceInstance = new WalletService();
-export type TWalletService = typeof WalletServiceInstance;
-
-export default WalletServiceInstance;

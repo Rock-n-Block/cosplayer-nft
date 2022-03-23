@@ -43,7 +43,6 @@ export type CreateNewPoolReq = {
 
 export type GetTokenBalanceReq = {
   web3Provider: Web3;
-  address: string;
 };
 
 export type LoginReq = {
@@ -54,7 +53,6 @@ export type LoginReq = {
 
 export type UpdateUserInfoReq = {
   web3Provider: Web3;
-  address: string;
 };
 
 export type GetDetailedNftReq = {

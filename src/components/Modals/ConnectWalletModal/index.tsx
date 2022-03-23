@@ -22,8 +22,9 @@ const ConnectWalletModal: FC<StoreModalProps> = ({ id }) => {
   const handleConnect = (provider: TAvailableProviders) => {
     return async () => {
       const isConnected = await connect(chainsEnum['Binance-Smart-Chain'], provider);
-      if (!isConnected) setConnectError(provider);
-      handleCloseModal();
+      if (!isConnected) {
+        setConnectError(provider);
+      } else handleCloseModal();
     };
   };
 

@@ -1,7 +1,8 @@
 import { updateUserState } from '../reducer';
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
+import userSelector from 'store/user/selectors';
 
 import { ContractWeb3 } from '@amfi/connect-wallet/dist/interface';
 import { AbiItem } from 'web3-utils';
@@ -16,9 +17,11 @@ import actionTypes from '../actionTypes';
 
 export function* getBalanceSaga({
   type,
-  payload: { web3Provider, address: walletAddress },
+  payload: { web3Provider },
 }: ReturnType<typeof getBalance>) {
   yield put(request(type));
+
+  const walletAddress: string = yield select(userSelector.getProp('address'));
 
   const { params, type: networkType } = contracts;
   const { abi: COSNFTAbi, address: COSNFTAddress } = params.COSNFT[networkType];
