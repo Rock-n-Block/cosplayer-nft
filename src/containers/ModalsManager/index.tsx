@@ -4,6 +4,7 @@ import {
   ConnectWalletModal,
   LoginModal,
   ProfilePictureRequiredModal,
+  ShareNftModal,
   UserInfoModal,
 } from 'components/Modals';
 
@@ -13,6 +14,7 @@ const ModalsManager: FC = () => (
     <LoginModal id="Login" />
     <ProfilePictureRequiredModal id="AvatarRequired" />
     <UserInfoModal id="UserInfo" />
+    <ShareNftModal id="ShareNft" />
   </>
 );
 

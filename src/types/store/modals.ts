@@ -1,4 +1,10 @@
-export type ActiveModal = 'ConnectWallet' | 'Login' | 'AvatarRequired' | 'UserInfo' | '';
+export type ActiveModal =
+  | 'ConnectWallet'
+  | 'Login'
+  | 'AvatarRequired'
+  | 'UserInfo'
+  | 'ShareNft'
+  | '';
 
 export interface ModalState {
   activeModal: ActiveModal;

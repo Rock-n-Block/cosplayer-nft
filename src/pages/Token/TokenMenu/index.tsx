@@ -1,5 +1,8 @@
 import { FC, useState } from 'react';
 
+import { useDispatch } from 'react-redux';
+import { setActiveModal } from 'store/modals/reducer';
+
 import { CreatorCard } from 'containers';
 import Tabs, { TabPane } from 'rc-tabs';
 
@@ -13,9 +16,14 @@ import s from './TokenMenu.module.scss';
 
 const TokenMenu: FC = () => {
   const [isLiked, setLiked] = useState(false);
+  const dispatch = useDispatch();
 
   const handleLike = () => {
     setLiked(!isLiked);
+  };
+
+  const handleOpenShareNftModal = () => {
+    dispatch(setActiveModal({ activeModal: 'ShareNft', visible: true }));
   };
 
   return (
@@ -30,9 +38,9 @@ const TokenMenu: FC = () => {
         <div className={s.activity}>
           <div className={s.activity_actions}>
             <Button className={s.activity_btn} color="white" onClick={handleLike}>
-              &nbsp;{isLiked ? <LikeActiveImg /> : <LikeImg />}&nbsp;552&nbsp;
+              {isLiked ? <LikeActiveImg /> : <LikeImg />}&nbsp;552
             </Button>
-            <Button className={s.activity_btn} color="white" onClick={() => {}}>
+            <Button className={s.activity_btn} color="white" onClick={handleOpenShareNftModal}>
               <ShareImg />
             </Button>
           </div>

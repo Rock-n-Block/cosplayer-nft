@@ -60,6 +60,11 @@
         @include flex(row, center, flex-start, no-wrap);
         gap: 5px;
 
+        img {
+          width: 14px;
+          height: 14px;
+        }
+
         .blue_text {
           @include gradient-text();
         }
