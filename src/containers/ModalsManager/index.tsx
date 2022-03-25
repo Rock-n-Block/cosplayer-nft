@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import {
+  ChangePriceModal,
   ConnectWalletModal,
   LoginModal,
   ProfilePictureRequiredModal,
@@ -15,6 +16,7 @@ const ModalsManager: FC = () => (
     <ProfilePictureRequiredModal id="AvatarRequired" />
     <UserInfoModal id="UserInfo" />
     <ShareNftModal id="ShareNft" />
+    <ChangePriceModal id="ChangePrice" />
   </>
 );
 

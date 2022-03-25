@@ -6,6 +6,7 @@
 
 .wrap {
   min-width: 100%;
+  @include flex(row, center, space-between, no-wrap);
 }
 
 .label {
@@ -23,6 +24,7 @@
   width: 100%;
   @include text-control(13px, 19.5px);
   border: none;
+  background: transparent;
 
   &::placeholder {
     color: $grey;

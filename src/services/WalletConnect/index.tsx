@@ -16,8 +16,6 @@ import { login, updateUserInfo } from 'store/user/actions';
 import { disconnectWalletState } from 'store/user/reducer';
 import userSelector from 'store/user/selectors';
 
-import { Subscription } from 'rxjs';
-
 import { is_production } from 'config';
 import { logger } from 'utils';
 
@@ -28,7 +26,7 @@ import { chainsEnum, IWalletContext, StoreState, TAvailableProviders, UserState 
 const WalletConnectContext = createContext<IWalletContext>({} as IWalletContext);
 
 const Connect: FC = ({ children }) => {
-  const [currentSubscriber, setCurrentSubscriber] = useState<Subscription | any>();
+  const [currentSubscriber, setCurrentSubscriber] = useState<any>();
   const walletService = useMemo(() => new WalletService(), []);
   const dispatch = useDispatch();
   const {

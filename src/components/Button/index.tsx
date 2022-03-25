@@ -52,7 +52,7 @@ const Button: FC<PropsWithChildren<IButton>> = ({
         [s.disabled]: disabled || color === 'disabled',
       })}
       onDoubleClick={onDoubleClick}
-      onClick={onClick}
+      onClick={!disabled ? onClick : () => {}}
       disabled={disabled}
       onMouseLeave={onMouseLeave}
       onMouseEnter={onMouseOver}

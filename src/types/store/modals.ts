@@ -4,6 +4,7 @@ export type ActiveModal =
   | 'AvatarRequired'
   | 'UserInfo'
   | 'ShareNft'
+  | 'ChangePrice'
   | '';
 
 export interface ModalState {

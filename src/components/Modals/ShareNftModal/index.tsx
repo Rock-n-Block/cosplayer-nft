@@ -26,8 +26,8 @@ const ShareNftModal: FC<StoreModalProps> = ({ id }) => {
   };
 
   return (
-    <Modal className={s.share_modal} visible={isVisibleModal} onClose={handleCloseModal}>
-      <Button className={s.close_btn} onClick={handleCloseModal}>
+    <Modal visible={isVisibleModal} onClose={handleCloseModal}>
+      <Button className="modal-close-btn" onClick={handleCloseModal}>
         <CloseImg />
       </Button>
       <div className={s.title}>Share This NFT</div>

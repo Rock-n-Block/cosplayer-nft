@@ -1,5 +1,8 @@
 import { FC, useState } from 'react';
 
+import { useDispatch } from 'react-redux';
+import { setActiveModal } from 'store/modals/reducer';
+
 import { Dropdown } from 'components';
 
 import { actions } from './ActionSelect.mock';
@@ -10,8 +13,19 @@ import s from './ActionSelect.module.scss';
 
 const ActionSelect: FC = () => {
   const [isOpenActions, setOpenActions] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleAction = () => {};
+  const handleAction = (index: number) => {
+    switch (index) {
+      case 0: {
+        dispatch(setActiveModal({ activeModal: 'ChangePrice', visible: true }));
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  };
 
   return (
     <Dropdown

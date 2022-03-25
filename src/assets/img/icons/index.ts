@@ -12,3 +12,4 @@ export { ReactComponent as LikeActiveImg } from './like-active.svg';
 export { default as VerifiedImg } from './verified.svg';
 export { ReactComponent as CopyImg } from './copy.svg';
 export { default as DefaultAvatarImg } from './default-avatar.svg';
+export { ReactComponent as ArrowDownBlueImg } from './arrow-down-blue.svg';

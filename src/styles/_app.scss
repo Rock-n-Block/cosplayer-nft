@@ -135,6 +135,24 @@ button {
     @include flex(column, center, flex-start);
     gap: 10px;
   }
+
+  &-box {
+    padding: 44px 30px 30px;
+    @include flex(column, flex-start, flex-start, no-wrap);
+    gap: 15px;
+  }
+
+  &-close-btn {
+    position: absolute;
+    top: 19px;
+    right: 20px;
+  }
+
+  &-title {
+    width: 100%;
+    @include text-control(18px, 27px, 700);
+    text-align: center;
+  }
 }
 
 .rc-tabs-nav-wrap {

@@ -25,9 +25,9 @@ const ProfilePictureRequiredModal: FC<StoreModalProps> = ({ id }) => {
   }, [address, avatar, balance, dispatch, displayName]);
 
   return (
-    <Modal visible={isVisibleModal} onClose={handleCloseModal} className={s.avatar_required_modal}>
-      <Button className={s.header_close} onClick={handleCloseModal}>
-        <CloseImg className={s.close_btn} />
+    <Modal visible={isVisibleModal} onClose={handleCloseModal}>
+      <Button className="modal-close-btn" onClick={handleCloseModal}>
+        <CloseImg />
       </Button>
       <div className={s.content}>
         <div className={s.title}>Profile Picture Required</div>

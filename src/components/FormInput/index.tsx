@@ -142,12 +142,12 @@ const FormInput: FC<Props> = ({
       ) : (
         note && <div className={s.note}>{note}</div>
       )}
-      <div className={s.wrap}>
+      <div className={cn(s.wrap, s[color])}>
         {prefixElement}
         <input
           id={name}
           value={value}
-          className={cn(s.input, s[color], { [s.error]: !!error, [s.withIcon]: icon })}
+          className={cn(s.input, { [s.error]: !!error, [s.withIcon]: icon })}
           onChange={handleInputChange}
           onWheel={(e) => e.currentTarget.blur()}
           disabled={disabled}
