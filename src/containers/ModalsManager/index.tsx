@@ -1,11 +1,16 @@
 import { FC } from 'react';
 
 import {
+  BurnTokenModal,
   ChangePriceModal,
   ConnectWalletModal,
   LoginModal,
+  PlaceBidModal,
   ProfilePictureRequiredModal,
+  RemoveTokenModal,
+  ReportModal,
   ShareNftModal,
+  TransferTokenModal,
   UserInfoModal,
 } from 'components/Modals';
 
@@ -17,6 +22,11 @@ const ModalsManager: FC = () => (
     <UserInfoModal id="UserInfo" />
     <ShareNftModal id="ShareNft" />
     <ChangePriceModal id="ChangePrice" />
+    <BurnTokenModal id="BurnToken" />
+    <RemoveTokenModal id="RemoveToken" />
+    <TransferTokenModal id="TransferToken" />
+    <ReportModal id="Report" />
+    <PlaceBidModal id="PlaceBid" />
   </>
 );
 

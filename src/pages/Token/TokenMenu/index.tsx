@@ -26,11 +26,15 @@ const TokenMenu: FC = () => {
     dispatch(setActiveModal({ activeModal: 'ShareNft', visible: true }));
   };
 
+  const handlePurchase = () => {
+    dispatch(setActiveModal({ activeModal: 'PlaceBid', visible: true }));
+  };
+
   return (
     <div className={s.token_menu}>
       <div className={s.token_menu_header}>
         <CreatorCard />
-        <Button className={s.purchase_btn} color="orange" onClick={() => {}}>
+        <Button className={s.purchase_btn} color="orange" onClick={handlePurchase}>
           Purchase
         </Button>
       </div>

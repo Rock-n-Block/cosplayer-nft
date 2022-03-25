@@ -1,6 +1,7 @@
 @import 'src/styles/mixins';
 
 .field {
+  width: 100%;
   @include flex(column, flex-start, flex-start, no-wrap);
 }
 
@@ -22,27 +23,29 @@
 .input {
   @include flex(row, center, flex-start, no-wrap);
   width: 100%;
-  @include text-control(13px, 19.5px);
+  @include text-control(13px, 20px);
   border: none;
   background: transparent;
 
   &::placeholder {
-    color: $grey;
+    color: $grey-text;
   }
 }
 
 .grey {
   padding: 0 10px;
   height: 52px;
-  max-width: 440px;
   background: $light-grey;
   border-radius: 12px;
+
+  input::placeholder {
+    color: $grey;
+  }
 }
 
 .white {
   padding: 0 10px;
   height: 52px;
-  max-width: 400px;
   background: #ffffff;
   border: 1px solid $border-line;
   border-radius: 12px;

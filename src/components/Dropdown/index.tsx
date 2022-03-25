@@ -56,7 +56,11 @@ const Dropdown: FC<DropdownProps> = ({
               onClick={() => handleClickOnOption(index)}
               key={option.value}
             >
-              <img className={s.option_icon} src={option.icon} alt={option.value} />
+              {option.icon ? (
+                <img className={s.option_icon} src={option.icon} alt={option.value} />
+              ) : (
+                <div className={cn('default-currency-icon', s.option_icon)} />
+              )}
               <div className={s.option_value}>{option.label}</div>
             </Button>
           ))}

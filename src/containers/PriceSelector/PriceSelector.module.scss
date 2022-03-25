@@ -1,0 +1,22 @@
+@import 'src/styles/mixins';
+
+.currency {
+  width: max-content;
+  @include flex(row, center, flex-start, no-wrap);
+  gap: 5px;
+  background: transparent !important;
+}
+
+.currencies_list {
+  width: 100px;
+}
+
+.default {
+  width: 32px;
+  height: 32px;
+  background: $dark-grey;
+}
+
+.arrow_up {
+  transform: rotate(180deg);
+}

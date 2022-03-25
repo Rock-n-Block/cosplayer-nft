@@ -21,6 +21,22 @@ const ActionSelect: FC = () => {
         dispatch(setActiveModal({ activeModal: 'ChangePrice', visible: true }));
         break;
       }
+      case 1: {
+        dispatch(setActiveModal({ activeModal: 'TransferToken', visible: true }));
+        break;
+      }
+      case 2: {
+        dispatch(setActiveModal({ activeModal: 'RemoveToken', visible: true }));
+        break;
+      }
+      case 3: {
+        dispatch(setActiveModal({ activeModal: 'BurnToken', visible: true }));
+        break;
+      }
+      case 4: {
+        dispatch(setActiveModal({ activeModal: 'Report', visible: true }));
+        break;
+      }
       default: {
         break;
       }

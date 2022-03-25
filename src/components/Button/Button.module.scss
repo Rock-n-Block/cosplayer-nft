@@ -39,9 +39,22 @@ $color-default: black;
     border-radius: 20px;
   }
 
+  &.red {
+    color: #fff;
+    background: $red-button;
+    border-radius: 20px;
+  }
+
   &.white {
     color: $dark;
     background: #fff;
+    border-radius: 20px;
+  }
+
+  &.bordered {
+    background: #fff;
+    border: 1px solid #000;
+    color: #000;
     border-radius: 20px;
   }
 

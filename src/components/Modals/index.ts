@@ -4,3 +4,8 @@ export { default as ProfilePictureRequiredModal } from './ProfilePictureRequired
 export { default as UserInfoModal } from './UserInfoModal';
 export { default as ShareNftModal } from './ShareNftModal';
 export { default as ChangePriceModal } from './ChangePriceModal';
+export { default as BurnTokenModal } from './BurnTokenModal';
+export { default as RemoveTokenModal } from './RemoveTokenModal';
+export { default as TransferTokenModal } from './TransferTokenModal';
+export { default as ReportModal } from './ReportModal';
+export { default as PlaceBidModal } from './PlaceBidModal';

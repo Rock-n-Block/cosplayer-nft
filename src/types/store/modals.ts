@@ -5,6 +5,11 @@ export type ActiveModal =
   | 'UserInfo'
   | 'ShareNft'
   | 'ChangePrice'
+  | 'BurnToken'
+  | 'RemoveToken'
+  | 'TransferToken'
+  | 'Report'
+  | 'PlaceBid'
   | '';
 
 export interface ModalState {

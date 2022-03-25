@@ -6,7 +6,7 @@ import cn from 'classnames';
 import s from './Button.module.scss';
 
 export interface IButton {
-  color?: 'default' | 'orange' | 'blue' | 'white' | 'disabled';
+  color?: 'default' | 'orange' | 'blue' | 'red' | 'bordered' | 'white' | 'disabled';
   size?: 'lg' | 'md' | 'sm';
   className?: string;
   onDoubleClick?: (event: never) => void;

@@ -10,12 +10,12 @@ export const currencies: IDropdownItem[] = [
   },
   {
     value: 'cosnft',
-    icon: BnbImg,
+    icon: '',
     label: 'COSNFT',
   },
   {
     value: 'rec',
-    icon: BnbImg,
+    icon: '',
     label: 'REC',
   },
 ];

@@ -14,12 +14,14 @@ declare global {
   }
 }
 
+export type Currencies = 'bnb' | 'cosnft' | 'rec';
+
 export type StoreModalProps = {
   id: ActiveModal;
 };
 
 export interface IDropdownItem {
-  value: string;
+  value: Currencies;
   label: string;
   icon: string;
 }
