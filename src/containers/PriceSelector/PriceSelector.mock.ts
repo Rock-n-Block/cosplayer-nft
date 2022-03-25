@@ -1,8 +1,8 @@
-import { IDropdownItem } from 'types';
+import { IDropdownCurrency } from 'types';
 
 import { BnbImg } from 'assets/img/icons';
 
-export const currencies: IDropdownItem[] = [
+export const currencies: IDropdownCurrency[] = [
   {
     value: 'bnb',
     icon: BnbImg,

@@ -21,6 +21,12 @@ export type StoreModalProps = {
 };
 
 export interface IDropdownItem {
+  value: string;
+  label: string;
+  icon: string;
+}
+
+export interface IDropdownCurrency {
   value: Currencies;
   label: string;
   icon: string;
