@@ -13,8 +13,8 @@
     "test:update": "jest --updateSnapshot ./src",
     "test:watch": "jest ./src",
     "test:coverage": "jest --coverage --watchAll=false ./src",
-    "generate-types": "node ./scripts/generate-types.js",
-    "download-schema": "node ./scripts/download-schema.js"
+    "generate-types": "node custom-scripts/generate-types.js",
+    "download-schema": "node custom-scripts/download-schema.js"
   },
   "eslintConfig": {
     "extends": "react-app"
