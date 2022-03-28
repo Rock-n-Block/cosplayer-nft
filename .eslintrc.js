@@ -1,177 +1,66 @@
-// eslint-disable-next-line import/extensions
-const prettierConfig = require('./.prettierrc.js');
-
 module.exports = {
-  env: {
-    browser: true,
-    node: true,
-    es6: true,
-    jest: true,
-  },
   extends: [
-    'airbnb',
-    'airbnb/hooks',
-    'plugin:import/typescript',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
+    'airbnb-typescript',
+    'plugin:jest/recommended',
   ],
-  globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
-  },
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    createDefaultProgram: true,
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 2019,
-    sourceType: 'module',
     project: './tsconfig.json',
+  },
+  rules: {
+    'react/jsx-one-expression-per-line': 0,
+    'react/prop-types': 0,
+    'react/require-default-props': 0,
+    'operator-linebreak': ['error', 'after', { overrides: { '?': 'ignore', ':': 'ignore' } }],
+    'linebreak-style': 0,
+    'react/prefer-stateless-function': 0,
+    'react/jsx-filename-extension': 0,
+    'import/prefer-default-export': 0,
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    'jsx-a11y/click-events-have-key-events': 0,
+    'jsx-a11y/no-static-element-interactions': 0,
+    'import/no-extraneous-dependencies': 0,
+    'react/static-property-placement': 0,
+    'import/no-named-as-default-member': 0,
+    'import/no-cycle': 0,
+    'import/no-named-as-default': 0,
+    'import/export': 0,
+    'semi': 2,
+    'comma-dangle': 2,
+    '@typescript-eslint/dot-notation': 0,
+    '@typescript-eslint/keyword-spacing': 0,
+    '@typescript-eslint/lines-between-class-members': 0,
+    "@typescript-eslint/no-explicit-any": 2,
+    'object-curly-spacing': 2,
+    'no-console': 1,
+    "react/jsx-props-no-spreading": 0,
+  },
+  overrides: [
+    {
+      files: ['src/store/**'],
+      rules: {
+        'import/prefer-default-export': 0,
+      },
+    },
+  ],
+  ignorePatterns: '*.js',
+  env: {
+    browser: true,
+    jest: true,
+  },
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['src'],
+      },
+    },
   },
   plugins: [
     'react',
     'import',
-    'jsx-a11y',
     'react-hooks',
-    '@typescript-eslint',
-    'simple-import-sort',
-    'prettier',
+    'jest',
+    '@typescript-eslint'
   ],
-  overrides: [
-    {
-      files: '*.js',
-      rules: {
-        '@typescript-eslint/no-var-requires': 'off',
-        '@typescript-eslint/explicit-function-return-type': 'off',
-      },
-    },
-    {
-      files: ['**/*.ts', '**/*.tsx'],
-      rules: {
-        camelcase: ['off'],
-      },
-    },
-  ],
-  rules: {
-    '@typescript-eslint/no-this-alias': [
-      'error',
-      {
-        allowDestructuring: true,
-        allowedNames: ['self'],
-      },
-    ],
-    '@typescript-eslint/no-unused-vars': 'error',
-    'prettier/prettier': ['warn', prettierConfig],
-    'quote-props': ['error', 'consistent-as-needed'],
-    'react/jsx-uses-react': 'off',
-    'jsx-a11y/control-has-associated-label': 'off',
-    'jsx-a11y/label-has-associated-control': 'off',
-    'jsx-a11y/label-has-for': 'off',
-    'react/react-in-jsx-scope': 'off',
-    'react/require-default-props': 'off',
-    'react/prop-types': 'off',
-    'react/destructuring-assignment': 'off',
-    'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
-    'react/jsx-props-no-spreading': 'off',
-    'react/jsx-wrap-multilines': [
-      'warn',
-      {
-        declaration: 'parens-new-line',
-        assignment: 'parens-new-line',
-        return: 'parens-new-line',
-        arrow: 'parens-new-line',
-        condition: 'parens-new-line',
-        logical: 'parens-new-line',
-        prop: 'ignore',
-      },
-    ],
-    'react/function-component-definition': [
-      2,
-      {
-        namedComponents: 'arrow-function',
-        unnamedComponents: 'arrow-function',
-      },
-    ],
-    'sort-imports': 'off',
-    'no-param-reassign': [
-      2,
-      {
-        props: false,
-      },
-    ],
-    'import/order': 'off',
-    'import/no-cycle': 'off',
-    'no-debugger': 'off',
-    'import/first': 'error',
-    'import/newline-after-import': 'error',
-    'import/no-duplicates': 'error',
-    'import/no-extraneous-dependencies': 'off',
-    'import/prefer-default-export': 'off',
-    'import/extensions': [
-      'error',
-      'ignorePackages',
-      {
-        js: 'never',
-        jsx: 'never',
-        ts: 'never',
-        tsx: 'never',
-      },
-    ],
-    'no-confusing-arrow': ['error', { allowParens: false }],
-    'no-underscore-dangle': ['error', { allow: ['__typename'] }],
-    'simple-import-sort/imports': [
-      'warn',
-      {
-        groups: [
-          ['^react'],
-          ['^mobx|redux|store|reducer|RootReducer|react-redux'],
-          ['^@?\\w'],
-          ['^(@|@company|@ui|components|utils|config|vendored-lib)(/.*|$)'],
-          ['^pages|components|index'],
-          ['^utils|hooks|store|appConstant|types|services'],
-          [
-            '^.*\\u0000$',
-            '^\\u0000',
-            '^\\.\\.(?!/?$)',
-            '^\\.\\./?$',
-            '^\\./(?=.*/)(?!/?$)',
-            '^\\.(?!/?$)',
-            '^\\./?$',
-          ],
-          ['^assets'],
-          ['^.+\\.s?css$'],
-        ],
-      },
-    ],
-    '@typescript-eslint/no-empty-function': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    'no-use-before-define': 'off',
-    '@typescript-eslint/no-use-before-define': ['error'],
-    'no-redeclare': 'off',
-    '@typescript-eslint/no-redeclare': ['error'],
-    'no-shadow': 'off',
-    '@typescript-eslint/no-shadow': ['error'],
-    '@typescript-eslint/ban-types': [
-      'error',
-      {
-        extendDefaults: true,
-        types: {
-          '{}': false,
-        },
-      },
-    ],
-    'no-console': [
-      'warn',
-      {
-        allow: ['debug', 'error'],
-      },
-    ],
-    'no-unused-vars': 'warn',
-  },
-  settings: {
-    'import/resolver': {
-      typescript: {},
-    },
-  },
 };
