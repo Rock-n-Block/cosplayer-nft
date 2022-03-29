@@ -6,9 +6,8 @@ import { AbiItem } from 'web3-utils';
 
 import { connectWallet } from '@/config';
 import { bep20Abi, erc20Abi } from '@/config/abi';
-import { logger } from '@/utils';
-
 import { ChainsEnum, TAvailableProviders } from '@/types/connect';
+import { logger } from '@/utils';
 
 type TokenAbiType = {
   [key in ChainsEnum]: Array<AbiItem>;
@@ -16,7 +15,7 @@ type TokenAbiType = {
 
 const tokenAbis: TokenAbiType = {
   'Binance-Smart-Chain': bep20Abi as Array<AbiItem>,
-  Ethereum: erc20Abi as Array<AbiItem>,
+  'Ethereum': erc20Abi as Array<AbiItem>,
 };
 
 export class WalletService {
