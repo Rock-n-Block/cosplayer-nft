@@ -1,6 +1,6 @@
 import Web3 from 'web3';
 
-import { TAvailableProviders } from 'types/connect';
+import { TAvailableProviders } from '@/types/connect';
 
 export type BodyWithToken<T = never> = {
   token?: string;

@@ -1,12 +1,12 @@
 import { toast } from 'react-toastify';
 
-import { updateUserState } from '../reducer';
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { error, request, success } from 'store/api/actions';
-import { baseApi } from 'store/api/apiRequestBuilder';
+import { error, request, success } from '@/store/api/actions';
+import { baseApi } from '@/store/api/apiRequestBuilder';
 
-import { logger } from 'utils';
-import { camelize } from 'utils/camelize';
+import { logger } from '@/utils';
+import { camelize } from '@/utils/camelize';
+import { updateUserState } from '../reducer';
 
 import { patchUserInfo } from '../actions';
 import actionTypes from '../actionTypes';
@@ -21,13 +21,13 @@ export function* patchUserInfoSaga({ type, payload }: ReturnType<typeof patchUse
     if (data.display_name === 'this display_name is occupied') {
       toast.error('This name is occupied');
       yield put(error(type));
-      throw Error;
+      throw Error();
     }
 
     if (data.custom_url[0] === 'user with this custom url already exists.') {
       toast.error('This username is occupied');
       yield put(error(type));
-      throw Error;
+      throw Error();
     }
 
     const { displayName, customUrl, avatar, id } = camelize(data);

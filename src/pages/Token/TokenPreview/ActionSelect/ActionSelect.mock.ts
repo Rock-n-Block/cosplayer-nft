@@ -1,4 +1,4 @@
-import { IDropdownItem } from 'types';
+import { IDropdownItem } from '@/types';
 
 import {
   BurnImg,
@@ -6,7 +6,7 @@ import {
   RemoveImg,
   ReportImg,
   TransferImg,
-} from 'assets/img/icons/actions';
+} from '@/assets/img/icons/actions';
 
 export const actions: IDropdownItem[] = [
   {

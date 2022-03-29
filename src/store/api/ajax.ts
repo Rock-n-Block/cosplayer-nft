@@ -1,10 +1,10 @@
-import { disconnectWalletState } from '../user/reducer';
 import { call, CallEffect, put, PutEffect, select, SelectEffect } from 'redux-saga/effects';
-import userSelector from 'store/user/selectors';
+import userSelector from '@/store/user/selectors';
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-import { validateStatus } from 'utils/validateStatus';
+import { validateStatus } from '@/utils/validateStatus';
+import { disconnectWalletState } from '../user/reducer';
 
 const client: AxiosInstance = axios.create({
   baseURL: 'https://cosplayer.rocknblock.io/api/v1/',
@@ -21,9 +21,7 @@ export default function* ajax(
   }
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const response: AxiosResponse<ApiResponse<unknown>> = yield call<
-    (configVar: AxiosRequestConfig) => void
-  >(client, config);
+  const response: AxiosResponse<ApiResponse<unknown>> = yield call<(configVar: AxiosRequestConfig) => void>(client, config);
 
   if (accessToken && response.status === 401) {
     yield put(disconnectWalletState());

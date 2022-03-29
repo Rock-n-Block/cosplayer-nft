@@ -4,32 +4,32 @@ import { WalletsConnect } from '@amfi/connect-wallet/dist/wallet-connect';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
-import { connectWallet } from 'config';
-import { bep20Abi, erc20Abi } from 'config/abi';
-import { logger } from 'utils';
+import { connectWallet } from '@/config';
+import { bep20Abi, erc20Abi } from '@/config/abi';
+import { logger } from '@/utils';
 
-import { chainsEnum, TAvailableProviders } from 'types/connect';
+import { ChainsEnum, TAvailableProviders } from '@/types/connect';
 
 type TokenAbiType = {
-  [key in chainsEnum]: Array<AbiItem>;
+  [key in ChainsEnum]: Array<AbiItem>;
 };
 
 const tokenAbis: TokenAbiType = {
   'Binance-Smart-Chain': bep20Abi as Array<AbiItem>,
-  'Ethereum': erc20Abi as Array<AbiItem>,
+  Ethereum: erc20Abi as Array<AbiItem>,
 };
 
 export class WalletService {
   public connectWallet;
 
-  private currentChain: chainsEnum = chainsEnum['Binance-Smart-Chain'];
+  private currentChain: ChainsEnum = ChainsEnum['Binance-Smart-Chain'];
 
   constructor() {
     this.connectWallet = new ConnectWallet();
   }
 
   public async initWalletConnect(
-    chainName: chainsEnum,
+    chainName: ChainsEnum,
     providerName: TAvailableProviders,
   ): Promise<boolean> {
     return new Promise((resolve) => {

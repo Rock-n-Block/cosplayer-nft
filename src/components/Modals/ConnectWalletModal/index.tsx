@@ -1,14 +1,13 @@
 import { FC, memo, useState } from 'react';
 
-import { Button, Modal } from 'components';
+import { Button, Modal } from '@/components';
 
-import { useModal } from 'hooks';
-import { useWalletConnectorContext } from 'services';
-import { chainsEnum, StoreModalProps, TAvailableProviders } from 'types';
+import { useModal } from '@/hooks';
+import { useWalletConnectorContext } from '@/services';
+import { ChainsEnum, StoreModalProps, TAvailableProviders } from '@/types';
 
+import { CloseImg } from '@/assets/img/icons';
 import { wallets } from './ConnectWalletModal.mock';
-
-import { CloseImg } from 'assets/img/icons';
 
 import s from './ConnectWalletModal.module.scss';
 
@@ -21,7 +20,7 @@ const ConnectWalletModal: FC<StoreModalProps> = ({ id }) => {
 
   const handleConnect = (provider: TAvailableProviders) => {
     return async () => {
-      const isConnected = await connect(chainsEnum['Binance-Smart-Chain'], provider);
+      const isConnected = await connect(ChainsEnum['Binance-Smart-Chain'], provider);
       if (!isConnected) {
         setConnectError(provider);
       } else handleCloseModal();

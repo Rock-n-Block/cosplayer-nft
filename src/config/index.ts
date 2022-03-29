@@ -1,10 +1,10 @@
 import { INetwork } from '@amfi/connect-wallet/dist/interface';
 
-import { chainsEnum, IConnectWallet, IContracts } from 'types';
+import { ChainsEnum, IConnectWallet, IContracts } from '@/types';
 
 import { erc20Abi, erc721Abi, erc1155Abi, exchangeAbi } from './abi';
 
-export const is_production = false;
+export const IS_PRODUCTION = false;
 
 export const IP_API_KEY = '9440a3014b0b37f2a8798536eeb357504e2973ee1fa2a41af5caceab';
 
@@ -13,12 +13,12 @@ const OPTIONS = {
     56: 'https://bsc-dataseed1.binance.org',
     97: 'https://data-seed-prebsc-1-s1.binance.org:8545',
   },
-  chainId: is_production ? 56 : 97,
+  chainId: IS_PRODUCTION ? 56 : 97,
 };
 
 export const chains: {
   [key: string]: {
-    name: chainsEnum;
+    name: ChainsEnum;
     network: INetwork;
     provider: {
       [key: string]: any;
@@ -26,20 +26,20 @@ export const chains: {
     explorer: string;
   };
 } = {
-  [chainsEnum['Binance-Smart-Chain']]: {
-    name: chainsEnum['Binance-Smart-Chain'],
+  [ChainsEnum['Binance-Smart-Chain']]: {
+    name: ChainsEnum['Binance-Smart-Chain'],
     network: {
-      chainID: is_production ? 56 : 97,
-      chainName: is_production ? 'Binance Smart Chain' : 'Binance Smart Chain Testnet',
+      chainID: IS_PRODUCTION ? 56 : 97,
+      chainName: IS_PRODUCTION ? 'Binance Smart Chain' : 'Binance Smart Chain Testnet',
       nativeCurrency: {
         name: 'BNB',
         symbol: 'BNB',
         decimals: 18,
       },
-      rpc: is_production
+      rpc: IS_PRODUCTION
         ? 'https://bsc-dataseed.binance.org/'
         : 'https://data-seed-prebsc-1-s1.binance.org:8545/',
-      blockExplorerUrl: is_production ? 'https://bscscan.com' : 'https://testnet.bscscan.com',
+      blockExplorerUrl: IS_PRODUCTION ? 'https://bscscan.com' : 'https://testnet.bscscan.com',
     },
     provider: {
       MetaMask: { name: 'MetaMask' },
@@ -51,11 +51,11 @@ export const chains: {
         },
       },
     },
-    explorer: is_production ? 'https://bscscan.com' : 'https://testnet.bscscan.com',
+    explorer: IS_PRODUCTION ? 'https://bscscan.com' : 'https://testnet.bscscan.com',
   },
 };
 
-export const connectWallet = (chainName: chainsEnum): IConnectWallet => {
+export const connectWallet = (chainName: ChainsEnum): IConnectWallet => {
   const chain = chains[chainName];
 
   return {
@@ -67,7 +67,7 @@ export const connectWallet = (chainName: chainsEnum): IConnectWallet => {
 };
 
 export const contracts: IContracts = {
-  type: is_production ? 'mainnet' : 'testnet',
+  type: IS_PRODUCTION ? 'mainnet' : 'testnet',
   names: ['EXCHANGE', 'REC', 'COSNFT', 'ERC721', 'ERC1155'],
   params: {
     EXCHANGE: {

@@ -1,4 +1,4 @@
-import { Home, Token } from 'pages';
+import { Home, Token } from '@/pages';
 
 export const routes = [
   {

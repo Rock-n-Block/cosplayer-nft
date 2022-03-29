@@ -12,7 +12,7 @@ import {
   ShareNftModal,
   TransferTokenModal,
   UserInfoModal,
-} from 'components/Modals';
+} from '@/components/Modals';
 
 const ModalsManager: FC = () => (
   <>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { Field, FieldProps, Form, FormikProps } from 'formik';
 
-import { Button, Checkbox, FormInput, Spinner } from 'components';
+import { Button, Checkbox, FormInput, Spinner } from '@/components';
 
 import { UserFormProps } from '../container';
 

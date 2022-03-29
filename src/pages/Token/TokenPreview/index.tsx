@@ -1,8 +1,7 @@
 import { FC } from 'react';
 
+import TokenImg from '@/assets/img/nft.png';
 import ActionSelect from './ActionSelect';
-
-import TokenImg from 'assets/img/nft.png';
 
 import s from './TokenPreview.module.scss';
 

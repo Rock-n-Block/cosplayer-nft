@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { NftsState } from 'types';
-import { TokenFull } from 'types/api/TokenFull';
+import { NftsState } from '@/types';
+import { TokenFull } from '@/types/api/TokenFull';
 
 const initialState: NftsState = {
   nfts: [],

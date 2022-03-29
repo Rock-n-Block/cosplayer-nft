@@ -1,13 +1,12 @@
 import { FC, memo, useState } from 'react';
 
-import { EmojiPicker } from 'containers';
+import { EmojiPicker } from '@/containers';
 
-import { Button } from 'components';
-import { logger } from 'utils';
+import { Button } from '@/components';
+import { logger } from '@/utils';
 
+import AvatarImg from '@/assets/img/owner-avatar.png';
 import { comments } from '../Comments/Comments.mock';
-
-import AvatarImg from 'assets/img/owner-avatar.png';
 
 import s from './CommentForm.module.scss';
 

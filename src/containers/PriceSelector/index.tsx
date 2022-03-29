@@ -1,12 +1,11 @@
 import React, { FC, memo } from 'react';
 
-import { Dropdown } from 'components';
+import { Dropdown } from '@/components';
 
-import { Currencies } from 'types';
+import { Currencies } from '@/types';
 
+import { ArrowDownBlueImg } from '@/assets/img/icons';
 import { currencies } from './PriceSelector.mock';
-
-import { ArrowDownBlueImg } from 'assets/img/icons';
 
 import s from './PriceSelector.module.scss';
 

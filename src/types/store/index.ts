@@ -1,4 +1,4 @@
-import { ModalsInitialState, NftsState, UserState } from 'types';
+import { ModalsInitialState, NftsState, UserState } from '@/types';
 
 import type { Dispatch as DispatchReact } from 'react';
 

@@ -1,9 +1,9 @@
 import { FC } from 'react';
 
-import { Button } from 'components';
+import { Button } from '@/components';
 
-import { VerifiedImg } from 'assets/img/icons';
-import AvatarImg from 'assets/img/owner-avatar.png';
+import { VerifiedImg } from '@/assets/img/icons';
+import AvatarImg from '@/assets/img/owner-avatar.png';
 
 import s from './CreatorCard.module.scss';
 

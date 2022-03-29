@@ -1,11 +1,11 @@
 import { FC, memo } from 'react';
 
-import { Button, Modal } from 'components';
+import { Button, Modal } from '@/components';
 
-import { useModal } from 'hooks';
-import { StoreModalProps } from 'types';
+import { useModal } from '@/hooks';
+import { StoreModalProps } from '@/types';
 
-import { CloseImg } from 'assets/img/icons';
+import { CloseImg } from '@/assets/img/icons';
 
 const RemoveTokenModal: FC<StoreModalProps> = ({ id }) => {
   const [isVisibleModal, handleCloseModal] = useModal(id);

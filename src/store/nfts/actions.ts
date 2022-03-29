@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAction } from '@reduxjs/toolkit';
 
-import { Token } from 'types';
-import { SearchNftAction } from 'types/requests';
+import { Token } from '@/types';
+import { SearchNftAction } from '@/types/requests';
 
 import actionTypes from './actionTypes';
 

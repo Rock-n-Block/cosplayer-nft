@@ -110,14 +110,12 @@ const FormInput: FC<Props> = ({
             checkMin(inputValue) &&
             (new BigNumber(inputValue).isLessThan(new BigNumber(max)) ||
               new BigNumber(inputValue).isEqualTo(new BigNumber(max)))
-          )
-            onChange(e);
+          ) onChange(e);
         } else if (max) {
           if (
             new BigNumber(inputValue).isLessThan(new BigNumber(max)) ||
             new BigNumber(inputValue).isEqualTo(new BigNumber(max))
-          )
-            onChange(e);
+          ) onChange(e);
         } else if (min) {
           if (checkMin(inputValue)) onChange(e);
         } else onChange(e);

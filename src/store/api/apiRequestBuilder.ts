@@ -1,6 +1,6 @@
-import { URL } from 'appConstants';
-import { LoginReq, Token } from 'types';
-import { SearchNftReq } from 'types/requests';
+import { ApiUrl } from '@/appConstants';
+import { LoginReq, Token } from '@/types';
+import { SearchNftReq } from '@/types/requests';
 
 import ajax from './ajax';
 
@@ -8,52 +8,52 @@ export const baseApi = {
   getMetamaskMessage() {
     return ajax({
       method: 'get',
-      url: URL.getMetamaskMessage,
+      url: ApiUrl.getMetamaskMessage,
     });
   },
   metamaskLogin(data: LoginReq) {
     return ajax({
       method: 'post',
-      url: URL.metamaskLogin,
+      url: ApiUrl.metamaskLogin,
       data,
     });
   },
   getProfileInfo(params: { id: string | number }) {
     return ajax({
       method: 'get',
-      url: URL.getProfileInfo(params.id),
+      url: ApiUrl.getProfileInfo(params.id),
     });
   },
   getSelfInfo() {
     return ajax({
       method: 'get',
-      url: URL.getSelfInfo,
+      url: ApiUrl.getSelfInfo,
     });
   },
   patchSelfInfo(data: FormData) {
     return ajax({
       method: 'patch',
-      url: URL.getSelfInfo,
+      url: ApiUrl.getSelfInfo,
       data,
     });
   },
   getRates(network = 'Binance-Smart-Chain') {
     return ajax({
       method: 'get',
-      url: `${URL.getRates}?network=${network}`,
+      url: `${ApiUrl.getRates}?network=${network}`,
     });
   },
   searchNfts({ items_per_page = 6, ...params }: SearchNftReq) {
     return ajax({
       method: 'get',
-      url: URL.searchNfts,
+      url: ApiUrl.searchNfts,
       params: { ...params, items_per_page },
     });
   },
   createNewToken(token: Token) {
     return ajax({
       method: 'POST',
-      url: URL.createNewToken,
+      url: ApiUrl.createNewToken,
       params: token,
     });
   },

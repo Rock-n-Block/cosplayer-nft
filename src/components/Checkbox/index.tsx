@@ -25,7 +25,7 @@ const Checkbox: FC<ICheckboxProps> = ({
   onChange,
   onBlur,
 }) => (
-  <label className={cn(s.checkbox, className)}>
+  <label htmlFor={id} className={cn(s.checkbox, className)}>
     <input
       id={id}
       name={name}

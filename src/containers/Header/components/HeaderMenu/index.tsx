@@ -2,23 +2,22 @@ import { FC, memo } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
 
-import userSelector from 'store/user/selectors';
+import userSelector from '@/store/user/selectors';
 
 import BigNumber from 'bignumber.js';
 import cn from 'classnames';
-import { Footer } from 'containers';
+import { Footer } from '@/containers';
 
-import { Button } from 'components';
-import { addressWithDots } from 'utils';
+import { Button } from '@/components';
+import { addressWithDots } from '@/utils';
 
-import { NavLinks, SocialLinks } from 'containers/Footer/components';
+import { NavLinks, SocialLinks } from '@/containers/Footer/components';
 
-import { useShallowSelector } from 'hooks';
-import { useWalletConnectorContext } from 'services';
+import { useShallowSelector } from '@/hooks';
+import { useWalletConnectorContext } from '@/services';
 
+import { BnbImg, CopyImg } from '@/assets/img/icons';
 import { ConnectButton, NewPost } from '..';
-
-import { BnbImg, CopyImg } from 'assets/img/icons';
 
 import s from './HeaderMenu.module.scss';
 

@@ -15,7 +15,7 @@ import {
   TwitterImg,
   YoutubeGreyImg,
   YoutubeImg,
-} from 'assets/img/icons/footer';
+} from '@/assets/img/icons/footer';
 
 import s from './SocialLinks.module.scss';
 

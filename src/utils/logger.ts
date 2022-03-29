@@ -1,4 +1,4 @@
-import { is_production } from 'config';
+import { IS_PRODUCTION } from '@/config';
 
 type TLogger = 'log' | 'error' | 'warn' | 'info';
 
@@ -8,7 +8,7 @@ type TLogger = 'log' | 'error' | 'warn' | 'info';
  * @param {string} [type] type of log
  */
 const logger = (title?: string, msg?: string | any, type: TLogger = 'info'): void => {
-  if (!is_production) {
+  if (!IS_PRODUCTION) {
     console[type](title, msg);
   }
 };

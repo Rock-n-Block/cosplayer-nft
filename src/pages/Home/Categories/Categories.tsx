@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { Button } from 'components';
+import { Button } from '@/components';
 
 import SortSelect from '../SortSelect';
 import { categoriesList, sorts } from './Categories.mock';

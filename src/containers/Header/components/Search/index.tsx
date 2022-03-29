@@ -2,7 +2,7 @@ import { FC, memo } from 'react';
 
 import cn from 'classnames';
 
-import { SearchImg } from 'assets/img/icons';
+import { SearchImg } from '@/assets/img/icons';
 
 import s from './Search.module.scss';
 

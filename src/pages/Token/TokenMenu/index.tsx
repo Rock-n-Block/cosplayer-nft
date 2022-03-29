@@ -1,16 +1,15 @@
 import { FC, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { setActiveModal } from 'store/modals/reducer';
+import { setActiveModal } from '@/store/modals/reducer';
 
-import { CreatorCard } from 'containers';
+import { CreatorCard } from '@/containers';
 import Tabs, { TabPane } from 'rc-tabs';
 
-import { Button } from 'components';
+import { Button } from '@/components';
 
+import { BnbImg, LikeActiveImg, LikeImg, ShareImg } from '@/assets/img/icons';
 import { Bids, CommentForm, Comments, Info, Owners, Sales } from './components';
-
-import { BnbImg, LikeActiveImg, LikeImg, ShareImg } from 'assets/img/icons';
 
 import s from './TokenMenu.module.scss';
 

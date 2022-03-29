@@ -1,6 +1,6 @@
 import { createAction } from '@reduxjs/toolkit';
 
-import { GetTokenBalanceReq, LoginReq, UpdateUserInfoReq } from 'types/requests';
+import { GetTokenBalanceReq, LoginReq, UpdateUserInfoReq } from '@/types/requests';
 
 import actionTypes from './actionTypes';
 

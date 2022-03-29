@@ -2,9 +2,8 @@ import { FC } from 'react';
 
 import cn from 'classnames';
 
+import LogoImg from '@/assets/img/logo.svg';
 import { NavLinks, SocialLinks } from './components';
-
-import LogoImg from 'assets/img/logo.svg';
 
 import s from './Footer.module.scss';
 

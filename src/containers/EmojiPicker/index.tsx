@@ -2,11 +2,11 @@ import React, { FC, memo, useState } from 'react';
 
 import Picker, { IEmojiData } from 'emoji-picker-react';
 
-import { Button } from 'components';
+import { Button } from '@/components';
 
-import { useClickOutside } from 'hooks';
+import { useClickOutside } from '@/hooks';
 
-import { SmileImg } from 'assets/img/icons';
+import { SmileImg } from '@/assets/img/icons';
 
 import s from './EmojiPicker.module.scss';
 

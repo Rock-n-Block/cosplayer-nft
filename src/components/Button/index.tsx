@@ -33,7 +33,7 @@ const Button: FC<PropsWithChildren<IButton>> = ({
   onMouseLeave,
   onMouseOver = () => {},
 }) => {
-  if (href)
+  if (href) {
     return (
       <Link
         to={href}
@@ -44,6 +44,7 @@ const Button: FC<PropsWithChildren<IButton>> = ({
         {children}
       </Link>
     );
+  }
   return (
     <button
       ref={btnRef}

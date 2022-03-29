@@ -1,6 +1,6 @@
 import { FC, memo } from 'react';
 
-import { InfoCard } from 'containers';
+import { InfoCard } from '@/containers';
 
 import { bids } from './Bids.mock';
 

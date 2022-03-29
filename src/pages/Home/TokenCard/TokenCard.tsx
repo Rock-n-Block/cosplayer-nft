@@ -1,15 +1,15 @@
 import { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { CreatorCard } from 'containers';
+import { CreatorCard } from '@/containers';
 
-import { Button } from 'components';
-import { logger } from 'utils';
+import { Button } from '@/components';
+import { logger } from '@/utils';
 
-import { BnbImg, LikeActiveImg, LikeImg } from 'assets/img/icons';
-import { CommentImg } from 'assets/img/icons/token-card';
-import NftImg from 'assets/img/nft-image.png';
-import AvatarImg from 'assets/img/owner-avatar.png';
+import { BnbImg, LikeActiveImg, LikeImg } from '@/assets/img/icons';
+import { CommentImg } from '@/assets/img/icons/token-card';
+import NftImg from '@/assets/img/nft-image.png';
+import AvatarImg from '@/assets/img/owner-avatar.png';
 
 import s from './TokenCard.module.scss';
 

@@ -1,13 +1,12 @@
 import { FC, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { setActiveModal } from 'store/modals/reducer';
+import { setActiveModal } from '@/store/modals/reducer';
 
-import { Dropdown } from 'components';
+import { Dropdown } from '@/components';
 
+import { MoreImg } from '@/assets/img/icons';
 import { actions } from './ActionSelect.mock';
-
-import { MoreImg } from 'assets/img/icons';
 
 import s from './ActionSelect.module.scss';
 

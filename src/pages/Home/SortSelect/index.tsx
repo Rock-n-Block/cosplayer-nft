@@ -2,11 +2,11 @@ import { FC, memo, useState } from 'react';
 
 import cn from 'classnames';
 
-import { Dropdown } from 'components';
+import { Dropdown } from '@/components';
 
-import { IDropdownItem } from 'types';
+import { IDropdownItem } from '@/types';
 
-import ArrowDown from 'assets/img/icons/arrow-down-blue.svg';
+import ArrowDown from '@/assets/img/icons/arrow-down-blue.svg';
 
 import s from './SortSelect.module.scss';
 

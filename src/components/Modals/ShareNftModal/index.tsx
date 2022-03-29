@@ -2,19 +2,19 @@ import { FC, memo } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { toast } from 'react-toastify';
 
-import { Button, Modal } from 'components';
+import { Button, Modal } from '@/components';
 
-import { useModal } from 'hooks';
-import { StoreModalProps } from 'types';
+import { useModal } from '@/hooks';
+import { StoreModalProps } from '@/types';
 
-import { CloseImg } from 'assets/img/icons';
+import { CloseImg } from '@/assets/img/icons';
 import {
   CopyShareImg,
   EmailShareImg,
   FacebookShareImg,
   TelegramShareImg,
   TwitterShareImg,
-} from 'assets/img/icons/share';
+} from '@/assets/img/icons/share';
 
 import s from './ShareNftModal.module.scss';
 

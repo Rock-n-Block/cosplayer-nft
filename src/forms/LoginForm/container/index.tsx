@@ -2,15 +2,15 @@ import { FC, memo } from 'react';
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
-import { patchUserInfo } from 'store/user/actions';
+import { patchUserInfo } from '@/store/user/actions';
 
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { logger } from 'utils';
+import { logger } from '@/utils';
 
-import { getIpData } from 'services/api/getIpData';
-import { UserSlim } from 'types';
+import { getIpData } from '@/services/api/getIpData';
+import { UserSlim } from '@/types';
 
 import Login from '../component';
 

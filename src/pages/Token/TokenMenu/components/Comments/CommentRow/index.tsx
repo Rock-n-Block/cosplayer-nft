@@ -1,10 +1,10 @@
 import { FC, useState } from 'react';
 
-import { Button } from 'components';
+import { Button } from '@/components';
 
-import { IComment } from 'types';
+import { IComment } from '@/types';
 
-import { LikeActiveImg, LikeImg } from 'assets/img/icons';
+import { LikeActiveImg, LikeImg } from '@/assets/img/icons';
 
 import s from './CommentRow.module.scss';
 

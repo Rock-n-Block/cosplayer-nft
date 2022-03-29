@@ -11,17 +11,17 @@ import {
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
-import { closeModal } from 'store/modals/reducer';
-import { login, updateUserInfo } from 'store/user/actions';
-import { disconnectWalletState } from 'store/user/reducer';
-import userSelector from 'store/user/selectors';
+import { closeModal } from '@/store/modals/reducer';
+import { login, updateUserInfo } from '@/store/user/actions';
+import { disconnectWalletState } from '@/store/user/reducer';
+import userSelector from '@/store/user/selectors';
 
-import { is_production } from 'config';
-import { logger } from 'utils';
+import { IS_PRODUCTION } from '@/config';
+import { logger } from '@/utils';
 
-import { useShallowSelector } from 'hooks';
-import { WalletService } from 'services/WalletService';
-import { chainsEnum, IWalletContext, StoreState, TAvailableProviders, UserState } from 'types';
+import { useShallowSelector } from '@/hooks';
+import { WalletService } from '@/services/WalletService';
+import { ChainsEnum, IWalletContext, StoreState, TAvailableProviders, UserState } from '@/types';
 
 const WalletConnectContext = createContext<IWalletContext>({} as IWalletContext);
 
@@ -69,7 +69,7 @@ const Connect: FC = ({ children }) => {
       if (err.code === 4) {
         toast.error(
           `You changed to wrong network. Please choose Binance Smart Chain ${
-            is_production ? 'Mainnet' : 'Testnet'
+            IS_PRODUCTION ? 'Mainnet' : 'Testnet'
           }`,
         );
         disconnect();
@@ -79,7 +79,7 @@ const Connect: FC = ({ children }) => {
   );
 
   const connect = useCallback(
-    async (chainName: chainsEnum, providerName: TAvailableProviders): Promise<boolean> => {
+    async (chainName: ChainsEnum, providerName: TAvailableProviders): Promise<boolean> => {
       const connected = await walletService.initWalletConnect(chainName, providerName);
       if (connected) {
         try {
@@ -133,7 +133,7 @@ const Connect: FC = ({ children }) => {
 
   useEffect(() => {
     if (WalletProvider) {
-      connect(chainsEnum['Binance-Smart-Chain'], WalletProvider);
+      connect(ChainsEnum['Binance-Smart-Chain'], WalletProvider);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

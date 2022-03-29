@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-import { logger } from 'utils';
+import { logger } from '@/utils';
 
 import useEventListener from './useEventListener';
 

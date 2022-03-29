@@ -1,4 +1,4 @@
-import { ICategory, IDropdownItem } from 'types';
+import { ICategory, IDropdownItem } from '@/types';
 
 import {
   AllImg,
@@ -18,7 +18,7 @@ import {
   PictureImg,
   RecentlySoldImg,
   TrendingImg,
-} from 'assets/img/icons/navbar';
+} from '@/assets/img/icons/navbar';
 
 export const sorts: IDropdownItem[] = [
   {

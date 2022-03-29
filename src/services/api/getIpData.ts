@@ -1,5 +1,5 @@
 import axios from 'axios';
 
-import { URL } from 'appConstants';
+import { ApiUrl } from '@/appConstants';
 
-export const getIpData = async () => axios.get(URL.getIpData);
+export const getIpData = async () => axios.get(ApiUrl.getIpData);

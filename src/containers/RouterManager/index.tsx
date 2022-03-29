@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { routes } from 'router';
+import { routes } from '@/router';
 
 const RouteManager: FC = () => {
   const router = routes.map((route) => {

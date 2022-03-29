@@ -1,5 +1,5 @@
 @import 'src/styles/mixins';
 
 // Example
-@include font-face('Poppins', '../assets/fonts/Poppins-Regular', 400, normal, 'ttf');
-@include font-face('Poppins', '../assets/fonts/Poppins-Bold', 700, normal, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins-Regular', 400, normal, 'ttf');
+@include font-face('Poppins', '../../assets/fonts/Poppins-Bold', 700, normal, 'ttf');

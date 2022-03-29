@@ -8,12 +8,6 @@ export * from './connect';
 export type TNullable<T> = T | null;
 export type TOptionable<T> = T | undefined;
 
-declare global {
-  interface Window {
-    ethereum: any;
-  }
-}
-
 export type Currencies = 'bnb' | 'cosnft' | 'rec';
 
 export type StoreModalProps = {

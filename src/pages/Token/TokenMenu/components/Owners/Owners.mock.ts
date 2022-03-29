@@ -1,6 +1,6 @@
-import { ITokenInfo } from 'types';
+import { ITokenInfo } from '@/types';
 
-import AvatarImg from 'assets/img/owner-avatar.png';
+import AvatarImg from '@/assets/img/owner-avatar.png';
 
 export const owners: ITokenInfo[] = [
   {

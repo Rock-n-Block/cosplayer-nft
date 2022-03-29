@@ -1,4 +1,4 @@
-import { TAvailableProviders } from 'types/connect';
+import { TAvailableProviders } from '@/types/connect';
 
 export type UserState = {
   id: number | null;
