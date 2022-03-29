@@ -9,3 +9,4 @@ export { default as RemoveTokenModal } from './RemoveTokenModal';
 export { default as TransferTokenModal } from './TransferTokenModal';
 export { default as ReportModal } from './ReportModal';
 export { default as PlaceBidModal } from './PlaceBidModal';
+export { default as SupportTicketModal } from './SupportTicketModal';

@@ -1,0 +1,32 @@
+@import 'src/styles/mixins';
+
+.field {
+  width: 100%;
+  @include flex(column, flex-start, flex-start, no-wrap);
+  gap: 7px;
+}
+
+.label {
+  font-weight: 700;
+}
+
+.wrap {
+  @include flex(row, center);
+  width: 100%;
+  min-height: 52px;
+  background: $light-grey;
+  border-radius: 12px;
+}
+
+.textarea {
+  padding: 16px 10px;
+  width: 100%;
+  min-height: 52px;
+  background: transparent;
+  border: none;
+  @include text-control(13px, 20px);
+
+  &::placeholder {
+    color: $grey;
+  }
+}

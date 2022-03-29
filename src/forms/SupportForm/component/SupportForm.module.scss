@@ -1,0 +1,7 @@
+@import "src/styles/mixins";
+
+.support_form {
+  width: 100%;
+  @include flex(column, center, flex-start, no-wrap);
+  gap: 15px;
+}

@@ -4,3 +4,5 @@ export { default as Dropdown } from './Dropdown';
 export { default as FormInput } from './FormInput';
 export { default as Spinner } from './Spinner';
 export { default as Checkbox } from './Checkbox';
+export { default as Uploader } from './Uploader';
+export { default as TextArea } from './TextArea';

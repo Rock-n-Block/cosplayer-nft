@@ -10,6 +10,7 @@ import {
   RemoveTokenModal,
   ReportModal,
   ShareNftModal,
+  SupportTicketModal,
   TransferTokenModal,
   UserInfoModal,
 } from '@/components/Modals';
@@ -27,6 +28,7 @@ const ModalsManager: FC = () => (
     <TransferTokenModal id="TransferToken" />
     <ReportModal id="Report" />
     <PlaceBidModal id="PlaceBid" />
+    <SupportTicketModal id="SupportTicket" />
   </>
 );
 

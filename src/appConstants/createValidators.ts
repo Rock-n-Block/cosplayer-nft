@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 interface ICreateValidator {
   name: { min: number; max: number };
   description: { min: number; max: number };
@@ -31,10 +30,10 @@ export const editProfileValidator: IEditProfileValidator = {
   description: { min: 0, max: 500 },
   socials: {
     email: {
-      reg: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+      reg: /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i,
     },
     site: {
-      reg: /^(http\:\/\/|https\:\/\/)?([a-z0-9][a-z0-9\-]*\.)+[a-z0-9][a-z0-9\-]*$/i,
+      reg: /^(http:\/\/|https:\/\/)?([a-z0-9][a-z0-9-]*\.)+[a-z0-9][a-z0-9-]*$/i,
     },
     twitter: {
       reg: /(?:^|[^\w])(?:@)([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)/,

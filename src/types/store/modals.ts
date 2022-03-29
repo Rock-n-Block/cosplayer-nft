@@ -10,6 +10,7 @@ export type ActiveModal =
   | 'TransferToken'
   | 'Report'
   | 'PlaceBid'
+  | 'SupportTicket'
   | '';
 
 export interface ModalState {

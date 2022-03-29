@@ -53,7 +53,7 @@ const FormInput: FC<Props> = ({
   icon,
   max,
   min,
-  type,
+  type = 'text',
   ...props
 }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -97,7 +97,7 @@ const FormInput: FC<Props> = ({
     return true;
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const reg = getRegex();
     const inputValue = e.target.value;
     if (onChange) {
@@ -110,12 +110,14 @@ const FormInput: FC<Props> = ({
             checkMin(inputValue) &&
             (new BigNumber(inputValue).isLessThan(new BigNumber(max)) ||
               new BigNumber(inputValue).isEqualTo(new BigNumber(max)))
-          ) onChange(e);
+          )
+            onChange(e);
         } else if (max) {
           if (
             new BigNumber(inputValue).isLessThan(new BigNumber(max)) ||
             new BigNumber(inputValue).isEqualTo(new BigNumber(max))
-          ) onChange(e);
+          )
+            onChange(e);
         } else if (min) {
           if (checkMin(inputValue)) onChange(e);
         } else onChange(e);
@@ -143,6 +145,7 @@ const FormInput: FC<Props> = ({
       <div className={cn(s.wrap, s[color])}>
         {prefixElement}
         <input
+          type={type}
           id={name}
           value={value}
           className={cn(s.input, { [s.error]: !!error, [s.withIcon]: icon })}
