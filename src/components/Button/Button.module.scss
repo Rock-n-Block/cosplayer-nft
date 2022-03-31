@@ -27,6 +27,13 @@ $color-default: black;
     border-radius: 20px;
   }
 
+  &.grey {
+    background: $light-grey;
+    color: $blue;
+    font-weight: 700;
+    border-radius: 20px;
+  }
+
   &.orange {
     color: #fff;
     background: $orange;

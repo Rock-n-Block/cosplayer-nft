@@ -87,18 +87,21 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
           />
         )}
       />
-      <Field
-        id="attachment"
-        name="attachment"
-        render={({ form: { isSubmitting } }: FieldProps) => (
-          <Uploader
-            isLoading={isSubmitting}
-            formikValue="attachment"
-            className={s.uploader}
-            colorButton="default"
-          />
-        )}
-      />
+      <div className={s.attachment}>
+        <div className={s.attachment_text}>Attachments</div>
+        <Field
+          id="attachment"
+          name="attachment"
+          render={({ form: { isSubmitting } }: FieldProps) => (
+            <Uploader
+              isLoading={isSubmitting}
+              formikValue="attachment"
+              className={s.uploader}
+              colorButton="grey"
+            />
+          )}
+        />
+      </div>
       <Button
         disabled={
           values.isLoading ||

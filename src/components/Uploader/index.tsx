@@ -14,7 +14,7 @@ interface IProps {
   isLoading?: boolean;
   handleUpload?: (value: File) => void;
   className?: string;
-  colorButton?: 'default' | 'white' | 'blue' | 'red' | 'disabled' | 'bordered' | 'orange';
+  colorButton?: 'default' | 'grey' | 'white' | 'blue' | 'red' | 'disabled' | 'bordered' | 'orange';
   formikValue?: string | 'cover'; // cover for video/audio
   setFormat?: (format: string) => void;
   maxSizeInMb?: number;
@@ -51,7 +51,6 @@ const Uploader: FC<IProps> = ({
       return;
     }
     const currentFile = acceptedFiles[0];
-    // TODO: To release an object URL, call revokeObjectURL().
     const fileUrl = URL.createObjectURL(currentFile);
     if (handleUpload) {
       handleUpload(currentFile);
@@ -66,7 +65,7 @@ const Uploader: FC<IProps> = ({
       setFormat(currentFile.type.slice(0, currentFile.type.indexOf('/')));
     }
   };
-  const { getInputProps, open } = useDropzone({
+  const { getRootProps, getInputProps, open } = useDropzone({
     accept: isImgOnly ? 'image/*' : ['image/*', 'video/mp4', 'audio/mpeg'],
     validator: (file) => fileValidation(file, maxSizeInMb),
     onDrop: handleChange,
@@ -74,14 +73,12 @@ const Uploader: FC<IProps> = ({
 
   return (
     <div className={cn(className, formikValue && s[formikValue])}>
-      {formikValue === 'attachment' && (
-        <>
-          <input {...getInputProps()} />
-          <Button color={colorButton} className={s.button} onClick={open} disabled={isLoading}>
-            {children || 'Upload'}
-          </Button>
-        </>
-      )}
+      <div {...getRootProps()}>
+        <input {...getInputProps()} />
+        <Button color={colorButton} onClick={open} disabled={isLoading}>
+          {children || 'Upload'}
+        </Button>
+      </div>
     </div>
   );
 };

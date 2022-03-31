@@ -5,3 +5,20 @@
   @include flex(column, center, flex-start, no-wrap);
   gap: 15px;
 }
+
+.attachment {
+  padding: 12px 10px;
+  width: 100%;
+  @include flex(row, center, space-between);
+
+  &_text {
+    @include text-control(13px, 20px);
+  }
+}
+
+.uploader {
+  button {
+    height: 40px;
+    width: 91px;
+  }
+}
