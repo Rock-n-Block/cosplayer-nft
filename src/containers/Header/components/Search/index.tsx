@@ -1,16 +1,38 @@
-import { FC, memo } from 'react';
+import { ChangeEvent, FC, memo, useState } from 'react';
 
 import cn from 'classnames';
 
 import { SearchImg } from '@/assets/img/icons';
+import { SearchMenu } from '@/containers/Header/components';
+import { useClickOutside } from '@/hooks';
 
 import s from './Search.module.scss';
 
-const Search: FC<{ isMobile: boolean }> = ({ isMobile }) => (
-  <div className={cn(s.search, isMobile && s.search_hidden)}>
-    <img src={SearchImg} alt="search icon" />
-    <input type="search" placeholder="Search by user name or hashtag" />
-  </div>
-);
+const Search: FC<{ isMobile: boolean }> = ({ isMobile }) => {
+  const [input, setInput] = useState('');
+  const [isOpenSearchMenu, setIsOpenSearchMenu] = useState(false);
+  const { ref } = useClickOutside(isOpenSearchMenu, setIsOpenSearchMenu);
+
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value !== '') setIsOpenSearchMenu(true);
+    else setIsOpenSearchMenu(false);
+    setInput(e.target.value);
+  };
+
+  return (
+    <div className={cn(s.search_container, isMobile && s.search_hidden)} ref={ref}>
+      <div className={s.search}>
+        <img src={SearchImg} alt="search icon" />
+        <input
+          type="search"
+          placeholder="Search by user name or hashtag"
+          value={input}
+          onChange={handleInput}
+        />
+      </div>
+      {isOpenSearchMenu && <SearchMenu searchInput={input} />}
+    </div>
+  );
+};
 
 export default memo(Search);

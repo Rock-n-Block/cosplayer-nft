@@ -6,6 +6,7 @@ import cn from 'classnames';
 import { useFormikContext } from 'formik';
 
 import { Button } from '@/components';
+import { ButtonColors } from '@/types';
 import { fileValidation } from '@/utils';
 
 import s from './Uploader.module.scss';
@@ -14,7 +15,7 @@ interface IProps {
   isLoading?: boolean;
   handleUpload?: (value: File) => void;
   className?: string;
-  colorButton?: 'default' | 'grey' | 'white' | 'blue' | 'red' | 'disabled' | 'bordered' | 'orange';
+  colorButton?: ButtonColors;
   formikValue?: string | 'cover'; // cover for video/audio
   setFormat?: (format: string) => void;
   maxSizeInMb?: number;

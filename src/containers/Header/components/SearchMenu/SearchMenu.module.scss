@@ -1,0 +1,29 @@
+@import "src/styles/mixins";
+
+.search_menu {
+  position: absolute;
+  top: 120%;
+  padding: 10px 10px 16px;
+  width: 300px;
+  height: 331px;
+  background: #ffffff;
+  border-radius: 30px;
+
+  .tabs {
+    @include flex(row, center, space-between);
+
+    .tab {
+      width: 90px;
+      height: 40px;
+      font-weight: 700;
+    }
+  }
+
+  .result {
+    margin-top: 20px;
+    height: 245px;
+    overflow-y: scroll;
+    @include flex(column, flex-start, flex-start, no-wrap);
+    gap: 20px;
+  }
+}

@@ -27,6 +27,13 @@ $color-default: black;
     border-radius: 20px;
   }
 
+  &.inactive {
+    background: $border-line;
+    color: $second-dark-grey;
+    font-weight: 700;
+    border-radius: 20px;
+  }
+
   &.grey {
     background: $light-grey;
     color: $blue;

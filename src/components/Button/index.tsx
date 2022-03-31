@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 
 import cn from 'classnames';
 
+import { ButtonColors } from '@/types';
+
 import s from './Button.module.scss';
 
 export interface IButton {
-  color?: 'default' | 'grey' | 'orange' | 'blue' | 'red' | 'bordered' | 'white' | 'disabled';
+  color?: ButtonColors;
   size?: 'lg' | 'md' | 'sm';
   className?: string;
   onDoubleClick?: (event: never) => void;

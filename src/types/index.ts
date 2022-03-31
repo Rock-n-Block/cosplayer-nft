@@ -10,6 +10,17 @@ export type TOptionable<T> = T | undefined;
 
 export type Currencies = 'bnb' | 'cosnft' | 'rec';
 
+export type ButtonColors =
+  | 'default'
+  | 'inactive'
+  | 'grey'
+  | 'orange'
+  | 'blue'
+  | 'red'
+  | 'bordered'
+  | 'white'
+  | 'disabled';
+
 export type StoreModalProps = {
   id: ActiveModal;
 };
