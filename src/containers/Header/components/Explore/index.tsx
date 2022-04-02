@@ -1,6 +1,6 @@
 import { FC, memo } from 'react';
 
-import { Button } from '@/components';
+import { Button } from 'components';
 
 type ExploreProps = {
   className: string;

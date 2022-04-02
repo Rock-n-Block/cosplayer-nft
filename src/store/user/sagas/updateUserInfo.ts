@@ -1,10 +1,10 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import { error, request, success } from '@/store/api/actions';
-import { baseApi } from '@/store/api/apiRequestBuilder';
-
-import { logger } from '@/utils';
-import { camelize } from '@/utils/camelize';
 import { disconnectWalletState, updateUserState } from '../reducer';
+import { call, put, takeLatest } from 'redux-saga/effects';
+import { error, request, success } from 'store/api/actions';
+import { baseApi } from 'store/api/apiRequestBuilder';
+
+import { logger } from 'utils';
+import { camelize } from 'utils/camelize';
 
 import { getBalance, updateUserInfo } from '../actions';
 import actionTypes from '../actionTypes';

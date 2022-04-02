@@ -1,6 +1,6 @@
-import { TAvailableProviders } from '@/types';
+import { TAvailableProviders } from 'types';
 
-import { MetaMaskImg, WalletConnectImg } from '@/assets/img/wallets';
+import { MetaMaskImg, WalletConnectImg } from 'assets/img/wallets';
 
 type Wallet = {
   name: string;

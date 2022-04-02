@@ -1,5 +1,4 @@
 {
-  "extends": "./tsconfig.extend.json",
   "compilerOptions": {
     "experimentalDecorators": true,
     "target": "es5",
@@ -21,7 +20,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": true
+    "noImplicitAny": true,
+    "baseUrl": "./src/",
   },
   "include": [
     "src/**/*.tsx",

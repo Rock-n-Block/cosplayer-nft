@@ -1,19 +1,19 @@
 import { FC, memo, useEffect } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { setActiveModal } from '@/store/modals/reducer';
-import userSelector from '@/store/user/selectors';
+import { setActiveModal } from 'store/modals/reducer';
+import userSelector from 'store/user/selectors';
 
-import { LoginForm } from '@/forms';
+import { LoginForm } from 'forms';
 
-import { Button, Modal } from '@/components';
-import { addressWithDots } from '@/utils';
+import { Button, Modal } from 'components';
+import { addressWithDots } from 'utils';
 
-import { useModal, useShallowSelector } from '@/hooks';
-import { useWalletConnectorContext } from '@/services';
-import { StoreModalProps } from '@/types';
+import { useModal, useShallowSelector } from 'hooks';
+import { useWalletConnectorContext } from 'services';
+import { StoreModalProps } from 'types';
 
-import { CloseImg } from '@/assets/img/icons';
+import { CloseImg } from 'assets/img/icons';
 
 import s from './LoginModal.module.scss';
 
@@ -26,12 +26,12 @@ const LoginModal: FC<StoreModalProps> = ({ id }) => {
   const handleGoBack = () => {
     handleCloseModal();
     disconnect();
-    dispatch(setActiveModal({ activeModal: 'ConnectWallet', visible: true }));
+    dispatch(setActiveModal({ activeModal: 'ConnectWallet' }));
   };
 
   useEffect(() => {
     if (address && balance && !displayName) {
-      dispatch(setActiveModal({ activeModal: 'Login', visible: true }));
+      dispatch(setActiveModal({ activeModal: 'Login' }));
     }
   }, [address, balance, dispatch, displayName]);
 

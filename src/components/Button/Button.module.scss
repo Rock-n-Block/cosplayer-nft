@@ -44,30 +44,35 @@ $color-default: black;
   &.orange {
     color: #fff;
     background: $orange;
+    font-weight: 700;
     border-radius: 20px;
   }
 
   &.blue {
     color: #fff;
     background: $blue-gradient;
+    font-weight: 700;
     border-radius: 20px;
   }
 
   &.red {
     color: #fff;
     background: $red-button;
+    font-weight: 700;
     border-radius: 20px;
   }
 
   &.white {
     color: $dark;
     background: #fff;
+    font-weight: 700;
     border-radius: 20px;
   }
 
   &.bordered {
     background: #fff;
     border: 1px solid #000;
+    font-weight: 700;
     color: #000;
     border-radius: 20px;
   }
@@ -75,6 +80,8 @@ $color-default: black;
   &.disabled {
     background: $border-line;
     color: $grey;
+    font-weight: 700;
+    border-radius: 20px;
     cursor: not-allowed;
   }
 }

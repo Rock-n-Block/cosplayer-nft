@@ -2,16 +2,17 @@ import { FC, memo } from 'react';
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
+import { patchUserInfo } from 'store/user/actions';
+import userSelector from 'store/user/selectors';
 
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
-import { editProfileValidator } from '@/appConstants';
-import { useShallowSelector } from '@/hooks';
-import { patchUserInfo } from '@/store/user/actions';
-import userSelector from '@/store/user/selectors';
-import { UserSlim } from '@/types';
-import { logger } from '@/utils';
+import { logger } from 'utils';
+
+import { editProfileValidator } from 'appConstants';
+import { useShallowSelector } from 'hooks';
+import { UserSlim } from 'types';
 
 import SupportFormComponent from '../component';
 

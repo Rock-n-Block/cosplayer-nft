@@ -15,7 +15,6 @@ export type ActiveModal =
 
 export interface ModalState {
   activeModal: ActiveModal;
-  visible: boolean;
 }
 
 export interface ModalsInitialState {

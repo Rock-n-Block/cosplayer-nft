@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { TAvailableProviders, UserState } from '@/types';
+import { TAvailableProviders, UserState } from 'types';
 
 const initialState: UserState = {
-  id: null,
+  id: '',
   avatar: '',
   address: '',
   customUrl: '',
@@ -17,6 +17,12 @@ const initialState: UserState = {
     cosnft: '0',
     rec: '0',
   },
+  country: '',
+  site: '',
+  twitter: '',
+  instagram: '',
+  isVerificated: false,
+  bio: '',
   key: '',
   provider: '' as TAvailableProviders,
   displayName: '',

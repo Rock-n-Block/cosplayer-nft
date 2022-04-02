@@ -2,9 +2,11 @@ import { ChangeEvent, FC, memo, useState } from 'react';
 
 import cn from 'classnames';
 
-import { SearchImg } from '@/assets/img/icons';
-import { SearchMenu } from '@/containers/Header/components';
-import { useClickOutside } from '@/hooks';
+import { SearchMenu } from 'containers/Header/components';
+
+import { useClickOutside } from 'hooks';
+
+import { SearchImg } from 'assets/img/icons';
 
 import s from './Search.module.scss';
 

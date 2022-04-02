@@ -2,7 +2,7 @@ import { FC, memo } from 'react';
 
 import cn from 'classnames';
 
-import { Button } from '@/components';
+import { Button } from 'components';
 
 import s from './NewPost.module.scss';
 

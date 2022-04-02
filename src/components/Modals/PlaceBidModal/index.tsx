@@ -1,16 +1,16 @@
 import { ChangeEvent, FC, memo, useState } from 'react';
 
-import userSelector from '@/store/user/selectors';
+import userSelector from 'store/user/selectors';
 
 import BigNumber from 'bignumber.js/bignumber';
-import { PriceSelector } from '@/containers';
+import { PriceSelector } from 'containers';
 
-import { Button, FormInput, Modal } from '@/components';
+import { Button, FormInput, Modal } from 'components';
 
-import { useModal, useShallowSelector } from '@/hooks';
-import { Currencies, StoreModalProps } from '@/types';
+import { useModal, useShallowSelector } from 'hooks';
+import { Currencies, StoreModalProps } from 'types';
 
-import { CloseImg } from '@/assets/img/icons';
+import { CloseImg } from 'assets/img/icons';
 
 const PlaceBidModal: FC<StoreModalProps> = ({ id }) => {
   const [isVisibleModal, handleCloseModal] = useModal(id);
@@ -52,14 +52,14 @@ const PlaceBidModal: FC<StoreModalProps> = ({ id }) => {
           value={bid}
           onChange={handleChangeBid}
           error={error}
-          suffix={(
+          suffix={
             <PriceSelector
               isOpen={isDropdownOpen}
               setOpen={setIsDropdownOpen}
               currentCurrency={currency}
               setCurrentCurrency={setCurrency}
             />
-          )}
+          }
         />
         <div className="modal-box-option">
           <div className="modal-box-option-name">Your balance:</div>

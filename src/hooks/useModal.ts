@@ -1,16 +1,17 @@
 import { useCallback } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { closeModal } from '@/store/modals/reducer';
-import modalsSelector from '@/store/modals/selectors';
+import { closeModal } from 'store/modals/reducer';
+import modalsSelector from 'store/modals/selectors';
 
-import { ActiveModal } from '@/types';
 import { useShallowSelector } from './index';
 
+import { ActiveModal } from 'types';
+
 const useModal = (id: ActiveModal): [boolean, () => void] => {
-  const { visible, activeModal } = useShallowSelector(modalsSelector.getProp('modalState'));
+  const { activeModal } = useShallowSelector(modalsSelector.getProp('modalState'));
   const dispatch = useDispatch();
-  const isVisibleModal = activeModal === id && visible;
+  const isVisibleModal = activeModal === id;
 
   const handleCloseModal = useCallback(() => {
     dispatch(closeModal());

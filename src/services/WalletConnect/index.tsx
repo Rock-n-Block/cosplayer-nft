@@ -11,21 +11,21 @@ import {
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
-import { closeModal } from '@/store/modals/reducer';
-import { login, updateUserInfo } from '@/store/user/actions';
-import { disconnectWalletState } from '@/store/user/reducer';
-import userSelector from '@/store/user/selectors';
+import { closeModal } from 'store/modals/reducer';
+import { login, updateUserInfo } from 'store/user/actions';
+import { disconnectWalletState } from 'store/user/reducer';
+import userSelector from 'store/user/selectors';
 
-import { IS_PRODUCTION } from '@/config';
-import { logger } from '@/utils';
+import { IS_PRODUCTION } from 'config';
+import { logger } from 'utils';
 
-import { useShallowSelector } from '@/hooks';
-import { WalletService } from '@/services/WalletService';
-import { ChainsEnum, IWalletContext, StoreState, TAvailableProviders, UserState } from '@/types';
+import { useShallowSelector } from 'hooks';
+import { WalletService } from 'services/WalletService';
+import { ChainsEnum, IWalletContext, StoreState, TAvailableProviders, UserState } from 'types';
 
 const WalletConnectContext = createContext<IWalletContext>({} as IWalletContext);
 
-const Connect: FC = ({ children }) => {
+const Connect: FC<{ children: any }> = ({ children }) => {
   const [currentSubscriber, setCurrentSubscriber] = useState<any>();
   const walletService = useMemo(() => new WalletService(), []);
   const dispatch = useDispatch();

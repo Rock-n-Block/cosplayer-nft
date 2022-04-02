@@ -1,10 +1,10 @@
 import { FC, memo } from 'react';
 
-import { Button } from '@/components';
+import { Button } from 'components';
 
-import { ITokenInfo } from '@/types';
+import { ITokenInfo } from 'types';
 
-import { ShareImg, VerifiedImg } from '@/assets/img/icons';
+import { ShareImg, VerifiedImg } from 'assets/img/icons';
 
 import s from './InfoCard.module.scss';
 

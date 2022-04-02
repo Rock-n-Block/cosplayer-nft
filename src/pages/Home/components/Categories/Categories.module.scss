@@ -1,0 +1,73 @@
+@import 'src/styles/mixins';
+
+.categories {
+  position: fixed;
+  top: 70px;
+  z-index: 5;
+  padding: 8px 33px 0;
+  @include flex(row, center, flex-start, no-wrap);
+  gap: 13px;
+  width: 1300px;
+  background: $bg-color;
+
+  @include b(desktop) {
+    padding: 0 15px;
+    width: 100%;
+  }
+
+  @include b(mobile) {
+    top: 40px;
+    padding-top: 15px;
+    background: $bg-color;
+    width: 100%;
+  }
+
+  &_scroll {
+    width: 100%;
+    overflow-x: scroll;
+
+    &_content {
+      padding: 10px;
+      @include flex(row, center, space-between, no-wrap);
+
+      @include b(desktop) {
+        width: 1150px;
+      }
+    }
+  }
+
+  .category {
+    padding: 10px;
+    @include flex(row, center, flex-start, no-wrap);
+    gap: 13px;
+    box-sizing: border-box;
+
+    &_name {
+      font-weight: 700;
+      color: $dark;
+    }
+  }
+
+  .active {
+    padding: 1px;
+    background: $blue-gradient;
+    border-radius: 20px;
+    box-sizing: border-box;
+
+    @include b(desktop) {
+      max-width: 181px;
+      min-height: 40px;
+    }
+
+    &_content {
+      height: 38px;
+      width: 100%;
+      padding: 9px;
+      @include flex(row, center, flex-start, no-wrap);
+      gap: 13px;
+      background: #fff;
+      border-radius: 20px;
+      box-sizing: border-box;
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import cn from 'classnames';
 
-import { ButtonColors } from '@/types';
+import { ButtonColors } from 'types';
 
 import s from './Button.module.scss';
 
@@ -34,6 +34,7 @@ const Button: FC<PropsWithChildren<IButton>> = ({
   btnRef,
   onMouseLeave,
   onMouseOver = () => {},
+  ...props
 }) => {
   if (href) {
     return (
@@ -49,6 +50,7 @@ const Button: FC<PropsWithChildren<IButton>> = ({
   }
   return (
     <button
+      {...props}
       ref={btnRef}
       type={type === 'submit' ? 'submit' : 'button'}
       className={cn(s.button, s[color], s[size], className, {

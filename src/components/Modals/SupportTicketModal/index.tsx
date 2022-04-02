@@ -1,10 +1,13 @@
 import { FC, memo } from 'react';
 
-import { CloseImg } from '@/assets/img/icons';
-import { Button, Modal } from '@/components';
-import { SupportForm } from '@/forms';
-import { useModal } from '@/hooks';
-import { StoreModalProps } from '@/types';
+import { SupportForm } from 'forms';
+
+import { Button, Modal } from 'components';
+
+import { useModal } from 'hooks';
+import { StoreModalProps } from 'types';
+
+import { CloseImg } from 'assets/img/icons';
 
 const SupportTicketModal: FC<StoreModalProps> = ({ id }) => {
   const [isVisibleModal, handleCloseModal] = useModal(id);

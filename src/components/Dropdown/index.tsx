@@ -2,9 +2,10 @@ import React, { FC } from 'react';
 
 import cn from 'classnames';
 
-import { useClickOutside } from '@/hooks';
-import { IDropdownItem } from '@/types';
 import { Button } from '../index';
+
+import { useClickOutside } from 'hooks';
+import { IDropdownItem } from 'types';
 
 import s from './Dropdown.module.scss';
 

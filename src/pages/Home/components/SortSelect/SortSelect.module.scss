@@ -1,0 +1,47 @@
+@import 'src/styles/mixins';
+
+.sort {
+  position: relative;
+
+  &_control {
+    position: relative;
+    overflow: hidden;
+    padding: 0 10px;
+    width: 146px;
+    height: 40px;
+    background: #ffffff;
+    border-radius: 20px;
+    cursor: pointer;
+    @include flex(row, center, space-between, no-wrap);
+
+    &:hover {
+      box-shadow: $block-shadow;
+    }
+
+    &_item {
+      @include flex(row, center, flex-start, no-wrap);
+    }
+
+    &_icon {
+      margin-right: 5px;
+    }
+
+    &_name {
+      color: $dark;
+      font-weight: 700;
+    }
+  }
+
+  &_arrow {
+    margin-left: 18px;
+    padding: 8px;
+
+    &_up {
+      transform: rotate(180deg);
+    }
+  }
+
+  &_options {
+    width: 144px;
+  }
+}

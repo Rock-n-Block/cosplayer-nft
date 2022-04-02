@@ -1,8 +1,9 @@
 import React, { FC, memo, useState } from 'react';
 
-import { Button } from '@/components';
-import { CreatorCard } from '@/containers';
-import { logger } from '@/utils';
+import { CreatorCard } from 'containers';
+
+import { Button } from 'components';
+import { logger } from 'utils';
 
 import s from './SearchMenu.module.scss';
 

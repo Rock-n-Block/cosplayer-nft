@@ -1,13 +1,13 @@
 import { FC } from 'react';
 
-import { Button } from '@/components';
+import { Button } from 'components';
 
-import { VerifiedImg } from '@/assets/img/icons';
-import AvatarImg from '@/assets/img/owner-avatar.png';
+import { VerifiedImg } from 'assets/img/icons';
+import AvatarImg from 'assets/img/owner-avatar.png';
 
 import s from './CreatorCard.module.scss';
 
-const CreatorCard: FC = () => {
+const Index: FC = () => {
   return (
     <div className={s.creator_card}>
       <Button className={s.owner_logo} onClick={() => {}}>
@@ -26,4 +26,4 @@ const CreatorCard: FC = () => {
   );
 };
 
-export default CreatorCard;
+export default Index;

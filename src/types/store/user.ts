@@ -1,9 +1,7 @@
-import { TAvailableProviders } from '@/types/connect';
+import { User } from 'types/api';
+import { TAvailableProviders } from 'types/connect';
 
-export type UserState = {
-  id: number | null;
-  avatar: string;
-  address: string;
+export type UserState = User & {
   rates: {
     bnb: string | number;
     cosnft: string | number;
@@ -16,8 +14,6 @@ export type UserState = {
   };
   key: string;
   provider: TAvailableProviders;
-  displayName: string;
-  customUrl: string;
 };
 
 export type LoginReq = {

@@ -1,9 +1,9 @@
 import { FC, memo, SyntheticEvent } from 'react';
 
 import { Field, FieldProps, Form, FormikProps } from 'formik';
+import { SupportFormProps } from 'forms/SupportForm/container';
 
-import { Button, FormInput, Spinner, TextArea, Uploader } from '@/components';
-import { SupportFormProps } from '@/forms/SupportForm/container';
+import { Button, FormInput, Spinner, TextArea, Uploader } from 'components';
 
 import s from './SupportForm.module.scss';
 

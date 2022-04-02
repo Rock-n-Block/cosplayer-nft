@@ -1,6 +1,6 @@
-import { ApiUrl } from '@/appConstants';
-import { LoginReq, Token } from '@/types';
-import { SearchNftReq } from '@/types/requests';
+import { ApiUrl } from 'appConstants';
+import { LoginReq, Token } from 'types';
+import { SearchNftReq } from 'types/requests';
 
 import ajax from './ajax';
 

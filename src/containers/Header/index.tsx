@@ -1,11 +1,12 @@
 import { FC, memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Button } from '@/components';
+import { Button } from 'components';
 
-import { BurgerImg, CloseImg, SearchBlackImg } from '@/assets/img/icons';
-import LogoImg from '@/assets/img/logo.svg';
 import { ConnectButton, Explore, HeaderMenu, NewPost, Search } from './components';
+
+import { BurgerImg, CloseImg, SearchBlackImg } from 'assets/img/icons';
+import LogoImg from 'assets/img/logo.svg';
 
 import s from './Header.module.scss';
 

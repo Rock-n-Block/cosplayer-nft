@@ -1,13 +1,13 @@
 import { ChangeEvent, FC, memo, useState } from 'react';
 
-import { PriceSelector } from '@/containers';
+import { PriceSelector } from 'containers';
 
-import { Button, FormInput, Modal } from '@/components';
+import { Button, FormInput, Modal } from 'components';
 
-import { useModal } from '@/hooks';
-import { Currencies, StoreModalProps } from '@/types';
+import { useModal } from 'hooks';
+import { Currencies, StoreModalProps } from 'types';
 
-import { CloseImg } from '@/assets/img/icons';
+import { CloseImg } from 'assets/img/icons';
 
 const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
   const [isVisibleModal, handleCloseModal] = useModal(id);
@@ -40,14 +40,14 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
           value={price}
           onChange={handleChangePrice}
           error={error}
-          suffix={(
+          suffix={
             <PriceSelector
               isOpen={isDropdownOpen}
               setOpen={setIsDropdownOpen}
               currentCurrency={currency}
               setCurrentCurrency={setCurrency}
             />
-          )}
+          }
         />
         <div className="modal-box-option">
           <div className="modal-box-option-name">Service fee:</div>

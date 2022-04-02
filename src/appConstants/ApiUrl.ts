@@ -1,4 +1,4 @@
-import { IP_API_KEY } from '@/config';
+import { IP_API_KEY } from 'config';
 
 export default {
   getIpData: `https://api.ipdata.co?api-key=${IP_API_KEY}`,

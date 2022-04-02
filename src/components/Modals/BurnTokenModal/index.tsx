@@ -1,11 +1,11 @@
-import { FC, memo } from 'react';
+import { FC } from 'react';
 
-import { Button, Modal } from '@/components';
+import { Button, Modal } from 'components';
 
-import { useModal } from '@/hooks';
-import { StoreModalProps } from '@/types';
+import { useModal } from 'hooks';
+import { StoreModalProps } from 'types';
 
-import { CloseImg } from '@/assets/img/icons';
+import { CloseImg } from 'assets/img/icons';
 
 const BurnTokenModal: FC<StoreModalProps> = ({ id }) => {
   const [isVisibleModal, handleCloseModal] = useModal(id);
@@ -36,4 +36,4 @@ const BurnTokenModal: FC<StoreModalProps> = ({ id }) => {
   );
 };
 
-export default memo(BurnTokenModal);
+export default BurnTokenModal;

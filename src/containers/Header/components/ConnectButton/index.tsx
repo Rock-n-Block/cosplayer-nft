@@ -1,15 +1,15 @@
 import { FC, memo } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { setActiveModal } from '@/store/modals/reducer';
-import userSelector from '@/store/user/selectors';
+import { setActiveModal } from 'store/modals/reducer';
+import userSelector from 'store/user/selectors';
 
-import { Button } from '@/components';
-import { addressWithDots } from '@/utils';
+import { Button } from 'components';
+import { addressWithDots } from 'utils';
 
-import { useShallowSelector } from '@/hooks';
+import { useShallowSelector } from 'hooks';
 
-import { DefaultAvatarImg } from '@/assets/img/icons';
+import { DefaultAvatarImg } from 'assets/img/icons';
 
 import s from './ConnectButton.module.scss';
 
@@ -18,11 +18,11 @@ const ConnectButton: FC = () => {
   const dispatch = useDispatch();
 
   const handleOpenUserInfoModal = () => {
-    dispatch(setActiveModal({ activeModal: 'UserInfo', visible: true }));
+    dispatch(setActiveModal({ activeModal: 'UserInfo' }));
   };
 
   const handleOpenConnectModal = () => {
-    dispatch(setActiveModal({ activeModal: 'ConnectWallet', visible: true }));
+    dispatch(setActiveModal({ activeModal: 'ConnectWallet' }));
   };
 
   return address ? (

@@ -1,6 +1,6 @@
-import { IDropdownCurrency } from '@/types';
+import { IDropdownCurrency } from 'types';
 
-import { BnbImg } from '@/assets/img/icons';
+import { BnbImg } from 'assets/img/icons';
 
 export const currencies: IDropdownCurrency[] = [
   {

@@ -1,28 +1,37 @@
 import { FC, memo } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import userSelector from '@/store/user/selectors';
+import { useDispatch } from 'react-redux';
+import { closeModal } from 'store/modals/reducer';
+import userSelector from 'store/user/selectors';
 
 import BigNumber from 'bignumber.js';
 import cn from 'classnames';
-import { Footer } from '@/containers';
+import { Footer } from 'containers';
 
-import { Button } from '@/components';
-import { addressWithDots } from '@/utils';
+import { Button } from 'components';
+import { addressWithDots } from 'utils';
 
-import { NavLinks, SocialLinks } from '@/containers/Footer/components';
+import { NavLinks, SocialLinks } from 'containers/Footer/components';
 
-import { useShallowSelector } from '@/hooks';
-import { useWalletConnectorContext } from '@/services';
+import { routes } from 'appConstants';
+import { useShallowSelector } from 'hooks';
+import { useWalletConnectorContext } from 'services';
 
-import { BnbImg, CopyImg } from '@/assets/img/icons';
 import { ConnectButton, NewPost } from '..';
+
+import { BnbImg, CopyImg } from 'assets/img/icons';
 
 import s from './HeaderMenu.module.scss';
 
 const HeaderMenu: FC<{ isModal: boolean }> = ({ isModal }) => {
-  const { address, displayName, balance, rates } = useShallowSelector(userSelector.getUser);
+  const { address, displayName, balance, rates, customUrl, id } = useShallowSelector(
+    userSelector.getUser,
+  );
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { disconnect } = useWalletConnectorContext();
 
   const bnbBalance = new BigNumber(balance.bnb).div(10 ** 18).toFixed(5, 1);
@@ -31,6 +40,13 @@ const HeaderMenu: FC<{ isModal: boolean }> = ({ isModal }) => {
 
   const handleCopyToClipboard = () => {
     toast.success('Address was copied to clipboard');
+  };
+
+  const handleNavigate = (route: string) => {
+    return () => {
+      navigate(route);
+      dispatch(closeModal());
+    };
   };
 
   return (
@@ -96,8 +112,15 @@ const HeaderMenu: FC<{ isModal: boolean }> = ({ isModal }) => {
             </div>
           </div>
           <div className={cn(isModal ? s.info_block_modal : s.info_block, s.actions)}>
-            <Button href="/my-profile">My profile</Button>
-            <Button href="/edit-profile">Edit profile</Button>
+            <Button
+              color="default"
+              onClick={handleNavigate(routes.profile.link(customUrl || id || '', 'created'))}
+            >
+              My profile
+            </Button>
+            <Button color="default" onClick={handleNavigate(routes.profile.edit)}>
+              Edit profile
+            </Button>
             <Button onClick={disconnect}>Disconnect Wallet</Button>
           </div>
           {!isModal && (

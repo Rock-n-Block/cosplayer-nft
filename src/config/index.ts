@@ -1,6 +1,6 @@
 import { INetwork } from '@amfi/connect-wallet/dist/interface';
 
-import { ChainsEnum, IConnectWallet, IContracts } from '@/types';
+import { ChainsEnum, IConnectWallet, IContracts } from 'types';
 
 import { erc20Abi, erc721Abi, erc1155Abi, exchangeAbi } from './abi';
 

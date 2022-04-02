@@ -1,0 +1,98 @@
+@import "src/styles/mixins";
+
+.info {
+  margin-left: -15px;
+  padding: 10px 27px;
+  width: 275px;
+  height: calc(100vh - 70px);
+  background: #fff;
+  border-right: 1px solid $border-line;
+
+  @include b(mobile) {
+    margin-left: 0;
+    width: 100%;
+    height: fit-content;
+    border-right: none;
+  }
+}
+
+.block + .block {
+  border-top: 1px solid $border-line;
+}
+
+.block {
+  padding: 20px 0;
+  @include flex(column, center, flex-start, no-wrap);
+
+  @include b(mobile) {
+    padding: 10px 0;
+  }
+
+  &_title {
+    @include text-control(14px, 21px, 700);
+  }
+
+  &_text {
+    margin-top: 5px;
+    @include text-control(14px, 21px);
+    color: $grey;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 94px;
+    height: 94px;
+    border-radius: 50%;
+  }
+
+  .display_name {
+    margin-top: 10px;
+    @include flex(row, center, center, no-wrap);
+    @include text-control(18px, 27px, 700);
+
+    img {
+      margin-left: 10px;
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .country {
+    @include text-control(14px, 21px);
+    color: $grey;
+  }
+}
+
+.links {
+  gap: 15px;
+
+  .link {
+    @include flex(row, center, flex-start, no-wrap);
+    cursor: pointer;
+
+    &:hover {
+      .link_img {
+        path {
+          fill: $blue;
+        }
+      }
+
+      span {
+        color: $blue;
+      }
+    }
+
+    &_img {
+      margin-right: 10px;
+
+      path {
+        fill: $grey;
+      }
+    }
+
+    span {
+      @include text-control(14px, 21px);
+      color: #000;
+    }
+  }
+}

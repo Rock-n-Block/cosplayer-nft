@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
 import { useDispatch } from 'react-redux';
+import { setActiveModal } from 'store/modals/reducer';
 
 import cn from 'classnames';
 
-import { Button } from '@/components';
-import { setActiveModal } from '@/store/modals/reducer';
+import { Button } from 'components';
 
 import s from './NavLinks.module.scss';
 
@@ -13,7 +13,7 @@ const NavLinks: FC<{ isModal: boolean }> = ({ isModal }) => {
   const dispatch = useDispatch();
 
   const handleOpenSupport = () => {
-    dispatch(setActiveModal({ activeModal: 'SupportTicket', visible: true }));
+    dispatch(setActiveModal({ activeModal: 'SupportTicket' }));
   };
 
   return (

@@ -5,9 +5,10 @@ import { toast } from 'react-toastify';
 import cn from 'classnames';
 import { useFormikContext } from 'formik';
 
-import { Button } from '@/components';
-import { ButtonColors } from '@/types';
-import { fileValidation } from '@/utils';
+import { Button } from 'components';
+import { fileValidation } from 'utils';
+
+import { ButtonColors } from 'types';
 
 import s from './Uploader.module.scss';
 

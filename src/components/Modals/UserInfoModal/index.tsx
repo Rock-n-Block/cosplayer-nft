@@ -1,11 +1,11 @@
 import { FC, memo } from 'react';
 
-import { Modal } from '@/components';
+import { Modal } from 'components';
 
-import { HeaderMenu } from '@/containers/Header/components';
+import { HeaderMenu } from 'containers/Header/components';
 
-import { useModal } from '@/hooks';
-import { StoreModalProps } from '@/types';
+import { useModal } from 'hooks';
+import { StoreModalProps } from 'types';
 
 import s from './UserInfoModal.module.scss';
 

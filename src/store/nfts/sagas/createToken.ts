@@ -1,8 +1,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import * as apiActions from '@/store/api/actions';
-import { baseApi } from '@/store/api/apiRequestBuilder';
+import * as apiActions from 'store/api/actions';
+import { baseApi } from 'store/api/apiRequestBuilder';
 
-import { logger } from '@/utils';
+import { logger } from 'utils';
 
 import { createToken } from '../actions';
 import actionTypes from '../actionTypes';

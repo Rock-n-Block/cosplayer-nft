@@ -1,16 +1,16 @@
+import { updateUserState } from '../reducer';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import { error, request, success } from '@/store/api/actions';
-import { baseApi } from '@/store/api/apiRequestBuilder';
-import userSelector from '@/store/user/selectors';
+import { error, request, success } from 'store/api/actions';
+import { baseApi } from 'store/api/apiRequestBuilder';
+import userSelector from 'store/user/selectors';
 
 import { ContractWeb3 } from '@amfi/connect-wallet/dist/interface';
 import { AbiItem } from 'web3-utils';
 
-import { contracts } from '@/config';
-import { logger } from '@/utils';
+import { contracts } from 'config';
+import { logger } from 'utils';
 
-import { UsdRate } from '@/types';
-import { updateUserState } from '../reducer';
+import { UsdRate } from 'types';
 
 import { getBalance } from '../actions';
 import actionTypes from '../actionTypes';

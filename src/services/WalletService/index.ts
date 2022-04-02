@@ -4,10 +4,11 @@ import { WalletsConnect } from '@amfi/connect-wallet/dist/wallet-connect';
 import Web3 from 'web3';
 import { AbiItem } from 'web3-utils';
 
-import { connectWallet } from '@/config';
-import { bep20Abi, erc20Abi } from '@/config/abi';
-import { ChainsEnum, TAvailableProviders } from '@/types/connect';
-import { logger } from '@/utils';
+import { connectWallet } from 'config';
+import { bep20Abi, erc20Abi } from 'config/abi';
+import { logger } from 'utils';
+
+import { ChainsEnum, TAvailableProviders } from 'types/connect';
 
 type TokenAbiType = {
   [key in ChainsEnum]: Array<AbiItem>;
