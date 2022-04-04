@@ -1,15 +1,58 @@
 @import "src/styles/mixins";
 
 .profile_wrapper {
-  width: 100%;
+  margin: 0 -70px;
+  width: calc(100% + 140px);
   @include flex(row, flex-start, flex-start, no-wrap);
+
+  @include b(desktop) {
+    margin: 0 -15px;
+    width: calc(100% + 30px);
+  }
 
   @include b(mobile) {
     @include flex(column, center, flex-start);
   }
 }
 
-.profile_tokens {
-  margin-right: -15px;
+.tokens {
   width: 100%;
+  height: calc(100vh - 70px);
+  overflow-y: scroll;
+
+  @include b(mobile) {
+    height: 100%;
+  }
+
+  &_list {
+    margin: 45px 40px;
+    @include grid(repeat(4, 1fr), repeat(auto-fill, 1fr), 20px);
+    justify-items: center;
+
+    @include b(1430) {
+      @include grid(repeat(3, 1fr), repeat(auto-fill, 1fr), 20px);
+    }
+
+    @include b(1170) {
+      margin: 20px;
+      @include grid(repeat(2, 1fr), repeat(auto-fill, 1fr), 20px);
+    }
+
+    @include b(850) {
+      @include flex(column, center, flex-start, no-wrap);
+    }
+  }
+}
+
+.token {
+  width: 255px;
+  height: 255px;
+  overflow: hidden;
+  border-radius: 20px;
+
+  img {
+    width: initial;
+    height: initial;
+    border-radius: 20px;
+  }
 }
