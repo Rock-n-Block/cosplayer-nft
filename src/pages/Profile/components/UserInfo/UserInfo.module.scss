@@ -3,13 +3,14 @@
 .info {
   margin-left: -15px;
   padding: 10px 27px;
-  width: 275px;
+  min-width: 275px;
   height: calc(100vh - 70px);
   background: #fff;
   border-right: 1px solid $border-line;
 
   @include b(mobile) {
     margin-left: 0;
+    padding: 0 5px;
     width: 100%;
     height: fit-content;
     border-right: none;

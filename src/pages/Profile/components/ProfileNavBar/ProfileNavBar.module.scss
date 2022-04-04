@@ -1,0 +1,60 @@
+@import "src/styles/mixins";
+
+.navbar {
+  overflow-x: auto;
+
+  .tabs {
+    margin-top: 15px;
+    width: 100%;
+    @include flex(row, flex-end, center, no-wrap);
+    gap: 40px;
+    border-bottom: 1px solid $border-line;
+
+    @include b(850) {
+      gap: 15px;
+    }
+
+    @include b(mobile) {
+      gap: 40px;
+      min-width: 587px;
+      overflow-x: scroll;
+    }
+  }
+
+  .tab {
+    padding-bottom: 16px;
+    @include flex(row, center, flex-start, no-wrap);
+
+    .tab_img {
+      margin-right: 5px;
+
+      path {
+        fill: $grey;
+      }
+    }
+
+    &_active {
+      @include flex(row, center, flex-start, no-wrap);
+      padding-bottom: 13px;
+      border-bottom: 3px solid $blue;
+      border-radius: 0;
+
+      .tab_img {
+        margin-right: 5px;
+
+        path {
+          fill: $blue;
+        }
+      }
+    }
+  }
+}
+
+span {
+  color: $dark;
+  font-weight: 700;
+
+  .grey {
+    color: $grey;
+  }
+}

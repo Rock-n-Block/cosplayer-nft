@@ -21,6 +21,8 @@ export type ButtonColors =
   | 'white'
   | 'disabled';
 
+export type ProfileNavbarTabs = 'for-sale' | 'created' | 'owned' | 'sold' | 'bidded';
+
 export type StoreModalProps = {
   id: ActiveModal;
 };

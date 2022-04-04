@@ -1,0 +1,15 @@
+@import "src/styles/mixins";
+
+.profile_wrapper {
+  width: 100%;
+  @include flex(row, flex-start, flex-start, no-wrap);
+
+  @include b(mobile) {
+    @include flex(column, center, flex-start);
+  }
+}
+
+.profile_tokens {
+  margin-right: -15px;
+  width: 100%;
+}

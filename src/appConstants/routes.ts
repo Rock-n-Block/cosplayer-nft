@@ -1,3 +1,5 @@
+import { ProfileNavbarTabs } from 'types';
+
 export const routes = {
   home: {
     root: '/',
@@ -13,10 +15,7 @@ export const routes = {
     collection: '/create/collection',
   },
   profile: {
-    link: (
-      id: string | number,
-      tab?: 'for-sale' | 'created' | 'owned' | 'sold' | 'bidded',
-    ): string => `/profile/${id}${tab ? `&tab=${tab}` : ''}`,
+    link: (id: string, tab?: ProfileNavbarTabs): string => `/profile/${id}?tab=${tab || 'created'}`,
     root: '/profile/:userId',
     edit: '/profile/edit',
   },
