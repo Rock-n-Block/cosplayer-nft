@@ -1,0 +1,68 @@
+@import "src/styles/mixins";
+
+.edit_profile {
+  margin-bottom: 50px;
+  padding: 18px 30px 30px;
+  width: 500px;
+  @include grid(1fr, repeat(auto-fill, 1fr), 30px);
+  background: #fff;
+  border-radius: 30px;
+
+  @include b(mobile) {
+    margin: 0 -5px 30px;
+    padding: 20px 10px;
+    width: calc(100% + 10px);
+    border-radius: 0;
+  }
+}
+
+.upload {
+  &_avatar {
+    @include flex(row, center, flex-start, no-wrap);
+  }
+
+  &_btn {
+    margin-bottom: 14px;
+    width: 150px;
+    height: 40px;
+  }
+}
+
+.uploader {
+  margin-right: 20px;
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+  @include flex(row, center, center);
+  border-radius: 50%;
+
+  @include b(mobile) {
+    width: 96px;
+    height: 96px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+}
+
+.recommend_text {
+  @include text-control(13px, 20px);
+  color: $grey;
+}
+
+.link {
+  @include text-control(13px, 20px);
+  @include gradient-text();
+}
+
+.submit {
+  width: 150px;
+  height: 40px;
+
+  @include b(mobile) {
+    width: 100%;
+  }
+}

@@ -56,3 +56,9 @@
   background: transparent;
   border-bottom: 1px solid $bottom-grey;
 }
+
+.description {
+  margin-top: 7px;
+  @include text-control(13px, 20px);
+  color: $grey;
+}

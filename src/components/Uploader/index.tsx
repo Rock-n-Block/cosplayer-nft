@@ -74,10 +74,10 @@ const Uploader: FC<IProps> = ({
   });
 
   return (
-    <div className={cn(className, formikValue && s[formikValue])}>
+    <div className={cn(formikValue && s[formikValue])}>
       <div {...getRootProps()}>
         <input {...getInputProps()} />
-        <Button color={colorButton} onClick={open} disabled={isLoading}>
+        <Button className={className} color={colorButton} onClick={open} disabled={isLoading}>
           {children || 'Upload'}
         </Button>
       </div>

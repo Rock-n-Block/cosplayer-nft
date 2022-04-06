@@ -10,6 +10,11 @@
   font-weight: 700;
 }
 
+.error {
+  margin: 0 10px;
+  color: $red;
+}
+
 .wrap {
   @include flex(row, center);
   width: 100%;

@@ -18,27 +18,26 @@ export function* patchUserInfoSaga({ type, payload }: ReturnType<typeof patchUse
 
     logger('patch response', data);
 
-    if (data.display_name === 'this display_name is occupied') {
+    if (data?.display_name === 'this display_name is occupied') {
       toast.error('This name is occupied');
       yield put(error(type));
       throw Error();
     }
 
-    if (data.custom_url[0] === 'user with this custom url already exists.') {
+    if (data?.custom_url[0] === 'user with this custom url already exists.') {
       toast.error('This username is occupied');
       yield put(error(type));
       throw Error();
     }
 
-    const { displayName, customUrl, avatar, id } = camelize(data);
-
-    yield put(updateUserState({ avatar, customUrl, displayName, id }));
+    yield put(updateUserState({ ...camelize(data) }));
 
     toast.success('Profile info updated');
 
     yield put(success(type));
   } catch (e) {
     yield put(error(type, e));
+    toast.error('Something went wrong');
     logger('patchUserInfo', e, 'error');
   }
 }

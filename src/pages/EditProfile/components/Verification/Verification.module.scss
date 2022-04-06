@@ -1,0 +1,52 @@
+@import "src/styles/mixins";
+
+.verification {
+  margin-bottom: 50px;
+  padding: 30px;
+  width: 500px;
+  background: #fff;
+  border-radius: 30px;
+
+  @include b(mobile) {
+    margin: 0 -5px 20px;
+    padding: 20px 10px;
+    width: calc(100% + 10px);
+    border-radius: 0;
+  }
+
+  &_title {
+    margin-bottom: 25px;
+    @include text-control(18px, 27px, 700);
+    text-align: center;
+
+    @include b(mobile) {
+      text-align: left;
+    }
+  }
+}
+
+.grey_text {
+  @include text-control(13px, 20px);
+  color: $grey;
+
+  @include b(mobile) {
+    @include text-control();
+  }
+}
+
+ul {
+  margin-top: 25px;
+  @include text-control(13px, 20px, 700);
+  list-style: disc inside none;
+}
+
+li {
+  padding-left: 10px;
+  @include text-control(13px, 20px);
+
+  @include b(mobile) {
+    @include text-control();
+  }
+}
+
+

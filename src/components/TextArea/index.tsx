@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, SyntheticEvent } from 'react';
 
 import cn from 'classnames';
 
@@ -10,7 +10,9 @@ interface ITextAreaProps {
   name: string;
   placeholder: string;
   required?: boolean;
+  error?: string;
   onChange?: (value: any) => void;
+  onBlur?: (e: SyntheticEvent) => void;
   value?: string;
   editable?: boolean;
   maxLettersCount?: number;
@@ -21,7 +23,9 @@ const TextArea: FC<ITextAreaProps> = ({
   className,
   label,
   onChange,
+  onBlur,
   value,
+  error,
   maxLettersCount,
   disabled,
   ...props
@@ -40,11 +44,13 @@ const TextArea: FC<ITextAreaProps> = ({
   return (
     <div className={cn(s.field, className)}>
       {label && <div className={s.label}>{label}</div>}
+      {error && <div className={s.error}>{error}</div>}
       <div className={s.wrap}>
         <textarea
           disabled={disabled}
           value={value}
           onChange={handleChange}
+          onBlur={onBlur}
           className={s.textarea}
           {...props}
         />

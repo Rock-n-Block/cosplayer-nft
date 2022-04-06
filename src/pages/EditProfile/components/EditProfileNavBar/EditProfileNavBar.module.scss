@@ -1,0 +1,31 @@
+@import "src/styles/mixins";
+
+.tabs {
+  margin: 20px;
+  width: 280px;
+  height: 40px;
+  @include flex(row, center, flex-start, no-wrap);
+}
+
+.tab {
+  width: 140px;
+  height: 40px;
+  @include flex(row, center, center);
+  background: #fff;
+  color: $second-dark-grey;
+
+  &_left {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
+  &_right {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+}
+
+.active {
+  background: $blue-gradient;
+  color: #fff;
+}

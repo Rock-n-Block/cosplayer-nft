@@ -13,7 +13,7 @@ interface Props {
   label?: string | JSX.Element;
   name?: string;
   type: string;
-  placeholder: string;
+  placeholder?: string;
   required?: boolean;
   prefix?: string;
   suffix?: any;

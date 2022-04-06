@@ -1,0 +1,6 @@
+@import "src/styles/mixins";
+
+.edit_profile_wrapper {
+  width: 100%;
+  @include flex(column, center, flex-start, no-wrap);
+}
