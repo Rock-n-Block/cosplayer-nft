@@ -1,8 +1,11 @@
 import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import cn from 'classnames';
 
 import { NavLinks, SocialLinks } from './components';
+
+import { routes } from 'appConstants';
 
 import LogoImg from 'assets/img/logo.svg';
 
@@ -13,6 +16,12 @@ interface FooterProps {
 }
 
 const Footer: FC<FooterProps> = ({ className }) => {
+  const navigate = useNavigate();
+
+  const handleNavigate = (route: string) => {
+    return () => navigate(route);
+  };
+
   return (
     <footer className={cn(s.footer, className)}>
       <div className={s.description}>
@@ -22,7 +31,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
           and Sell NFTs with only a few clicks.
         </div>
       </div>
-      <NavLinks isModal={false} />
+      <NavLinks handleNavigate={handleNavigate(routes.privacy.root)} isModal={false} />
       <SocialLinks isModal={false} />
     </footer>
   );

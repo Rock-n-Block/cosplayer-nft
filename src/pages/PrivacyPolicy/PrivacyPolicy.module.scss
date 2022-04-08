@@ -1,0 +1,33 @@
+@import "src/styles/mixins";
+
+.privacy_wrapper {
+  margin: 52px 0 30px;
+  @include flex(column, flex-start, flex-start, no-wrap);
+  gap: 80px;
+
+  @include b(mobile) {
+    margin: 30px 0;
+    gap: 40px;
+  }
+}
+
+.block {
+  @include flex(column, flex-start, flex-start, no-wrap);
+  gap: 10px;
+}
+
+.title {
+  @include text-control(36px, 54px, 700);
+
+  @include b(mobile) {
+    @include text-control(22px, 33px, 700);
+  }
+}
+
+.text {
+  @include text-control(16px, 29px);
+
+  @include b(mobile) {
+    @include text-control(12px, 22px);
+  }
+}

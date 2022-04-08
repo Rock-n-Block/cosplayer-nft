@@ -7,9 +7,16 @@ import cn from 'classnames';
 
 import { Button } from 'components';
 
+import { routes } from 'appConstants';
+
 import s from './NavLinks.module.scss';
 
-const NavLinks: FC<{ isModal: boolean }> = ({ isModal }) => {
+type NavLinksProps = {
+  isModal: boolean;
+  handleNavigate: (route: string) => void;
+};
+
+const NavLinks: FC<NavLinksProps> = ({ isModal, handleNavigate }) => {
   const dispatch = useDispatch();
 
   const handleOpenSupport = () => {
@@ -27,12 +34,8 @@ const NavLinks: FC<{ isModal: boolean }> = ({ isModal }) => {
       <a href="#disclaimer" target="_blank" rel="noreferrer">
         Disclaimers
       </a>
-      <Button color="default" onClick={handleOpenSupport}>
-        Technical Support
-      </Button>
-      <a href="#privacy" target="_blank" rel="noreferrer">
-        Privacy Policy
-      </a>
+      <Button onClick={handleOpenSupport}>Technical Support</Button>
+      <Button onClick={() => handleNavigate(routes.privacy.root)}>Privacy Policy</Button>
       <a href="#about" target="_blank" rel="noreferrer">
         About
       </a>

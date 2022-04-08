@@ -19,6 +19,9 @@ export const routes = {
     root: '/profile/:userId',
     edit: '/profile/edit',
   },
+  privacy: {
+    root: '/privacy-policy',
+  },
   lostPage: {
     root: '/404',
   },

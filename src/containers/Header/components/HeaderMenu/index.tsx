@@ -131,19 +131,19 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isModal, closeMenu }) => {
           </div>
           {!isModal && (
             <div className={s.header_menu_btns}>
-              <NewPost closeMenu={handleNavigate('/create')} isMobile />
+              <NewPost closeMenu={handleNavigate(routes.create.root)} isMobile />
             </div>
           )}
         </>
       ) : (
         <div className={s.header_menu_btns}>
-          <NewPost closeMenu={handleNavigate('/create')} isMobile />
+          <NewPost closeMenu={handleNavigate(routes.create.root)} isMobile />
           <ConnectButton />
         </div>
       )}
       {isModal ? (
         <div className={s.footer}>
-          <NavLinks isModal={isModal} />
+          <NavLinks handleNavigate={handleNavigate(routes.privacy.root)} isModal={isModal} />
           <SocialLinks isModal={isModal} />
         </div>
       ) : (

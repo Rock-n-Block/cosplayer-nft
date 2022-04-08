@@ -1,9 +1,14 @@
 import { FC, memo, SyntheticEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
+import { closeModal } from 'store/modals/reducer';
 
 import { Field, FieldProps, Form, FormikProps } from 'formik';
 
 import { Button, Checkbox, FormInput, Spinner } from 'components';
+
+import { routes } from 'appConstants';
 
 import { UserFormProps } from '../container';
 
@@ -17,6 +22,14 @@ const Login: FC<FormikProps<UserFormProps>> = ({
   values,
   handleSubmit,
 }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleNavigate = () => {
+    navigate(routes.privacy.root);
+    dispatch(closeModal());
+  };
+
   return (
     <Form name="form-login" className={s.login_form}>
       <div className={s.inputs}>
@@ -103,7 +116,11 @@ const Login: FC<FormikProps<UserFormProps>> = ({
               checked={values.termsAccepted}
               onChange={handleChange}
               onBlur={(e: SyntheticEvent) => handleBlur(e)}
-              text="I accept the CosplayerNFT Terms of Service"
+              text={`I accept the CosplayerNFT ${(
+                <Button onClick={handleNavigate} className={s.checkbox_link}>
+                  Terms of Service
+                </Button>
+              )}`}
             />
           )}
         />

@@ -9,8 +9,8 @@ export default {
 
 export const Default: FC = () => (
   <>
-    <NavLinks isModal={false} />
+    <NavLinks handleNavigate={() => {}} isModal={false} />
     <br />
-    <NavLinks isModal />
+    <NavLinks handleNavigate={() => {}} isModal />
   </>
 );
