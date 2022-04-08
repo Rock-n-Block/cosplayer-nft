@@ -1,5 +1,5 @@
 import { ApiUrl } from 'appConstants';
-import { LoginReq, Token } from 'types';
+import { LoginReq } from 'types';
 import { SearchNftReq } from 'types/requests';
 
 import ajax from './ajax';
@@ -50,11 +50,11 @@ export const baseApi = {
       params: { ...params, items_per_page },
     });
   },
-  createNewToken(token: Token) {
+  createNewToken(formData: FormData) {
     return ajax({
       method: 'POST',
       url: ApiUrl.createNewToken,
-      params: token,
+      params: formData,
     });
   },
 };

@@ -32,8 +32,10 @@ const LoginModal: FC<StoreModalProps> = ({ id }) => {
   useEffect(() => {
     if (address && balance && !displayName) {
       dispatch(setActiveModal({ activeModal: 'Login' }));
+    } else {
+      handleCloseModal();
     }
-  }, [address, balance, dispatch, displayName]);
+  }, [address, balance, dispatch, displayName, handleCloseModal]);
 
   return (
     <Modal onClose={handleGoBack} visible={isVisibleModal} className={s.login_modal}>

@@ -1,7 +1,7 @@
 @import "src/styles/mixins";
 
 .tabs {
-  margin: 20px;
+  margin: 20px 0;
   width: 280px;
   height: 40px;
   @include flex(row, center, flex-start, no-wrap);

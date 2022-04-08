@@ -14,6 +14,10 @@ const Header: FC = () => {
   const [isOpenMenu, setOpenMenu] = useState(false);
   const [isSearchOpen, setSearchOpen] = useState(false);
 
+  const handleCloseMenu = () => {
+    setOpenMenu(false);
+  };
+
   return (
     <>
       <header className={s.header_wrapper}>
@@ -22,7 +26,7 @@ const Header: FC = () => {
         </Link>
         <Search isMobile />
         <Explore className={s.explore_btn} />
-        <NewPost isMobile={false} />
+        <NewPost closeMenu={handleCloseMenu} isMobile={false} />
         <ConnectButton />
         <div className={s.header_nav}>
           <Button color="default" onClick={() => setSearchOpen(true)}>
@@ -41,7 +45,7 @@ const Header: FC = () => {
           </Button>
         </div>
       )}
-      {isOpenMenu && <HeaderMenu isModal={false} />}
+      {isOpenMenu && <HeaderMenu closeMenu={handleCloseMenu} isModal={false} />}
     </>
   );
 };

@@ -259,3 +259,19 @@ button {
     @include gradient-text();
   }
 }
+
+.react-datepicker__input-container {
+  position: relative;
+  z-index: 0;
+
+  input {
+    margin-top: 7px;
+    padding: 16px 10px;
+    width: 100%;
+    height: 52px;
+    background: #fff;
+    border: none;
+    border-radius: 12px;
+    @include text-control(13px, 20px);
+  }
+}

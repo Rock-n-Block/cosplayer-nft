@@ -6,3 +6,4 @@ export { default as EmojiPicker } from './EmojiPicker';
 export { default as InfoCard } from './InfoCard';
 export { default as ModalsManager } from './ModalsManager';
 export { default as PriceSelector } from './PriceSelector';
+export { default as CategorySelector } from './CategorySelector';

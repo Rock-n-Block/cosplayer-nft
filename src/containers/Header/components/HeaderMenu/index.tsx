@@ -26,7 +26,12 @@ import { BnbImg, CopyImg } from 'assets/img/icons';
 
 import s from './HeaderMenu.module.scss';
 
-const HeaderMenu: FC<{ isModal: boolean }> = ({ isModal }) => {
+type HeaderMenuProps = {
+  isModal: boolean;
+  closeMenu?: () => void;
+};
+
+const HeaderMenu: FC<HeaderMenuProps> = ({ isModal, closeMenu }) => {
   const { address, displayName, balance, rates, customUrl, id } = useShallowSelector(
     userSelector.getUser,
   );
@@ -45,7 +50,8 @@ const HeaderMenu: FC<{ isModal: boolean }> = ({ isModal }) => {
   const handleNavigate = (route: string) => {
     return () => {
       navigate(route);
-      dispatch(closeModal());
+      if (isModal) dispatch(closeModal());
+      else if (closeMenu) closeMenu();
     };
   };
 
@@ -125,13 +131,13 @@ const HeaderMenu: FC<{ isModal: boolean }> = ({ isModal }) => {
           </div>
           {!isModal && (
             <div className={s.header_menu_btns}>
-              <NewPost isMobile />
+              <NewPost closeMenu={handleNavigate('/create')} isMobile />
             </div>
           )}
         </>
       ) : (
         <div className={s.header_menu_btns}>
-          <NewPost isMobile />
+          <NewPost closeMenu={handleNavigate('/create')} isMobile />
           <ConnectButton />
         </div>
       )}

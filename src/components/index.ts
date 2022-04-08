@@ -6,3 +6,6 @@ export { default as Spinner } from './Spinner';
 export { default as Checkbox } from './Checkbox';
 export { default as Uploader } from './Uploader';
 export { default as TextArea } from './TextArea';
+export { default as Checker } from './Checker';
+export { default as Switcher } from './Switcher';
+export { default as Calendar } from './Calendar';

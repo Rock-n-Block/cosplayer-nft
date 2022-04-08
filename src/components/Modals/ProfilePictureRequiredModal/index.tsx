@@ -21,8 +21,8 @@ const ProfilePictureRequiredModal: FC<StoreModalProps> = ({ id }) => {
   useEffect(() => {
     if (address && displayName && balance && !avatar) {
       dispatch(setActiveModal({ activeModal: 'AvatarRequired' }));
-    }
-  }, [address, avatar, balance, dispatch, displayName]);
+    } else handleCloseModal();
+  }, [address, avatar, balance, dispatch, displayName, handleCloseModal]);
 
   return (
     <Modal visible={isVisibleModal} onClose={handleCloseModal}>

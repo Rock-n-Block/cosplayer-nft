@@ -41,7 +41,7 @@ const Uploader: FC<IProps> = ({
   colorButton = 'default',
   handleUpload,
   setFormat,
-  maxSizeInMb = 5,
+  maxSizeInMb = 100,
   children,
   isImgOnly = false,
 }) => {
@@ -61,7 +61,11 @@ const Uploader: FC<IProps> = ({
     if (!formikValue) {
       return;
     }
-    formik.setFieldValue('preview', fileUrl);
+    if (formikValue === 'cover') {
+      formik.setFieldValue('coverPreview', fileUrl);
+    } else {
+      formik.setFieldValue('preview', fileUrl);
+    }
     formik.setFieldValue(formikValue, currentFile);
     if (setFormat && formikValue !== 'cover') {
       setFormat(currentFile.type.slice(0, currentFile.type.indexOf('/')));

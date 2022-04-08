@@ -9,6 +9,7 @@ const Profile = lazy(() => import('pages/Profile').then((module) => ({ default: 
 const EditProfile = lazy(() =>
   import('pages/EditProfile').then((module) => ({ default: module.EditProfile })),
 );
+const Create = lazy(() => import('pages/Create').then((module) => ({ default: module.Create })));
 
 const RouteManager: FC = () => {
   return (
@@ -17,6 +18,7 @@ const RouteManager: FC = () => {
       <Route path={routes.nft.root} element={<Nft />} />
       <Route path={routes.profile.root} element={<Profile />} />
       <Route path={routes.profile.edit} element={<EditProfile />} />
+      <Route path={routes.create.root} element={<Create />} />
     </Routes>
   );
 };

@@ -1,0 +1,30 @@
+@import "src/styles/mixins";
+
+.checker {
+  padding: 1px;
+  width: 32px;
+  height: 18px;
+  background: #fff;
+  border: 1px solid $blue;
+  border-radius: 12px;
+  @include flex(row, center, flex-start);
+  cursor: pointer;
+
+  .dot {
+    width: 14px;
+    height: 14px;
+    background: $blue-gradient;
+    border-radius: 50%;
+  }
+}
+
+.checked {
+  padding: 2px;
+  background: $blue-gradient;
+  border: none;
+  @include flex(row, center, flex-end);
+
+  .dot {
+    background: #fff;
+  }
+}

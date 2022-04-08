@@ -14,7 +14,7 @@ type PriceSelectorProps = {
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   currentCurrency: string;
-  setCurrentCurrency: React.Dispatch<React.SetStateAction<Currencies>>;
+  setCurrentCurrency: (currency: Currencies) => void;
 };
 
 const PriceSelector: FC<PriceSelectorProps> = ({

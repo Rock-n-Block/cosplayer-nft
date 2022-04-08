@@ -44,20 +44,6 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
     }
   };
 
-  const handleDeleteAvatar = () => {
-    try {
-      setFieldValue('isDeleteLoading', true);
-      const formData = new FormData();
-      formData.append('avatar', '');
-      dispatch(patchUserInfo(formData));
-      setFieldValue('isDeleteLoading', false);
-    } catch (e) {
-      logger('deleteAvatar', e);
-      toast.error('Something went wrong');
-      setFieldValue('isDeleteLoading', false);
-    }
-  };
-
   return (
     <Form name="edit-profile-form" className={s.edit_profile}>
       <Field
@@ -70,14 +56,9 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
             </Uploader>
             <div>
               {avatar ? (
-                <div className={s.btns}>
-                  <Button color="blue" className={s.upload_btn} onClick={handleUploadAvatar}>
-                    {values.isUploadLoading ? <Spinner color="white" size="md" /> : 'Change image'}
-                  </Button>
-                  <Button color="red" className={s.delete_btn} onClick={handleDeleteAvatar}>
-                    {values.isDeleteLoading ? <Spinner color="white" size="md" /> : 'Delete'}
-                  </Button>
-                </div>
+                <Button color="blue" className={s.upload_btn} onClick={handleUploadAvatar}>
+                  {values.isUploadLoading ? <Spinner color="white" size="md" /> : 'Change image'}
+                </Button>
               ) : (
                 <Button color="blue" className={s.upload_btn} onClick={handleUploadAvatar}>
                   {values.isUploadLoading ? <Spinner color="white" size="md" /> : 'Save'}
