@@ -2,39 +2,40 @@
 
 .create_form {
   width: 100%;
-  @include grid(repeat(2, max-content), 1fr, 0px);
+  @include grid(48% 52%, repeat(auto-fill, auto), 0);
 
-  @include b(desktop) {
-    @include grid(repeat(2, auto), 1fr, 0px);
+  @include b(tablet) {
+    @include grid(repeat(2, auto), repeat(auto-fill, auto), 0);
   }
 
   @include b(mobile) {
     @include flex(column);
+    overflow-x: auto;
   }
 }
 
 .column {
   &_grey {
-    max-width: 700px;
-    width: 100%;
-    padding: 30px 150px 50px;
-    @include flex(column, flex-start, flex-start, no-wrap);
-    gap: 30px;
+    margin: 30px auto;
+    max-width: 400px;
+    @include grid(1fr, repeat(auto-fill, min-content), 30px);
+    align-content: flex-start;
+    justify-items: left;
+    justify-content: center;
 
     @include b(tablet) {
-      padding: 30px 55px;
+      margin: 30px;
     }
 
     @include b(mobile) {
-      padding: 30px 10px;
-      max-width: unset;
+      margin: 30px 10px;
+      max-width: 100%;
       @include flex(column, center, flex-start, no-wrap);
     }
   }
 
   &_white {
-    max-width: 100%;
-    min-width: 300px;
+    max-width: 747px;
     padding: 30px 54px 50px;
     @include flex(column, flex-start, flex-start, no-wrap);
     background: #fff;
@@ -80,16 +81,18 @@
 
 .uploader {
   padding: 40px 20px;
-  width: 100%;
-  height: 237px;
+  width: 400px;
+  min-height: 237px;
   @include flex(column, center, space-between, no-wrap);
-  background: #fff;
-  border: 1px dashed $grey-text;
-  border-radius: 30px;
+  background-color: #fff !important;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='30' ry='30' stroke='%238A8A8AFF' stroke-width='3' stroke-dasharray='5%2c 12' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e") !important;
+  border-radius: 30px !important;
 
   @include b(mobile) {
+    width: 100%;
     padding: 20px;
-    height: 174px;
+    min-height: 174px;
+    height: 100%;
   }
 
   .grey_text {

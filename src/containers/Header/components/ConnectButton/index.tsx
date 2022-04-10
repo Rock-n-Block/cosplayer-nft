@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { setActiveModal } from 'store/modals/reducer';
 import userSelector from 'store/user/selectors';
 
+import cn from 'classnames';
+
 import { Button } from 'components';
 import { addressWithDots } from 'utils';
 
@@ -35,7 +37,7 @@ const ConnectButton: FC = () => {
         </div>
         {addressWithDots(address)}
       </div>
-      <div className={s.user_avatar}>
+      <div className={cn(s.user_avatar, avatar ? '' : s.user_avatar_default)}>
         <img src={avatar || DefaultAvatarImg} alt="user avatar" />
       </div>
     </Button>

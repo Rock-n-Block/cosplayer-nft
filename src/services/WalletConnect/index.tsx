@@ -135,8 +135,7 @@ const Connect: FC<{ children: any }> = ({ children }) => {
     if (WalletProvider) {
       connect(ChainsEnum['Binance-Smart-Chain'], WalletProvider);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [WalletProvider, connect]);
 
   const WalletConnectValues = useMemo(
     () => ({

@@ -3,6 +3,8 @@ import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setActiveModal } from 'store/modals/reducer';
 
+import cn from 'classnames';
+
 import { Dropdown } from 'components';
 
 import { actions } from './ActionSelect.mock';
@@ -49,11 +51,11 @@ export const ActionSelect: FC = () => {
       setVisible={setOpenActions}
       options={actions}
       classname={s.actions}
-      controlClassname={s.actions_control}
+      controlClassname={cn(s.actions_control, s.hover)}
       optionsClassname={s.actions_options}
       handleClickOnOption={handleAction}
     >
-      <img src={MoreImg} alt="more icon" />
+      <MoreImg className={isOpenActions ? s.active : ''} />
     </Dropdown>
   );
 };

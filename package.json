@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": "true",
   "scripts": {
-    "start": "craco start",
+    "start": "craco start --host",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",

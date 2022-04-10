@@ -13,7 +13,7 @@
     background: #fff;
     box-shadow: $block-shadow;
     border-radius: 4px;
-    transition: 0.5s slideIn;
+    animation: slideIn 0.5s;
 
     @keyframes slideIn {
       from {

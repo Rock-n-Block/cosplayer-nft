@@ -43,5 +43,11 @@
 
   &_options {
     width: 144px;
+
+    img {
+      max-width: 18px !important;
+      width: auto !important;
+      height: auto !important;
+    }
   }
 }

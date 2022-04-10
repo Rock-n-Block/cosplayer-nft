@@ -3,7 +3,7 @@ export { default as SearchBlackImg } from './search-black.svg';
 export { default as BnbImg } from './bnb-logo.svg';
 export { ReactComponent as BurgerImg } from './burger.svg';
 export { ReactComponent as CloseImg } from './close.svg';
-export { default as MoreImg } from './more.svg';
+export { ReactComponent as MoreImg } from './more.svg';
 export { default as DefaultImg } from './default.svg';
 export { ReactComponent as ShareImg } from './share.svg';
 export { ReactComponent as SmileImg } from './smile.svg';

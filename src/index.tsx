@@ -3,7 +3,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { Provider } from 'react-redux';
-import { store } from 'store/configureStore';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from 'store/configureStore';
 
 import { ModalsManager } from 'containers';
 
@@ -16,7 +17,12 @@ import App from './App';
 import 'react-toastify/dist/ReactToastify.css';
 import 'styles/index.scss';
 
-const Providers = combineProviders([Connect, [Provider, { store }], BrowserRouter]);
+const Providers = combineProviders([
+  Connect,
+  [Provider, { store }],
+  [PersistGate, { persistor }],
+  BrowserRouter,
+]);
 
 const root = document.getElementById('root');
 const app = (

@@ -9,9 +9,10 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+import storage from 'redux-persist/lib/storage/session';
 import createSagaMiddleware from 'redux-saga';
 
+import actionTypes from './user/actionTypes';
 import reducer from './rootReducer';
 import rootSaga from './rootSaga';
 
@@ -32,7 +33,18 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+          actionTypes.LOGIN,
+          actionTypes.UPDATE_USER_INFO,
+          actionTypes.GET_BALANCE,
+          actionTypes.PATCH_USER_INFO,
+        ],
       },
     }).concat(sagaMiddleware),
 });

@@ -33,6 +33,11 @@
   background: $dark-grey;
 }
 
-.arrow_up {
-  transform: rotate(180deg);
+.arrow {
+  transition-duration: 0.3s;
+
+  &_up {
+    transform: rotate(180deg);
+    transition-duration: 0.3s;
+  }
 }

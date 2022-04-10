@@ -6,6 +6,18 @@
   width: 370px;
   background: #fff;
   border-radius: 15px;
+  animation: modalZoom 0.3s;
+
+  @keyframes modalZoom {
+    0% {
+      opacity: 0;
+      transform: scale(0, 0);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1, 1);
+    }
+  }
 
   @include b(400) {
     width: calc(100% - 20px);

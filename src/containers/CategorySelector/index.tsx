@@ -30,7 +30,7 @@ const CategorySelector: FC<CategorySelectorProps> = ({ handleChooseCategory }) =
       optionsClassname={s.options}
       handleClickOnOption={handleSetCategory}
     >
-      <ArrowDownBlueImg className={isOpen ? s.arrow_up : s.arrow} />
+      <ArrowDownBlueImg className={isOpen ? s.arrow_up : s.arrow_down} />
     </Dropdown>
   );
 };

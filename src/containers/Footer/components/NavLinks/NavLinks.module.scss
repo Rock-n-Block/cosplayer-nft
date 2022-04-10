@@ -11,13 +11,10 @@
   }
 
   @include b(mobile) {
+    max-width: 300px;
+    height: 46px;
     @include flex(row, center, center);
     gap: 10px;
-  }
-
-  @include b(mobile) {
-    width: 300px;
-    height: 46px;
   }
 
   a, button {
@@ -42,7 +39,7 @@
   @include flex(row, center, center);
   gap: 15px;
 
-  a {
+  a, button {
     opacity: 1;
   }
 }
