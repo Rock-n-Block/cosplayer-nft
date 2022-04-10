@@ -55,6 +55,11 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isModal, closeMenu }) => {
     };
   };
 
+  const handleDisconnect = () => {
+    disconnect();
+    if (closeMenu) closeMenu();
+  };
+
   return (
     <div className={cn(s.header_menu, !isModal && s.mobile)}>
       {address ? (
@@ -127,7 +132,7 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isModal, closeMenu }) => {
             <Button color="default" onClick={handleNavigate(routes.profile.edit)}>
               Edit profile
             </Button>
-            <Button onClick={disconnect}>Disconnect Wallet</Button>
+            <Button onClick={handleDisconnect}>Disconnect Wallet</Button>
           </div>
           {!isModal && (
             <div className={s.header_menu_btns}>

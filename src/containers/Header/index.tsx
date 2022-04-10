@@ -21,7 +21,7 @@ const Header: FC = () => {
   return (
     <>
       <header className={s.header_wrapper}>
-        <Link to="/" className={s.header_logo}>
+        <Link to="/" className={s.header_logo} onClick={handleCloseMenu}>
           <img src={LogoImg} alt="CosplayerNFT logo" />
         </Link>
         <Search isMobile />
