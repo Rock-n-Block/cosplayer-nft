@@ -6,9 +6,14 @@
 
   .owner_logo {
     margin-right: 11px;
-    max-width: 32px;
-    max-height: 32px;
-    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
   }
 
   .owner_info {

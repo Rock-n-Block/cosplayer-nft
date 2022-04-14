@@ -10,11 +10,13 @@ type SpinnerProps = {
 };
 
 const Spinner: FC<SpinnerProps> = ({ color, size }) => (
-  <div className={cn(s.spinner, s[color], s[size])}>
-    <div />
-    <div />
-    <div />
-    <div />
+  <div className={s.loading}>
+    <div className={cn(s.spinner, s[color], s[size])}>
+      <div />
+      <div />
+      <div />
+      <div />
+    </div>
   </div>
 );
 

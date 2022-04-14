@@ -1,0 +1,43 @@
+@import "src/styles/mixins";
+
+.wrapper {
+  width: 310px;
+  height: 511px;
+  background: #fff;
+  border-radius: 12px;
+}
+
+.creator {
+  padding: 8px 15px 7px;
+  @include flex(row, center, flex-start);
+
+  &_info {
+    margin-left: 11px;
+  }
+}
+
+.info {
+  padding: 12px 15px 17px;
+}
+
+.row {
+  margin-bottom: 11px;
+  padding-bottom: 12px;
+  @include flex(row, flex-start, space-between, no-wrap);
+  border-bottom: 1px solid $border-line;
+}
+
+.price {
+  @include flex(column, flex-end, flex-start, no-wrap);
+  gap: 2px;
+}
+
+.footer {
+  @include flex(column);
+  gap: 6px;
+}
+
+.owner {
+  @include flex(row, center, flex-start, no-wrap);
+  gap: 5px;
+}

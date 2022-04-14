@@ -16,7 +16,7 @@ export type UserState = User & {
   provider: TAvailableProviders;
 };
 
-export type LoginReq = {
+export type MetamaskLoginReq = {
   address: string;
   msg: string;
   signed_msg: string;

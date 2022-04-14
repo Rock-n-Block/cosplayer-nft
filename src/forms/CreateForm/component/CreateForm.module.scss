@@ -102,6 +102,11 @@
   &_btn {
     width: 150px;
     height: 40px;
+    @include flex(row, center, center);
+    background: $blue-gradient;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 700;
   }
 }
 

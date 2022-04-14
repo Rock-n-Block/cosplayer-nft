@@ -49,12 +49,14 @@ const Dropdown: FC<DropdownProps> = ({
         {children}
       </Button>
       {isVisible && (
-        <div className={cn(s.options, optionsClassname)}>
+        <div
+          className={cn(s.options, isVisible ? s.options_open : s.options_close, optionsClassname)}
+        >
           {options.map((option, index) => (
             <Button
               className={s.option}
               onClick={() => handleClickOnOption(index)}
-              key={option.value}
+              key={`${index + 1}`}
             >
               {option.icon ? (
                 <img className={s.option_icon} src={option.icon} alt={option.value} />

@@ -1,31 +1,39 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { Button } from 'components';
+
+import { ICategory, IDropdownItem } from 'types';
 
 import { SortSelect } from '../SortSelect';
 import { categoriesList, sorts } from './Categories.mock';
 
 import s from './Categories.module.scss';
 
-export const Categories: FC = () => {
-  const [activeCategory, setActiveCategory] = useState(0);
+type CategoriesProps = {
+  activeCategory: ICategory;
+  setActiveCategory: (item: ICategory) => void;
+  activeSort: IDropdownItem;
+  setActiveSort: (item: IDropdownItem) => void;
+};
 
-  const handleSetCategory = (index: number) => {
-    setActiveCategory(index);
-  };
-
+export const Categories: FC<CategoriesProps> = ({
+  activeCategory,
+  setActiveCategory,
+  activeSort,
+  setActiveSort,
+}) => {
   return (
     <div className={s.categories}>
-      <SortSelect sorts={sorts} />
+      <SortSelect sorts={sorts} activeSort={activeSort} setActiveSort={setActiveSort} />
       <div className={s.categories_scroll}>
         <div className={s.categories_scroll_content}>
-          {categoriesList.map((category, index) => (
+          {categoriesList.map((category) => (
             <Button
-              onClick={() => handleSetCategory(index)}
-              className={index === activeCategory ? s.active : s.category}
+              onClick={() => setActiveCategory(category)}
+              className={category.name === activeCategory.name ? s.active : s.category}
               key={category.name}
             >
-              {index === activeCategory ? (
+              {category.name === activeCategory.name ? (
                 <div className={s.active_content}>
                   <img src={category.logo} alt={category.name} />
                   <div className={s.category_name}>{category.name}</div>

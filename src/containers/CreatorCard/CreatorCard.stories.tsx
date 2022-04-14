@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { Creator } from 'types';
+
 import CreatorCard from '.';
 
 export default {
@@ -7,4 +9,4 @@ export default {
   component: CreatorCard,
 };
 
-export const Default: FC = () => <CreatorCard />;
+export const Default: FC = () => <CreatorCard creator={{} as Creator} />;

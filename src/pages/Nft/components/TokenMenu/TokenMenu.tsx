@@ -8,6 +8,8 @@ import Tabs, { TabPane } from 'rc-tabs';
 
 import { Button } from 'components';
 
+import { Creator } from 'types';
+
 import { Bids } from '../Bids';
 import { CommentForm } from '../CommentForm';
 import { Comments } from '../Comments';
@@ -38,7 +40,7 @@ export const TokenMenu: FC = () => {
   return (
     <div className={s.token_menu}>
       <div className={s.token_menu_header}>
-        <CreatorCard />
+        <CreatorCard creator={{} as Creator} />
         <Button className={s.purchase_btn} color="orange" onClick={handlePurchase}>
           Purchase
         </Button>

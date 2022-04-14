@@ -1,30 +1,42 @@
 @import 'src/styles/variables';
 @import 'src/styles/mixins';
 
-.home_wrapper {
-  .token_cards {
-    position: relative;
-    top: 50px;
-    width: 100%;
-    margin: 28px 0 158px;
-    @include grid(repeat(4, 1fr), repeat(auto-fill, 1fr), 20px);
-    justify-items: center;
+.token_cards {
+  position: relative;
+  top: 50px;
+  width: 100%;
+  margin: 28px 0 158px;
+  @include grid(repeat(4, 1fr), repeat(auto-fill, 1fr), 20px);
+  justify-items: center;
 
-    @include b(1330) {
-      @include grid(repeat(3, 1fr), repeat(auto-fill, 1fr), 20px);
-    }
+  @include b(1330) {
+    @include grid(repeat(3, 1fr), repeat(auto-fill, 1fr), 20px);
+  }
 
-    @include b(1110) {
-      margin-bottom: 178px;
-      @include grid(repeat(2, 1fr), repeat(auto-fill, 1fr), 10px);
-    }
+  @include b(1110) {
+    margin-bottom: 178px;
+    @include grid(repeat(2, 1fr), repeat(auto-fill, 1fr), 10px);
+  }
 
-    @include b(mobile) {
-      top: 30px;
-      margin-top: 40px;
-      margin-bottom: 0;
-      padding-bottom: 30px;
-      @include grid(1fr, repeat(auto-fill, 1fr), 20px);
-    }
+  @include b(mobile) {
+    top: 30px;
+    margin-top: 40px;
+    margin-bottom: 0;
+    padding-bottom: 30px;
+    @include grid(1fr, repeat(auto-fill, 1fr), 20px);
+  }
+}
+
+.not_found {
+  position: relative;
+  top: 100px;
+  width: 100%;
+  height: 100px;
+  text-align: center;
+  vertical-align: center;
+  @include text-control(18px, 27px, 700);
+
+  @include b(mobile) {
+    padding: 20px;
   }
 }

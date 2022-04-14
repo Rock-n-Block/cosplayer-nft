@@ -76,7 +76,7 @@ export const contracts: IContracts = {
         abi: exchangeAbi,
       },
       testnet: {
-        address: '0x6a7A180204c798ad5A5a6e3dEDF20a3bdaEbBFbc',
+        address: '0x62d375Fa17614EFb1359519D49c233C675359a57',
         abi: exchangeAbi,
       },
     },
@@ -106,7 +106,7 @@ export const contracts: IContracts = {
         abi: erc721Abi,
       },
       testnet: {
-        address: '0x74cdc21b4Bec25A464298918911902AF369B69D0',
+        address: '0x7e95c1360f2961189F93481fA62a1ec40d2C57aD',
         abi: erc721Abi,
       },
     },
@@ -116,7 +116,7 @@ export const contracts: IContracts = {
         abi: erc1155Abi,
       },
       testnet: {
-        address: '0x513dDb3488c8FFC08b08394e4DBfe767cb21e465',
+        address: '0x940ECe4FA5A93214Cd304DA8a281F834ffad5a11',
         abi: erc1155Abi,
       },
     },

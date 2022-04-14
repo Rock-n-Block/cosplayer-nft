@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import CreateForm from 'forms/CreateForm/container';
+import { CreateForm } from 'forms';
 
 import s from './Create.module.scss';
 

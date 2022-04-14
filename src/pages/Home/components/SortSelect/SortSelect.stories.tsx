@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { sorts } from '../Categories/Categories.mock';
 import { SortSelect } from './SortSelect';
@@ -8,4 +8,8 @@ export default {
   component: SortSelect,
 };
 
-export const Default: FC = () => <SortSelect sorts={sorts} />;
+export const Default: FC = () => {
+  const [activeSort, setActiveSort] = useState(sorts[0]);
+
+  return <SortSelect sorts={sorts} activeSort={activeSort} setActiveSort={setActiveSort} />;
+};

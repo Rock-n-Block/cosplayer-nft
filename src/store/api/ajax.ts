@@ -6,6 +6,8 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { validateStatus } from 'utils/validateStatus';
 
+import { ApiResponse } from 'types/requests';
+
 const client: AxiosInstance = axios.create({
   baseURL: 'https://cosplayer.rocknblock.io/api/v1/',
   validateStatus,

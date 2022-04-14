@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { TokenFull } from 'types';
+
 import { TokenCard } from './TokenCard';
 
 export default {
@@ -7,4 +9,4 @@ export default {
   component: TokenCard,
 };
 
-export const Default: FC = () => <TokenCard />;
+export const Default: FC = () => <TokenCard data={{} as TokenFull & { owners: any }} />;

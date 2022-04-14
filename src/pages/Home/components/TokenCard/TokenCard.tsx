@@ -1,5 +1,9 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import { useDispatch } from 'react-redux';
+import { likeNft } from 'store/nfts/actions';
 
 import { CreatorCard } from 'containers';
 
@@ -7,26 +11,72 @@ import { Button } from 'components';
 import { logger } from 'utils';
 
 import { routes } from 'appConstants';
+import { Creator, Currency, TokenFull } from 'types';
 
-import { BnbImg, LikeActiveImg, LikeImg } from 'assets/img/icons';
+import { BnbImg, DefaultAvatarImg, LikeActiveImg, LikeImg } from 'assets/img/icons';
 import { CommentImg } from 'assets/img/icons/token-card';
-import NftImg from 'assets/img/nft-image.png';
-import AvatarImg from 'assets/img/owner-avatar.png';
 
 import s from './TokenCard.module.scss';
 
-export const TokenCard: FC = () => {
-  const [isLiked, setLiked] = useState(false);
+type Owner = Creator & {
+  quantity: number | string;
+  price: number | string;
+  currency: Currency;
+};
+
+export type TokenCardProps = {
+  data: TokenFull & {
+    owners: Owner;
+  };
+};
+
+export const TokenCard: FC<TokenCardProps> = ({ data }) => {
   let clickTimeout: unknown = null;
   const navigate = useNavigate();
+  const {
+    id,
+    creator,
+    media,
+    description,
+    currency,
+    name,
+    isLiked,
+    price,
+    usdPrice,
+    commentCount,
+    likeCount,
+    standart,
+    owners,
+    hashtags,
+  } = data;
+  const [isLike, setLike] = useState(isLiked);
+  const [likesCount, setLikesCount] = useState(likeCount || 0);
+  const dispatch = useDispatch();
 
-  const handleLike = () => {
-    setLiked(!isLiked);
-    logger('isLiked:', isLiked.toString());
-  };
+  const successCallback = useCallback(() => {
+    if (isLike) {
+      setLikesCount((prev) => prev - 1);
+      setLike(false);
+    } else {
+      setLikesCount((prev) => prev + 1);
+      setLike(true);
+    }
+  }, [isLike]);
+
+  const errorCallback = useCallback(() => {
+    if (isLike) {
+      toast.error('Dislike error');
+    } else {
+      toast.error('Like error');
+    }
+  }, [isLike]);
+
+  const handleLike = useCallback(() => {
+    dispatch(likeNft({ id: id || 0, successCallback, errorCallback }));
+  }, [dispatch, errorCallback, id, successCallback]);
 
   const handleNavigate = () => {
-    navigate(routes.nft.link(1));
+    if (id) navigate(routes.nft.link(id));
   };
 
   const handleClick = () => {
@@ -49,51 +99,65 @@ export const TokenCard: FC = () => {
   return (
     <div className={s.token_card}>
       <div className={s.header}>
-        <CreatorCard />
+        <CreatorCard creator={creator} />
       </div>
       <Button className={s.preview} onClick={handleClick}>
-        <img src={NftImg} alt="nft token preview" />
+        <img src={media} alt="nft token preview" />
       </Button>
       <div className={s.footer}>
         <div className={s.info}>
           <div className={s.info_actions}>
             <div className={s.action}>
               <Button onClick={handleLike}>
-                {isLiked ? <LikeActiveImg /> : <LikeImg className={s.like} />}
+                {isLike ? <LikeActiveImg /> : <LikeImg className={s.like_img} />}
               </Button>
-              552
+              <span>{likesCount}</span>
             </div>
             <div className={s.action}>
               <Button onClick={() => {}}>
                 <CommentImg />
               </Button>
-              552
+              <span>{commentCount}</span>
             </div>
           </div>
           <div className={s.price}>
             <div className={s.price_value}>
               <img src={BnbImg} alt="currency icon" />
-              Price -&nbsp;<div className={s.blue_text}>88888888 NAFT</div>
+              Price -&nbsp;
+              <div className={s.blue_text}>
+                {price} {currency.symbol?.toUpperCase()}
+              </div>
             </div>
-            <div className={s.price_usd}>$201,201.08</div>
+            <div className={s.price_usd}>${usdPrice}</div>
           </div>
         </div>
         <div className={s.description}>
           <div className={s.description_text}>
-            <div className={s.title}>&quot;THE CHOSEN ONE&quot;</div>
-            &nbsp;I will keep proving people...
+            <div className={s.title}>&quot;{name}&quot;</div>
+            &nbsp;{description}
           </div>
           <div className={s.tags}>
-            <Button onClick={() => {}}>#boxing</Button>
-            <Button onClick={() => {}}>#nftdrop</Button>
-            <Button onClick={() => {}}>#nft</Button>
-            <Button onClick={() => {}}>#nftart</Button>
+            {hashtags &&
+              hashtags.map(
+                (tag) =>
+                  tag.name !== '#' && (
+                    <Button key={tag.name} onClick={() => {}}>
+                      #{tag.name}
+                    </Button>
+                  ),
+              )}
           </div>
           <div className={s.current_owner}>
-            <Button onClick={() => {}}>
-              <img src={AvatarImg} alt="current owner avatar" />
-              Current owner&nbsp;<div className={s.blue_text}>hayato</div>
-            </Button>
+            {standart === 'ERC1155' ? (
+              <span>
+                Multiple&nbsp;<span className={s.blue_text}>owners</span>
+              </span>
+            ) : (
+              <Button href={`/profile/${owners?.id}`}>
+                <img src={owners?.avatar || DefaultAvatarImg} alt="current owner avatar" />
+                Current owner&nbsp;<span className={s.blue_text}>{owners?.customUrl}</span>
+              </Button>
+            )}
           </div>
         </div>
       </div>

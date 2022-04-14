@@ -13,17 +13,36 @@
     background: #fff;
     box-shadow: $block-shadow;
     border-radius: 4px;
-    animation: slideIn 0.5s;
 
-    @keyframes slideIn {
-      from {
-        top: 0;
-        opacity: 0;
+    &_open {
+      animation: slideIn 0.5s;
+
+      @keyframes slideIn {
+        from {
+          top: 0;
+          opacity: 0;
+        }
+
+        to {
+          top: 120%;
+          opacity: 1;
+        }
       }
+    }
 
-      to {
-        top: 120%;
-        opacity: 1;
+    &_close {
+      animation: slideOut 0.5s;
+
+      @keyframes slideOut {
+        from {
+          top: 120%;
+          opacity: 1;
+        }
+
+        to {
+          top: 0;
+          opacity: 0;
+        }
       }
     }
 

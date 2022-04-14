@@ -1,5 +1,11 @@
 @import 'src/styles/mixins';
 
+.loading {
+  width: 100%;
+  height: 100%;
+  @include flex(row, center, center);
+}
+
 .white {
   div {
     @include spinner-color(white);

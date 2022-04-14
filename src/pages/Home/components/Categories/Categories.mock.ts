@@ -7,7 +7,6 @@ import {
   ArtImg,
   CosplayerImg,
   EarliestImg,
-  FollowingImg,
   HighestPriceImg,
   KidsArtImg,
   LatestImg,
@@ -22,37 +21,32 @@ import {
 
 export const sorts: IDropdownItem[] = [
   {
-    value: 'trending',
+    value: 'recent',
     label: 'Trending',
     icon: TrendingImg,
   },
   {
-    value: 'latest',
+    value: 'recent',
     label: 'Latest',
     icon: LatestImg,
   },
   {
-    value: 'earliest',
+    value: 'recent',
     label: 'Earliest',
     icon: EarliestImg,
   },
   {
-    value: 'following',
-    label: 'Following',
-    icon: FollowingImg,
-  },
-  {
-    value: 'recently-sold',
+    value: 'recently_sold',
     label: 'Recently Sold',
     icon: RecentlySoldImg,
   },
   {
-    value: 'highest-price',
+    value: 'highest',
     label: 'Highest Price',
     icon: HighestPriceImg,
   },
   {
-    value: 'lowest-price',
+    value: 'cheapest',
     label: 'Lowest Price',
     icon: LowestPriceImg,
   },

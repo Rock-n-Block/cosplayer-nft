@@ -1,0 +1,16 @@
+@import "src/styles/mixins";
+
+.like {
+  @include flex(row, center, center);
+  gap: 5px;
+
+  &_img {
+    &:hover {
+      stroke: #000;
+    }
+  }
+
+  &_count {
+    font-weight: 400;
+  }
+}

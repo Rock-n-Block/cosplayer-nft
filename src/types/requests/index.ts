@@ -96,14 +96,26 @@ export type GetProfileInfoReq = {
 
 export type SearchNftReq = {
   page: number;
-  attributes?: string;
-  rarity?: string;
-  on_timed_auc_sale?: boolean;
   order_by?: string;
-  items_per_page?: number;
+};
+
+export type GetHotNftsReq = {
+  sort?: string;
+  tag?: string;
 };
 
 export type SearchNftAction = {
   requestData: SearchNftReq;
   shouldConcat?: boolean;
+};
+
+export type CreateNftReq = {
+  formData: FormData;
+  web3Provider: Web3;
+};
+
+export type LikeNftReq = {
+  id: string | number;
+  successCallback: () => void;
+  errorCallback: () => void;
 };

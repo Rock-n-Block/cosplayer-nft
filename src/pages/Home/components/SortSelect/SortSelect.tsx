@@ -10,12 +10,13 @@ import ArrowDown from 'assets/img/icons/arrow-down-blue.svg';
 
 import s from './SortSelect.module.scss';
 
-interface SortModalProps {
+type SortModalProps = {
   sorts: IDropdownItem[];
-}
+  activeSort: IDropdownItem;
+  setActiveSort: (item: IDropdownItem) => void;
+};
 
-export const SortSelect: FC<SortModalProps> = ({ sorts }) => {
-  const [activeSort, setActiveSort] = useState<IDropdownItem>(sorts[0]);
+export const SortSelect: FC<SortModalProps> = ({ sorts, activeSort, setActiveSort }) => {
   const [isOpenSelect, setOpenSelect] = useState(false);
 
   const handleChangeSort = (index: number) => {
@@ -38,7 +39,7 @@ export const SortSelect: FC<SortModalProps> = ({ sorts }) => {
         <div className={s.sort_control_name}>{activeSort.label}</div>
       </div>
       <img
-        className={cn(s.sort_arrow, isOpenSelect && s.sort_arrow_up)}
+        className={cn(s.sort_arrow, isOpenSelect ? s.sort_arrow_up : s.sort_arrow_down)}
         src={ArrowDown}
         alt="arrow down icon"
       />

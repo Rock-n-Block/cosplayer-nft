@@ -38,6 +38,11 @@
 
     &_up {
       transform: rotate(180deg);
+      transition-duration: 0.3s;
+    }
+
+    &_down {
+      transition-duration: 0.3s;
     }
   }
 

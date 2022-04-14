@@ -9,3 +9,4 @@ export { default as TextArea } from './TextArea';
 export { default as Checker } from './Checker';
 export { default as Switcher } from './Switcher';
 export { default as Calendar } from './Calendar';
+export { default as TokenCardSkeleton } from './TokenCardSkeleton';

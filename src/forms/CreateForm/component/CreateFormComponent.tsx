@@ -1,4 +1,4 @@
-import React, { FC, SyntheticEvent, useState } from 'react';
+import React, { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { CategorySelector, PriceSelector } from 'containers';
@@ -14,6 +14,7 @@ import {
   TextArea,
   Uploader,
 } from 'components';
+import { logger } from 'utils';
 
 import { categories } from 'appConstants';
 import { Currencies } from 'types';
@@ -32,6 +33,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
   values,
   setFieldValue,
   handleSubmit,
+  validateForm,
 }) => {
   const [isPriceSelectorOpen, setIsPriceSelectorOpen] = useState(false);
   const [hashtag, setHashtag] = useState('');
@@ -83,6 +85,11 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
     };
   };
 
+  useEffect(() => {
+    if (!values.selling) setFieldValue('price', 0.001);
+    validateForm(values).then((data) => logger('validateForm res:', data));
+  }, [setFieldValue, validateForm, values]);
+
   return (
     <Form name="create-form" className={s.create_form}>
       <div className={s.column_grey}>
@@ -131,9 +138,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                   <br />
                   Max upload size 100MB
                 </span>
-                <Button color="blue" className={s.uploader_btn}>
-                  + Add File
-                </Button>
+                <div className={s.uploader_btn}>+ Add File</div>
               </Uploader>
             );
           }}
@@ -236,7 +241,6 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                 <Field
                   id="price"
                   name="price"
-                  required
                   render={({ form: { isSubmitting } }: FieldProps) => (
                     <FormInput
                       name="price"
@@ -244,7 +248,6 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                       label="Price"
                       color="white"
                       placeholder="Enter price for one piece"
-                      positiveOnly
                       value={values.price.toString()}
                       suffix={
                         <PriceSelector
@@ -277,7 +280,6 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                 <Field
                   id="minimalBid"
                   name="minimalBid"
-                  required
                   render={({ form: { isSubmitting } }: FieldProps) => (
                     <FormInput
                       name="minimalBid"
@@ -298,7 +300,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                       }
                       onChange={handleChange}
                       disabled={isSubmitting}
-                      error={(touched.minimalBid && errors.minimalBid) || ''}
+                      error={(touched.minimalBid && errors.price) || ''}
                       onBlur={(e: SyntheticEvent) => handleBlur(e)}
                     />
                   )}
@@ -470,13 +472,17 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             React.Fragment
           )}
           <Button
-            type="submit"
             color="blue"
-            disabled={values.isLoading}
+            disabled={
+              values.isLoading ||
+              Object.keys(errors).length !== 0 ||
+              !values.media ||
+              (values.format !== 'image' && !values.cover)
+            }
             className={s.submit}
             onClick={handleSubmit}
           >
-            {values.isLoading ? <Spinner color="white" size="sm" /> : 'Create Item'}
+            {values.isLoading ? <Spinner color="blue" size="sm" /> : 'Create Item'}
           </Button>
         </div>
       </div>

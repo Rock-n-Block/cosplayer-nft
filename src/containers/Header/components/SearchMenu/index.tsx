@@ -1,7 +1,5 @@
 import React, { FC, memo, useState } from 'react';
 
-import { CreatorCard } from 'containers';
-
 import { Button } from 'components';
 import { logger } from 'utils';
 
@@ -49,22 +47,7 @@ const SearchMenu: FC<SearchMenuProps> = ({ searchInput }) => {
           Location
         </Button>
       </div>
-      <div className={s.result}>
-        <CreatorCard />
-        <CreatorCard />
-        <CreatorCard />
-        <CreatorCard />
-        <CreatorCard />
-        <CreatorCard />
-        <CreatorCard />
-        <CreatorCard />
-        <CreatorCard />
-        <CreatorCard />
-        <CreatorCard />
-        <CreatorCard />
-        <CreatorCard />
-        <CreatorCard />
-      </div>
+      <div className={s.result}>No result</div>
     </div>
   );
 };

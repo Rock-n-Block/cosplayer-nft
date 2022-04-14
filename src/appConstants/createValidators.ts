@@ -1,15 +1,19 @@
 interface ICreateValidator {
   name: { min: number; max: number };
   description: { min: number; max: number };
-  properties: { name: number; type: number };
-  quantity: number;
+  totalSupply: { min: number; max: number };
+  minBid: number;
+  minPrice: number;
+  royalty: { min: number; max: number };
 }
 
 export const createValidator: ICreateValidator = {
   name: { min: 2, max: 50 },
   description: { min: 0, max: 500 },
-  properties: { name: 1, type: 1 },
-  quantity: 1,
+  totalSupply: { min: 1, max: 100 },
+  minBid: 0.001,
+  minPrice: 0.001,
+  royalty: { min: 0.001, max: 50 },
 };
 
 interface IEditProfileValidator {

@@ -126,6 +126,7 @@ const Login: FC<FormikProps<UserFormProps>> = ({
         />
       </div>
       <Button
+        type="submit"
         disabled={
           !values.isAgeEnough ||
           !values.termsAccepted ||
