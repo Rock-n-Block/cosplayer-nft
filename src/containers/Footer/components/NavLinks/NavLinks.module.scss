@@ -29,7 +29,8 @@
 
     &:hover,
     &:focus {
-      font-weight: 700;
+      opacity: 1;
+      @include gradient-text();
     }
   }
 }

@@ -9,8 +9,8 @@ export default {
 
 export const Default: FC = () => (
   <>
-    <SocialLinks isModal={false} />
+    <SocialLinks isModal={false} isGreyLinks={false} />
     <br />
-    <SocialLinks isModal />
+    <SocialLinks isModal isGreyLinks />
   </>
 );

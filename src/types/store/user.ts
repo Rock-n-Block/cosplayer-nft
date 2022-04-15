@@ -14,6 +14,7 @@ export type UserState = User & {
   };
   key: string;
   provider: TAvailableProviders;
+  loading: boolean;
 };
 
 export type MetamaskLoginReq = {

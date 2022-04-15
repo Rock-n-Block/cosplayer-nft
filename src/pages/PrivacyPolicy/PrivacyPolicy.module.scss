@@ -6,7 +6,7 @@
   gap: 80px;
 
   @include b(mobile) {
-    margin: 30px 0;
+    margin: 30px 7px;
     gap: 40px;
   }
 }
@@ -29,5 +29,9 @@
 
   @include b(mobile) {
     @include text-control(12px, 22px);
+  }
+
+  ul {
+    list-style: disc inside none;
   }
 }

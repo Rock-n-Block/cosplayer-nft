@@ -1,5 +1,6 @@
-import { FC, memo } from 'react';
+import { FC, Fragment, memo } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import Skeleton from 'react-loading-skeleton';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -24,6 +25,7 @@ import { ConnectButton, NewPost } from '..';
 
 import { BnbImg, CopyImg } from 'assets/img/icons';
 
+import 'react-loading-skeleton/dist/skeleton.css';
 import s from './HeaderMenu.module.scss';
 
 type HeaderMenuProps = {
@@ -83,10 +85,13 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isModal, closeMenu }) => {
                 <div className={s.balance_value}>
                   {new BigNumber(bnbBalance).toString(10)}&nbsp;BNB
                   <div className={s.balance_value_usd}>
-                    $
-                    {new BigNumber(
-                      new BigNumber(bnbBalance).times(rates.bnb).toFixed(5, 1),
-                    ).toString(10)}
+                    {rates.bnb && balance.bnb ? (
+                      `$ ${new BigNumber(
+                        new BigNumber(bnbBalance).times(rates.bnb).toFixed(5, 1),
+                      ).toString(10)}`
+                    ) : (
+                      <Skeleton width={50} />
+                    )}
                   </div>
                 </div>
               </div>
@@ -98,10 +103,13 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isModal, closeMenu }) => {
                 <div className={s.balance_value}>
                   {new BigNumber(cosnftBalance).toString(10)}&nbsp;COSNFT
                   <div className={s.balance_value_usd}>
-                    $
-                    {new BigNumber(
-                      new BigNumber(cosnftBalance).times(rates.cosnft).toFixed(5, 1),
-                    ).toString(10)}
+                    {rates.cosnft && balance.cosnft ? (
+                      `$ ${new BigNumber(
+                        new BigNumber(cosnftBalance).times(rates.cosnft).toFixed(5, 1),
+                      ).toString(10)}`
+                    ) : (
+                      <Skeleton width={50} />
+                    )}
                   </div>
                 </div>
               </div>
@@ -113,10 +121,13 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isModal, closeMenu }) => {
                 <div className={s.balance_value}>
                   {new BigNumber(recBalance).toString(10)}&nbsp;REC
                   <div className={s.balance_value_usd}>
-                    $
-                    {new BigNumber(
-                      new BigNumber(recBalance).times(rates.rec).toFixed(5, 1),
-                    ).toString(10)}
+                    {rates.rec && balance.rec ? (
+                      `$ ${new BigNumber(
+                        new BigNumber(recBalance).times(rates.rec).toFixed(5, 1),
+                      ).toString(10)}`
+                    ) : (
+                      <Skeleton width={50} />
+                    )}
                   </div>
                 </div>
               </div>
@@ -134,10 +145,12 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isModal, closeMenu }) => {
             </Button>
             <Button onClick={handleDisconnect}>Disconnect Wallet</Button>
           </div>
-          {!isModal && (
-            <div className={s.header_menu_btns}>
+          {!isModal ? (
+            <div className={s.header_menu_btn}>
               <NewPost closeMenu={handleNavigate(routes.create.root)} isMobile />
             </div>
+          ) : (
+            Fragment
           )}
         </>
       ) : (
@@ -149,10 +162,10 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isModal, closeMenu }) => {
       {isModal ? (
         <div className={s.footer}>
           <NavLinks handleNavigate={handleNavigate(routes.privacy.root)} isModal={isModal} />
-          <SocialLinks isModal={isModal} />
+          <SocialLinks isModal={isModal} isGreyLinks />
         </div>
       ) : (
-        <Footer />
+        <Footer className={s.footer} isMobile closeMenu={closeMenu} />
       )}
     </div>
   );

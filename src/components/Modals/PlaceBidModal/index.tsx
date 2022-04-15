@@ -14,7 +14,7 @@ import { CloseImg } from 'assets/img/icons';
 
 const PlaceBidModal: FC<StoreModalProps> = ({ id }) => {
   const [isVisibleModal, handleCloseModal] = useModal(id);
-  const { balance } = useShallowSelector(userSelector.getUser);
+  const { balance, rates } = useShallowSelector(userSelector.getUser);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [bid, setBid] = useState('');
   const [error, setError] = useState('');
@@ -53,12 +53,15 @@ const PlaceBidModal: FC<StoreModalProps> = ({ id }) => {
           onChange={handleChangeBid}
           error={error}
           suffix={
-            <PriceSelector
-              isOpen={isDropdownOpen}
-              setOpen={setIsDropdownOpen}
-              currentCurrency={currency}
-              setCurrentCurrency={setCurrency}
-            />
+            <div className="modal-suffix">
+              <PriceSelector
+                isOpen={isDropdownOpen}
+                setOpen={setIsDropdownOpen}
+                currentCurrency={currency}
+                setCurrentCurrency={setCurrency}
+              />
+              <span>{new BigNumber(rates[currency]).times(bid || 0).toFixed(3, 1)}&nbsp;$</span>
+            </div>
           }
         />
         <div className="modal-box-option">

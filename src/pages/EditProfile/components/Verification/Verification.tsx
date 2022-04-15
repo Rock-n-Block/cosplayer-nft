@@ -20,7 +20,7 @@ export const Verification: FC = () => (
       “Verification” in the subject line and include the following information:
     </p>
     <ul className={s.black_text}>
-      Eligibility Requirements:
+      <span>Eligibility Requirements:</span>
       <li>Your CosplayerNft username</li>
       <li>Your first and last name (or company name)</li>
       <li>A copy of your government-issued photo ID (or official business documents)</li>

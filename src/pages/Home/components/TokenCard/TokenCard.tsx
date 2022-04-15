@@ -1,4 +1,4 @@
-import { FC, useCallback, useState } from 'react';
+import { FC, Fragment, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -114,9 +114,7 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
               <span>{likesCount}</span>
             </div>
             <div className={s.action}>
-              <Button onClick={() => {}}>
-                <CommentImg />
-              </Button>
+              <CommentImg />
               <span>{commentCount}</span>
             </div>
           </div>
@@ -138,14 +136,15 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
           </div>
           <div className={s.tags}>
             {hashtags &&
-              hashtags.map(
-                (tag) =>
-                  tag.name !== '#' && (
-                    <Button key={tag.name} onClick={() => {}}>
-                      #{tag.name}
-                    </Button>
-                  ),
-              )}
+              hashtags.map((tag) => {
+                return tag.name === '#' || tag.name === ' ' ? (
+                  Fragment
+                ) : (
+                  <Button key={tag.name} onClick={() => {}}>
+                    <span>#{tag.name}</span>
+                  </Button>
+                );
+              })}
           </div>
           <div className={s.current_owner}>
             {standart === 'ERC1155' ? (

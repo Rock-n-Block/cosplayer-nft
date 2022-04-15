@@ -91,11 +91,14 @@
         gap: 5px;
 
         .tag {
-          @include gradient-text();
           border-radius: 0;
 
-          &:hover {
-            font-weight: 700;
+          span {
+            font-weight: 400;
+
+            &:hover {
+              @include gradient-text();
+            }
           }
         }
       }

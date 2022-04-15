@@ -116,7 +116,7 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
         color="blue"
         onClick={handleSubmit}
       >
-        {values.isLoading ? <Spinner color="blue" size="sm" /> : 'Create account'}
+        {values.isLoading ? <Spinner color="blue" size="sm" /> : 'Send ticket'}
       </Button>
     </Form>
   );

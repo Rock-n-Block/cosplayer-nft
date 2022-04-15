@@ -11,21 +11,20 @@ import { logger } from 'utils';
 
 import { editProfileValidator } from 'appConstants';
 import { useShallowSelector } from 'hooks';
-import { UserSlim } from 'types';
+import { User } from 'types';
 
 import { EditProfileFormComponent } from '../component';
 
-export type EditProfileFormProps = UserSlim & {
+export type EditProfileFormProps = User & {
   isLoading: boolean;
   isUploadLoading: boolean;
   isDeleteLoading: boolean;
   avatar: Blob | string;
   preview: string;
-  email: string;
 };
 
 const EditProfileForm: FC = () => {
-  const { address, avatar, displayName, bio, customUrl, site, twitter, instagram } =
+  const { address, avatar, displayName, bio, customUrl, site, twitter, instagram, email } =
     useShallowSelector(userSelector.getUser);
 
   const props: EditProfileFormProps = {
@@ -35,7 +34,7 @@ const EditProfileForm: FC = () => {
     customUrl,
     bio,
     address,
-    email: '',
+    email,
     twitter,
     instagram,
     site,

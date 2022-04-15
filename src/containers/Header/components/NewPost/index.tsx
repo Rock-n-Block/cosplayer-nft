@@ -1,9 +1,15 @@
 import { FC, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+import { setActiveModal } from 'store/modals/reducer';
+import userSelector from 'store/user/selectors';
+
 import cn from 'classnames';
 
 import { Button } from 'components';
+
+import { useShallowSelector } from 'hooks';
 
 import s from './NewPost.module.scss';
 
@@ -14,10 +20,18 @@ type NewPostProps = {
 
 const NewPost: FC<NewPostProps> = ({ isMobile, closeMenu }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { avatar, address } = useShallowSelector(userSelector.getUser);
 
   const handleOpenCreate = () => {
-    navigate('/create');
-    if (isMobile && closeMenu) closeMenu();
+    if (!address) {
+      dispatch(setActiveModal({ activeModal: 'ConnectWallet' }));
+    } else if (!avatar) {
+      dispatch(setActiveModal({ activeModal: 'AvatarRequired' }));
+    } else {
+      navigate('/create');
+      if (isMobile && closeMenu) closeMenu();
+    }
   };
 
   return (

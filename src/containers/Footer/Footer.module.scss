@@ -22,7 +22,7 @@
     margin: 0 -10px;
     width: 100vw;
     height: 185px;
-    @include flex(column, center, space-between);
+    @include flex(column, center, space-between, no-wrap);
   }
 }
 

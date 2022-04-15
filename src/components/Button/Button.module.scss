@@ -18,7 +18,7 @@ $color-default: black;
 
   &:hover,
   &:focus {
-    filter: drop-shadow($block-shadow);
+    filter: $btn-shadow;
   }
 
   &.default {

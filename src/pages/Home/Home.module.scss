@@ -3,9 +3,8 @@
 
 .token_cards {
   position: relative;
-  top: 50px;
   width: 100%;
-  margin: 28px 0 158px;
+  margin: 78px 0 158px;
   @include grid(repeat(4, 1fr), repeat(auto-fill, 1fr), 20px);
   justify-items: center;
 
@@ -19,8 +18,7 @@
   }
 
   @include b(mobile) {
-    top: 30px;
-    margin-top: 40px;
+    margin-top: 85px;
     margin-bottom: 0;
     padding-bottom: 30px;
     @include grid(1fr, repeat(auto-fill, 1fr), 20px);

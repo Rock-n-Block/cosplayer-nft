@@ -4,7 +4,6 @@ import { CreateNftReq, GetHotNftsReq, LikeNftReq, SearchNftAction } from 'types/
 
 import actionTypes from './actionTypes';
 
-export const getCategories = createAction<any>(actionTypes.GET_CATEGORIES);
 export const createToken = createAction<CreateNftReq>(actionTypes.CREATE_TOKEN);
 export const searchNfts = createAction<SearchNftAction>(actionTypes.SEARCH_NFTS);
 export const getHotNfts = createAction<GetHotNftsReq>(actionTypes.HOT_NFTS);

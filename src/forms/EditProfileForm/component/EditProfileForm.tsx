@@ -25,50 +25,40 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
   handleBlur,
   values,
   handleSubmit,
-  setFieldValue,
 }) => {
-  const { avatar } = useShallowSelector(userSelector.getUser);
+  const { avatar, loading } = useShallowSelector(userSelector.getUser);
   const dispatch = useDispatch();
 
   const handleUploadAvatar = () => {
     try {
-      setFieldValue('isUploadLoading', true);
       const formData = new FormData();
       formData.append('avatar', values.avatar);
       dispatch(patchUserInfo(formData));
-      setFieldValue('isUploadLoading', false);
     } catch (e) {
       logger('uploadAvatar', e);
       toast.error('Something went wrong');
-      setFieldValue('isUploadLoading', false);
     }
   };
 
   return (
     <Form name="edit-profile-form" className={s.edit_profile}>
-      <Field
-        id="avatar"
-        name="avatar"
-        render={({ form: { isSubmitting } }: FieldProps) => (
-          <div className={s.upload_avatar}>
-            <Uploader isLoading={isSubmitting} className={s.uploader} formikValue="avatar">
-              <img src={values.preview || EditAvatarImg} alt="avatar" />
-            </Uploader>
-            <div>
-              {avatar ? (
-                <Button color="blue" className={s.upload_btn} onClick={handleUploadAvatar}>
-                  {values.isUploadLoading ? <Spinner color="white" size="md" /> : 'Change image'}
-                </Button>
-              ) : (
-                <Button color="blue" className={s.upload_btn} onClick={handleUploadAvatar}>
-                  {values.isUploadLoading ? <Spinner color="white" size="md" /> : 'Save'}
-                </Button>
-              )}
-              <span className={s.recommend_text}>Recommended 500x500. GIFs Allowed.</span>
-            </div>
-          </div>
-        )}
-      />
+      <div className={s.upload_avatar}>
+        <Uploader isLoading={loading} className={s.uploader} formikValue="avatar">
+          <img src={values.preview || EditAvatarImg} alt="avatar" />
+        </Uploader>
+        <div>
+          {avatar ? (
+            <Button color="blue" className={s.upload_btn} onClick={handleUploadAvatar}>
+              {loading ? <Spinner color="white" size="sm" /> : 'Change image'}
+            </Button>
+          ) : (
+            <Button color="blue" className={s.upload_btn} onClick={handleUploadAvatar}>
+              {loading ? <Spinner color="white" size="sm" /> : 'Save'}
+            </Button>
+          )}
+          <span className={s.recommend_text}>Recommended 500x500. GIFs Allowed.</span>
+        </div>
+      </div>
       <Field
         id="displayName"
         name="displayName"
@@ -236,7 +226,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
         )}
       />
       <Button type="submit" color="blue" className={s.submit} onClick={handleSubmit}>
-        {values.isLoading ? <Spinner color="white" size="md" /> : 'Save'}
+        {loading ? <Spinner color="white" size="md" /> : 'Save'}
       </Button>
     </Form>
   );

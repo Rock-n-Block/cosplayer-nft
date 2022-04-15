@@ -69,10 +69,18 @@ export const TokenMenu: FC = () => {
             people...
           </div>
           <div className={s.tags}>
-            <Button className={s.tag}>#boxing</Button>
-            <Button className={s.tag}>#nftdrop</Button>
-            <Button className={s.tag}>#nft</Button>
-            <Button className={s.tag}>#nftart</Button>
+            <Button className={s.tag}>
+              <span>#boxing</span>
+            </Button>
+            <Button className={s.tag}>
+              <span>#nftdrop</span>
+            </Button>
+            <Button className={s.tag}>
+              <span>#nft</span>
+            </Button>
+            <Button className={s.tag}>
+              <span>#nftart</span>
+            </Button>
           </div>
         </div>
         <Tabs className={s.tabs} onChange={() => {}}>

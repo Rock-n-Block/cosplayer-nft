@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from 'react';
+import { FC } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { setActiveModal } from 'store/modals/reducer';
@@ -20,7 +20,7 @@ import s from './LoginModal.module.scss';
 const LoginModal: FC<StoreModalProps> = ({ id }) => {
   const { disconnect } = useWalletConnectorContext();
   const [isVisibleModal, handleCloseModal] = useModal(id);
-  const { address, balance, displayName, provider } = useShallowSelector(userSelector.getUser);
+  const { address, provider } = useShallowSelector(userSelector.getUser);
   const dispatch = useDispatch();
 
   const handleGoBack = () => {
@@ -28,14 +28,6 @@ const LoginModal: FC<StoreModalProps> = ({ id }) => {
     disconnect();
     dispatch(setActiveModal({ activeModal: 'ConnectWallet' }));
   };
-
-  useEffect(() => {
-    if (address && balance && !displayName) {
-      dispatch(setActiveModal({ activeModal: 'Login' }));
-    } else {
-      handleCloseModal();
-    }
-  }, [address, balance, dispatch, displayName, handleCloseModal]);
 
   return (
     <Modal onClose={handleGoBack} visible={isVisibleModal} className={s.login_modal}>
@@ -64,4 +56,4 @@ const LoginModal: FC<StoreModalProps> = ({ id }) => {
   );
 };
 
-export default memo(LoginModal);
+export default LoginModal;

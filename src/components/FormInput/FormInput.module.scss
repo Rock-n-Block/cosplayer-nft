@@ -8,6 +8,7 @@
 .wrap {
   min-width: 100%;
   @include flex(row, center, space-between, no-wrap);
+  gap: 10px;
 }
 
 .label {
@@ -47,7 +48,7 @@
   padding: 0 10px;
   height: 52px;
   background: #ffffff;
-  border: none;
+  border: 1px solid $border-line;
   border-radius: 12px;
 }
 

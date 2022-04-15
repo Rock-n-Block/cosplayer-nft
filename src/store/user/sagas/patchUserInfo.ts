@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-import { updateUserState } from '../reducer';
+import { setLoading, updateUserState } from '../reducer';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
@@ -13,6 +13,8 @@ import actionTypes from '../actionTypes';
 
 export function* patchUserInfoSaga({ type, payload }: ReturnType<typeof patchUserInfo>) {
   yield put(request(type));
+  yield put(setLoading(true));
+
   try {
     const { data } = yield call(baseApi.patchSelfInfo, payload);
 
@@ -35,10 +37,12 @@ export function* patchUserInfoSaga({ type, payload }: ReturnType<typeof patchUse
     toast.success('Profile info updated');
 
     yield put(success(type));
+    yield put(setLoading(false));
   } catch (e) {
     yield put(error(type, e));
     toast.error('Something went wrong');
     logger('patchUserInfo', e, 'error');
+    yield put(setLoading(false));
   }
 }
 

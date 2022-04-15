@@ -13,13 +13,18 @@ import s from './Footer.module.scss';
 
 interface FooterProps {
   className?: string;
+  isMobile?: boolean;
+  closeMenu?: () => void;
 }
 
-const Footer: FC<FooterProps> = ({ className }) => {
+const Footer: FC<FooterProps> = ({ className, isMobile, closeMenu }) => {
   const navigate = useNavigate();
 
   const handleNavigate = (route: string) => {
-    return () => navigate(route);
+    return () => {
+      navigate(route);
+      if (closeMenu) closeMenu();
+    };
   };
 
   return (
@@ -32,7 +37,7 @@ const Footer: FC<FooterProps> = ({ className }) => {
         </div>
       </div>
       <NavLinks handleNavigate={handleNavigate(routes.privacy.root)} isModal={false} />
-      <SocialLinks isModal={false} />
+      <SocialLinks isModal={false} isGreyLinks={isMobile || false} />
     </footer>
   );
 };

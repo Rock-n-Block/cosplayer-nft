@@ -8,6 +8,7 @@
   height: 331px;
   background: #ffffff;
   border-radius: 30px;
+  box-shadow: $block_shadow;
   animation: slideIn 0.5s;
 
   @keyframes slideIn {

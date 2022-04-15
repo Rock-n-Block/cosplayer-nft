@@ -8,16 +8,24 @@
     position: fixed;
     top: 48px;
     z-index: 99;
-    padding: 30px 10px 0;
+    padding: 10px 10px 0;
     width: 100%;
     height: calc(100vh - 48px);
+    overflow-y: scroll;
+    @include flex(column, flex-start, space-between, no-wrap);
     background: #fff;
   }
 }
 
 .header_menu {
+  &_btn {
+    padding: 10px 0;
+    width: 100%;
+  }
+
   &_btns {
     padding-top: 20px;
+    width: 100%;
     @include flex(column, center, flex-start);
     gap: 20px;
     border-top: 1px solid $border-line;
@@ -32,6 +40,7 @@
 
   .info_block {
     padding-bottom: 20px;
+    width: 100%;
     border-bottom: 1px solid $border-line;
 
     &_modal {
@@ -114,6 +123,7 @@
   }
 
   .footer {
-    @include flex(column, center);
+    position: relative;
+    @include flex(column, center, flex-start, no-wrap);
   }
 }

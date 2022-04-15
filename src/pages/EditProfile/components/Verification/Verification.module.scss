@@ -35,13 +35,17 @@
 }
 
 ul {
+  padding-left: 25px;
   margin-top: 25px;
   @include text-control(13px, 20px, 700);
-  list-style: disc inside none;
+  list-style: disc outside none;
+
+  span {
+    margin-left: -25px;
+  }
 }
 
 li {
-  padding-left: 10px;
   @include text-control(13px, 20px);
 
   @include b(mobile) {

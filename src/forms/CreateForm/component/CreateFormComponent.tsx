@@ -1,6 +1,10 @@
 import React, { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
+import nftsSelector from 'store/nfts/selectors';
+import userSelector from 'store/user/selectors';
+
+import BigNumber from 'bignumber.js';
 import { CategorySelector, PriceSelector } from 'containers';
 import { Field, FieldProps, Form, FormikProps } from 'formik';
 
@@ -17,6 +21,7 @@ import {
 import { logger } from 'utils';
 
 import { categories } from 'appConstants';
+import { useShallowSelector } from 'hooks';
 import { Currencies } from 'types';
 
 import { CreateFormProps } from '../container';
@@ -37,6 +42,8 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
 }) => {
   const [isPriceSelectorOpen, setIsPriceSelectorOpen] = useState(false);
   const [hashtag, setHashtag] = useState('');
+  const rates = useShallowSelector(userSelector.getProp('rates'));
+  const loading = useShallowSelector(nftsSelector.getProp('loading'));
 
   const handleClearMedia = () => {
     setFieldValue('media', '');
@@ -213,6 +220,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
               color="white"
               placeholder="Enter number of copies you want to create"
               positiveOnly
+              integer
               value={values.totalSupply.toString()}
               onChange={handleChange}
               disabled={isSubmitting}
@@ -250,12 +258,20 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                       placeholder="Enter price for one piece"
                       value={values.price.toString()}
                       suffix={
-                        <PriceSelector
-                          isOpen={isPriceSelectorOpen}
-                          setOpen={setIsPriceSelectorOpen}
-                          setCurrentCurrency={handleSelectCurrency}
-                          currentCurrency={values.currency}
-                        />
+                        <div className="modal-suffix">
+                          <PriceSelector
+                            isOpen={isPriceSelectorOpen}
+                            setOpen={setIsPriceSelectorOpen}
+                            setCurrentCurrency={handleSelectCurrency}
+                            currentCurrency={values.currency}
+                          />
+                          <span>
+                            {new BigNumber(rates[values.currency])
+                              .times(values.price || 0)
+                              .toFixed(3, 1)}
+                            &nbsp;$
+                          </span>
+                        </div>
                       }
                       onChange={handleChange}
                       disabled={isSubmitting}
@@ -291,12 +307,20 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                       positiveOnly
                       value={values.minimalBid.toString()}
                       suffix={
-                        <PriceSelector
-                          isOpen={isPriceSelectorOpen}
-                          setOpen={setIsPriceSelectorOpen}
-                          setCurrentCurrency={handleSelectCurrency}
-                          currentCurrency={values.currency}
-                        />
+                        <div className="modal-suffix">
+                          <PriceSelector
+                            isOpen={isPriceSelectorOpen}
+                            setOpen={setIsPriceSelectorOpen}
+                            setCurrentCurrency={handleSelectCurrency}
+                            currentCurrency={values.currency}
+                          />
+                          <span>
+                            {new BigNumber(rates[values.currency])
+                              .times(values.minimalBid || 0)
+                              .toFixed(3, 1)}
+                            &nbsp;$
+                          </span>
+                        </div>
                       }
                       onChange={handleChange}
                       disabled={isSubmitting}
@@ -482,7 +506,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             className={s.submit}
             onClick={handleSubmit}
           >
-            {values.isLoading ? <Spinner color="blue" size="sm" /> : 'Create Item'}
+            {loading ? <Spinner color="white" size="sm" /> : 'Create Item'}
           </Button>
         </div>
       </div>

@@ -19,29 +19,34 @@ import {
 
 import s from './SocialLinks.module.scss';
 
-const SocialLinks: FC<{ isModal: boolean }> = ({ isModal }) => (
+type SocialLinksProps = {
+  isModal: boolean;
+  isGreyLinks: boolean;
+};
+
+const SocialLinks: FC<SocialLinksProps> = ({ isModal, isGreyLinks }) => (
   <div className={cn(s.social_links, isModal && s.grey_links)}>
     <div className={s.social_links_list}>
       <a href="https://twitter.com" target="_blank" rel="noreferrer">
-        {isModal ? <TwitterGreyImg /> : <TwitterImg />}
+        {isGreyLinks ? <TwitterGreyImg /> : <TwitterImg />}
       </a>
       <a href="https://web.telegram.org" target="_blank" rel="noreferrer">
-        {isModal ? <TelegramGreyImg /> : <TelegramImg />}
+        {isGreyLinks ? <TelegramGreyImg /> : <TelegramImg />}
       </a>
       <a href="https://instagram.com" target="_blank" rel="noreferrer">
-        {isModal ? <InstagramGreyImg /> : <InstagramImg />}
+        {isGreyLinks ? <InstagramGreyImg /> : <InstagramImg />}
       </a>
       <a href="https://medium.com" target="_blank" rel="noreferrer">
-        {isModal ? <MediumGreyImg /> : <MediumImg />}
+        {isGreyLinks ? <MediumGreyImg /> : <MediumImg />}
       </a>
       <a href="https://youtube.com" target="_blank" rel="noreferrer">
-        {isModal ? <YoutubeGreyImg /> : <YoutubeImg />}
+        {isGreyLinks ? <YoutubeGreyImg /> : <YoutubeImg />}
       </a>
       <a href="https://pancakeswap.finance" target="_blank" rel="noreferrer">
-        {isModal ? <PancakeSwapGreyImg /> : <PancakeSwapImg />}
+        {isGreyLinks ? <PancakeSwapGreyImg /> : <PancakeSwapImg />}
       </a>
     </div>
-    <div className={s.copyright}>©2021 Name. All Rights reserved</div>
+    <div className={!isModal ? s.copyright : ''}>©2021 Name. All Rights reserved</div>
   </div>
 );
 

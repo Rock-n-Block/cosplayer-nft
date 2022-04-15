@@ -22,11 +22,16 @@
   .preview {
     width: 308px;
     height: 307px;
-    overflow-x: hidden;
+    overflow: hidden;
     border-radius: 0 !important;
 
+    &:hover, &:focus {
+      filter: none;
+    }
+
     img {
-      height: 100%;
+      min-width: 100%;
+      min-height: 100%;
     }
   }
 
@@ -99,11 +104,15 @@
         gap: 5px;
 
         button {
-          @include gradient-text($blue-gradient);
           border-radius: 0;
 
-          &:hover {
-            font-weight: 700;
+          span {
+            font-weight: 400;
+            color: $grey;
+
+            &:hover {
+              @include gradient-text($blue-gradient);
+            }
           }
         }
       }

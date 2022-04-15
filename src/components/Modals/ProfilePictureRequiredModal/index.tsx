@@ -1,12 +1,10 @@
-import { FC, memo, useEffect } from 'react';
-
-import { useDispatch } from 'react-redux';
-import { setActiveModal } from 'store/modals/reducer';
-import userSelector from 'store/user/selectors';
+import { FC } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, Modal } from 'components/index';
 
-import { useModal, useShallowSelector } from 'hooks';
+import { routes } from 'appConstants';
+import { useModal } from 'hooks';
 import { StoreModalProps } from 'types';
 
 import { CloseImg } from 'assets/img/icons';
@@ -15,14 +13,12 @@ import s from './ProfilePictureRequiredModal.module.scss';
 
 const ProfilePictureRequiredModal: FC<StoreModalProps> = ({ id }) => {
   const [isVisibleModal, handleCloseModal] = useModal(id);
-  const { address, balance, displayName, avatar } = useShallowSelector(userSelector.getUser);
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (address && displayName && balance && !avatar) {
-      dispatch(setActiveModal({ activeModal: 'AvatarRequired' }));
-    } else handleCloseModal();
-  }, [address, avatar, balance, dispatch, displayName, handleCloseModal]);
+  const handleNavigate = () => {
+    navigate(routes.profile.edit);
+    handleCloseModal();
+  };
 
   return (
     <Modal visible={isVisibleModal} onClose={handleCloseModal}>
@@ -34,7 +30,7 @@ const ProfilePictureRequiredModal: FC<StoreModalProps> = ({ id }) => {
         <div className={s.description}>
           A profile picture is required in order to post on CosplayerNFT.
         </div>
-        <Button color="blue" className={s.edit_profile_btn} href="/">
+        <Button color="blue" className={s.edit_profile_btn} onClick={handleNavigate}>
           Edit Profile
         </Button>
       </div>
@@ -42,4 +38,4 @@ const ProfilePictureRequiredModal: FC<StoreModalProps> = ({ id }) => {
   );
 };
 
-export default memo(ProfilePictureRequiredModal);
+export default ProfilePictureRequiredModal;

@@ -1,10 +1,13 @@
 import { ChangeEvent, FC, memo, useState } from 'react';
 
+import userSelector from 'store/user/selectors';
+
+import BigNumber from 'bignumber.js';
 import { PriceSelector } from 'containers';
 
 import { Button, FormInput, Modal } from 'components';
 
-import { useModal } from 'hooks';
+import { useModal, useShallowSelector } from 'hooks';
 import { Currencies, StoreModalProps } from 'types';
 
 import { CloseImg } from 'assets/img/icons';
@@ -15,6 +18,7 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
   const [price, setPrice] = useState('');
   const [error, setError] = useState('');
   const [currency, setCurrency] = useState<Currencies>('bnb');
+  const rates = useShallowSelector(userSelector.getProp('rates'));
 
   const handleChangePrice = (e: ChangeEvent<HTMLInputElement>) => {
     if (+e.target.value === 0) {
@@ -41,12 +45,15 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
           onChange={handleChangePrice}
           error={error}
           suffix={
-            <PriceSelector
-              isOpen={isDropdownOpen}
-              setOpen={setIsDropdownOpen}
-              currentCurrency={currency}
-              setCurrentCurrency={setCurrency}
-            />
+            <div className="modal-suffix">
+              <PriceSelector
+                isOpen={isDropdownOpen}
+                setOpen={setIsDropdownOpen}
+                currentCurrency={currency}
+                setCurrentCurrency={setCurrency}
+              />
+              <span>{new BigNumber(rates[currency]).times(price || 0).toFixed(3, 1)}&nbsp;$</span>
+            </div>
           }
         />
         <div className="modal-box-option">

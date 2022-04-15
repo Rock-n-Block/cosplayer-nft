@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
+import React, { ChangeEvent, FC, Fragment, useRef } from 'react';
 
 import BigNumber from 'bignumber.js/bignumber';
 import cn from 'classnames';
@@ -57,12 +57,13 @@ const FormInput: FC<Props> = ({
   ...props
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [elWidth, setElWidth] = useState(0);
 
-  const prefixElement = (
+  const prefixElement = prefix ? (
     <div ref={ref} className={cn(s.prefix, prefixClassName)}>
       {prefix}
     </div>
+  ) : (
+    Fragment
   );
 
   const getRegex = () => {
@@ -128,12 +129,6 @@ const FormInput: FC<Props> = ({
 
   const handleInputChange = type === 'number' ? handleChange : onChange;
 
-  useEffect(() => {
-    if (ref.current && prefix) {
-      setElWidth(ref.current.offsetWidth);
-    }
-  }, [prefix]);
-
   return (
     <div className={cn(s.field, className)}>
       {label && <div className={s.label}>{label}</div>}
@@ -153,11 +148,6 @@ const FormInput: FC<Props> = ({
           onWheel={(e) => e.currentTarget.blur()}
           disabled={disabled}
           {...props}
-          style={
-            elWidth
-              ? { paddingLeft: `${elWidth + 4}px`, paddingRight: suffix ? '74px' : '' }
-              : { paddingRight: suffix ? '74px' : '' }
-          }
         />
         <div className={cn(s.suffix, suffixClassName)}>{suffix}</div>
       </div>

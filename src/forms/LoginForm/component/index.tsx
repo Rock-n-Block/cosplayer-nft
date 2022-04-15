@@ -1,14 +1,16 @@
 import { FC, memo, SyntheticEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { closeModal } from 'store/modals/reducer';
+import userSelector from 'store/user/selectors';
 
 import { Field, FieldProps, Form, FormikProps } from 'formik';
 
 import { Button, Checkbox, FormInput, Spinner } from 'components';
 
 import { routes } from 'appConstants';
+import { useShallowSelector } from 'hooks';
 
 import { UserFormProps } from '../container';
 
@@ -22,11 +24,10 @@ const Login: FC<FormikProps<UserFormProps>> = ({
   values,
   handleSubmit,
 }) => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const loading = useShallowSelector(userSelector.getProp('loading'));
 
   const handleNavigate = () => {
-    navigate(routes.privacy.root);
     dispatch(closeModal());
   };
 
@@ -82,7 +83,7 @@ const Login: FC<FormikProps<UserFormProps>> = ({
       </div>
       <div className={s.terms}>
         Please take a few minutes to read and understand CosplayerNFT&nbsp;
-        <Link className="text-blue" to="/">
+        <Link className="text-blue" to={routes.privacy.root} onClick={handleNavigate}>
           Terms of Service
         </Link>
         . To continue, you’ll need to accept the Terms of Service by checking the box.
@@ -116,11 +117,7 @@ const Login: FC<FormikProps<UserFormProps>> = ({
               checked={values.termsAccepted}
               onChange={handleChange}
               onBlur={(e: SyntheticEvent) => handleBlur(e)}
-              text={`I accept the CosplayerNFT ${(
-                <Button onClick={handleNavigate} className={s.checkbox_link}>
-                  Terms of Service
-                </Button>
-              )}`}
+              text="I accept the CosplayerNFT Terms of Service"
             />
           )}
         />
@@ -140,7 +137,7 @@ const Login: FC<FormikProps<UserFormProps>> = ({
         color="blue"
         onClick={handleSubmit}
       >
-        {values.isLoading ? <Spinner color="blue" size="sm" /> : 'Create account'}
+        {loading ? <Spinner color="blue" size="sm" /> : 'Create account'}
       </Button>
     </Form>
   );

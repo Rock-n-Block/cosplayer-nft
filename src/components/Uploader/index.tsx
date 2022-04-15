@@ -71,7 +71,7 @@ const Uploader: FC<IProps> = ({
       setFormat(currentFile.type.slice(0, currentFile.type.indexOf('/')));
     }
   };
-  const { getRootProps, getInputProps, open } = useDropzone({
+  const { getRootProps, getInputProps } = useDropzone({
     accept: isImgOnly ? 'image/*' : ['image/*', 'video/mp4', 'audio/mpeg'],
     validator: (file) => fileValidation(file, maxSizeInMb),
     onDrop: handleChange,
@@ -81,7 +81,7 @@ const Uploader: FC<IProps> = ({
     <div className={cn(formikValue && s[formikValue])}>
       <div {...getRootProps()}>
         <input {...getInputProps()} />
-        <Button className={className} color={colorButton} onClick={open} disabled={isLoading}>
+        <Button className={className} color={colorButton} disabled={isLoading}>
           {children || 'Upload'}
         </Button>
       </div>
