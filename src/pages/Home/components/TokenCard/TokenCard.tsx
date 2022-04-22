@@ -7,13 +7,13 @@ import { likeNft } from 'store/nfts/actions';
 
 import { CreatorCard } from 'containers';
 
-import { Button } from 'components';
+import { Button, ImgLoader } from 'components';
 import { logger } from 'utils';
 
 import { routes } from 'appConstants';
 import { Creator, Currency, TokenFull } from 'types';
 
-import { BnbImg, DefaultAvatarImg, LikeActiveImg, LikeImg } from 'assets/img/icons';
+import { DefaultAvatarImg, LikeActiveImg, LikeImg } from 'assets/img/icons';
 import { CommentImg } from 'assets/img/icons/token-card';
 
 import s from './TokenCard.module.scss';
@@ -41,8 +41,11 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
     currency,
     name,
     isLiked,
+    isSelling,
     price,
     usdPrice,
+    minimalBid,
+    minimalBidUsd,
     commentCount,
     likeCount,
     standart,
@@ -102,7 +105,7 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
         <CreatorCard creator={creator} />
       </div>
       <Button className={s.preview} onClick={handleClick}>
-        <img src={media} alt="nft token preview" />
+        <ImgLoader url={media || ''} alt="token preview" />
       </Button>
       <div className={s.footer}>
         <div className={s.info}>
@@ -120,19 +123,19 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
           </div>
           <div className={s.price}>
             <div className={s.price_value}>
-              <img src={BnbImg} alt="currency icon" />
-              Price -&nbsp;
+              <img src={currency.image} alt="currency icon" />
+              {isSelling ? 'Price -' : 'Minimum Bid -'}&nbsp;
               <div className={s.blue_text}>
-                {price} {currency.symbol?.toUpperCase()}
+                {price || minimalBid} {currency.symbol?.toUpperCase()}
               </div>
             </div>
-            <div className={s.price_usd}>${usdPrice}</div>
+            <div className={s.price_usd}>${usdPrice || minimalBidUsd}</div>
           </div>
         </div>
         <div className={s.description}>
           <div className={s.description_text}>
-            <div className={s.title}>&quot;{name}&quot;</div>
-            &nbsp;{description}
+            <span className={s.title}>{name}&nbsp;</span>
+            <span className={s.description_descr}>{description}</span>
           </div>
           <div className={s.tags}>
             {hashtags &&

@@ -2,10 +2,14 @@ import { FC, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { setActiveModal } from 'store/modals/reducer';
+import nftsSelector from 'store/nfts/selectors';
+import userSelector from 'store/user/selectors';
 
 import cn from 'classnames';
 
 import { Dropdown } from 'components';
+
+import { useShallowSelector } from 'hooks';
 
 import { actions } from './ActionSelect.mock';
 
@@ -15,27 +19,53 @@ import s from './ActionSelect.module.scss';
 
 export const ActionSelect: FC = () => {
   const [isOpenActions, setOpenActions] = useState(false);
+  const { standart, owners, sellers, isSelling, selling, isAucSelling, ownerAuction } =
+    useShallowSelector(nftsSelector.getProp('detailedNft'));
+  const userId = useShallowSelector(userSelector.getProp('id'));
   const dispatch = useDispatch();
 
+  const filterActions = () => {
+    if (standart === 'ERC721' && !Array.isArray(owners) && owners?.id === userId) {
+      if (selling) {
+        return actions;
+      }
+      return actions.filter((action) => action.value !== 'remove');
+    }
+    if (
+      standart === 'ERC1155' &&
+      Array.isArray(owners) &&
+      owners.find((owner) => owner.id === userId)
+    ) {
+      if (isSelling && sellers?.find((seller) => seller.id === userId)) {
+        return actions;
+      }
+      if (isAucSelling && ownerAuction?.find((owner) => owner.id === userId)) {
+        return actions;
+      }
+      return actions.filter((action) => action.value !== 'remove');
+    }
+    return actions.filter((action) => action.value === 'report');
+  };
+
   const handleAction = (index: number) => {
-    switch (index) {
-      case 0: {
+    switch (filterActions()[index].value) {
+      case 'change-price': {
         dispatch(setActiveModal({ activeModal: 'ChangePrice' }));
         break;
       }
-      case 1: {
+      case 'transfer': {
         dispatch(setActiveModal({ activeModal: 'TransferToken' }));
         break;
       }
-      case 2: {
+      case 'remove': {
         dispatch(setActiveModal({ activeModal: 'RemoveToken' }));
         break;
       }
-      case 3: {
+      case 'burn': {
         dispatch(setActiveModal({ activeModal: 'BurnToken' }));
         break;
       }
-      case 4: {
+      case 'report': {
         dispatch(setActiveModal({ activeModal: 'Report' }));
         break;
       }
@@ -49,7 +79,7 @@ export const ActionSelect: FC = () => {
     <Dropdown
       isVisible={isOpenActions}
       setVisible={setOpenActions}
-      options={actions}
+      options={filterActions()}
       classname={s.actions}
       controlClassname={cn(s.actions_control, s.hover)}
       optionsClassname={s.actions_options}

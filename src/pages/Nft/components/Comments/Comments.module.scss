@@ -3,3 +3,9 @@
 .comments {
   @include grid(1fr, auto, 20px);
 }
+
+.no_comments {
+  width: 100%;
+  @include text-control(18px, 21px, 700);
+  text-align: center;
+}

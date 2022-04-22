@@ -1,9 +1,11 @@
-import { FC, memo, SyntheticEvent } from 'react';
+import { FC, SyntheticEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { closeModal } from 'store/modals/reducer';
-import userSelector from 'store/user/selectors';
+import uiSelector from 'store/ui/selectors';
+import actionTypes from 'store/user/actionTypes';
+import { disconnectWalletState } from 'store/user/reducer';
 
 import { Field, FieldProps, Form, FormikProps } from 'formik';
 
@@ -11,6 +13,7 @@ import { Button, Checkbox, FormInput, Spinner } from 'components';
 
 import { routes } from 'appConstants';
 import { useShallowSelector } from 'hooks';
+import { RequestStatus } from 'types';
 
 import { UserFormProps } from '../container';
 
@@ -25,10 +28,13 @@ const Login: FC<FormikProps<UserFormProps>> = ({
   handleSubmit,
 }) => {
   const dispatch = useDispatch();
-  const loading = useShallowSelector(userSelector.getProp('loading'));
+  const { [actionTypes.PATCH_USER_INFO]: patchUserInfoRequestStatus } = useShallowSelector(
+    uiSelector.getUI,
+  );
 
   const handleNavigate = () => {
     dispatch(closeModal());
+    dispatch(disconnectWalletState());
   };
 
   return (
@@ -42,7 +48,7 @@ const Login: FC<FormikProps<UserFormProps>> = ({
               name="displayName"
               type="text"
               color="grey"
-              label="Name"
+              label="First name"
               note="Enter your full name"
               placeholder="e. g. “Jhon Doe”"
               disabled={isSubmitting}
@@ -137,10 +143,14 @@ const Login: FC<FormikProps<UserFormProps>> = ({
         color="blue"
         onClick={handleSubmit}
       >
-        {loading ? <Spinner color="blue" size="sm" /> : 'Create account'}
+        {patchUserInfoRequestStatus === RequestStatus.REQUEST ? (
+          <Spinner color="blue" size="sm" />
+        ) : (
+          'Create account'
+        )}
       </Button>
     </Form>
   );
 };
 
-export default memo(Login);
+export default Login;

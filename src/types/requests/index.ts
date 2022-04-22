@@ -13,32 +13,11 @@ export type ApiResponse<T = never> = {
   message?: string | string[];
 };
 
-// STAKE REQUESTS
-export type StakeReq = {
-  web3Provider: Web3;
-  amount: string;
-  stakingContractAddress: string;
-};
-
-export type UnstakeReq = {
-  web3Provider: Web3;
-  stakingContractAddress: string;
-};
-
-export type GetStakesReq = {
-  web3Provider: Web3;
-};
-
 export type ApproveReq = {
   web3Provider: Web3;
   spender: string;
   amount: string;
-};
-
-export type CreateNewPoolReq = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  poolData: any;
-  web3Provider: Web3;
+  tokenAddress: string;
 };
 
 export type GetTokenBalanceReq = {
@@ -55,9 +34,8 @@ export type UpdateUserInfoReq = {
   web3Provider: Web3;
 };
 
-export type GetDetailedNftReq = {
+export type GetNftDataReq = {
   id: number | string;
-  web3Provider: Web3;
 };
 
 export type GetTrendingNftsReq = {
@@ -66,6 +44,10 @@ export type GetTrendingNftsReq = {
 
 export type BuyReq = {
   id: number | string;
+  sellerId: string;
+  amount: string | number;
+  tokenAmount: string | number;
+  currency: string;
   web3Provider: Web3;
 };
 
@@ -80,6 +62,7 @@ export type LikeReq = {
 
 export type LikeCommentReq = {
   id: number | string;
+  tokenId: number | string;
 };
 
 export type BidReq = {
@@ -118,4 +101,27 @@ export type LikeNftReq = {
   id: string | number;
   successCallback: () => void;
   errorCallback: () => void;
+};
+
+export type BurnReq = {
+  id: string | number;
+  amount: string | number;
+  web3Provider: Web3;
+};
+
+export type PatchNftReq = {
+  id: number | string;
+  formData: FormData;
+};
+
+export type TransferReq = {
+  id: number | string;
+  address: string;
+  amount: number | string;
+  web3Provider: Web3;
+};
+
+export type ReportReq = {
+  message: string;
+  token: number | string;
 };

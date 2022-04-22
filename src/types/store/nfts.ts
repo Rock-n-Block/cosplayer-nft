@@ -4,7 +4,7 @@ export type NftsState = {
   nfts: TokenFull[];
   hotNfts: TokenFull[];
   searchedNfts: TokenFull[];
-  detailedNft: TokenFull | null;
+  detailedNft: TokenFull;
   totalPages: number;
-  loading: boolean;
+  fee: number;
 };

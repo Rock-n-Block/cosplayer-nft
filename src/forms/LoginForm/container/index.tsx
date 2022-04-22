@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC } from 'react';
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
@@ -61,4 +61,4 @@ const LoginForm: FC = () => {
   return <FormWithFormik />;
 };
 
-export default memo(LoginForm);
+export default LoginForm;

@@ -1,5 +1,7 @@
 import { ActiveModal } from './store';
 
+import { Creator, Currency, UserSlim } from './api';
+
 export * from './context';
 export * from './store';
 export * from './api';
@@ -10,7 +12,7 @@ export * from './response';
 export type TNullable<T> = T | null;
 export type TOptionable<T> = T | undefined;
 
-export type Currencies = 'bnb' | 'cosnft' | 'rec';
+export type Currencies = 'bnb' | 'rec';
 
 export type ButtonColors =
   | 'default'
@@ -54,11 +56,12 @@ export interface IUser {
 }
 
 export interface IComment {
-  author: IUser;
+  user: UserSlim;
+  id: string | number;
   text: string;
-  isLiked: boolean;
-  likes: number;
-  time: string;
+  likeCount: number | string;
+  createdAt: string;
+  likedBy: UserSlim[];
 }
 
 export interface ITokenInfo {
@@ -78,24 +81,8 @@ export interface ITokenInfo {
 
 export interface IAdditionalInfo {
   contractAddress: string;
-  tokenID: number;
+  tokenID: string | number;
   blockchain: 'Binance Smart Chain' | 'Binance Smart Chain Testnet';
-}
-
-export interface ICurrency {
-  image: string;
-  name: string;
-  rate: string;
-  symbol: string;
-}
-
-export interface IBaseInfo {
-  is_verificated: TOptionable<boolean>;
-  address: string;
-  avatar: string;
-  id: number;
-  name: string;
-  display_theme: 'Padded' | 'Contained' | 'Covered';
 }
 
 export interface IBidder {
@@ -103,12 +90,39 @@ export interface IBidder {
   bidder: string;
   bidder_avatar: string;
   bidder_id: number | string;
-  currency: ICurrency;
+  currency: Currency;
   id: number | string;
 }
 
-export interface IOwner extends Omit<IBaseInfo, 'address'> {
+export interface IOwner extends Omit<Creator, 'address'> {
   price: number;
   quantity: number;
-  currency: ICurrency;
+  currency: Currency;
+}
+
+export interface ISeller {
+  avatar: string;
+  id: number | string;
+  name: string;
+  quantity: number | string;
+  price: number | string;
+  currency: Currency;
+}
+
+export interface IHistory {
+  id: number | string;
+  method: string;
+  date: string;
+  newOwner: UserSlim;
+  oldOwner: UserSlim;
+  price: number | string;
+  amount: number | string;
+}
+
+export interface IOwnerAuction {
+  id: number | string;
+  name: string;
+  address: string;
+  avatar: string;
+  quantity: number | string;
 }

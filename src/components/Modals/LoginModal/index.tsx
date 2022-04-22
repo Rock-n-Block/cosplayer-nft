@@ -19,12 +19,11 @@ import s from './LoginModal.module.scss';
 
 const LoginModal: FC<StoreModalProps> = ({ id }) => {
   const { disconnect } = useWalletConnectorContext();
-  const [isVisibleModal, handleCloseModal] = useModal(id);
+  const [isVisibleModal] = useModal(id);
   const { address, provider } = useShallowSelector(userSelector.getUser);
   const dispatch = useDispatch();
 
   const handleGoBack = () => {
-    handleCloseModal();
     disconnect();
     dispatch(setActiveModal({ activeModal: 'ConnectWallet' }));
   };

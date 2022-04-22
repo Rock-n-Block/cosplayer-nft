@@ -9,6 +9,7 @@
     @include b(tablet) {
       margin: 0;
       width: 100%;
+      height: unset;
       @include flex(row, center, center);
     }
   }
@@ -16,8 +17,26 @@
   &_image {
     max-width: 100%;
     max-height: 100%;
+    border-radius: 12px;
 
     @include b(tablet) {
+      max-height: unset;
+    }
+  }
+
+  &_audio {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: calc(100% - 10px);
+  }
+
+  &_video {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 12px;
+
+    @include b(mobile) {
       max-height: unset;
     }
   }

@@ -6,7 +6,7 @@ import userSelector from 'store/user/selectors';
 
 import cn from 'classnames';
 
-import { Button } from 'components';
+import { Button, ImgLoader } from 'components';
 import { addressWithDots } from 'utils';
 
 import { useShallowSelector } from 'hooks';
@@ -38,7 +38,13 @@ const ConnectButton: FC = () => {
         {addressWithDots(address)}
       </div>
       <div className={cn(s.user_avatar, avatar ? '' : s.user_avatar_default)}>
-        <img src={avatar || DefaultAvatarImg} alt="user avatar" />
+        <ImgLoader
+          height={32}
+          width={32}
+          borderRadius="50%"
+          url={avatar || DefaultAvatarImg}
+          alt="user avatar"
+        />
       </div>
     </Button>
   ) : (

@@ -7,18 +7,18 @@ const initialState: NftsState = {
   nfts: [],
   hotNfts: [],
   searchedNfts: [],
-  detailedNft: null,
+  detailedNft: {} as TokenFull,
   totalPages: 0,
-  loading: false,
+  fee: 0,
 };
 
 export const nftsReducer = createSlice({
   name: 'nfts',
   initialState,
   reducers: {
-    setLoading: (state, action: PayloadAction<boolean>) => ({
+    setFee: (state, action: PayloadAction<number>) => ({
       ...state,
-      loading: action.payload,
+      fee: action.payload,
     }),
     setNfts: (state, action: PayloadAction<TokenFull[]>) => ({
       ...state,
@@ -42,7 +42,7 @@ export const nftsReducer = createSlice({
     }),
     clearDetailedNft: (state) => ({
       ...state,
-      detailedNft: null,
+      detailedNft: {} as TokenFull,
     }),
     clearNfts: (state) => ({
       ...state,
@@ -60,7 +60,7 @@ export const nftsReducer = createSlice({
 });
 
 export const {
-  setLoading,
+  setFee,
   setNfts,
   setHotNfts,
   setSearchedNfts,

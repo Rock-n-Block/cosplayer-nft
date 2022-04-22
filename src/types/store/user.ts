@@ -1,20 +1,17 @@
+import { Currencies } from '../index';
+
 import { User } from 'types/api';
 import { TAvailableProviders } from 'types/connect';
 
+type Rates = {
+  [key in Currencies]: string | number;
+};
+
 export type UserState = User & {
-  rates: {
-    bnb: string | number;
-    cosnft: string | number;
-    rec: string | number;
-  };
-  balance: {
-    bnb: string | number;
-    cosnft: string | number;
-    rec: string | number;
-  };
+  rates: Rates;
+  balance: Rates;
   key: string;
   provider: TAvailableProviders;
-  loading: boolean;
 };
 
 export type MetamaskLoginReq = {

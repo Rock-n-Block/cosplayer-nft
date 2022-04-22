@@ -1,4 +1,4 @@
-import { ModalsInitialState, NftsState, UserState } from 'types';
+import { ModalsInitialState, NftsState, UIState, UserState } from 'types';
 
 import type { Dispatch as DispatchReact } from 'react';
 
@@ -14,4 +14,5 @@ export type StoreState = {
   user: UserState;
   modals: ModalsInitialState;
   nfts: NftsState;
+  ui: UIState;
 };

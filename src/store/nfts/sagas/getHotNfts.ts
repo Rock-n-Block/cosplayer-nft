@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-import { clearHotNfts, setHotNfts, setLoading } from '../reducer';
+import { clearHotNfts, setHotNfts } from '../reducer';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as apiActions from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
@@ -15,7 +15,6 @@ import actionTypes from '../actionTypes';
 
 export function* getHotNftsSaga({ type, payload }: ReturnType<typeof getHotNfts>) {
   yield put(apiActions.request(type));
-  yield put(setLoading(true));
 
   try {
     const { data } = yield call(baseApi.getHotNfts, payload);
@@ -23,13 +22,11 @@ export function* getHotNftsSaga({ type, payload }: ReturnType<typeof getHotNfts>
 
     yield put(setHotNfts(camelizedResult));
 
-    yield put(setLoading(false));
     yield put(apiActions.success(type));
   } catch (err) {
     logger('get hot nfts', err);
     yield put(clearHotNfts());
     toast.error('Sorting NFTs error');
-    yield put(setLoading(false));
     yield put(apiActions.error(type, err));
   }
 }

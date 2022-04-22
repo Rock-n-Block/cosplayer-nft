@@ -8,6 +8,7 @@
 import { CollectionSlim } from './CollectionSlim';
 import { Creator } from './Creator';
 import { Currency } from './Currency';
+import {IOwner} from "../index";
 
 export interface Token {
   animation?: string;
@@ -35,7 +36,7 @@ export interface Token {
   minimalBidUsd?: string;
   name?: string;
   network?: string;
-  owners?: string;
+  owners?: IOwner | IOwner[];
   price?: string;
   royalty?: string;
   sellers?: string;

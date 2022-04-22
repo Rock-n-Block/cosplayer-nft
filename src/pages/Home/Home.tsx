@@ -1,9 +1,11 @@
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { getHotNfts } from 'store/nfts/actions';
+import actionTypes from 'store/nfts/actionTypes';
 import { clearHotNfts } from 'store/nfts/reducer';
 import nftsSelector from 'store/nfts/selectors';
+import uiSelector from 'store/ui/selectors';
 
 import { TokenCardSkeleton } from 'components';
 
@@ -12,7 +14,7 @@ import { categoriesList, sorts } from './components/Categories/Categories.mock';
 import { TokenCard } from './components/TokenCard';
 
 import { useShallowSelector } from 'hooks';
-import { ICategory, TokenFull } from 'types';
+import { ICategory, RequestStatus, TokenFull } from 'types';
 
 import s from './Home.module.scss';
 
@@ -20,7 +22,17 @@ export const Home: FC = () => {
   const [activeSort, setActiveSort] = useState(sorts[0]);
   const [activeTag, setActiveTag] = useState<ICategory>();
   const dispatch = useDispatch();
-  const { hotNfts, loading } = useShallowSelector(nftsSelector.getNfts);
+  const { hotNfts } = useShallowSelector(nftsSelector.getNfts);
+  const { [actionTypes.HOT_NFTS]: hotNftsRequestStatus } = useShallowSelector(uiSelector.getUI);
+
+  const isGetHotNftsLoading = useMemo(
+    () => hotNftsRequestStatus === RequestStatus.REQUEST,
+    [hotNftsRequestStatus],
+  );
+  const isGetHotNftsSuccess = useMemo(
+    () => hotNftsRequestStatus === RequestStatus.SUCCESS,
+    [hotNftsRequestStatus],
+  );
 
   const fetchHotNfts = useCallback(() => {
     dispatch(getHotNfts({ tag: activeTag?.name, sort: activeSort.value }));
@@ -45,7 +57,7 @@ export const Home: FC = () => {
         activeSort={activeSort}
         setActiveSort={setActiveSort}
       />
-      {loading && (
+      {isGetHotNftsLoading && (
         <div className={s.token_cards}>
           <TokenCardSkeleton />
           <TokenCardSkeleton />
@@ -53,7 +65,7 @@ export const Home: FC = () => {
           <TokenCardSkeleton />
         </div>
       )}
-      {!loading && hotNfts.length > 0 && (
+      {isGetHotNftsSuccess && hotNfts.length > 0 && (
         <div className={s.token_cards}>
           {hotNfts.map(
             (token) =>
@@ -63,7 +75,7 @@ export const Home: FC = () => {
           )}
         </div>
       )}
-      {!loading && hotNfts.length === 0 && (
+      {isGetHotNftsSuccess && hotNfts.length === 0 && (
         <div className={s.not_found}>No items found. Try another tags or refresh page</div>
       )}
     </div>

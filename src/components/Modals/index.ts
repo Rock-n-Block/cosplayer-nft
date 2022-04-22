@@ -10,3 +10,4 @@ export { default as TransferTokenModal } from './TransferTokenModal';
 export { default as ReportModal } from './ReportModal';
 export { default as PlaceBidModal } from './PlaceBidModal';
 export { default as SupportTicketModal } from './SupportTicketModal';
+export { default as BuyModal } from './BuyModal';

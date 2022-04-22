@@ -1,14 +1,16 @@
 import { FC, useState } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 import { useDispatch } from 'react-redux';
 import { setActiveModal } from 'store/modals/reducer';
+import nftsSelector from 'store/nfts/selectors';
 
-import { CreatorCard } from 'containers';
+import { CreatorCard, LikeButton } from 'containers';
 import Tabs, { TabPane } from 'rc-tabs';
 
 import { Button } from 'components';
 
-import { Creator } from 'types';
+import { useShallowSelector } from 'hooks';
 
 import { Bids } from '../Bids';
 import { CommentForm } from '../CommentForm';
@@ -17,30 +19,43 @@ import { Info } from '../Info';
 import { Owners } from '../Owners';
 import { Sales } from '../Sales';
 
-import { BnbImg, LikeActiveImg, LikeImg, ShareImg } from 'assets/img/icons';
+import { ShareImg } from 'assets/img/icons';
 
+import 'react-loading-skeleton/dist/skeleton.css';
 import s from './TokenMenu.module.scss';
 
 export const TokenMenu: FC = () => {
-  const [isLiked, setLiked] = useState(false);
+  const [activeTab, setActiveTab] = useState('comments');
+  const {
+    selling,
+    isLiked,
+    id,
+    likeCount,
+    creator,
+    price,
+    isSelling,
+    usdPrice,
+    minimalBid,
+    minimalBidUsd,
+    currency,
+    name,
+    description,
+    hashtags,
+  } = useShallowSelector(nftsSelector.getProp('detailedNft'));
   const dispatch = useDispatch();
-
-  const handleLike = () => {
-    setLiked(!isLiked);
-  };
 
   const handleOpenShareNftModal = () => {
     dispatch(setActiveModal({ activeModal: 'ShareNft' }));
   };
 
   const handlePurchase = () => {
-    dispatch(setActiveModal({ activeModal: 'PlaceBid' }));
+    setActiveTab('owners');
   };
 
   return (
     <div className={s.token_menu}>
       <div className={s.token_menu_header}>
-        <CreatorCard creator={{} as Creator} />
+        <CreatorCard creator={creator} />
         <Button className={s.purchase_btn} color="orange" onClick={handlePurchase}>
           Purchase
         </Button>
@@ -48,56 +63,78 @@ export const TokenMenu: FC = () => {
       <div className={s.content}>
         <div className={s.activity}>
           <div className={s.activity_actions}>
-            <Button className={s.activity_btn} color="white" onClick={handleLike}>
-              {isLiked ? <LikeActiveImg /> : <LikeImg />}&nbsp;552
-            </Button>
+            {id && typeof likeCount !== 'undefined' ? (
+              <LikeButton likesNumber={likeCount} isLiked={!!isLiked} artId={id} />
+            ) : (
+              <Skeleton width={40} height={28} borderRadius={14} />
+            )}
             <Button className={s.activity_btn} color="white" onClick={handleOpenShareNftModal}>
               <ShareImg />
             </Button>
           </div>
           <div className={s.activity_btn}>
-            <div className={s.price}>
-              <img src={BnbImg} alt="bnb icon" />
-              <span className={s.blue_text}>Price - 69 BNB</span>
-              <span className={s.grey_text}> $301,201.08</span>
-            </div>
+            {typeof selling === 'undefined' && <Skeleton width={150} height={18} />}
+            {typeof selling !== 'undefined' &&
+              (selling ? (
+                <div className={s.price}>
+                  {currency.image ? (
+                    <img src={currency.image} alt="currency icon" />
+                  ) : (
+                    <div className="default-currency-icon" />
+                  )}
+                  {(price || minimalBid) && currency.symbol && (
+                    <span className={s.blue_text}>
+                      {isSelling ? `Price - ${price}` : `Minimum Bid - ${minimalBid}`}&nbsp;
+                      {currency.symbol?.toUpperCase()}
+                    </span>
+                  )}
+                  <span className={s.grey_text}>&nbsp;${isSelling ? usdPrice : minimalBidUsd}</span>
+                </div>
+              ) : (
+                <span className={s.not_for_sale}>Not for sale</span>
+              ))}
           </div>
         </div>
         <div className={s.description}>
-          <div className={s.description_text}>
-            <span className={s.bold_text}>&quot;THE CHOSEN ONE&quot;</span>&nbsp;I will keep proving
-            people...
-          </div>
+          {name || description ? (
+            <div className={s.description_text}>
+              <span className={s.bold_text}>{name}</span>
+              &nbsp;{description}
+            </div>
+          ) : (
+            <Skeleton className={s.description_text} />
+          )}
           <div className={s.tags}>
-            <Button className={s.tag}>
-              <span>#boxing</span>
-            </Button>
-            <Button className={s.tag}>
-              <span>#nftdrop</span>
-            </Button>
-            <Button className={s.tag}>
-              <span>#nft</span>
-            </Button>
-            <Button className={s.tag}>
-              <span>#nftart</span>
-            </Button>
+            {name && typeof hashtags !== 'undefined' ? (
+              hashtags.map((hashtag) => (
+                <Button key={hashtag.name} className={s.tag} onClick={() => {}}>
+                  <span>#{hashtag.name}</span>
+                </Button>
+              ))
+            ) : (
+              <Skeleton width={300} />
+            )}
           </div>
         </div>
-        <Tabs className={s.tabs} onChange={() => {}}>
-          <TabPane className={s.tabs_item} tab="Comments" key={1}>
+        <Tabs
+          className={s.tabs}
+          activeKey={activeTab}
+          onChange={(activeKey) => setActiveTab(activeKey)}
+        >
+          <TabPane className={s.tabs_item} tab="Comments" key="comments">
             <Comments />
             <CommentForm />
           </TabPane>
-          <TabPane className={s.tabs_item} tab="Bids" key={2}>
+          <TabPane className={s.tabs_item} tab="Bids" key="bids">
             <Bids />
           </TabPane>
-          <TabPane className={s.tabs_item} tab="Sales" key={3}>
+          <TabPane className={s.tabs_item} tab="Sales" key="sales">
             <Sales />
           </TabPane>
-          <TabPane className={s.tabs_item} tab="Ownership" key={4}>
+          <TabPane className={s.tabs_item} tab="Ownership" key="owners">
             <Owners />
           </TabPane>
-          <TabPane className={s.tabs_item} tab="Additional Info" key={5}>
+          <TabPane className={s.tabs_item} tab="Additional Info" key="info">
             <Info />
           </TabPane>
         </Tabs>

@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import {
   BurnTokenModal,
+  BuyModal,
   ChangePriceModal,
   ConnectWalletModal,
   LoginModal,
@@ -29,6 +30,7 @@ const ModalsManager: FC = () => (
     <ReportModal id="Report" />
     <PlaceBidModal id="PlaceBid" />
     <SupportTicketModal id="SupportTicket" />
+    <BuyModal id="Buy" />
   </>
 );
 

@@ -51,16 +51,10 @@ const Connect: FC<{ children: any }> = ({ children }) => {
       }
 
       if (data.name === 'accountsChanged') {
-        dispatch(
-          login({
-            address: data.address,
-            providerName: WalletProvider,
-            web3Provider: walletService.Web3(),
-          }),
-        );
+        disconnect();
       }
     },
-    [WalletProvider, disconnect, dispatch, walletService],
+    [disconnect],
   );
 
   const subscriberError = useCallback(
@@ -132,10 +126,10 @@ const Connect: FC<{ children: any }> = ({ children }) => {
   );
 
   useEffect(() => {
-    if (WalletProvider) {
+    if (WalletProvider && !address) {
       connect(ChainsEnum['Binance-Smart-Chain'], WalletProvider);
     }
-  }, [WalletProvider, connect]);
+  }, [WalletProvider, address, connect]);
 
   const WalletConnectValues = useMemo(
     () => ({

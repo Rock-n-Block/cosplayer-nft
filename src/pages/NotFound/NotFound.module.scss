@@ -1,0 +1,16 @@
+@import "src/styles/mixins";
+
+.page_wrapper {
+  width: 100%;
+  height: calc(100vh - 70px);
+  @include flex(row, center, center);
+
+  @include b(mobile) {
+    height: calc(100vh - 48px);
+  }
+
+  .title {
+    @include text-control(36px, 54px, 700px);
+    text-align: center;
+  }
+}

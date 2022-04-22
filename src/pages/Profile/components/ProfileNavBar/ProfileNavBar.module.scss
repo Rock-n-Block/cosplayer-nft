@@ -3,6 +3,15 @@
 .navbar {
   overflow-x: auto;
 
+  span {
+    color: $dark;
+    font-weight: 700;
+
+    .grey {
+      color: $grey;
+    }
+  }
+
   .tabs {
     margin-top: 15px;
     width: 100%;
@@ -48,14 +57,5 @@
         }
       }
     }
-  }
-}
-
-span {
-  color: $dark;
-  font-weight: 700;
-
-  .grey {
-    color: $grey;
   }
 }

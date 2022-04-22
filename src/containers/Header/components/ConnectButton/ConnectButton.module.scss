@@ -26,6 +26,11 @@
     height: 32px;
     border-radius: 50%;
 
+    span {
+      height: 32px;
+      @include flex(row, center, center);
+    }
+
     &_default {
       border: 1px solid #fff;
     }

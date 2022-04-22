@@ -8,4 +8,4 @@ export default {
   component: CommentRow,
 };
 
-export const Default: FC = () => <CommentRow comment={comments[0]} />;
+export const Default: FC = () => <CommentRow comment={comments[0]} isLiked={false} />;

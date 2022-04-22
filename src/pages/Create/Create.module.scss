@@ -3,6 +3,7 @@
 .create_wrapper {
   margin: 0 -70px;
   width: calc(100% + 140px);
+  overflow-x: hidden;
 
   @include b(desktop) {
     margin: 0 -15px;

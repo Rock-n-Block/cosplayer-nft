@@ -21,6 +21,7 @@ interface Props {
   prefixClassName?: string;
   onChange?: (value: any) => void;
   onBlur?: (value: any) => void;
+  onClick?: () => void;
   value?: string;
   disabled?: boolean;
   error?: string;
@@ -43,6 +44,7 @@ const FormInput: FC<Props> = ({
   label,
   suffix,
   onChange,
+  onClick,
   value,
   suffixClassName,
   name,
@@ -140,6 +142,7 @@ const FormInput: FC<Props> = ({
       <div className={cn(s.wrap, s[color])}>
         {prefixElement}
         <input
+          onClick={onClick}
           type={type}
           id={name}
           value={value}
@@ -151,7 +154,7 @@ const FormInput: FC<Props> = ({
         />
         <div className={cn(s.suffix, suffixClassName)}>{suffix}</div>
       </div>
-      {description && <div className={s.description}>{description}</div>}
+      {description && <span className={s.description}>{description}</span>}
     </div>
   );
 };

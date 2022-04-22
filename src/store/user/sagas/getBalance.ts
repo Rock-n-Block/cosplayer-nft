@@ -5,6 +5,7 @@ import { baseApi } from 'store/api/apiRequestBuilder';
 import userSelector from 'store/user/selectors';
 
 import { ContractWeb3 } from '@amfi/connect-wallet/dist/interface';
+import BigNumber from 'bignumber.js/bignumber';
 import { AbiItem } from 'web3-utils';
 
 import { contracts } from 'config';
@@ -24,39 +25,34 @@ export function* getBalanceSaga({
   const walletAddress: string = yield select(userSelector.getProp('address'));
 
   const { params, type: networkType } = contracts;
-  const { abi: COSNFTAbi, address: COSNFTAddress } = params.COSNFT[networkType];
   const { abi: RECAbi, address: RECAddress } = params.REC[networkType];
 
   try {
-    const COSNFTContract: ContractWeb3 = yield new web3Provider.eth.Contract(
-      COSNFTAbi as AbiItem[],
-      COSNFTAddress,
-    );
     const RECContract: ContractWeb3 = yield new web3Provider.eth.Contract(
       RECAbi as AbiItem[],
       RECAddress,
     );
+    const RECDecimals: string = yield call(RECContract.methods.decimals().call);
+
     if (walletAddress) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       const bnbBalance: string = yield call(web3Provider.eth.getBalance, walletAddress);
-      const COSNFTBalance: string = yield call(
-        COSNFTContract.methods.balanceOf(walletAddress).call,
-      );
       const RECBalance: string = yield call(RECContract.methods.balanceOf(walletAddress).call);
 
       const { data }: { data: UsdRate[] } = yield call(baseApi.getRates);
       const bnbRate: string =
         data.find((item) => item?.symbol && item?.symbol === 'bnb')?.rate || '0';
-      const COSNFTRate: string =
-        data.find((item) => item?.symbol && item?.symbol === 'cosnft')?.rate || '0';
       const RECRate: string =
         data.find((item) => item?.symbol && item?.symbol === 'rec')?.rate || '0';
 
       yield put(
         updateUserState({
-          balance: { bnb: bnbBalance, cosnft: COSNFTBalance, rec: RECBalance },
-          rates: { bnb: bnbRate, cosnft: COSNFTRate, rec: RECRate },
+          balance: {
+            bnb: new BigNumber(bnbBalance).div(10 ** 18).toString(10),
+            rec: new BigNumber(RECBalance).div(10 ** +RECDecimals).toString(10),
+          },
+          rates: { bnb: bnbRate, rec: RECRate },
         }),
       );
     }

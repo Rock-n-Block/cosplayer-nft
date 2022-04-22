@@ -91,11 +91,15 @@
 
       &_text {
         @include flex(row, center, flex-start, no-wrap);
-        @include ellipsis;
 
         .title {
           font-weight: 700;
+          white-space: nowrap;
         }
+      }
+
+      &_descr {
+        @include ellipsis;
       }
 
       .tags {
@@ -125,15 +129,15 @@
 
       img {
         margin-right: 5px;
-        max-width: 14px;
-        max-height: 14px;
+        width: 14px;
+        height: 14px;
         border-radius: 50%;
       }
     }
 
     .blue_text {
       font-weight: 700;
-      @include gradient-text($blue-gradient);
+      color: $blue;
     }
   }
 }

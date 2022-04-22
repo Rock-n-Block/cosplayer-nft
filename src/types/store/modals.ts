@@ -9,12 +9,20 @@ export type ActiveModal =
   | 'RemoveToken'
   | 'TransferToken'
   | 'Report'
+  | 'Buy'
   | 'PlaceBid'
   | 'SupportTicket'
   | '';
 
 export interface ModalState {
   activeModal: ActiveModal;
+  props: {
+    tokenId: number | string;
+    amount: number | string;
+    sellerId: string;
+    quantity: number | string;
+    currency: string;
+  };
 }
 
 export interface ModalsInitialState {

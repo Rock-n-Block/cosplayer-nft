@@ -4,93 +4,14 @@ import AvatarImg from 'assets/img/owner-avatar.png';
 
 export const comments: IComment[] = [
   {
-    author: {
-      name: 'Jakepaul',
+    user: {
+      customUrl: 'Jakepaul',
       avatar: AvatarImg,
     },
+    id: 0,
     text: 'Amazing NFT 🔥🔥🔥🔥',
-    isLiked: false,
-    likes: 0,
-    time: '2 hours ago',
-  },
-  {
-    author: {
-      name: 'Jakepaul',
-      avatar: AvatarImg,
-    },
-    text: 'Amazing NFT 🔥🔥🔥🔥',
-    isLiked: false,
-    likes: 0,
-    time: '2 hours ago',
-  },
-  {
-    author: {
-      name: 'Jakepaul',
-      avatar: AvatarImg,
-    },
-    text: 'Amazing NFT 🔥🔥🔥🔥',
-    isLiked: false,
-    likes: 0,
-    time: '2 hours ago',
-  },
-  {
-    author: {
-      name: 'Jakepaul',
-      avatar: AvatarImg,
-    },
-    text: 'Amazing NFT 🔥🔥🔥🔥',
-    isLiked: false,
-    likes: 0,
-    time: '2 hours ago',
-  },
-  {
-    author: {
-      name: 'Jakepaul',
-      avatar: AvatarImg,
-    },
-    text: 'Amazing NFT 🔥🔥🔥🔥',
-    isLiked: false,
-    likes: 0,
-    time: '2 hours ago',
-  },
-  {
-    author: {
-      name: 'Jakepaul',
-      avatar: AvatarImg,
-    },
-    text: 'Amazing NFT 🔥🔥🔥🔥',
-    isLiked: false,
-    likes: 0,
-    time: '2 hours ago',
-  },
-  {
-    author: {
-      name: 'Jakepaul',
-      avatar: AvatarImg,
-    },
-    text: 'Amazing NFT 🔥🔥🔥🔥',
-    isLiked: false,
-    likes: 0,
-    time: '2 hours ago',
-  },
-  {
-    author: {
-      name: 'Jakepaul',
-      avatar: AvatarImg,
-    },
-    text: 'Amazing NFT 🔥🔥🔥🔥',
-    isLiked: false,
-    likes: 0,
-    time: '2 hours ago',
-  },
-  {
-    author: {
-      name: 'Jakepaul',
-      avatar: AvatarImg,
-    },
-    text: 'Amazing NFT 🔥🔥🔥🔥',
-    isLiked: false,
-    likes: 0,
-    time: '2 hours ago',
+    likeCount: 0,
+    createdAt: '2022-04-21T14:44:24.562030Z',
+    likedBy: [],
   },
 ];

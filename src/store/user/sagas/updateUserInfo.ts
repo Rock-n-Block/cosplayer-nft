@@ -14,6 +14,7 @@ export function* updateUserInfoSaga({
   payload: { web3Provider },
 }: ReturnType<typeof updateUserInfo>) {
   yield put(request(type));
+
   try {
     const { data } = yield call(baseApi.getSelfInfo);
 

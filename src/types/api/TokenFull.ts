@@ -8,6 +8,7 @@
 import { CollectionSlim } from './CollectionSlim';
 import { Creator } from './Creator';
 import { Currency } from './Currency';
+import {IComment, IHistory, IOwner, IOwnerAuction, ISeller} from '../index';
 
 export interface TokenFull {
   animation?: string;
@@ -15,7 +16,7 @@ export interface TokenFull {
   bids?: string;
   collection: CollectionSlim;
   commentCount?: string;
-  comments?: string;
+  comments?: IComment[];
   creator: Creator;
   currency: Currency;
   currencyServiceFee?: string;
@@ -27,7 +28,7 @@ export interface TokenFull {
   hashtags?: { name: string }[];
   highestBid?: string;
   highestBidUsd?: string;
-  history?: string;
+  history?: IHistory[];
   id?: number;
   internalId?: number;
   isAucSelling?: string;
@@ -40,11 +41,11 @@ export interface TokenFull {
   minimalBidUsd?: string;
   name?: string;
   network?: string;
-  ownerAuction?: string;
-  owners?: string;
+  ownerAuction?: IOwnerAuction[];
+  owners?: IOwner | IOwner[];
   price?: string;
   royalty?: string;
-  sellers?: string;
+  sellers?: ISeller[];
   selling?: string;
   serviceFee?: string;
   standart?: string;

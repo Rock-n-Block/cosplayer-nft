@@ -13,6 +13,7 @@ export function* loginSaga({
   payload: { address, providerName, web3Provider },
 }: ReturnType<typeof login>) {
   yield put(request(type));
+
   try {
     const { data: metamaskMessage } = yield call(baseApi.getMetamaskMessage);
     let signedMessage: string;

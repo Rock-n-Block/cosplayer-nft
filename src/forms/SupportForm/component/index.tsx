@@ -1,9 +1,15 @@
-import { FC, memo, SyntheticEvent } from 'react';
+import { FC, SyntheticEvent } from 'react';
+
+import actionTypes from 'store/nfts/actionTypes';
+import uiSelector from 'store/ui/selectors';
 
 import { Field, FieldProps, Form, FormikProps } from 'formik';
 import { SupportFormProps } from 'forms/SupportForm/container';
 
-import { Button, FormInput, Spinner, TextArea, Uploader } from 'components';
+import { Button, FormInput, Spinner, TextArea } from 'components';
+
+import { useShallowSelector } from 'hooks';
+import { RequestStatus } from 'types';
 
 import s from './SupportForm.module.scss';
 
@@ -15,6 +21,8 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
   values,
   handleSubmit,
 }) => {
+  const { [actionTypes.SUPPORT]: supportRequestStatus } = useShallowSelector(uiSelector.getUI);
+
   return (
     <Form name="support-form" className={s.support_form}>
       <Field
@@ -32,28 +40,6 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
             onChange={handleChange}
             onBlur={(e: SyntheticEvent) => handleBlur(e)}
             error={touched.email && errors.email ? 'Not valid email address' : ''}
-          />
-        )}
-      />
-      <Field
-        id="customUrl"
-        name="customUrl"
-        render={({ form: { isSubmitting } }: FieldProps) => (
-          <FormInput
-            name="customUrl"
-            type="text"
-            color="grey"
-            label="Username"
-            placeholder="username"
-            disabled={isSubmitting}
-            value={values.customUrl}
-            onChange={handleChange}
-            onBlur={(e: SyntheticEvent) => handleBlur(e)}
-            error={
-              touched.customUrl && errors.customUrl
-                ? 'Username should be more than 3 and less than 20 symbols'
-                : ''
-            }
           />
         )}
       />
@@ -87,39 +73,28 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
           />
         )}
       />
-      <div className={s.attachment}>
-        <div className={s.attachment_text}>Attachments</div>
-        <Field
-          id="attachment"
-          name="attachment"
-          render={({ form: { isSubmitting } }: FieldProps) => (
-            <Uploader
-              isLoading={isSubmitting}
-              formikValue="attachment"
-              className={s.uploader}
-              colorButton="grey"
-            />
-          )}
-        />
-      </div>
       <Button
         disabled={
-          values.isLoading ||
+          supportRequestStatus === RequestStatus.REQUEST ||
           !values.email ||
-          !values.customUrl ||
+          !values.userId ||
           !values.message ||
           !!errors.email ||
-          !!errors.customUrl ||
+          !!errors.userId ||
           !!errors.message
         }
         className="modal-box-button"
         color="blue"
         onClick={handleSubmit}
       >
-        {values.isLoading ? <Spinner color="blue" size="sm" /> : 'Send ticket'}
+        {supportRequestStatus === RequestStatus.REQUEST ? (
+          <Spinner color="blue" size="sm" />
+        ) : (
+          'Send ticket'
+        )}
       </Button>
     </Form>
   );
 };
 
-export default memo(SupportFormComponent);
+export default SupportFormComponent;

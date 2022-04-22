@@ -7,10 +7,4 @@ export default {
   component: LikeButton,
 };
 
-export const Default: FC = () => (
-  <>
-    <LikeButton isLiked={false} likesNumber={0} artId={0} type="nft" />
-    <br />
-    <LikeButton isLiked={false} type="comment" artId={0} />
-  </>
-);
+export const Default: FC = () => <LikeButton isLiked={false} likesNumber={0} artId={0} />;

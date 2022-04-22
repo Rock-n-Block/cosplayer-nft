@@ -1,8 +1,8 @@
-import { FC, memo } from 'react';
+import { FC } from 'react';
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
-import { patchUserInfo } from 'store/user/actions';
+import { support } from 'store/nfts/actions';
 import userSelector from 'store/user/selectors';
 
 import { withFormik } from 'formik';
@@ -12,27 +12,23 @@ import { logger } from 'utils';
 
 import { editProfileValidator } from 'appConstants';
 import { useShallowSelector } from 'hooks';
-import { UserSlim } from 'types';
 
 import SupportFormComponent from '../component';
 
-export type SupportFormProps = UserSlim & {
-  isLoading: boolean;
+export type SupportFormProps = {
   email: string;
   message: string;
   transaction: string;
-  attachment: string;
+  userId: string;
 };
 
 const SupportForm: FC = () => {
-  const { customUrl } = useShallowSelector(userSelector.getUser);
+  const { customUrl, email } = useShallowSelector(userSelector.getUser);
   const props: SupportFormProps = {
-    email: '',
-    customUrl,
+    email: email || '',
     message: '',
     transaction: '',
-    attachment: '',
-    isLoading: false,
+    userId: customUrl || '',
   };
 
   const dispatch = useDispatch();
@@ -48,14 +44,14 @@ const SupportForm: FC = () => {
       customUrl: Yup.string().min(3, 'Too short!').max(20, 'Too long!'),
     }),
 
-    handleSubmit: async (values, { setFieldValue }) => {
+    handleSubmit: async (values) => {
       try {
-        setFieldValue('isLoading', true);
         const formData = new FormData();
-        formData.append('display_name', values.displayName || '');
-        formData.append('custom_url', values.customUrl || '');
-        dispatch(patchUserInfo(formData));
-        setFieldValue('isLoading', false);
+        formData.append('email', values.email);
+        formData.append('message', values.message);
+        formData.append('user_id', values.userId);
+        formData.append('tx', values.transaction);
+        dispatch(support(formData));
       } catch (e) {
         logger('submit login form', e);
         toast.loading('Something went wrong');
@@ -67,4 +63,4 @@ const SupportForm: FC = () => {
   return <FormWithFormik />;
 };
 
-export default memo(SupportForm);
+export default SupportForm;

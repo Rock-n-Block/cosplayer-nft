@@ -1,7 +1,8 @@
 @import "src/styles/mixins";
 
 .create_form {
-  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   @include grid(48% 52%, repeat(auto-fill, auto), 0);
 
   @include b(tablet) {
@@ -42,6 +43,7 @@
     border-left: 1px solid $border-line;
 
     @include b(mobile) {
+      max-width: 100%;
       padding: 30px 10px 20px;
     }
 
@@ -50,19 +52,21 @@
     }
 
     &_block {
+      box-sizing: border-box;
       margin-top: 40px;
       max-width: 440px;
       width: 100%;
-      @include grid(1fr, repeat(auto-fill, auto), 30px);
+      @include grid(100%, repeat(auto-fill, auto), 30px);
 
       @include b(mobile) {
-        max-width: unset;
+        max-width: 100%;
       }
     }
   }
 }
 
 .title {
+  color: #000;
   @include text-control(18px, 27px, 700);
 
   @include b(mobile) {

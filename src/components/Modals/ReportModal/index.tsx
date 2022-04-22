@@ -1,21 +1,34 @@
-import { ChangeEvent, FC, memo, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 
-import { Button, FormInput, Modal } from 'components';
+import { useDispatch } from 'react-redux';
+import { report } from 'store/nfts/actions';
+import actionTypes from 'store/nfts/actionTypes';
+import nftsSelector from 'store/nfts/selectors';
+import uiSelector from 'store/ui/selectors';
 
-import { useModal } from 'hooks';
-import { StoreModalProps } from 'types';
+import { Button, FormInput, Modal, Spinner } from 'components';
+
+import { useModal, useShallowSelector } from 'hooks';
+import { RequestStatus, StoreModalProps } from 'types';
 
 import { CloseImg } from 'assets/img/icons';
 
 const ReportModal: FC<StoreModalProps> = ({ id }) => {
   const [isVisibleModal, handleCloseModal] = useModal(id);
+  const dispatch = useDispatch();
   const [message, setMessage] = useState('');
+  const { id: tokenId } = useShallowSelector(nftsSelector.getProp('detailedNft'));
+  const { [actionTypes.REPORT]: reportRequestStatus } = useShallowSelector(uiSelector.getUI);
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
     setMessage(e.target.value);
   };
 
-  const handleReport = () => {};
+  const handleReport = () => {
+    if (tokenId) {
+      dispatch(report({ message, token: tokenId }));
+    }
+  };
 
   return (
     <Modal visible={isVisibleModal} onClose={handleCloseModal}>
@@ -38,10 +51,14 @@ const ReportModal: FC<StoreModalProps> = ({ id }) => {
         <Button
           color="blue"
           className="modal-box-button"
-          disabled={!message}
+          disabled={!message || reportRequestStatus === RequestStatus.REQUEST}
           onClick={handleReport}
         >
-          Send now
+          {reportRequestStatus === RequestStatus.REQUEST ? (
+            <Spinner color="blue" size="sm" />
+          ) : (
+            'Send now'
+          )}
         </Button>
         <Button color="bordered" className="modal-box-button" onClick={handleCloseModal}>
           Cancel
@@ -51,4 +68,4 @@ const ReportModal: FC<StoreModalProps> = ({ id }) => {
   );
 };
 
-export default memo(ReportModal);
+export default ReportModal;

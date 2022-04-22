@@ -1,69 +1,126 @@
-import { FC, memo } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
+import { setActiveModal } from 'store/modals/reducer';
+import userSelector from 'store/user/selectors';
+
+import moment from 'moment';
 
 import { Button } from 'components';
 
-import { ITokenInfo } from 'types';
-
-import { ShareImg, VerifiedImg } from 'assets/img/icons';
+import { useShallowSelector } from 'hooks';
+import { Currencies } from 'types';
 
 import s from './InfoCard.module.scss';
 
 export interface InfoCardProps {
-  info: ITokenInfo;
+  type: 'Purchased' | 'offered' | 'auctioned' | 'Owned' | '';
+  avatar: string;
+  id: string;
+  name: string;
+  quantity: number | string;
+  price: number | string;
+  currency: Currencies;
+  date: Date;
 }
 
-const InfoCard: FC<InfoCardProps> = ({ info }) => {
+const InfoCard: FC<InfoCardProps> = ({
+  type,
+  avatar,
+  id,
+  price,
+  date,
+  name,
+  quantity,
+  currency,
+}) => {
+  const [endpoint, setEndpoint] = useState(Math.floor((date.getTime() - Date.now()) / 1000));
+  const dispatch = useDispatch();
+  const { id: tokenId } = useParams();
+  const yourId = useShallowSelector(userSelector.getProp('id'));
+
+  const days = Math.floor(endpoint / (60 * 60 * 24));
+  const hours = Math.floor((endpoint / (60 * 60)) % 24);
+  const minutes = Math.floor((endpoint / 60) % 60);
+  const seconds = endpoint % 60;
+
+  const handleBuyOrBid = () => {
+    if (tokenId) {
+      if (type === 'auctioned') {
+        dispatch(
+          setActiveModal({
+            activeModal: 'PlaceBid',
+            props: { tokenId, amount: price, currency, quantity, sellerId: '' },
+          }),
+        );
+      } else if (type === 'offered') {
+        dispatch(
+          setActiveModal({
+            activeModal: 'Buy',
+            props: { tokenId, amount: price, currency, quantity, sellerId: id },
+          }),
+        );
+      }
+    }
+  };
+
+  useEffect(() => {
+    const timer = setInterval(() => setEndpoint((prev) => prev - 1), 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className={s.info_card}>
       <div className={s.content}>
-        <Button className={s.avatar} onClick={() => {}}>
-          <img src={info.user.avatar} alt={`${info.user.name} avatar`} />
+        <Button className={s.avatar} href={`/profile/${id}`}>
+          <img src={avatar} alt={`${name} avatar`} />
         </Button>
         <div className={s.action}>
           <span className={s.action_description}>
-            <div className={s.text_blue}>
-              {info.price}
-              {info.count && ` (${info.count})`}
-            </div>
-            &nbsp;
-            {info.type === 'bid' ? '' : info.type}&nbsp;by&nbsp;
+            {type !== 'Owned' && price > 0 && currency && (
+              <div className={s.text_blue}>
+                {price}&nbsp;{currency.toUpperCase()}
+                {quantity > 1 && ` (${quantity})`}&nbsp;
+              </div>
+            )}
+            {type}&nbsp;by&nbsp;
             <div className={s.text_black}>
-              {info.user.name}
-              {info.user.verified && (
-                <img src={VerifiedImg} className={s.verified} alt="verified icon" />
-              )}
+              {name}&nbsp;
+              {type === 'Owned' && `(${quantity})`}
             </div>
           </span>
           <span className={s.action_time}>
-            {info.time ? (
+            {type === 'auctioned' && endpoint > 0 && (
               <>
-                ends in&nbsp;<div className={s.text_black}>{info.time.days}</div>&nbsp;day
-                {info.time.days !== 1 && 's'}&nbsp;
-                <div className={s.text_black}>{info.time.hours}</div>&nbsp;hour
-                {info.time.hours !== 1 && 's'}&nbsp;
-                <div className={s.text_black}>{info.time.minutes}</div>&nbsp;min
-                {info.time.minutes !== 1 && 's'}&nbsp;
-                <div className={s.text_black}>{info.time.seconds}</div>&nbsp;sec
-                {info.time.seconds !== 1 && 's'}
+                ends in&nbsp;<div className={s.text_black}>{days}</div>&nbsp;day
+                {days !== 1 && 's'}&nbsp;
+                <div className={s.text_black}>{hours}</div>&nbsp;hour
+                {hours !== 1 && 's'}&nbsp;
+                <div className={s.text_black}>{minutes}</div>&nbsp;min
+                {minutes !== 1 && 's'}&nbsp;
+                <div className={s.text_black}>{seconds}</div>&nbsp;sec
+                {seconds !== 1 && 's'}
               </>
-            ) : (
-              <>at {info.date}</>
             )}
+            {type === 'auctioned' && endpoint < 0 && 'ended'}
+            {type !== 'auctioned' && `at ${moment(date).format('L')}, ${moment(date).format('LT')}`}
           </span>
         </div>
-        {info.isActive && (
-          <Button className={s.link} onClick={() => {}}>
-            <ShareImg />
-          </Button>
-        )}
       </div>
-      {info.isActive && (
-        <Button color="orange" className={s.button} onClick={() => {}}>
-          {info.type === 'auctioned' ? 'Bid' : 'Buy'}&nbsp;now
+      {(type === 'offered' || (type === 'auctioned' && endpoint > 0)) && (
+        <Button
+          color="orange"
+          disabled={!yourId || (type === 'auctioned' && endpoint < 0) || yourId === id}
+          className={s.button}
+          onClick={handleBuyOrBid}
+        >
+          {type === 'auctioned' ? 'Bid' : 'Buy'}&nbsp;Now
         </Button>
       )}
     </div>
   );
 };
 
-export default memo(InfoCard);
+export default InfoCard;

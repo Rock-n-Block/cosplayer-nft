@@ -25,11 +25,11 @@ export default {
       url: ApiUrl.nftById(id),
     });
   },
-  patchNftInfo(id: string | number, formData: FormData) {
+  patchNftInfo(data: { id: string | number; formData: FormData }) {
     return ajax({
       method: 'patch',
-      url: ApiUrl.nftById(id),
-      data: formData,
+      url: ApiUrl.nftById(data.id),
+      data: data.formData,
     });
   },
   createToken(formData: FormData) {
@@ -46,7 +46,19 @@ export default {
       data,
     });
   },
-  buy(data: { id: string | number; tokenAmount?: string | number; sellerId?: string | number }) {
+  trackTransaction(data: {
+    tx_hash: string;
+    token: string | number;
+    ownership: string;
+    amount: string | number;
+  }) {
+    return ajax({
+      method: 'post',
+      url: ApiUrl.trackTransaction,
+      data,
+    });
+  },
+  buy(data: { id: string | number; tokenAmount: string | number; sellerId?: string | number }) {
     return ajax({
       method: 'post',
       url: ApiUrl.buy,
@@ -72,17 +84,17 @@ export default {
       url: ApiUrl.verificateBet(id),
     });
   },
-  transfer(id: string | number, data: { address: string; amount?: string | number }) {
+  transfer(data: { id: string | number; address: string; amount?: string | number }) {
     return ajax({
       method: 'post',
-      url: ApiUrl.transfer(id),
+      url: ApiUrl.transfer(data.id),
       data,
     });
   },
-  burn(id: string | number, data: { amount?: string | number }) {
+  burn(data: { amount?: string | number; id: string | number }) {
     return ajax({
       method: 'post',
-      url: ApiUrl.burn(id),
+      url: ApiUrl.burn(data.id),
       data,
     });
   },
@@ -100,7 +112,7 @@ export default {
       data,
     });
   },
-  comment(data: { text: string; id: string | number }) {
+  comment(data: { text: string; token_id: string | number }) {
     return ajax({
       method: 'post',
       url: ApiUrl.comment,
@@ -111,6 +123,20 @@ export default {
     return ajax({
       method: 'delete',
       url: ApiUrl.comment,
+      data,
+    });
+  },
+  report(data: { message: string; token: string | number }) {
+    return ajax({
+      method: 'post',
+      url: ApiUrl.report,
+      data,
+    });
+  },
+  support(data: FormData) {
+    return ajax({
+      method: 'post',
+      url: ApiUrl.support,
       data,
     });
   },

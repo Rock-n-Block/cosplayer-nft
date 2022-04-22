@@ -130,6 +130,29 @@ button {
     }
   }
 
+  &-switcher {
+    width: 100%;
+    @include flex(row, center, center);
+  }
+
+  &-row {
+    width: 100%;
+    @include flex(row, center, space-between, no-wrap);
+    gap: 15px;
+  }
+
+  &-date-picker {
+    border: 1px solid $border-line;
+    border-radius: 12px;
+    cursor: pointer;
+
+    input {
+      margin-top: 0 !important;
+      height: 40px !important;
+      cursor: unset;
+    }
+  }
+
   &-inner {
     padding: 30px;
     @include flex(column, center, flex-start);

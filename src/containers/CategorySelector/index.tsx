@@ -1,6 +1,6 @@
-import { FC, useState } from 'react';
+import React, { FC, SyntheticEvent, useState } from 'react';
 
-import { Dropdown } from 'components';
+import { Dropdown, FormInput } from 'components';
 
 import { categories } from 'appConstants';
 
@@ -10,9 +10,23 @@ import s from './CategorySelector.module.scss';
 
 type CategorySelectorProps = {
   handleChooseCategory: (index: number) => void;
+  name: string;
+  value: string;
+  error: string;
+  onChange: (value: any) => void;
+  onBlur: (e: SyntheticEvent) => void;
+  disabled: boolean;
 };
 
-const CategorySelector: FC<CategorySelectorProps> = ({ handleChooseCategory }) => {
+const CategorySelector: FC<CategorySelectorProps> = ({
+  handleChooseCategory,
+  name,
+  value,
+  error,
+  onChange,
+  onBlur,
+  disabled,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSetCategory = (index: number) => {
@@ -30,7 +44,20 @@ const CategorySelector: FC<CategorySelectorProps> = ({ handleChooseCategory }) =
       optionsClassname={s.options}
       handleClickOnOption={handleSetCategory}
     >
-      <ArrowDownBlueImg className={isOpen ? s.arrow_up : s.arrow_down} />
+      <FormInput
+        name={name}
+        type="text"
+        label="Select category"
+        color="grey"
+        placeholder="Select Category"
+        description="Add category on your post and make users easy to find your post."
+        value={value}
+        suffix={<ArrowDownBlueImg className={isOpen ? s.arrow_up : s.arrow_down} />}
+        onChange={onChange}
+        disabled={disabled}
+        error={error}
+        onBlur={onBlur}
+      />
     </Dropdown>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import CategorySelector from './index';
 
@@ -7,4 +7,17 @@ export default {
   component: CategorySelector,
 };
 
-export const Default: React.FC = () => <CategorySelector handleChooseCategory={() => {}} />;
+export const Default: FC = () => {
+  const value = '';
+  return (
+    <CategorySelector
+      handleChooseCategory={() => {}}
+      name="name"
+      value={value}
+      error=""
+      onChange={() => {}}
+      onBlur={() => {}}
+      disabled={false}
+    />
+  );
+};

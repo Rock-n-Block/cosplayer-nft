@@ -1,6 +1,8 @@
-import { FC, memo } from 'react';
+import { FC } from 'react';
 
 import { Button } from 'components';
+
+import { routes } from 'appConstants';
 
 type ExploreProps = {
   className: string;
@@ -8,10 +10,10 @@ type ExploreProps = {
 
 const Explore: FC<ExploreProps> = ({ className }) => {
   return (
-    <Button className={className} onClick={() => {}}>
+    <Button className={className} href={routes.home.root}>
       Explore
     </Button>
   );
 };
 
-export default memo(Explore);
+export default Explore;

@@ -1,13 +1,15 @@
 @import 'src/styles/mixins';
 
+.checkbox {
+  span {
+    font-weight: 700;
+  }
+}
+
 .checkbox > input {
   position: absolute;
   z-index: -1;
   opacity: 0;
-}
-
-span {
-  font-weight: 700;
 }
 
 .checkbox > span {

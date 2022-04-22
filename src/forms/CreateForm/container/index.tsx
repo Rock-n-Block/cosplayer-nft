@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { createToken } from 'store/nfts/actions';
 
+import BigNumber from 'bignumber.js';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
@@ -67,6 +68,7 @@ const CreateForm: FC = () => {
     enableReinitialize: true,
     mapPropsToValues: () => props,
     validationSchema: Yup.object().shape({
+      media: Yup.mixed().required('Media is required'),
       name: Yup.string()
         .min(createValidator.name.min, 'Too short')
         .max(createValidator.name.max, 'Too long')
@@ -76,16 +78,18 @@ const CreateForm: FC = () => {
         .max(createValidator.totalSupply.max, 'Too much')
         .required(),
       description: Yup.string().max(createValidator.description.max, 'Too long'),
-      price: Yup.number()
-        .min(createValidator.minPrice, 'Minimal value equal to 0.001')
-        .notRequired(),
-      creatorRoyalty: Yup.number()
-        .min(createValidator.royalty.min, 'Minimal royalties equal to 0')
-        .max(createValidator.royalty.max, 'Too much')
-        .required(),
+      price: props.selling
+        ? Yup.number().min(createValidator.minPrice, 'Minimal value equal to 0.001').notRequired()
+        : Yup.number().notRequired(),
+      creatorRoyalty: props.selling
+        ? Yup.number()
+            .min(createValidator.royalty.min, 'Minimal royalties equal to 0')
+            .max(createValidator.royalty.max, 'Too much')
+            .required()
+        : Yup.number().notRequired(),
+      tag: Yup.string().required('Category is required'),
     }),
-    handleSubmit: (values, { setFieldValue }) => {
-      setFieldValue('isLoading', true);
+    handleSubmit: (values) => {
       const formData = new FormData();
       formData.append('name', values.name);
       formData.append('standart', values.totalSupply === 1 ? 'ERC721' : 'ERC1155');
@@ -108,13 +112,19 @@ const CreateForm: FC = () => {
           }
           formData.append('price', values.price.toString());
         } else {
-          if (!values.minimalBid) {
+          if (!values.price) {
             toast.error('Enter minimal bid of NFT for auction');
             return;
           }
-          formData.append('minimal_bid', values.minimalBid.toString());
-          formData.append('start_auction', values.startAuction.getTime().toString());
-          formData.append('end_auction', values.endAuction.getTime().toString());
+          formData.append('minimal_bid', values.price.toString());
+          formData.append(
+            'start_auction',
+            new BigNumber(values.startAuction.getTime()).div(1000).toFixed(0, 1),
+          );
+          formData.append(
+            'end_auction',
+            new BigNumber(values.endAuction.getTime()).div(1000).toFixed(0, 1),
+          );
         }
       }
       formData.append('creator_royalty', values.creatorRoyalty.toString());
@@ -130,7 +140,6 @@ const CreateForm: FC = () => {
       }
       formData.append('format', values.format);
       dispatch(createToken({ formData, web3Provider: walletService.Web3() }));
-      setFieldValue('isLoading', false);
     },
     displayName: 'create-nft',
   })(CreateFormComponent);

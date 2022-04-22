@@ -1,9 +1,8 @@
 import { FC } from 'react';
 
 import { bids } from 'pages/Nft/components/Bids/Bids.mock';
-import { owners } from 'pages/Nft/components/Owners/Owners.mock';
-import { sales } from 'pages/Nft/components/Sales/Sales.mock';
 
+import { currencies } from '../PriceSelector/PriceSelector.mock';
 import InfoCard from '.';
 
 export default {
@@ -12,11 +11,14 @@ export default {
 };
 
 export const Default: FC = () => (
-  <>
-    <InfoCard info={bids[0]} />
-    <br />
-    <InfoCard info={sales[0]} />
-    <br />
-    <InfoCard info={owners[0]} />
-  </>
+  <InfoCard
+    avatar={bids[0].user.avatar}
+    date={new Date(bids[0].date || '')}
+    type=""
+    name="username"
+    id="1"
+    price={0}
+    currency={currencies[0].value}
+    quantity={1}
+  />
 );

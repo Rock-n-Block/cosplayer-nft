@@ -20,7 +20,6 @@ const NavLinks: FC<NavLinksProps> = ({ isModal, handleNavigate }) => {
   const dispatch = useDispatch();
 
   const handleOpenSupport = () => {
-    handleNavigate('/');
     dispatch(setActiveModal({ activeModal: 'SupportTicket' }));
   };
 

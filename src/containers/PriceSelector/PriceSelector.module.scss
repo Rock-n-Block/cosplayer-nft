@@ -7,9 +7,13 @@
   background: transparent !important;
 }
 
+.static {
+  cursor: initial;
+}
+
 .currencies_list {
   padding: 0 6px !important;
-  width: 100px;
+  width: 80px;
   grid-gap: 0 !important;
 
   button + button {

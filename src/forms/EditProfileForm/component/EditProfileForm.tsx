@@ -1,8 +1,10 @@
-import { FC, SyntheticEvent } from 'react';
+import { FC, SyntheticEvent, useMemo } from 'react';
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
+import uiSelector from 'store/ui/selectors';
 import { patchUserInfo } from 'store/user/actions';
+import actionTypes from 'store/user/actionTypes';
 import userSelector from 'store/user/selectors';
 
 import { Field, FieldProps, Form, FormikProps } from 'formik';
@@ -11,6 +13,7 @@ import { Button, FormInput, Spinner, TextArea, Uploader } from 'components';
 import { logger } from 'utils';
 
 import { useShallowSelector } from 'hooks';
+import { RequestStatus } from 'types';
 
 import { EditProfileFormProps } from '../container';
 
@@ -26,8 +29,16 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
   values,
   handleSubmit,
 }) => {
-  const { avatar, loading } = useShallowSelector(userSelector.getUser);
+  const { avatar } = useShallowSelector(userSelector.getUser);
+  const { [actionTypes.PATCH_USER_INFO]: patchUserInfoRequestStatus } = useShallowSelector(
+    uiSelector.getUI,
+  );
   const dispatch = useDispatch();
+
+  const isPatchUserInfoLoading = useMemo(
+    () => patchUserInfoRequestStatus === RequestStatus.REQUEST,
+    [patchUserInfoRequestStatus],
+  );
 
   const handleUploadAvatar = () => {
     try {
@@ -43,17 +54,22 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
   return (
     <Form name="edit-profile-form" className={s.edit_profile}>
       <div className={s.upload_avatar}>
-        <Uploader isLoading={loading} className={s.uploader} formikValue="avatar">
+        <Uploader
+          isLoading={isPatchUserInfoLoading}
+          className={s.uploader}
+          isImgOnly
+          formikValue="avatar"
+        >
           <img src={values.preview || EditAvatarImg} alt="avatar" />
         </Uploader>
         <div>
           {avatar ? (
             <Button color="blue" className={s.upload_btn} onClick={handleUploadAvatar}>
-              {loading ? <Spinner color="white" size="sm" /> : 'Change image'}
+              {isPatchUserInfoLoading ? <Spinner color="white" size="sm" /> : 'Change image'}
             </Button>
           ) : (
             <Button color="blue" className={s.upload_btn} onClick={handleUploadAvatar}>
-              {loading ? <Spinner color="white" size="sm" /> : 'Save'}
+              {isPatchUserInfoLoading ? <Spinner color="white" size="sm" /> : 'Save'}
             </Button>
           )}
           <span className={s.recommend_text}>Recommended 500x500. GIFs Allowed.</span>
@@ -68,7 +84,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
             type="text"
             color="grey"
             label="First name"
-            error={touched.displayName ? errors.displayName : ''}
+            error={(touched.displayName && errors.displayName) || ''}
             placeholder="Enter your full name"
             value={values.displayName || ''}
             onChange={handleChange}
@@ -87,7 +103,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
             type="text"
             color="grey"
             label="Username"
-            error={touched.customUrl ? errors.customUrl : ''}
+            error={(touched.customUrl && errors.customUrl) || ''}
             placeholder="Enter your username"
             value={values.customUrl || ''}
             onChange={handleChange}
@@ -225,8 +241,14 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
           />
         )}
       />
-      <Button type="submit" color="blue" className={s.submit} onClick={handleSubmit}>
-        {loading ? <Spinner color="white" size="md" /> : 'Save'}
+      <Button
+        type="submit"
+        color="blue"
+        className={s.submit}
+        disabled={isPatchUserInfoLoading}
+        onClick={handleSubmit}
+      >
+        {isPatchUserInfoLoading ? <Spinner color="blue" size="sm" /> : 'Save'}
       </Button>
     </Form>
   );

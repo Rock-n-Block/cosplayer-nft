@@ -6,7 +6,7 @@
 }
 
 .wrap {
-  min-width: 100%;
+  width: 100%;
   @include flex(row, center, space-between, no-wrap);
   gap: 10px;
 }
@@ -60,6 +60,8 @@
 
 .description {
   margin-top: 7px;
+  white-space: break-spaces;
+  text-align: left;
   @include text-control(13px, 20px);
   color: $grey;
 }

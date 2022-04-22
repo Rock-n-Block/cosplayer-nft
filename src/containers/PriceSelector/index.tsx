@@ -1,4 +1,6 @@
-import React, { FC, memo } from 'react';
+import React, { FC, Fragment } from 'react';
+
+import cn from 'classnames';
 
 import { Dropdown } from 'components';
 
@@ -11,6 +13,7 @@ import { ArrowDownBlueImg } from 'assets/img/icons';
 import s from './PriceSelector.module.scss';
 
 type PriceSelectorProps = {
+  isStatic?: boolean;
   isOpen: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   currentCurrency: string;
@@ -22,6 +25,7 @@ const PriceSelector: FC<PriceSelectorProps> = ({
   setOpen,
   currentCurrency,
   setCurrentCurrency,
+  isStatic,
 }) => {
   const currency = currencies.find((item) => item.value === currentCurrency) || currencies[0];
 
@@ -36,7 +40,7 @@ const PriceSelector: FC<PriceSelectorProps> = ({
       setVisible={setOpen}
       options={currencies}
       classname={s.currencies}
-      controlClassname={s.currency}
+      controlClassname={cn(s.currency, isStatic && s.static)}
       optionsClassname={s.currencies_list}
       handleClickOnOption={handleChooseCurrency}
     >
@@ -46,9 +50,9 @@ const PriceSelector: FC<PriceSelectorProps> = ({
         <div className="default-currency-icon" />
       )}
       <div className={s.currency_name}>{currency.label}</div>
-      <ArrowDownBlueImg className={isOpen ? s.arrow_up : s.arrow} />
+      {isStatic ? Fragment : <ArrowDownBlueImg className={isOpen ? s.arrow_up : s.arrow} />}
     </Dropdown>
   );
 };
 
-export default memo(PriceSelector);
+export default PriceSelector;

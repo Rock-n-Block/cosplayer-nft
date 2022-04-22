@@ -12,7 +12,8 @@ import {
 import storage from 'redux-persist/lib/storage/session';
 import createSagaMiddleware from 'redux-saga';
 
-import actionTypes from './user/actionTypes';
+import nftsActionTypes from './nfts/actionTypes';
+import userActionTypes from './user/actionTypes';
 import reducer from './rootReducer';
 import rootSaga from './rootSaga';
 
@@ -40,10 +41,17 @@ export const store = configureStore({
           PERSIST,
           PURGE,
           REGISTER,
-          actionTypes.LOGIN,
-          actionTypes.UPDATE_USER_INFO,
-          actionTypes.GET_BALANCE,
-          actionTypes.PATCH_USER_INFO,
+          userActionTypes.LOGIN,
+          userActionTypes.UPDATE_USER_INFO,
+          userActionTypes.GET_BALANCE,
+          userActionTypes.PATCH_USER_INFO,
+          nftsActionTypes.BUY,
+          nftsActionTypes.PATCH_NFT_DATA,
+          nftsActionTypes.BURN,
+          nftsActionTypes.TRANSFER,
+          nftsActionTypes.BID,
+          nftsActionTypes.LIKE,
+          nftsActionTypes.SUPPORT,
         ],
       },
     }).concat(sagaMiddleware),

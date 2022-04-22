@@ -10,12 +10,10 @@ const initialState: UserState = {
   email: '',
   balance: {
     bnb: '0',
-    cosnft: '0',
     rec: '0',
   },
   rates: {
     bnb: '0',
-    cosnft: '0',
     rec: '0',
   },
   country: '',
@@ -27,7 +25,6 @@ const initialState: UserState = {
   key: '',
   provider: '' as TAvailableProviders,
   displayName: '',
-  loading: false,
 };
 
 export const userReducer = createSlice({
@@ -38,10 +35,6 @@ export const userReducer = createSlice({
       ...state,
       ...action.payload,
     }),
-    setLoading: (state, action: PayloadAction<boolean>) => ({
-      ...state,
-      loading: action.payload,
-    }),
     disconnectWalletState: () => {
       return {
         ...initialState,
@@ -50,6 +43,6 @@ export const userReducer = createSlice({
   },
 });
 
-export const { disconnectWalletState, updateUserState, setLoading } = userReducer.actions;
+export const { disconnectWalletState, updateUserState } = userReducer.actions;
 
 export default userReducer.reducer;

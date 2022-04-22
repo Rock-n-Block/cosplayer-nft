@@ -17,7 +17,7 @@ export const actions: IDropdownItem[] = [
   {
     icon: TransferImg,
     label: 'Transfer token',
-    value: 'transfer-token',
+    value: 'transfer',
   },
   {
     icon: RemoveImg,
@@ -27,7 +27,7 @@ export const actions: IDropdownItem[] = [
   {
     icon: BurnImg,
     label: 'Burn token',
-    value: 'burn-token',
+    value: 'burn',
   },
   {
     icon: ReportImg,

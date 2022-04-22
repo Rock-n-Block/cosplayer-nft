@@ -13,6 +13,7 @@ export interface CalendarProps {
   name: string;
   disabled?: boolean;
   allowSameDay?: boolean;
+  classname?: string;
 }
 
 const Calendar: FC<CalendarProps> = ({
@@ -24,15 +25,18 @@ const Calendar: FC<CalendarProps> = ({
   name,
   disabled = false,
   allowSameDay = true,
+  classname,
 }) => {
   return (
     <div className={s.calendar}>
       <span className={s.label}>{label}</span>
       <DatePicker
+        wrapperClassName={classname}
         name={name}
         selected={date}
         onChange={handleChange}
         minDate={minDate}
+        showTimeSelect
         disabled={disabled}
         placeholderText={placeholder}
         allowSameDay={allowSameDay}

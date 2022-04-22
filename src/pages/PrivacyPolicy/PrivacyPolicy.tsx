@@ -31,7 +31,7 @@ export const PrivacyPolicy: FC = () => (
     </div>
     <div className={s.block}>
       <h2 className={s.title}>Personal Information</h2>
-      <p className={s.text}>
+      <div className={s.text}>
         <ul>
           The kinds of Personal Information that CosplayerNFT may collect from you is:
           <li>Name</li>
@@ -40,11 +40,11 @@ export const PrivacyPolicy: FC = () => (
           <li>Location data</li>
           <li>IP address</li>
         </ul>
-      </p>
+      </div>
     </div>
     <div className={s.block}>
       <h2 className={s.title}>Collection Purposes</h2>
-      <p className={s.text}>
+      <div className={s.text}>
         <ul>
           CosplayerNFT will collect your Personal Information only by lawful and fair means and not
           in an intrusive way to operate its Service, and to provide you with the following
@@ -93,7 +93,7 @@ export const PrivacyPolicy: FC = () => (
             purposes.
           </li>
         </ul>
-      </p>
+      </div>
     </div>
   </div>
 );

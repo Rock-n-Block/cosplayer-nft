@@ -6,7 +6,7 @@
   .options {
     position: absolute;
     z-index: 99;
-    top: 120%;
+    top: 130%;
     padding: 6px 0;
     @include flex(column, center, space-between, no-wrap);
     gap: 6px;
@@ -24,7 +24,7 @@
         }
 
         to {
-          top: 120%;
+          top: 130%;
           opacity: 1;
         }
       }
@@ -35,7 +35,7 @@
 
       @keyframes slideOut {
         from {
-          top: 120%;
+          top: 130%;
           opacity: 1;
         }
 

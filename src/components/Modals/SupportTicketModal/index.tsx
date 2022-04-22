@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { FC } from 'react';
 
 import { SupportForm } from 'forms';
 
@@ -30,4 +30,4 @@ const SupportTicketModal: FC<StoreModalProps> = ({ id }) => {
   );
 };
 
-export default memo(SupportTicketModal);
+export default SupportTicketModal;

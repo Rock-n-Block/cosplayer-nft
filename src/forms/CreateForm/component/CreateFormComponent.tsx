@@ -1,7 +1,8 @@
 import React, { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import nftsSelector from 'store/nfts/selectors';
+import actionTypes from 'store/nfts/actionTypes';
+import uiSelector from 'store/ui/selectors';
 import userSelector from 'store/user/selectors';
 
 import BigNumber from 'bignumber.js';
@@ -22,7 +23,7 @@ import { logger } from 'utils';
 
 import { categories } from 'appConstants';
 import { useShallowSelector } from 'hooks';
-import { Currencies } from 'types';
+import { Currencies, RequestStatus } from 'types';
 
 import { CreateFormProps } from '../container';
 
@@ -43,7 +44,9 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
   const [isPriceSelectorOpen, setIsPriceSelectorOpen] = useState(false);
   const [hashtag, setHashtag] = useState('');
   const rates = useShallowSelector(userSelector.getProp('rates'));
-  const loading = useShallowSelector(nftsSelector.getProp('loading'));
+  const { [actionTypes.CREATE_TOKEN]: createTokenRequestStatus } = useShallowSelector(
+    uiSelector.getUI,
+  );
 
   const handleClearMedia = () => {
     setFieldValue('media', '');
@@ -64,6 +67,12 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
     setFieldValue('isFixedPrice', !values.isFixedPrice);
   };
 
+  const handleBlockedSwitcher = () => {
+    if (values.totalSupply > 1) {
+      toast.info('Time Auction is available only for single NFT');
+    }
+  };
+
   const handleSelectCurrency = (currency: Currencies) => {
     setFieldValue('currency', currency);
   };
@@ -73,8 +82,12 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
   };
 
   const handleAddHashtag = () => {
-    if (hashtag === '#' || /#/.test(hashtag[0] === '#' ? hashtag.slice(1) : hashtag)) {
-      toast.info('Incorrect hashtag');
+    if (
+      hashtag.trim() === '#' ||
+      hashtag.trim() === '' ||
+      /#/.test(hashtag[0] === '#' ? hashtag.slice(1) : hashtag)
+    ) {
+      toast.error('Incorrect hashtag');
     } else if (values.hashtags.includes(hashtag[0] === '#' ? hashtag : `#${hashtag}`)) {
       toast.info('This hashtag has already been added');
     } else if (hashtag[0] !== '#') {
@@ -240,7 +253,9 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                   firstTab="$ Fixed Price"
                   secondTab="Time Auction"
                   activeTab={values.isFixedPrice ? '$ Fixed Price' : 'Time Auction'}
-                  setActiveTab={isSubmitting ? () => {} : handleSwitch}
+                  setActiveTab={
+                    isSubmitting || +values.totalSupply > 1 ? handleBlockedSwitcher : handleSwitch
+                  }
                 />
               )}
             />
@@ -294,18 +309,17 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             ) : (
               <>
                 <Field
-                  id="minimalBid"
-                  name="minimalBid"
+                  id="price"
+                  name="price"
                   render={({ form: { isSubmitting } }: FieldProps) => (
                     <FormInput
-                      name="minimalBid"
+                      name="price"
                       type="number"
                       label="Minimum Bid"
                       description="Bids below this amount won’t be allowed."
                       color="white"
                       placeholder="Enter Minimum Bid"
-                      positiveOnly
-                      value={values.minimalBid.toString()}
+                      value={values.price.toString()}
                       suffix={
                         <div className="modal-suffix">
                           <PriceSelector
@@ -316,7 +330,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                           />
                           <span>
                             {new BigNumber(rates[values.currency])
-                              .times(values.minimalBid || 0)
+                              .times(values.price || 0)
                               .toFixed(3, 1)}
                             &nbsp;$
                           </span>
@@ -324,7 +338,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                       }
                       onChange={handleChange}
                       disabled={isSubmitting}
-                      error={(touched.minimalBid && errors.price) || ''}
+                      error={(touched.price && errors.price) || ''}
                       onBlur={(e: SyntheticEvent) => handleBlur(e)}
                     />
                   )}
@@ -420,19 +434,14 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             id="tag"
             name="tag"
             required
-            render={({ form: { isSubmitting } }: FieldProps) => (
-              <FormInput
+            render={() => (
+              <CategorySelector
+                handleChooseCategory={handleSetCategory}
                 name="tag"
-                type="text"
-                label="Select category"
-                color="grey"
-                placeholder="Select Category"
-                description="Add category on your post and make users easy to find your post."
                 value={values.tag}
-                suffix={<CategorySelector handleChooseCategory={handleSetCategory} />}
+                error={touched.tag && errors.tag ? errors.tag : ''}
                 onChange={handleChange}
-                disabled={isSubmitting}
-                error={(touched.tag && errors.tag) || ''}
+                disabled
                 onBlur={(e: SyntheticEvent) => handleBlur(e)}
               />
             )}
@@ -506,7 +515,11 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             className={s.submit}
             onClick={handleSubmit}
           >
-            {loading ? <Spinner color="white" size="sm" /> : 'Create Item'}
+            {createTokenRequestStatus === RequestStatus.REQUEST ? (
+              <Spinner color="white" size="sm" />
+            ) : (
+              'Create Item'
+            )}
           </Button>
         </div>
       </div>

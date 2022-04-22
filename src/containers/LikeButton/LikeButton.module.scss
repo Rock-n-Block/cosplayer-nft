@@ -4,13 +4,24 @@
   @include flex(row, center, center);
   gap: 5px;
 
-  &_img {
-    &:hover {
-      stroke: #000;
-    }
+  &_count {
+    font-weight: 700;
   }
 
-  &_count {
-    font-weight: 400;
+  &_nft {
+    margin-right: 4px;
+    padding: 0 7px;
+    @include flex(row, center, center);
+    gap: 5px;
+    min-width: 28px;
+    height: 28px;
+    border: 1px solid $border-line;
+    border-radius: 14px;
+    @include text-control(14px, 21px, 700);
+    color: #000;
+
+    &:hover {
+      border-color: $blue;
+    }
   }
 }

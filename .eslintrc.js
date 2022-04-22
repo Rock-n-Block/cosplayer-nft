@@ -13,6 +13,8 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'prettier/@typescript-eslint',
+    'prettier/react',
   ],
   globals: {
     Atomics: 'readonly',
@@ -64,12 +66,10 @@ module.exports = {
     'prettier/prettier': ['warn', prettierConfig],
     'quote-props': ['error', 'consistent-as-needed'],
     'react/jsx-uses-react': 'off',
-    'jsx-a11y/control-has-associated-label': 'off',
-    'jsx-a11y/label-has-associated-control': 'off',
-    'jsx-a11y/label-has-for': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/require-default-props': 'off',
     'react/prop-types': 'off',
+    'react/function-component-definition': 'off',
     'react/destructuring-assignment': 'off',
     'react/jsx-filename-extension': ['error', { extensions: ['.jsx', '.tsx'] }],
     'react/jsx-props-no-spreading': 'off',
@@ -83,13 +83,6 @@ module.exports = {
         condition: 'parens-new-line',
         logical: 'parens-new-line',
         prop: 'ignore',
-      },
-    ],
-    'react/function-component-definition': [
-      2,
-      {
-        namedComponents: 'arrow-function',
-        unnamedComponents: 'arrow-function',
       },
     ],
     'sort-imports': 'off',
@@ -170,7 +163,9 @@ module.exports = {
   },
   settings: {
     'import/resolver': {
-      typescript: {},
+      node: {
+        paths: ['src'],
+      },
     },
   },
 };
