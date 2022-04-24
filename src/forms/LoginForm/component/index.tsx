@@ -78,11 +78,7 @@ const Login: FC<FormikProps<UserFormProps>> = ({
               value={values.customUrl}
               onChange={handleChange}
               onBlur={(e: SyntheticEvent) => handleBlur(e)}
-              error={
-                touched.customUrl && errors.customUrl
-                  ? 'Username should be more than 3 and less than 20 symbols'
-                  : ''
-              }
+              error={(touched.customUrl && errors.customUrl) || ''}
             />
           )}
         />

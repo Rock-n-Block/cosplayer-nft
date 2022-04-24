@@ -50,12 +50,13 @@ const EditProfileForm: FC = () => {
     mapPropsToValues: () => props,
     validationSchema: Yup.object().shape({
       displayName: Yup.string()
-        .min(3, 'Too short!')
-        .max(20, 'Too long!')
+        .min(editProfileValidator.name.min, 'Too short!')
+        .max(editProfileValidator.name.max, 'Too long!')
         .required('First name is required!'),
       customUrl: Yup.string()
-        .min(3, 'Too short!')
-        .max(20, 'Too long!')
+        .min(editProfileValidator.name.min, 'Too short!')
+        .max(editProfileValidator.name.max, 'Too long!')
+        .matches(editProfileValidator.name.reg, 'Incorrect Username')
         .required('Username is required!'),
       bio: Yup.string().max(editProfileValidator.bio.max, 'Too long!').notRequired(),
       email: Yup.string()

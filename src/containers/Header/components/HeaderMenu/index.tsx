@@ -125,7 +125,7 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isModal, closeMenu }) => {
       ) : (
         <div className={s.header_menu_btns}>
           <NewPost closeMenu={handleNavigate(routes.create.root)} isMobile />
-          <ConnectButton />
+          <ConnectButton closeMenu={closeMenu} />
         </div>
       )}
       {isModal ? (

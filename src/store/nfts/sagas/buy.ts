@@ -37,7 +37,7 @@ export function* buySaga({
         tokenAddress,
       );
 
-      const decimals: string = yield call(tokenContract.methods.decimals().call());
+      const decimals: string = yield call(tokenContract.methods.decimals().call);
 
       yield call(approveSaga, {
         type: actionTypes.APPROVE,
@@ -45,7 +45,7 @@ export function* buySaga({
           web3Provider,
           amount: new BigNumber(amount)
             .times(new BigNumber(+tokenAmount || 1))
-            .times(decimals)
+            .times(10 ** +decimals)
             .toFixed(0, 1),
           spender: exchangeAddress,
           tokenAddress,
@@ -53,7 +53,10 @@ export function* buySaga({
       });
     }
 
-    const { data } = yield call(baseApi.buy, { id, tokenAmount, sellerId });
+    const { data } = yield call(
+      baseApi.buy,
+      +tokenAmount ? { id, tokenAmount, sellerId } : { id, tokenAmount },
+    );
 
     if (data.initial_tx) {
       const { transactionHash } = yield call(web3Provider.eth.sendTransaction, {
@@ -86,7 +89,7 @@ export function* buySaga({
     if (typeof e === 'number') {
       toast.error(e === 4001 ? 'You have rejected confirmation' : 'Something went wrong');
     } else {
-      toast.error('Something went wrong');
+      toast.error(e.code === 4001 ? 'You have rejected confirmation' : 'Something went wrong');
     }
 
     yield put(apiActions.error(type, e));

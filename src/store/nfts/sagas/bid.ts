@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 
 import { call, put, takeLatest } from 'redux-saga/effects';
-import * as apiActions from 'store/api/actions';
+import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
 import { closeModal } from 'store/modals/reducer';
 
@@ -24,7 +24,7 @@ export function* bidNftSaga({
 }: ReturnType<typeof bid>) {
   const { params, type: networkType } = contracts;
 
-  yield put(apiActions.request(type));
+  yield put(request(type));
 
   try {
     const exchangeAddress = params.EXCHANGE[networkType].address;
@@ -48,11 +48,17 @@ export function* bidNftSaga({
       });
     }
 
-    yield call(baseApi.bid, {
+    const { data } = yield call(baseApi.bid, {
       token_id: id,
       amount,
-      quantity: '1',
+      quantity: 1,
     });
+
+    if (data?.error?.length) {
+      toast.error(data.error);
+      yield put(error(type, data.error));
+      return;
+    }
 
     yield call(getNftDataSaga, {
       type: actionTypes.GET_NFT_DATA,
@@ -61,9 +67,9 @@ export function* bidNftSaga({
       },
     });
 
-    yield put(apiActions.success(type));
+    yield put(success(type));
     yield put(closeModal());
-    toast.success('You have successfully mage bid');
+    toast.success('You have successfully placed a bid');
   } catch (err: any) {
     if (typeof err === 'number') {
       toast.error(err === 4001 ? 'Operation was rejected' : 'Something went wrong');
@@ -71,7 +77,7 @@ export function* bidNftSaga({
       toast.error(err.code === 4001 ? 'Operation was rejected' : 'Something went wrong');
     }
     logger('Bid', err);
-    yield put(apiActions.error(type, err));
+    yield put(error(type, err));
   }
 }
 

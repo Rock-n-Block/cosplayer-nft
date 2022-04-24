@@ -72,7 +72,7 @@ const Uploader: FC<IProps> = ({
     }
   };
   const { getRootProps, getInputProps } = useDropzone({
-    accept: isImgOnly ? 'image/*' : ['image/*', 'video/mp4', 'audio/mpeg'],
+    accept: isImgOnly ? 'image/*' : ['image/*', 'video/*', 'audio/mpeg'],
     validator: (file) => fileValidation(file, maxSizeInMb),
     onDrop: handleChange,
   });

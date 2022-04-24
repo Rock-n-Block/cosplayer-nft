@@ -10,17 +10,20 @@ import { logger } from 'utils';
 import { createToken } from '../actions';
 import actionTypes from '../actionTypes';
 
-export function* createTokenSaga({ type, payload }: ReturnType<typeof createToken>) {
+export function* createTokenSaga({
+  type,
+  payload: { formData, web3Provider },
+}: ReturnType<typeof createToken>) {
   yield put(apiActions.request(type));
 
   try {
-    const { data } = yield call(baseApi.createToken, payload.formData);
+    const { data } = yield call(baseApi.createToken, formData);
     logger('response data:', data);
     const address: string = yield select(userSelector.getProp('address'));
     const { initial_tx, token } = data;
     if (initial_tx) {
       try {
-        yield call(payload.web3Provider.eth.sendTransaction, {
+        yield call(web3Provider.eth.sendTransaction, {
           ...initial_tx,
           from: address,
         });

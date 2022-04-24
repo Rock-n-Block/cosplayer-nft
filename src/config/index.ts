@@ -90,16 +90,6 @@ export const contracts: IContracts = {
         abi: erc20Abi,
       },
     },
-    COSNFT: {
-      mainnet: {
-        address: '',
-        abi: erc20Abi,
-      },
-      testnet: {
-        address: '0xe28a6FE1d5412f43fF33b8D302c3c2E1C6ca13f5',
-        abi: erc20Abi,
-      },
-    },
     ERC721: {
       mainnet: {
         address: '',

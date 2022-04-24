@@ -1,9 +1,9 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
-import { getHotNfts } from 'store/nfts/actions';
+import { searchNfts } from 'store/nfts/actions';
 import actionTypes from 'store/nfts/actionTypes';
-import { clearHotNfts } from 'store/nfts/reducer';
+import { clearNfts } from 'store/nfts/reducer';
 import nftsSelector from 'store/nfts/selectors';
 import uiSelector from 'store/ui/selectors';
 
@@ -22,29 +22,41 @@ export const Home: FC = () => {
   const [activeSort, setActiveSort] = useState(sorts[0]);
   const [activeTag, setActiveTag] = useState<ICategory>();
   const dispatch = useDispatch();
-  const { hotNfts } = useShallowSelector(nftsSelector.getNfts);
-  const { [actionTypes.HOT_NFTS]: hotNftsRequestStatus } = useShallowSelector(uiSelector.getUI);
-
-  const isGetHotNftsLoading = useMemo(
-    () => hotNftsRequestStatus === RequestStatus.REQUEST,
-    [hotNftsRequestStatus],
-  );
-  const isGetHotNftsSuccess = useMemo(
-    () => hotNftsRequestStatus === RequestStatus.SUCCESS,
-    [hotNftsRequestStatus],
+  const { nfts } = useShallowSelector(nftsSelector.getNfts);
+  const { [actionTypes.SEARCH_NFTS]: searchNftsRequestStatus } = useShallowSelector(
+    uiSelector.getUI,
   );
 
-  const fetchHotNfts = useCallback(() => {
-    dispatch(getHotNfts({ tag: activeTag?.name, sort: activeSort.value }));
+  const isSearchHotNftsLoading = useMemo(
+    () => searchNftsRequestStatus === RequestStatus.REQUEST,
+    [searchNftsRequestStatus],
+  );
+  const isSearchHotNftsSuccess = useMemo(
+    () => searchNftsRequestStatus === RequestStatus.SUCCESS,
+    [searchNftsRequestStatus],
+  );
+
+  const fetchNfts = useCallback(() => {
+    dispatch(
+      searchNfts({
+        data: { text: '' },
+        props: {
+          type: 'items',
+          onSale: true,
+          tags: activeTag?.name !== 'All' ? activeTag?.name : undefined,
+          orderBy: activeSort.value,
+        },
+      }),
+    );
   }, [activeSort.value, activeTag?.name, dispatch]);
 
   useEffect(() => {
-    fetchHotNfts();
-  }, [fetchHotNfts]);
+    fetchNfts();
+  }, [fetchNfts]);
 
   useEffect(
     () => () => {
-      dispatch(clearHotNfts());
+      dispatch(clearNfts());
     },
     [dispatch],
   );
@@ -57,7 +69,7 @@ export const Home: FC = () => {
         activeSort={activeSort}
         setActiveSort={setActiveSort}
       />
-      {isGetHotNftsLoading && (
+      {isSearchHotNftsLoading && (
         <div className={s.token_cards}>
           <TokenCardSkeleton />
           <TokenCardSkeleton />
@@ -65,17 +77,14 @@ export const Home: FC = () => {
           <TokenCardSkeleton />
         </div>
       )}
-      {isGetHotNftsSuccess && hotNfts.length > 0 && (
+      {isSearchHotNftsSuccess && nfts.length > 0 && (
         <div className={s.token_cards}>
-          {hotNfts.map(
-            (token) =>
-              token.selling && (
-                <TokenCard data={token as TokenFull & { owners: any }} key={token.id} />
-              ),
-          )}
+          {nfts.map((token) => (
+            <TokenCard data={token as TokenFull & { owners: any }} key={token.id} />
+          ))}
         </div>
       )}
-      {isGetHotNftsSuccess && hotNfts.length === 0 && (
+      {isSearchHotNftsSuccess && nfts.length === 0 && (
         <div className={s.not_found}>No items found. Try another tags or refresh page</div>
       )}
     </div>

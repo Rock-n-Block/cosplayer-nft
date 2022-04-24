@@ -9,6 +9,7 @@ import * as Yup from 'yup';
 
 import { logger } from 'utils';
 
+import { editProfileValidator } from 'appConstants';
 import { getIpData } from 'services/api/getIpData';
 import { UserSlim } from 'types';
 
@@ -36,8 +37,15 @@ const LoginForm: FC = () => {
     enableReinitialize: true,
     mapPropsToValues: () => props,
     validationSchema: Yup.object().shape({
-      displayName: Yup.string().min(3, 'Too short!').max(20, 'Too long!'),
-      customUrl: Yup.string().min(3, 'Too short!').max(20, 'Too long!'),
+      displayName: Yup.string()
+        .min(editProfileValidator.name.min, 'Too short!')
+        .max(editProfileValidator.name.max, 'Too long!')
+        .required('First name is required!'),
+      customUrl: Yup.string()
+        .min(editProfileValidator.name.min, 'Too short!')
+        .max(editProfileValidator.name.max, 'Too long!')
+        .matches(editProfileValidator.name.reg, 'Incorrect username')
+        .required('Username is required!'),
     }),
 
     handleSubmit: async (values, { setFieldValue }) => {

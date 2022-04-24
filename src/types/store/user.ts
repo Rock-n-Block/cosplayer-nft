@@ -10,6 +10,7 @@ type Rates = {
 export type UserState = User & {
   rates: Rates;
   balance: Rates;
+  fee: number;
   key: string;
   provider: TAvailableProviders;
 };

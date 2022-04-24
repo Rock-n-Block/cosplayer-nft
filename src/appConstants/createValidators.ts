@@ -17,7 +17,7 @@ export const createValidator: ICreateValidator = {
 };
 
 interface IEditProfileValidator {
-  name: { min: number; max: number };
+  name: { min: number; max: number; reg: RegExp };
   address: { min: number };
   bio: { min: number; max: number };
   socials: {
@@ -29,7 +29,11 @@ interface IEditProfileValidator {
 }
 
 export const editProfileValidator: IEditProfileValidator = {
-  name: { min: 1, max: 50 },
+  name: {
+    min: 3,
+    max: 20,
+    reg: /^[a-z0-9_.]+$/,
+  },
   address: { min: 42 },
   bio: { min: 0, max: 500 },
   socials: {

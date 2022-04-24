@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import modalsSelector from 'store/modals/selectors';
 import { bid } from 'store/nfts/actions';
 import actionTypes from 'store/nfts/actionTypes';
-import nftsSelector from 'store/nfts/selectors';
 import uiSelector from 'store/ui/selectors';
 import userSelector from 'store/user/selectors';
 
@@ -24,7 +23,6 @@ const PlaceBidModal: FC<StoreModalProps> = ({ id }) => {
   const dispatch = useDispatch();
   const { walletService } = useWalletConnectorContext();
   const { balance, rates } = useShallowSelector(userSelector.getUser);
-  const { fee } = useShallowSelector(nftsSelector.getNfts);
   const { [actionTypes.BID]: bidRequestStatus } = useShallowSelector(uiSelector.getUI);
   const {
     currency,
@@ -94,24 +92,20 @@ const PlaceBidModal: FC<StoreModalProps> = ({ id }) => {
         <div className="modal-box-option">
           <div className="modal-box-option-name">Your balance:</div>
           <div className="modal-box-option-value">
-            {new BigNumber(currentBalance).toString(10)}&nbsp;{currency.toUpperCase()}
+            {currentBalance}&nbsp;{currency.toUpperCase()}
           </div>
-        </div>
-        <div className="modal-box-option">
-          <div className="modal-box-option-name">Service fee:</div>
-          <div className="modal-box-option-value">{fee}%</div>
         </div>
         <div className="modal-box-option">
           <div className="modal-box-option-name">You will pay:</div>
           <div className="modal-box-option-value">
-            {new BigNumber(amount || 0).times(new BigNumber(1).plus(fee / 100)).toString(10)}&nbsp;
+            {amount || 0}&nbsp;
             {currentCurrency.toUpperCase()}
           </div>
         </div>
         <Button
           className="modal-box-button"
           color="blue"
-          disabled={!!error || !bid || bidRequestStatus === RequestStatus.REQUEST}
+          disabled={!!error || !amount || bidRequestStatus === RequestStatus.REQUEST}
           onClick={handleSubmit}
         >
           {bidRequestStatus === RequestStatus.REQUEST ? (

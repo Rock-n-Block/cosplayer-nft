@@ -27,13 +27,10 @@ const BuyModal: FC<StoreModalProps> = ({ id }) => {
   const { tokenId, sellerId, quantity, currency, amount } = useShallowSelector(
     modalSelector.getProp('modalState'),
   ).props;
-  const { detailedNft, fee } = useShallowSelector(nftsSelector.getNfts);
+  const { detailedNft } = useShallowSelector(nftsSelector.getNfts);
   const currentBalance = currency === 'bnb' ? balance.bnb : balance.rec;
 
-  const finalPrice = new BigNumber(amount)
-    .times(quantity)
-    .times(new BigNumber(fee).div(100).plus(1))
-    .toString(10);
+  const finalPrice = new BigNumber(amount).times(quantity).toString(10);
 
   const handleSubmit = () => {
     dispatch(
@@ -73,10 +70,6 @@ const BuyModal: FC<StoreModalProps> = ({ id }) => {
           <div className="modal-box-option-value">
             {currentBalance}&nbsp;{currency.toUpperCase()}
           </div>
-        </div>
-        <div className="modal-box-option">
-          <div className="modal-box-option-name">Service fee:</div>
-          <div className="modal-box-option-value">{fee}%</div>
         </div>
         <div className="modal-box-option">
           <div className="modal-box-option-name">You will pay:</div>

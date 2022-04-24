@@ -6,5 +6,4 @@ export type NftsState = {
   searchedNfts: TokenFull[];
   detailedNft: TokenFull;
   totalPages: number;
-  fee: number;
 };

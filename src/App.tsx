@@ -3,12 +3,13 @@ import { useLocation } from 'react-router-dom';
 
 import actionTypes from './store/user/actionTypes';
 import { useDispatch } from 'react-redux';
-import { setActiveModal } from 'store/modals/reducer';
+import { closeModal, setActiveModal } from 'store/modals/reducer';
 import uiSelector from 'store/ui/selectors';
 import userSelector from 'store/user/selectors';
 
 import { Footer, Header, ModalsManager, RouterManager } from 'containers';
 
+import { routes } from './appConstants';
 import { Connect } from './services';
 import { RequestStatus } from './types';
 import { useShallowSelector } from 'hooks';
@@ -16,23 +17,25 @@ import { useShallowSelector } from 'hooks';
 const App: FC = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const { address, avatar, displayName } = useShallowSelector(userSelector.getUser);
-  const { [actionTypes.PATCH_USER_INFO]: patchUserInfoRequestStatus } = useShallowSelector(
+  const { address, avatar, customUrl } = useShallowSelector(userSelector.getUser);
+  const { [actionTypes.UPDATE_USER_INFO]: updateUserInfoRequestStatus } = useShallowSelector(
     uiSelector.getUI,
   );
 
-  const isPatchUserInfoSuccess = useMemo(
-    () => patchUserInfoRequestStatus === RequestStatus.SUCCESS,
-    [patchUserInfoRequestStatus],
+  const isUpdateUserInfoSuccess = useMemo(
+    () => updateUserInfoRequestStatus === RequestStatus.SUCCESS,
+    [updateUserInfoRequestStatus],
   );
 
   useEffect(() => {
-    if (address && displayName && isPatchUserInfoSuccess && !avatar) {
+    if (address && customUrl && isUpdateUserInfoSuccess && !avatar) {
       dispatch(setActiveModal({ activeModal: 'AvatarRequired' }));
-    } else if (address && isPatchUserInfoSuccess && !displayName) {
+    } else if (address && isUpdateUserInfoSuccess && !customUrl) {
       dispatch(setActiveModal({ activeModal: 'Login' }));
+    } else {
+      dispatch(closeModal());
     }
-  }, [address, avatar, dispatch, displayName, isPatchUserInfoSuccess]);
+  }, [address, avatar, dispatch, customUrl, isUpdateUserInfoSuccess]);
 
   return (
     <Connect>
@@ -41,7 +44,9 @@ const App: FC = () => {
         <div className="page_wrapper">
           <RouterManager />
         </div>
-        {location.pathname === '/' && <Footer className="mobile_hidden" />}
+        {(location.pathname === routes.home.root || location.pathname === routes.privacy.root) && (
+          <Footer className="mobile_hidden" />
+        )}
       </div>
       <ModalsManager />
     </Connect>

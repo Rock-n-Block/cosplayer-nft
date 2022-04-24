@@ -90,7 +90,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
             onChange={handleChange}
             onBlur={(e: SyntheticEvent) => handleBlur(e)}
             disabled={isSubmitting}
-            description="You can enter your full name, business name, or brand name."
+            description="You can enter your full name, business name, or brand name (maximum 20 characters)."
           />
         )}
       />

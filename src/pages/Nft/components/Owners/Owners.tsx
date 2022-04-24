@@ -12,8 +12,24 @@ import { DefaultAvatarImg } from 'assets/img/icons';
 import s from './Owners.module.scss';
 
 export const Owners: FC = () => {
-  const { owners, sellers, isSelling, isAucSelling, endAuction, history, minimalBid } =
-    useShallowSelector(nftsSelector.getProp('detailedNft'));
+  const {
+    owners,
+    sellers,
+    isSelling,
+    isAucSelling,
+    startAuction,
+    endAuction,
+    history,
+    minimalBid,
+  } = useShallowSelector(nftsSelector.getProp('detailedNft'));
+
+  const isStartedAuc = () => {
+    if (isAucSelling && startAuction) {
+      const timeToStart = new Date(startAuction).getTime() - new Date().getTime();
+      return timeToStart < 0;
+    }
+    return false;
+  };
 
   return (
     <div className={s.owners}>
@@ -48,13 +64,19 @@ export const Owners: FC = () => {
           price={isAucSelling ? minimalBid || 0 : owners.price}
           currency={owners.currency.symbol === 'bnb' ? 'bnb' : 'rec'}
           date={
+            // eslint-disable-next-line no-nested-ternary
             !isAucSelling
-              ? new Date(
-                  history?.find(
-                    (item) => item.method === 'Listing' && item.oldOwner.id === owners.id,
-                  )?.date || '',
-                )
-              : new Date(endAuction || '')
+              ? isSelling
+                ? new Date(
+                    history?.find(
+                      (item) => item.method === 'Listing' && item.oldOwner.id === owners.id,
+                    )?.date || '',
+                  )
+                : new Date(
+                    history?.find((item) => item.method === 'Buy' && item.newOwner.id === owners.id)
+                      ?.date || '',
+                  )
+              : new Date(isStartedAuc() ? endAuction || '' : startAuction || '')
           }
         />
       )}

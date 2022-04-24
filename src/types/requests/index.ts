@@ -1,5 +1,7 @@
 import Web3 from 'web3';
 
+import { ISearchProps } from '../index';
+
 import { TAvailableProviders } from 'types/connect';
 
 export type BodyWithToken<T = never> = {
@@ -78,18 +80,16 @@ export type GetProfileInfoReq = {
 };
 
 export type SearchNftReq = {
-  page: number;
-  order_by?: string;
+  data: {
+    text: string;
+    page?: number | string;
+  };
+  props: ISearchProps;
 };
 
 export type GetHotNftsReq = {
   sort?: string;
   tag?: string;
-};
-
-export type SearchNftAction = {
-  requestData: SearchNftReq;
-  shouldConcat?: boolean;
 };
 
 export type CreateNftReq = {

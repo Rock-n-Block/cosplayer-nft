@@ -1,13 +1,4 @@
-import {
-  createContext,
-  FC,
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import { createContext, FC, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
@@ -147,6 +138,6 @@ const Connect: FC<{ children: any }> = ({ children }) => {
   );
 };
 
-export default memo(Connect);
+export default Connect;
 
 export const useWalletConnectorContext = () => useContext(WalletConnectContext);

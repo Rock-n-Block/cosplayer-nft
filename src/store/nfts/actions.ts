@@ -13,14 +13,14 @@ import {
   LikeNftReq,
   PatchNftReq,
   ReportReq,
-  SearchNftAction,
+  SearchNftReq,
   TransferReq,
 } from 'types/requests';
 
 import actionTypes from './actionTypes';
 
 export const createToken = createAction<CreateNftReq>(actionTypes.CREATE_TOKEN);
-export const searchNfts = createAction<SearchNftAction>(actionTypes.SEARCH_NFTS);
+export const searchNfts = createAction<SearchNftReq>(actionTypes.SEARCH_NFTS);
 export const getHotNfts = createAction<GetHotNftsReq>(actionTypes.HOT_NFTS);
 export const likeNft = createAction<LikeNftReq>(actionTypes.LIKE);
 export const likeComment = createAction<LikeCommentReq>(actionTypes.LIKE_COMMENT);

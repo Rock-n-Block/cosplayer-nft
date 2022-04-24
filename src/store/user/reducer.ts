@@ -16,6 +16,7 @@ const initialState: UserState = {
     bnb: '0',
     rec: '0',
   },
+  fee: 0,
   country: '',
   site: '',
   twitter: '',

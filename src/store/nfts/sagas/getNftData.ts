@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 
-import { setDetailedNft, setFee } from '../reducer';
+import { setDetailedNft } from '../reducer';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as apiActions from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
@@ -21,10 +21,6 @@ export function* getNftDataSaga({ type, payload: { id } }: ReturnType<typeof get
 
     if (data !== 'token not found') {
       yield put(setDetailedNft(camelize(data) as TokenFull));
-
-      const { data: fee } = yield call(baseApi.getFee);
-
-      yield put(setFee(+fee));
 
       yield put(apiActions.success(type));
     } else {

@@ -1,5 +1,7 @@
 import { IP_API_KEY } from 'config';
 
+import { ISearchProps } from '../types';
+
 const accountURLs = {
   getIpData: `https://api.ipdata.co?api-key=${IP_API_KEY}`,
   getMetamaskMessage: 'account/get_metamask_message/',
@@ -16,7 +18,18 @@ const storeURLs = {
   getRelatedNfts: (id: string | number) => `/store/related/${id}/`,
   nftById: (id: string | number) => `/store/${id}/`,
   getLiked: (id: string | number) => `/store/liked/${id}/`,
-  searchNfts: 'store/search/',
+  searchNfts: (props: ISearchProps) =>
+    `store/search/?${props.type ? `type=${props.type}` : ''}${
+      props.orderBy ? `&order_by=${props.orderBy}` : ''
+    }${typeof props.onSale !== 'undefined' ? `&on_sale=${props.onSale}` : ''}${
+      props.tags ? `&tags=${props.tags}` : ''
+    }${props.creator ? `&creator=${props.creator}` : ''}${
+      props.owner ? `&owner=${props.owner}` : ''
+    }${props.hashtag ? `&hashtag=${props.hashtag}` : ''}${
+      props.country ? `&country=${props.country}` : ''
+    }${typeof props.sold !== 'undefined' ? `&sold=${props.sold}` : ''}${
+      typeof props.bidded !== 'undefined' ? `&bidded=${props.bidded}` : ''
+    }`,
   createToken: '/store/create_token/',
   removeRejected: '/store/remove-reject/',
   buy: '/store/buy/',

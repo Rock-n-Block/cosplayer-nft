@@ -9,7 +9,7 @@ import {
   REGISTER,
   REHYDRATE,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage/session';
+import storage from 'redux-persist/lib/storage';
 import createSagaMiddleware from 'redux-saga';
 
 import nftsActionTypes from './nfts/actionTypes';
@@ -22,6 +22,7 @@ const sagaMiddleware = createSagaMiddleware();
 const userPersistConfig = {
   key: 'user',
   storage,
+  whitelist: ['provider', 'key', 'id'],
 };
 
 const reducers = {

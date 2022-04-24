@@ -4,10 +4,10 @@ import { GetHotNftsReq, SearchNftReq } from 'types/requests';
 import ajax from './ajax';
 
 export default {
-  searchNfts({ ...data }: SearchNftReq) {
+  searchNfts({ data, props }: SearchNftReq) {
     return ajax({
       method: 'post',
-      url: ApiUrl.searchNfts,
+      url: ApiUrl.searchNfts(props),
       data: { ...data },
     });
   },
@@ -65,7 +65,7 @@ export default {
       data,
     });
   },
-  bid(data: { token_id: number | string; amount: number | string; quantity: string }) {
+  bid(data: { token_id: number | string; amount: number | string; quantity: string | number }) {
     return ajax({
       method: 'post',
       url: ApiUrl.bid,

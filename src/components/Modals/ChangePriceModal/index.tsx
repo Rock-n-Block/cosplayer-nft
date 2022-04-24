@@ -30,8 +30,8 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
   );
   const { props } = useShallowSelector(modalSelector.getProp('modalState'));
   const [currency, setCurrency] = useState<Currencies | string>(props.currency);
-  const rates = useShallowSelector(userSelector.getProp('rates'));
-  const { fee, detailedNft } = useShallowSelector(nftsSelector.getNfts);
+  const { rates, fee } = useShallowSelector(userSelector.getUser);
+  const { detailedNft } = useShallowSelector(nftsSelector.getNfts);
   const { [actionTypes.PATCH_NFT_DATA]: patchNftDataRequestStatus } = useShallowSelector(
     uiSelector.getUI,
   );

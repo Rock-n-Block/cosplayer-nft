@@ -17,8 +17,9 @@ export function* updateUserInfoSaga({
 
   try {
     const { data } = yield call(baseApi.getSelfInfo);
+    const { data: fee } = yield call(baseApi.getFee);
 
-    yield put(updateUserState({ ...camelize(data) }));
+    yield put(updateUserState({ ...camelize(data), fee: +fee }));
     yield put(getBalance({ web3Provider }));
 
     yield put(success(type));

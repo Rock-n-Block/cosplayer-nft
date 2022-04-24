@@ -15,7 +15,11 @@ import { DefaultAvatarImg } from 'assets/img/icons';
 
 import s from './ConnectButton.module.scss';
 
-const ConnectButton: FC = () => {
+type ConnectButtonProps = {
+  closeMenu?: () => void;
+};
+
+const ConnectButton: FC<ConnectButtonProps> = ({ closeMenu }) => {
   const { address, displayName, avatar } = useShallowSelector(userSelector.getUser);
   const dispatch = useDispatch();
 
@@ -25,6 +29,7 @@ const ConnectButton: FC = () => {
 
   const handleOpenConnectModal = () => {
     dispatch(setActiveModal({ activeModal: 'ConnectWallet' }));
+    if (closeMenu) closeMenu();
   };
 
   return address ? (

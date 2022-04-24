@@ -126,3 +126,16 @@ export interface IOwnerAuction {
   avatar: string;
   quantity: number | string;
 }
+
+export interface ISearchProps {
+  type?: 'items' | 'users';
+  orderBy?: string;
+  onSale?: boolean;
+  tags?: string;
+  creator?: string;
+  owner?: string;
+  hashtag?: string;
+  country?: string;
+  sold?: boolean;
+  bidded?: boolean;
+}

@@ -1,10 +1,12 @@
 import { FC, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { setActiveModal } from 'store/modals/reducer';
+import { getNftData } from 'store/nfts/actions';
+import nftsSelector from 'store/nfts/selectors';
 import userSelector from 'store/user/selectors';
 
+import BigNumber from 'bignumber.js/bignumber';
 import moment from 'moment';
 
 import { Button } from 'components';
@@ -22,6 +24,7 @@ export interface InfoCardProps {
   quantity: number | string;
   price: number | string;
   currency: Currencies;
+  isStarted?: boolean;
   date: Date;
 }
 
@@ -30,15 +33,18 @@ const InfoCard: FC<InfoCardProps> = ({
   avatar,
   id,
   price,
+  isStarted = true,
   date,
   name,
   quantity,
   currency,
 }) => {
-  const [endpoint, setEndpoint] = useState(Math.floor((date.getTime() - Date.now()) / 1000));
+  const [endpoint, setEndpoint] = useState(
+    Math.floor((isStarted ? date.getTime() - Date.now() : Date.now() - date.getTime()) / 1000),
+  );
   const dispatch = useDispatch();
-  const { id: tokenId } = useParams();
   const yourId = useShallowSelector(userSelector.getProp('id'));
+  const { id: tokenId } = useShallowSelector(nftsSelector.getProp('detailedNft'));
 
   const days = Math.floor(endpoint / (60 * 60 * 24));
   const hours = Math.floor((endpoint / (60 * 60)) % 24);
@@ -71,6 +77,10 @@ const InfoCard: FC<InfoCardProps> = ({
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    if (endpoint === 0 && tokenId) dispatch(getNftData({ id: tokenId }));
+  }, [dispatch, endpoint, tokenId]);
+
   return (
     <div className={s.info_card}>
       <div className={s.content}>
@@ -81,7 +91,8 @@ const InfoCard: FC<InfoCardProps> = ({
           <span className={s.action_description}>
             {type !== 'Owned' && price > 0 && currency && (
               <div className={s.text_blue}>
-                {price}&nbsp;{currency.toUpperCase()}
+                {new BigNumber(price).times(+quantity || 1).toString(10)}&nbsp;
+                {currency.toUpperCase()}
                 {quantity > 1 && ` (${quantity})`}&nbsp;
               </div>
             )}
@@ -94,7 +105,8 @@ const InfoCard: FC<InfoCardProps> = ({
           <span className={s.action_time}>
             {type === 'auctioned' && endpoint > 0 && (
               <>
-                ends in&nbsp;<div className={s.text_black}>{days}</div>&nbsp;day
+                {isStarted ? 'ends in' : 'starts in'}&nbsp;
+                <div className={s.text_black}>{days}</div>&nbsp;day
                 {days !== 1 && 's'}&nbsp;
                 <div className={s.text_black}>{hours}</div>&nbsp;hour
                 {hours !== 1 && 's'}&nbsp;
@@ -112,7 +124,9 @@ const InfoCard: FC<InfoCardProps> = ({
       {(type === 'offered' || (type === 'auctioned' && endpoint > 0)) && (
         <Button
           color="orange"
-          disabled={!yourId || (type === 'auctioned' && endpoint < 0) || yourId === id}
+          disabled={
+            !yourId || (type === 'auctioned' && endpoint < 0) || yourId === id || !isStarted
+          }
           className={s.button}
           onClick={handleBuyOrBid}
         >

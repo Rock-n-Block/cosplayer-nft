@@ -46,7 +46,7 @@ const SocialLinks: FC<SocialLinksProps> = ({ isModal, isGreyLinks }) => (
         {isGreyLinks ? <PancakeSwapGreyImg /> : <PancakeSwapImg />}
       </a>
     </div>
-    <div className={!isModal ? s.copyright : ''}>©2021 CosplayerNFT. All Rights reserved</div>
+    <div className={!isModal ? s.copyright : ''}>©2022 CosplayerNFT. All Rights reserved</div>
   </div>
 );
 

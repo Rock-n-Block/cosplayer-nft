@@ -30,17 +30,11 @@ export function* approveSaga({
 
     const allowance: string = yield call(tokenContract.methods.allowance(myAddress, spender).call);
 
-    if (+allowance < +amount) {
+    if (new BigNumber(allowance).isLessThan(new BigNumber(amount))) {
       try {
-        yield call(
-          tokenContract.methods.approve(
-            spender,
-            new BigNumber(amount).plus(new BigNumber(allowance)).toString(),
-          ).send,
-          {
-            from: myAddress,
-          },
-        );
+        yield call(tokenContract.methods.approve(spender, amount).send, {
+          from: myAddress,
+        });
         yield put(apiActions.success(type));
       } catch (e: any) {
         yield put(apiActions.error(type, e));

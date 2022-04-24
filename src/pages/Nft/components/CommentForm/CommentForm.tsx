@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
@@ -26,6 +26,10 @@ export const CommentForm: FC = () => {
       dispatch(comment({ text: value, token_id: id }));
     }
   };
+
+  useEffect(() => {
+    if (commentRequestStatus === RequestStatus.SUCCESS) setValue('');
+  }, [commentRequestStatus]);
 
   return (
     <div className={s.form}>

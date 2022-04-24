@@ -21,17 +21,17 @@ import {
 
 export const sorts: IDropdownItem[] = [
   {
-    value: 'recent',
+    value: '-likes',
     label: 'Trending',
     icon: TrendingImg,
   },
   {
-    value: 'recent',
+    value: '+date',
     label: 'Latest',
     icon: LatestImg,
   },
   {
-    value: 'recent',
+    value: '-date',
     label: 'Earliest',
     icon: EarliestImg,
   },
@@ -41,12 +41,12 @@ export const sorts: IDropdownItem[] = [
     icon: RecentlySoldImg,
   },
   {
-    value: 'highest',
+    value: '-price',
     label: 'Highest Price',
     icon: HighestPriceImg,
   },
   {
-    value: 'cheapest',
+    value: '+price',
     label: 'Lowest Price',
     icon: LowestPriceImg,
   },

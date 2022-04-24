@@ -43,7 +43,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
 }) => {
   const [isPriceSelectorOpen, setIsPriceSelectorOpen] = useState(false);
   const [hashtag, setHashtag] = useState('');
-  const rates = useShallowSelector(userSelector.getProp('rates'));
+  const { rates, fee } = useShallowSelector(userSelector.getUser);
   const { [actionTypes.CREATE_TOKEN]: createTokenRequestStatus } = useShallowSelector(
     uiSelector.getUI,
   );
@@ -271,7 +271,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                       label="Price"
                       color="white"
                       placeholder="Enter price for one piece"
-                      value={values.price.toString()}
+                      value={values.price}
                       suffix={
                         <div className="modal-suffix">
                           <PriceSelector
@@ -297,12 +297,13 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                 />
                 <div className="modal-box-option">
                   <span className="modal-box-option-name">Service fee:</span>
-                  <span className="modal-box-option-value">5%</span>
+                  <span className="modal-box-option-value">{fee}%</span>
                 </div>
                 <div className="modal-box-option">
                   <span className="modal-box-option-name">You will receive:</span>
                   <span className="modal-box-option-value">
-                    {values.price * 0.95}&nbsp;{values.currency.toUpperCase()}
+                    {new BigNumber(values.price || 0).times(1 - fee / 100).toString(10)}&nbsp;
+                    {values.currency.toUpperCase()}
                   </span>
                 </div>
               </div>
@@ -319,7 +320,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                       description="Bids below this amount won’t be allowed."
                       color="white"
                       placeholder="Enter Minimum Bid"
-                      value={values.price.toString()}
+                      value={values.price}
                       suffix={
                         <div className="modal-suffix">
                           <PriceSelector
@@ -392,6 +393,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                   color="white"
                   placeholder="Enter Royalties"
                   positiveOnly
+                  integer
                   value={values.creatorRoyalty.toString()}
                   max={100}
                   suffix="%"
@@ -471,6 +473,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                 name="hashtags"
                 type="text"
                 label="Add hashtags"
+                description="To add hashtag on hashtags list click '+' button"
                 color="grey"
                 placeholder="Add #hastag about your art..."
                 suffix={

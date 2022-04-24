@@ -21,8 +21,8 @@ export type CreateFormProps = {
   description: string;
   tag: string;
   hashtags: string[];
-  price: number;
-  minimalBid: number;
+  price: string;
+  minimalBid: string;
   startAuction: Date;
   endAuction: Date;
   creatorRoyalty: number;
@@ -45,8 +45,8 @@ const CreateForm: FC = () => {
     description: '',
     tag: '',
     hashtags: [],
-    price: 0,
-    minimalBid: 0,
+    price: '',
+    minimalBid: '',
     startAuction: null as unknown as Date,
     endAuction: null as unknown as Date,
     creatorRoyalty: 10,
@@ -72,20 +72,22 @@ const CreateForm: FC = () => {
       name: Yup.string()
         .min(createValidator.name.min, 'Too short')
         .max(createValidator.name.max, 'Too long')
-        .required(),
+        .required('Title is required'),
       totalSupply: Yup.number()
-        .min(createValidator.totalSupply.min, 'Minimal amount equal to 1')
+        .min(createValidator.totalSupply.min, 'Minimal amount equals to 1')
         .max(createValidator.totalSupply.max, 'Too much')
-        .required(),
+        .required('Number of copies is required'),
       description: Yup.string().max(createValidator.description.max, 'Too long'),
       price: props.selling
-        ? Yup.number().min(createValidator.minPrice, 'Minimal value equal to 0.001').notRequired()
+        ? Yup.number()
+            .min(createValidator.minPrice, 'Minimal value equals to 0.001')
+            .required(props.isFixedPrice ? 'Price is required' : 'Minimal bid is required')
         : Yup.number().notRequired(),
       creatorRoyalty: props.selling
         ? Yup.number()
             .min(createValidator.royalty.min, 'Minimal royalties equal to 0')
             .max(createValidator.royalty.max, 'Too much')
-            .required()
+            .required('Royalties are required')
         : Yup.number().notRequired(),
       tag: Yup.string().required('Category is required'),
     }),

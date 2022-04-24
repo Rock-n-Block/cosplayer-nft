@@ -13,6 +13,7 @@ import likeCommentSaga from './likeComment';
 import likeNftSaga from './likeNft';
 import patchNftDataSaga from './patchNftData';
 import reportSaga from './report';
+import searchNftsSaga from './searchNfts';
 import supportSaga from './support';
 import transferSaga from './transfer';
 
@@ -31,4 +32,5 @@ export default function* nftSagas() {
   yield fork(likeCommentSaga);
   yield fork(reportSaga);
   yield fork(supportSaga);
+  yield fork(searchNftsSaga);
 }

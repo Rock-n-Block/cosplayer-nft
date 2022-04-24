@@ -15,8 +15,9 @@ export const Sales: FC = () => {
 
   return (
     <div className={s.sales}>
-      {sales.map((sale) => (
+      {sales.map((sale, index) => (
         <InfoCard
+          key={`${index + 1}`}
           type="Purchased"
           avatar={sale.newOwner.avatar || ''}
           id={sale.newOwner.id || ''}
