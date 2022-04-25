@@ -155,7 +155,7 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
                 Multiple&nbsp;<span className={s.blue_text}>owners</span>
               </span>
             ) : (
-              <Button href={`/profile/${owners?.id}`}>
+              <Button href={routes.profile.link(owners?.customUrl || owners?.id || '')}>
                 <img src={owners?.avatar || DefaultAvatarImg} alt="current owner avatar" />
                 Current owner&nbsp;<span className={s.blue_text}>{owners?.customUrl}</span>
               </Button>

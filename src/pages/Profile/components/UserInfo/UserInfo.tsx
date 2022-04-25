@@ -1,6 +1,10 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import Skeleton from 'react-loading-skeleton';
+import { useParams } from 'react-router-dom';
 
-import userSelector from 'store/user/selectors';
+import { useDispatch } from 'react-redux';
+import { getProfileById } from 'store/profile/actions';
+import profileSelector from 'store/profile/selectors';
 
 import cn from 'classnames';
 
@@ -12,26 +16,49 @@ import { InstagramGreyImg, TwitterGreyImg } from 'assets/img/icons/footer';
 import s from './UserInfo.module.scss';
 
 export const UserInfo: FC = () => {
-  const { avatar, bio, displayName, twitter, instagram, site, country, isVerificated } =
-    useShallowSelector(userSelector.getUser);
+  const { userId } = useParams();
+  const dispatch = useDispatch();
+  const { avatar, bio, displayName, twitter, instagram, site, country, isVerificated, posted } =
+    useShallowSelector(profileSelector.getProfile);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(getProfileById({ id: userId }));
+    }
+  }, [dispatch, userId]);
+
   return (
     <div className={s.info}>
       <div className={s.block}>
-        <img src={avatar || DefaultAvatarImg} className={s.avatar} alt="avatar" />
-        <div className={s.display_name}>
-          {displayName}
-          {isVerificated && <img src={VerifiedImg} alt="verified icon" />}
-        </div>
-        <div className={s.country}>{country}</div>
+        {typeof avatar === 'undefined' ? (
+          <Skeleton width={94} height={94} borderRadius="50%" />
+        ) : (
+          <img src={avatar || DefaultAvatarImg} className={s.avatar} alt="avatar" />
+        )}
+        {typeof displayName === 'undefined' ? (
+          <Skeleton width={100} />
+        ) : (
+          <div className={s.display_name}>
+            {displayName}
+            {isVerificated && <img src={VerifiedImg} alt="verified icon" />}
+          </div>
+        )}
+        {typeof country === 'undefined' ? (
+          <Skeleton width={100} />
+        ) : (
+          <div className={s.country}>{country}</div>
+        )}
       </div>
       <div className={s.block}>
-        <div className={s.block_title}>244</div>
+        <div className={s.block_title}>{posted}</div>
         <div className={s.block_text}>Posted</div>
       </div>
       {bio && (
         <div className={s.block}>
           <div className={s.block_title}>Bio</div>
-          <div className={s.block_text}>{bio}</div>
+          <div className={s.block_text}>
+            {typeof bio === 'undefined' ? <Skeleton width={100} /> : bio}
+          </div>
         </div>
       )}
       {(twitter || instagram || site) && (

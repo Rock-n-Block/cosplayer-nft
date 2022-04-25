@@ -4,6 +4,7 @@ import Skeleton from 'react-loading-skeleton';
 import { Button, ImgLoader } from 'components';
 import { addressWithDots } from 'utils';
 
+import { routes } from 'appConstants';
 import { Creator } from 'types';
 
 import { DefaultAvatarImg, VerifiedImg } from 'assets/img/icons';
@@ -20,17 +21,17 @@ const CreatorCard: FC<CreatorCardProps> = ({ creator }) => {
     creator || ({} as Creator);
   return (
     <div className={s.creator_card}>
-      <Button className={s.owner_logo} href={`/profile/${customUrl || id}`}>
+      <Button className={s.owner_logo} href={routes.profile.link(customUrl || id || '')}>
         <ImgLoader url={avatar || DefaultAvatarImg} alt="creator avatar" />
       </Button>
       <div className={s.owner_info}>
         {customUrl || displayName || address ? (
-          <div className={s.owner_info_name}>
+          <Button className={s.owner_info_name} href={routes.profile.link(customUrl || id || '')}>
             {customUrl || displayName || (address && addressWithDots(address))}
             {isVerificated && (
               <img src={VerifiedImg} className={s.owner_info_verified} alt="verified icon" />
             )}
-          </div>
+          </Button>
         ) : (
           <Skeleton width={100} height={18} />
         )}

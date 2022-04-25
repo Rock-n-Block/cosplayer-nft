@@ -51,8 +51,8 @@
   border-radius: 20px;
 
   img {
-    width: initial;
-    height: initial;
+    min-width: 100%;
+    min-height: 100%;
     border-radius: 20px;
   }
 }

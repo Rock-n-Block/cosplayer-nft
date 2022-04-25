@@ -1,4 +1,9 @@
 import { FC } from 'react';
+import Skeleton from 'react-loading-skeleton';
+
+import actionTypes from 'store/nfts/actionTypes';
+import nftsSelector from 'store/nfts/selectors';
+import uiSelector from 'store/ui/selectors';
 
 import { Button } from 'components';
 
@@ -6,25 +11,41 @@ import { ProfileNavBar } from './components/ProfileNavBar';
 import { UserInfo } from './components/UserInfo';
 
 import { routes } from 'appConstants';
-
-import NftImg from 'assets/img/nft.png';
+import { useShallowSelector } from 'hooks';
+import { RequestStatus } from 'types';
 
 import s from './Profile.module.scss';
 
-const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-
 export const Profile: FC = () => {
+  const nfts = useShallowSelector(nftsSelector.getProp('nfts'));
+  const { [actionTypes.SEARCH_NFTS]: searchNftsRequestStatus } = useShallowSelector(
+    uiSelector.getUI,
+  );
+
   return (
     <div className={s.profile_wrapper}>
       <UserInfo />
       <div className={s.tokens}>
         <ProfileNavBar />
         <div className={s.tokens_list}>
-          {list.map((item) => (
-            <Button className={s.token} href={routes.nft.link(1)} key={item}>
-              <img src={NftImg} alt="nft" />
-            </Button>
-          ))}
+          {searchNftsRequestStatus === RequestStatus.REQUEST && (
+            <>
+              <Skeleton className={s.token} />
+              <Skeleton className={s.token} />
+              <Skeleton className={s.token} />
+              <Skeleton className={s.token} />
+              <Skeleton className={s.token} />
+              <Skeleton className={s.token} />
+              <Skeleton className={s.token} />
+              <Skeleton className={s.token} />
+            </>
+          )}
+          {searchNftsRequestStatus === RequestStatus.SUCCESS &&
+            nfts.map((nft) => (
+              <Button className={s.token} href={routes.nft.link(nft.id || 0)} key={nft.id}>
+                <img src={nft.media} alt="nft" />
+              </Button>
+            ))}
         </div>
       </div>
     </div>

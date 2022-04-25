@@ -8,6 +8,7 @@ import moment from 'moment';
 
 import { Button } from 'components';
 
+import { routes } from 'appConstants';
 import { useShallowSelector } from 'hooks';
 import { IComment } from 'types';
 
@@ -37,7 +38,9 @@ export const CommentRow: FC<CommentRowProps> = ({ comment, isLiked }) => {
   return (
     <div className={s.comment}>
       <div className={s.comment_content}>
-        <img src={comment.user.avatar} alt="comment author avatar" />
+        <Button href={routes.profile.link(comment.user.customUrl || '')}>
+          <img src={comment.user.avatar} alt="comment author avatar" />
+        </Button>
         <div className={s.comment_info}>
           <div className={s.comment_author}>{comment.user.customUrl}</div>
           <div className={s.comment_text}>{comment.text}</div>

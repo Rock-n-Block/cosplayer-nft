@@ -11,6 +11,7 @@ import moment from 'moment';
 
 import { Button } from 'components';
 
+import { routes } from 'appConstants';
 import { useShallowSelector } from 'hooks';
 import { Currencies } from 'types';
 
@@ -128,7 +129,7 @@ const InfoCard: FC<InfoCardProps> = ({
   return (
     <div className={s.info_card}>
       <div className={s.content}>
-        <Button className={s.avatar} href={`/profile/${id}`}>
+        <Button className={s.avatar} href={routes.profile.link(id)}>
           <img src={avatar} alt={`${name} avatar`} />
         </Button>
         <div className={s.action}>

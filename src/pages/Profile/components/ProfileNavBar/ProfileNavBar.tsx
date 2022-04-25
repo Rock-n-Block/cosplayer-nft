@@ -1,9 +1,17 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
+import { searchNfts } from 'store/nfts/actions';
+import actionTypes from 'store/nfts/actionTypes';
+import nftsSelector from 'store/nfts/selectors';
+import uiSelector from 'store/ui/selectors';
 
 import { Button } from 'components';
 
 import { routes } from 'appConstants';
+import { useShallowSelector } from 'hooks';
+import { RequestStatus } from 'types';
 
 import { BidImg, CreatedImg, ForSaleImg, MoneyBagImg, OwnedImg } from 'assets/img/icons/profile';
 
@@ -11,7 +19,36 @@ import s from './ProfileNavBar.module.scss';
 
 export const ProfileNavBar: FC = () => {
   const { userId } = useParams();
+  const dispatch = useDispatch();
   const activeTab = useLocation().search.replace('?tab=', '');
+  const nfts = useShallowSelector(nftsSelector.getProp('nfts'));
+  const { [actionTypes.SEARCH_NFTS]: searchNftsRequestStatus } = useShallowSelector(
+    uiSelector.getUI,
+  );
+
+  useEffect(() => {
+    if (userId && activeTab === 'created') {
+      dispatch(searchNfts({ data: { text: '' }, props: { type: 'items', creator: userId } }));
+    }
+    if (userId && activeTab === 'for-sale') {
+      dispatch(
+        searchNfts({ data: { text: '' }, props: { type: 'items', owner: userId, onSale: true } }),
+      );
+    }
+    if (userId && activeTab === 'owned') {
+      dispatch(searchNfts({ data: { text: '' }, props: { type: 'items', owner: userId } }));
+    }
+    if (userId && activeTab === 'sold') {
+      dispatch(
+        searchNfts({ data: { text: '' }, props: { type: 'items', creator: userId, sold: true } }),
+      );
+    }
+    if (userId && activeTab === 'bidded') {
+      dispatch(
+        searchNfts({ data: { text: '' }, props: { type: 'items', creator: userId, bidded: true } }),
+      );
+    }
+  }, [activeTab, dispatch, userId]);
 
   return (
     <div className={s.navbar}>
@@ -22,7 +59,10 @@ export const ProfileNavBar: FC = () => {
         >
           <ForSaleImg className={s.tab_img} />
           <span>
-            For Sale <span className={s.grey}>88</span>
+            For Sale&nbsp;
+            {activeTab === 'for-sale' && searchNftsRequestStatus === RequestStatus.SUCCESS && (
+              <span className={s.grey}>{nfts.length}</span>
+            )}
           </span>
         </Button>
         <Button
@@ -31,7 +71,10 @@ export const ProfileNavBar: FC = () => {
         >
           <CreatedImg className={s.tab_img} />
           <span>
-            Created <span className={s.grey}>113</span>
+            Created&nbsp;
+            {activeTab === 'created' && searchNftsRequestStatus === RequestStatus.SUCCESS && (
+              <span className={s.grey}>{nfts.length}</span>
+            )}
           </span>
         </Button>
         <Button
@@ -40,7 +83,10 @@ export const ProfileNavBar: FC = () => {
         >
           <OwnedImg className={s.tab_img} />
           <span>
-            Owned <span className={s.grey}>113</span>
+            Owned&nbsp;
+            {activeTab === 'owned' && searchNftsRequestStatus === RequestStatus.SUCCESS && (
+              <span className={s.grey}>{nfts.length}</span>
+            )}
           </span>
         </Button>
         <Button
@@ -49,7 +95,10 @@ export const ProfileNavBar: FC = () => {
         >
           <MoneyBagImg className={s.tab_img} />
           <span>
-            Sold <span className={s.grey}>2</span>
+            Sold&nbsp;
+            {activeTab === 'sold' && searchNftsRequestStatus === RequestStatus.SUCCESS && (
+              <span className={s.grey}>{nfts.length}</span>
+            )}
           </span>
         </Button>
         <Button
@@ -58,7 +107,10 @@ export const ProfileNavBar: FC = () => {
         >
           <BidImg className={s.tab_img} />
           <span>
-            Bidded <span className={s.grey}>0</span>
+            Bidded&nbsp;
+            {activeTab === 'bidded' && searchNftsRequestStatus === RequestStatus.SUCCESS && (
+              <span className={s.grey}>{nfts.length}</span>
+            )}
           </span>
         </Button>
       </div>

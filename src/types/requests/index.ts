@@ -76,7 +76,6 @@ export type BidReq = {
 
 export type GetProfileInfoReq = {
   id: number | string;
-  web3Provider: Web3;
 };
 
 export type SearchNftReq = {
