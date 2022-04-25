@@ -87,11 +87,13 @@ export interface IAdditionalInfo {
 
 export interface IBidder {
   amount: string | number;
+  quantity: string | number;
   bidder: string;
-  bidder_avatar: string;
-  bidder_id: number | string;
+  bidderAvatar: string;
+  bidderId: number | string;
   currency: Currency;
   id: number | string;
+  state: string;
 }
 
 export interface IOwner extends Omit<Creator, 'address'> {

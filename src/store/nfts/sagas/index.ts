@@ -7,6 +7,7 @@ import burnSaga from './burn';
 import buySaga from './buy';
 import commentSaga from './comment';
 import createTokenSaga from './createToken';
+import endAuctionSaga from './endAuction';
 import getHotNftsSaga from './getHotNfts';
 import getNftDataSaga from './getNftData';
 import likeCommentSaga from './likeComment';
@@ -28,6 +29,7 @@ export default function* nftSagas() {
   yield fork(burnSaga);
   yield fork(transferSaga);
   yield fork(bidNftSaga);
+  yield fork(endAuctionSaga);
   yield fork(commentSaga);
   yield fork(likeCommentSaga);
   yield fork(reportSaga);

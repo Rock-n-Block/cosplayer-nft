@@ -51,6 +51,7 @@ export const store = configureStore({
           nftsActionTypes.BURN,
           nftsActionTypes.TRANSFER,
           nftsActionTypes.BID,
+          nftsActionTypes.END_AUCTION,
           nftsActionTypes.LIKE,
           nftsActionTypes.SUPPORT,
         ],

@@ -9,6 +9,7 @@ const PATCH_NFT_DATA = 'PATCH_NFT_DATA' as const;
 const APPROVE = 'APPROVE' as const;
 const BUY = 'BUY' as const;
 const BID = 'BID' as const;
+const END_AUCTION = 'END_AUCTION' as const;
 const BURN = 'BURN' as const;
 const TRANSFER = 'TRANSFER' as const;
 const REPORT = 'REPORT' as const;
@@ -26,6 +27,7 @@ export default {
   APPROVE,
   BUY,
   BID,
+  END_AUCTION,
   BURN,
   TRANSFER,
   REPORT,

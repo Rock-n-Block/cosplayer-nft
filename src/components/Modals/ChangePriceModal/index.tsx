@@ -55,7 +55,7 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
     if (detailedNft.id) {
       const formData = new FormData();
       formData.append('selling', 'True');
-      formData.append('currency', currency);
+      formData.append('currency', activeTab === 'Fixed Price' ? currency : 'rec');
       if (activeTab === 'Fixed Price') {
         formData.append('price', price);
       } else {
@@ -98,12 +98,15 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
             <div className="modal-suffix">
               <PriceSelector
                 isOpen={isDropdownOpen}
-                setOpen={setIsDropdownOpen}
-                currentCurrency={currency}
+                setOpen={activeTab === 'Fixed Price' ? setIsDropdownOpen : () => {}}
+                isStatic={activeTab !== 'Fixed Price'}
+                currentCurrency={activeTab === 'Fixed Price' ? currency : 'rec'}
                 setCurrentCurrency={setCurrency}
               />
               <span>
-                {new BigNumber(rates[currency === 'bnb' ? 'bnb' : 'rec'])
+                {new BigNumber(
+                  rates[activeTab === 'Fixed Price' && currency === 'bnb' ? 'bnb' : 'rec'],
+                )
                   .times(price || 0)
                   .toFixed(3, 1)}
                 &nbsp;$

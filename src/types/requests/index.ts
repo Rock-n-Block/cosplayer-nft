@@ -125,3 +125,8 @@ export type ReportReq = {
   message: string;
   token: number | string;
 };
+
+export type EndAuctionReq = {
+  id: number | string;
+  web3Provider: Web3;
+};

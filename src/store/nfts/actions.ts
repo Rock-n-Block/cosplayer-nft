@@ -7,6 +7,7 @@ import {
   BuyReq,
   CommentReq,
   CreateNftReq,
+  EndAuctionReq,
   GetHotNftsReq,
   GetNftDataReq,
   LikeCommentReq,
@@ -30,6 +31,7 @@ export const patchNftData = createAction<PatchNftReq>(actionTypes.PATCH_NFT_DATA
 export const approve = createAction<ApproveReq>(actionTypes.APPROVE);
 export const buy = createAction<BuyReq>(actionTypes.BUY);
 export const bid = createAction<BidReq>(actionTypes.BID);
+export const endAuction = createAction<EndAuctionReq>(actionTypes.END_AUCTION);
 export const burn = createAction<BurnReq>(actionTypes.BURN);
 export const transfer = createAction<TransferReq>(actionTypes.TRANSFER);
 export const report = createAction<ReportReq>(actionTypes.REPORT);

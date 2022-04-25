@@ -8,12 +8,12 @@
 import { CollectionSlim } from './CollectionSlim';
 import { Creator } from './Creator';
 import { Currency } from './Currency';
-import {IComment, IHistory, IOwner, IOwnerAuction, ISeller} from '../index';
+import {IBidder, IComment, IHistory, IOwner, IOwnerAuction, ISeller} from '../index';
 
 export interface TokenFull {
   animation?: string;
   available?: string;
-  bids?: string;
+  bids?: IBidder[];
   collection: CollectionSlim;
   commentCount?: string;
   comments?: IComment[];
@@ -26,7 +26,7 @@ export interface TokenFull {
   endAuction?: string;
   format?: string;
   hashtags?: { name: string }[];
-  highestBid?: string;
+  highestBid?: IBidder;
   highestBidUsd?: string;
   history?: IHistory[];
   id?: number;

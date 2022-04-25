@@ -11,6 +11,7 @@ export type ActiveModal =
   | 'Report'
   | 'Buy'
   | 'PlaceBid'
+  | 'AcceptBid'
   | 'SupportTicket'
   | '';
 

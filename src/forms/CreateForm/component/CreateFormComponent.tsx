@@ -325,9 +325,10 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                         <div className="modal-suffix">
                           <PriceSelector
                             isOpen={isPriceSelectorOpen}
-                            setOpen={setIsPriceSelectorOpen}
+                            setOpen={() => {}}
+                            isStatic
                             setCurrentCurrency={handleSelectCurrency}
-                            currentCurrency={values.currency}
+                            currentCurrency="rec"
                           />
                           <span>
                             {new BigNumber(rates[values.currency])
@@ -519,7 +520,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             onClick={handleSubmit}
           >
             {createTokenRequestStatus === RequestStatus.REQUEST ? (
-              <Spinner color="white" size="sm" />
+              <Spinner color="blue" size="sm" />
             ) : (
               'Create Item'
             )}

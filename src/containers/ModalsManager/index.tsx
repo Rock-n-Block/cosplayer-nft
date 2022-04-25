@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import {
+  AcceptBidModal,
   BurnTokenModal,
   BuyModal,
   ChangePriceModal,
@@ -31,6 +32,7 @@ const ModalsManager: FC = () => (
     <PlaceBidModal id="PlaceBid" />
     <SupportTicketModal id="SupportTicket" />
     <BuyModal id="Buy" />
+    <AcceptBidModal id="AcceptBid" />
   </>
 );
 
