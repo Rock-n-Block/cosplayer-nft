@@ -100,7 +100,7 @@ const InfoCard: FC<InfoCardProps> = ({
           color="orange"
           disabled={endpoint < 0 || !isStarted}
           className={s.button}
-          onClick={handleBuy}
+          onClick={handleMakeABid}
         >
           Bid Now
         </Button>
@@ -108,7 +108,7 @@ const InfoCard: FC<InfoCardProps> = ({
     }
     if (type === 'offered' && id !== yourId) {
       return (
-        <Button color="orange" className={s.button} onClick={handleMakeABid}>
+        <Button color="orange" className={s.button} onClick={handleBuy}>
           Buy Now
         </Button>
       );
