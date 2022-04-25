@@ -1,0 +1,41 @@
+@import "src/styles/mixins";
+
+.page_wrapper {
+  .header {
+    padding: 20px 0 30px;
+    @include flex(row, center, flex-start, no-wrap);
+
+    @include b(mobile) {
+      @include flex(column, flex-start, flex-start, no-wrap);
+      gap: 15px;
+    }
+
+    .title {
+      width: 100%;
+      text-align: center;
+      @include text-control(20px, 25px, 700);
+    }
+  }
+
+  .tokens {
+    position: relative;
+    width: 100%;
+    @include grid(repeat(4, 1fr), repeat(auto-fill, 1fr), 20px);
+    justify-items: center;
+
+    @include b(1330) {
+      @include grid(repeat(3, 1fr), repeat(auto-fill, 1fr), 20px);
+    }
+
+    @include b(1110) {
+      margin-bottom: 178px;
+      @include grid(repeat(2, 1fr), repeat(auto-fill, 1fr), 10px);
+    }
+
+    @include b(mobile) {
+      margin-bottom: 0;
+      padding-bottom: 30px;
+      @include grid(1fr, repeat(auto-fill, 1fr), 20px);
+    }
+  }
+}

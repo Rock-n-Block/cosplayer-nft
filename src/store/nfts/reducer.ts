@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { NftsState } from 'types';
+import { ICountry, IHashtag, NftsState, User } from 'types';
 import { TokenFull } from 'types/api/TokenFull';
 
 const initialState: NftsState = {
   nfts: [],
-  hotNfts: [],
-  searchedNfts: [],
+  hashtags: [],
+  countries: [],
+  searchedUsers: [],
   detailedNft: {} as TokenFull,
   totalPages: 0,
 };
@@ -19,13 +20,17 @@ export const nftsReducer = createSlice({
       ...state,
       nfts: action.payload,
     }),
-    setHotNfts: (state, action: PayloadAction<TokenFull[]>) => ({
+    setHashtags: (state, action: PayloadAction<IHashtag[]>) => ({
       ...state,
-      hotNfts: action.payload,
+      hashtags: action.payload,
     }),
-    setSearchedNfts: (state, action: PayloadAction<TokenFull[]>) => ({
+    setCountries: (state, action: PayloadAction<ICountry[]>) => ({
       ...state,
-      searchedNfts: action.payload,
+      countries: action.payload,
+    }),
+    setSearchedUsers: (state, action: PayloadAction<User[]>) => ({
+      ...state,
+      searchedUsers: action.payload,
     }),
     setTotalPages: (state, action: PayloadAction<number>) => ({
       ...state,
@@ -56,8 +61,9 @@ export const nftsReducer = createSlice({
 
 export const {
   setNfts,
-  setHotNfts,
-  setSearchedNfts,
+  setHashtags,
+  setCountries,
+  setSearchedUsers,
   setDetailedNft,
   setTotalPages,
   clearDetailedNft,

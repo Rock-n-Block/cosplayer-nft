@@ -1,5 +1,7 @@
 const CREATE_TOKEN = 'CREATE_TOKEN' as const;
 const SEARCH_NFTS = 'SEARCH_NFTS' as const;
+const SEARCH_HASHTAGS = 'SEARCH_HASHTAGS' as const;
+const SEARCH_COUNTRIES = 'SEARCH_COUNTRIES' as const;
 const HOT_NFTS = 'HOT_NFTS' as const;
 const LIKE = 'LIKE' as const;
 const LIKE_COMMENT = 'LIKE_COMMENT' as const;
@@ -18,6 +20,8 @@ const SUPPORT = 'SUPPORT' as const;
 export default {
   CREATE_TOKEN,
   SEARCH_NFTS,
+  SEARCH_HASHTAGS,
+  SEARCH_COUNTRIES,
   HOT_NFTS,
   LIKE,
   LIKE_COMMENT,

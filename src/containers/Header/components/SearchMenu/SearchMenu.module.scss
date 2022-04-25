@@ -40,4 +40,12 @@
     @include flex(column, flex-start, flex-start, no-wrap);
     gap: 20px;
   }
+
+  .hashtag {
+    @include text-control(14px, 18px, 700);
+
+    &:hover {
+      color: $blue;
+    }
+  }
 }

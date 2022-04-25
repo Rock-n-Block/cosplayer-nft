@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, memo, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 
 import cn from 'classnames';
 
@@ -21,6 +21,10 @@ const Search: FC<{ isMobile: boolean }> = ({ isMobile }) => {
     setInput(e.target.value);
   };
 
+  const handleCloseMenu = () => setIsOpenSearchMenu(false);
+
+  const clearInput = () => setInput('');
+
   return (
     <div className={cn(s.search_container, isMobile && s.search_hidden)} ref={ref}>
       <div className={s.search}>
@@ -32,9 +36,11 @@ const Search: FC<{ isMobile: boolean }> = ({ isMobile }) => {
           onChange={handleInput}
         />
       </div>
-      {isOpenSearchMenu && <SearchMenu searchInput={input} />}
+      {isOpenSearchMenu && (
+        <SearchMenu clearInput={clearInput} closeMenu={handleCloseMenu} searchInput={input} />
+      )}
     </div>
   );
 };
 
-export default memo(Search);
+export default Search;

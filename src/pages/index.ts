@@ -4,4 +4,5 @@ export * from './Create';
 export * from './Nft';
 export * from './Profile';
 export * from './EditProfile';
+export * from './Search';
 export * from './NotFound';

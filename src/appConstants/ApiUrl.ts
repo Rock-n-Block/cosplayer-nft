@@ -18,6 +18,8 @@ const storeURLs = {
   getRelatedNfts: (id: string | number) => `/store/related/${id}/`,
   nftById: (id: string | number) => `/store/${id}/`,
   getLiked: (id: string | number) => `/store/liked/${id}/`,
+  autocompleteHashtag: (hashtag: string) => `/store/autocomplete_hashtag/?hashtag=${hashtag}`,
+  autocompleteCountries: (country: string) => `/store/autocomplete_countries/?country=${country}`,
   searchNfts: (props: ISearchProps) =>
     `store/search/?${props.type ? `type=${props.type}` : ''}${
       props.orderBy ? `&order_by=${props.orderBy}` : ''

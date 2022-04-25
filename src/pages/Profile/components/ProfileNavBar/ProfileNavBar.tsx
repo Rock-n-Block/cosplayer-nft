@@ -20,7 +20,7 @@ import s from './ProfileNavBar.module.scss';
 export const ProfileNavBar: FC = () => {
   const { userId } = useParams();
   const dispatch = useDispatch();
-  const activeTab = useLocation().search.replace('?tab=', '');
+  const activeTab = new URLSearchParams(useLocation().search).get('tab');
   const nfts = useShallowSelector(nftsSelector.getProp('nfts'));
   const { [actionTypes.SEARCH_NFTS]: searchNftsRequestStatus } = useShallowSelector(
     uiSelector.getUI,

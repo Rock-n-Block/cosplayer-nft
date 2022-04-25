@@ -1,4 +1,4 @@
-import { setNfts } from '../reducer';
+import { setNfts, setSearchedUsers } from '../reducer';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
@@ -7,7 +7,7 @@ import { setPosted } from 'store/profile/reducer';
 import { logger } from 'utils';
 import { camelize } from 'utils/camelize';
 
-import { TokenFull } from 'types';
+import { TokenFull, User } from 'types';
 
 import { searchNfts } from '../actions';
 import actionTypes from '../actionTypes';
@@ -18,9 +18,13 @@ export function* searchNftsSaga({ type, payload }: ReturnType<typeof searchNfts>
   try {
     const { data } = yield call(baseApi.searchNfts, payload);
 
-    const result = camelize(data.items) as TokenFull[];
-
-    yield put(setNfts(result));
+    if (payload.props.type === 'users') {
+      const result = camelize(data.items) as User[];
+      yield put(setSearchedUsers(result));
+    } else {
+      const result = camelize(data.items) as TokenFull[];
+      yield put(setNfts(result));
+    }
 
     if (payload.props.creator && Array.isArray(data.items)) {
       yield put(setPosted(data.items.length));

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { Create, EditProfile, Home, Nft, NotFound, PrivacyPolicy, Profile } from 'pages';
+import { Create, EditProfile, Home, Nft, NotFound, PrivacyPolicy, Profile, Search } from 'pages';
 
 import { routes } from 'appConstants';
 
@@ -14,6 +14,7 @@ const RouteManager: FC = () => {
       <Route path={routes.profile.edit} element={<EditProfile />} />
       <Route path={routes.create.root} element={<Create />} />
       <Route path={routes.privacy.root} element={<PrivacyPolicy />} />
+      <Route path={routes.search.root} element={<Search />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

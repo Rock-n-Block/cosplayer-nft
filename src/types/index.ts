@@ -141,3 +141,12 @@ export interface ISearchProps {
   sold?: boolean;
   bidded?: boolean;
 }
+
+export interface IHashtag {
+  name: string;
+  tokenCount: number | string;
+}
+
+export interface ICountry {
+  country: string;
+}

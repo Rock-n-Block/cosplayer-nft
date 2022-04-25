@@ -36,8 +36,8 @@ const CreatorCard: FC<CreatorCardProps> = ({ creator }) => {
           <Skeleton width={100} height={18} />
         )}
         {typeof country !== 'undefined' ? (
-          <Button className={s.owner_info_location} onClick={() => {}}>
-            {country || 'Russia'}
+          <Button className={s.owner_info_location} href={`/search/country/${country}`}>
+            {country || 'No country'}
           </Button>
         ) : (
           <Skeleton width={100} height={18} />

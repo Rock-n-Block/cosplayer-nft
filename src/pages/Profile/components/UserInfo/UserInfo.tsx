@@ -86,7 +86,7 @@ export const UserInfo: FC = () => {
             </a>
           )}
           {site && (
-            <a className={s.link} href={site} target="_blank" rel="noreferrer">
+            <a className={s.link} href={`https://${site}`} target="_blank" rel="noreferrer">
               <span>Website</span>
             </a>
           )}

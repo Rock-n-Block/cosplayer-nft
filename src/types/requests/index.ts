@@ -129,3 +129,11 @@ export type EndAuctionReq = {
   id: number | string;
   web3Provider: Web3;
 };
+
+export type SearchHashtagsReq = {
+  hashtag: string;
+};
+
+export type SearchCountriesReq = {
+  country: string;
+};

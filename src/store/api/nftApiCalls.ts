@@ -11,6 +11,18 @@ export default {
       data: { ...data },
     });
   },
+  autocompleteHashtag(hashtag: string) {
+    return ajax({
+      method: 'get',
+      url: ApiUrl.autocompleteHashtag(hashtag),
+    });
+  },
+  autocompleteCountry(country: string) {
+    return ajax({
+      method: 'get',
+      url: ApiUrl.autocompleteCountries(country),
+    });
+  },
   getHotNfts({ sort, tag }: GetHotNftsReq) {
     return ajax({
       method: 'get',

@@ -33,7 +33,7 @@ export const PrivacyPolicy: FC = () => (
       <h2 className={s.title}>Personal Information</h2>
       <div className={s.text}>
         <ul>
-          The kinds of Personal Information that CosplayerNFT may collect from you is:
+          <p>The kinds of Personal Information that CosplayerNFT may collect from you is:</p>
           <li>Name</li>
           <li>Email address</li>
           <li>Personally submitted preferences</li>
@@ -46,24 +46,32 @@ export const PrivacyPolicy: FC = () => (
       <h2 className={s.title}>Collection Purposes</h2>
       <div className={s.text}>
         <ul>
-          CosplayerNFT will collect your Personal Information only by lawful and fair means and not
-          in an intrusive way to operate its Service, and to provide you with the following
-          information:
+          <p>
+            CosplayerNFT will collect your Personal Information only by lawful and fair means and
+            not in an intrusive way to operate its Service, and to provide you with the following
+            information:
+          </p>
+          <br />
           <li>
             If you wish to subscribe to CosplayerNFT&apos;s weekly newsletter or other marketing
             communications.
           </li>
+          <br />
           <li>To update you on technical progress of CosplayerNFT.</li>
+          <br />
           <li>To provide services to you as a User.</li>
+          <br />
           <li>
             To identify you as a User for security purposes and to comply with our legal
             obligations.
           </li>
+          <br />
           <li>
             To upgrade and enhance your experience within the website or over the telephone, or to
             tailor or develop information, services or products to suit your needs which may include
             market research and conducting promotions.
           </li>
+          <br />
           <li>
             To tell you about our products or services that we think may be of interest to you by
             communicating with you via email, SMS or telephone. To create aggregate data about Users
@@ -71,14 +79,19 @@ export const PrivacyPolicy: FC = () => (
             potential and existing CosplayerNFT holders, and to allow for more efficient operation
             of CosplayerNFT’s business.
           </li>
+          <br />
           <li>To comply with CosplayerNFT’s legal and statutory obligations.</li>
+          <br />
           <li>
             For taking appropriate action if CosplayerNFT has reason to suspect that unlawful
             activity or misconduct of a serious nature has been, is being or may be engaged in that
             relates to our functions and activities.
           </li>
+          <br />
           <li>To establish, exercise or defend any legal claims.</li>
+          <br />
           <li>Manage job applications.</li>
+          <br />
           <li>
             You may choose to deal with us on an anonymous basis or to use a pseudonym unless it is
             not practicable for us to deal with individuals who we cannot identify or we are

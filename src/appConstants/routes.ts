@@ -4,6 +4,9 @@ export const routes = {
   home: {
     root: '/',
   },
+  search: {
+    root: '/search/:key/:value',
+  },
   nft: {
     link: (id: string | number): string => `/nft/${id}`,
     root: '/nft/:id',
