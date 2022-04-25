@@ -2,6 +2,7 @@ import { FC } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { setActiveModal } from 'store/modals/reducer';
+import { disconnectWalletState } from 'store/user/reducer';
 import userSelector from 'store/user/selectors';
 
 import { LoginForm } from 'forms';
@@ -10,7 +11,6 @@ import { Button, Modal } from 'components';
 import { addressWithDots } from 'utils';
 
 import { useModal, useShallowSelector } from 'hooks';
-import { useWalletConnectorContext } from 'services';
 import { StoreModalProps } from 'types';
 
 import { CloseImg } from 'assets/img/icons';
@@ -18,13 +18,12 @@ import { CloseImg } from 'assets/img/icons';
 import s from './LoginModal.module.scss';
 
 const LoginModal: FC<StoreModalProps> = ({ id }) => {
-  const { disconnect } = useWalletConnectorContext();
   const [isVisibleModal] = useModal(id);
   const { address, provider } = useShallowSelector(userSelector.getUser);
   const dispatch = useDispatch();
 
   const handleGoBack = () => {
-    disconnect();
+    dispatch(disconnectWalletState());
     dispatch(setActiveModal({ activeModal: 'ConnectWallet' }));
   };
 

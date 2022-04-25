@@ -38,7 +38,7 @@ const ConnectButton: FC<ConnectButtonProps> = ({ closeMenu }) => {
         <div className={s.user_info_name}>
           {!displayName && 'Noname'}
           {displayName &&
-            (displayName.length > 15 ? `${displayName.slice(0, 14)}...` : displayName)}
+            (displayName.length > 11 ? `${displayName.slice(0, 10)}...` : displayName)}
         </div>
         {addressWithDots(address)}
       </div>

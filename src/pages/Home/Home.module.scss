@@ -12,6 +12,10 @@
     @include grid(repeat(3, 1fr), repeat(auto-fill, 1fr), 20px);
   }
 
+  @include b(1290) {
+    margin-top: 125px;
+  }
+
   @include b(1110) {
     margin-bottom: 178px;
     @include grid(repeat(2, 1fr), repeat(auto-fill, 1fr), 10px);

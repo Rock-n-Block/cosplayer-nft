@@ -4,19 +4,18 @@
   position: fixed;
   top: 70px;
   z-index: 5;
-  padding: 0 33px;
-  @include flex(row, center, flex-start, no-wrap);
-  width: 1300px;
+  padding: 18px 33px;
+  @include flex(row, flex-start, flex-start, no-wrap);
   background: $bg-color;
 
   @include b(desktop) {
-    padding: 0 15px;
+    padding: 18px 15px;
     width: 100%;
   }
 
   @include b(mobile) {
-    top: 40px;
-    padding-top: 15px;
+    top: 48px;
+    padding-top: 18px;
     background: $bg-color;
     width: 100%;
   }
@@ -31,10 +30,13 @@
     }
 
     &_content {
-      padding: 18px 20px;
-      @include flex(row, center, space-between, no-wrap);
+      padding: 0 20px;
+      @include flex(row, center, flex-start);
+      gap: 10px;
 
-      @include b(desktop) {
+      @include b(mobile) {
+        @include flex(row, center, space-between, no-wrap);
+        gap: unset;
         width: 1150px;
       }
     }

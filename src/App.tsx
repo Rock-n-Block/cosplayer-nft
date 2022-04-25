@@ -30,9 +30,9 @@ const App: FC = () => {
   useEffect(() => {
     if (address && customUrl && isUpdateUserInfoSuccess && !avatar) {
       dispatch(setActiveModal({ activeModal: 'AvatarRequired' }));
-    } else if (address && isUpdateUserInfoSuccess && !customUrl) {
+    } else if (address && isUpdateUserInfoSuccess && !customUrl && !avatar) {
       dispatch(setActiveModal({ activeModal: 'Login' }));
-    } else {
+    } else if (address && isUpdateUserInfoSuccess && customUrl) {
       dispatch(closeModal());
     }
   }, [address, avatar, dispatch, customUrl, isUpdateUserInfoSuccess]);

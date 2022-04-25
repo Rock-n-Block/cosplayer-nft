@@ -58,7 +58,7 @@ const EditProfileForm: FC = () => {
         .max(editProfileValidator.name.max, 'Too long!')
         .matches(editProfileValidator.name.reg, 'Incorrect Username')
         .required('Username is required!'),
-      bio: Yup.string().max(editProfileValidator.bio.max, 'Too long!').notRequired(),
+      bio: Yup.string().nullable().max(editProfileValidator.bio.max, 'Too long!').notRequired(),
       email: Yup.string()
         .nullable()
         .trim()
