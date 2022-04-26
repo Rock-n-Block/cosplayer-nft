@@ -1,5 +1,5 @@
 import { FC, SyntheticEvent } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import { ReCaptcha } from 'react-recaptcha-v3';
 
 import actionTypes from 'store/nfts/actionTypes';
 import uiSelector from 'store/ui/selectors';
@@ -26,7 +26,7 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
 }) => {
   const { [actionTypes.SUPPORT]: supportRequestStatus } = useShallowSelector(uiSelector.getUI);
 
-  const handleCompleteRecaptcha = (token: string | null) => {
+  const handleCompleteRecaptcha = (token: string) => {
     if (token) setFieldValue('token', token);
   };
 
@@ -83,9 +83,10 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
         )}
       />
       {!values.token ? (
-        <ReCAPTCHA
+        <ReCaptcha
           sitekey={RECAPTCHA_SITE_KEY}
-          onChange={(token) => handleCompleteRecaptcha(token)}
+          action="submit"
+          verifyCallback={handleCompleteRecaptcha}
         />
       ) : (
         <Button

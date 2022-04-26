@@ -3943,10 +3943,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-google-recaptcha@^2.1.5":
-  version "2.1.5"
-  resolved "https://registry.yarnpkg.com/@types/react-google-recaptcha/-/react-google-recaptcha-2.1.5.tgz#af157dc2e4bde3355f9b815a64f90e85cfa9df8b"
-  integrity sha512-iWTjmVttlNgp0teyh7eBXqNOQzVq2RWNiFROWjraOptRnb1OcHJehQnji0sjqIRAk9K0z8stjyhU+OLpPb0N6w==
+"@types/react-recaptcha-v3@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@types/react-recaptcha-v3/-/react-recaptcha-v3-1.1.2.tgz#b21db83d954cef9cb78792c3965a9eb13da4bfc6"
+  integrity sha512-7nALeZ6DGNDrFE+vmrsaqXCN4slQOrNZlYtalbgjPk4HGu+vTBQXzeehTYjNG6KCS4cZBEIbmrlZNAJ/r3Z/Ow==
   dependencies:
     "@types/react" "*"
 
@@ -15796,7 +15796,7 @@ prompts@^2.0.1, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.0.0, prop-types@^15.5.0, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.0.0, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -16173,14 +16173,6 @@ react-app-polyfill@^2.0.0:
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
 
-react-async-script@^1.1.1:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/react-async-script/-/react-async-script-1.2.0.tgz#ab9412a26f0b83f5e2e00de1d2befc9400834b21"
-  integrity sha512-bCpkbm9JiAuMGhkqoAiC0lLkb40DJ0HOEJIku+9JDjxX3Rcs+ztEOG13wbrOskt3n2DTrjshhaQ/iay+SnGg5Q==
-  dependencies:
-    hoist-non-react-statics "^3.3.0"
-    prop-types "^15.5.0"
-
 react-colorful@^5.1.2:
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/react-colorful/-/react-colorful-5.5.1.tgz#29d9c4e496f2ca784dd2bb5053a3a4340cfaf784"
@@ -16342,14 +16334,6 @@ react-fast-compare@^3.0.1, react-fast-compare@^3.2.0:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
 
-react-google-recaptcha@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/react-google-recaptcha/-/react-google-recaptcha-2.1.0.tgz#9f6f4954ce49c1dedabc2c532347321d892d0a16"
-  integrity sha512-K9jr7e0CWFigi8KxC3WPvNqZZ47df2RrMAta6KmRoE4RUi7Ys6NmNjytpXpg4HI/svmQJLKR+PncEPaNJ98DqQ==
-  dependencies:
-    prop-types "^15.5.0"
-    react-async-script "^1.1.1"
-
 react-helmet-async@^1.0.7:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/react-helmet-async/-/react-helmet-async-1.2.3.tgz#57326a69304ea3293036eafb49475e9ba454cb37"
@@ -16411,6 +16395,11 @@ react-popper@^2.2.4, react-popper@^2.2.5:
   dependencies:
     react-fast-compare "^3.0.1"
     warning "^4.0.2"
+
+react-recaptcha-v3@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-recaptcha-v3/-/react-recaptcha-v3-2.0.1.tgz#b8dd391e9e36785f250d5e01aad235dd2fea2285"
+  integrity sha512-ZQ+auotgu+E/6YAbPqk53sf9xgcp8TFvVVfL4bVR7PXj98nQmdaONugdLJEA7g1iTZ4yQqC4mZbcVUGZmwb25Q==
 
 react-redux@^7.2.6:
   version "7.2.8"
