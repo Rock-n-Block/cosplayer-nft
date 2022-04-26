@@ -107,7 +107,11 @@ export const TokenMenu: FC = () => {
           <div className={s.tags}>
             {name && typeof hashtags !== 'undefined' ? (
               hashtags.map((hashtag) => (
-                <Button key={hashtag.name} className={s.tag} onClick={() => {}}>
+                <Button
+                  key={hashtag.name}
+                  className={s.tag}
+                  href={`/search/hashtag/${hashtag.name}`}
+                >
                   <span>#{hashtag.name}</span>
                 </Button>
               ))

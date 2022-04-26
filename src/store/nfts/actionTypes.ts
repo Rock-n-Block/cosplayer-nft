@@ -5,6 +5,7 @@ const SEARCH_COUNTRIES = 'SEARCH_COUNTRIES' as const;
 const HOT_NFTS = 'HOT_NFTS' as const;
 const LIKE = 'LIKE' as const;
 const LIKE_COMMENT = 'LIKE_COMMENT' as const;
+const DELETE_COMMENT = 'DELETE_COMMENT' as const;
 const COMMENT = 'COMMENT' as const;
 const GET_NFT_DATA = 'GET_NFT_DATA' as const;
 const PATCH_NFT_DATA = 'PATCH_NFT_DATA' as const;
@@ -25,6 +26,7 @@ export default {
   HOT_NFTS,
   LIKE,
   LIKE_COMMENT,
+  DELETE_COMMENT,
   COMMENT,
   GET_NFT_DATA,
   PATCH_NFT_DATA,

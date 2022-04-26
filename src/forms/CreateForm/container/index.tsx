@@ -47,8 +47,8 @@ const CreateForm: FC = () => {
     hashtags: [],
     price: '',
     minimalBid: '',
-    startAuction: null as unknown as Date,
-    endAuction: null as unknown as Date,
+    startAuction: new Date(),
+    endAuction: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
     creatorRoyalty: 10,
     collection: 0,
     selling: true,
@@ -89,7 +89,10 @@ const CreateForm: FC = () => {
             .max(createValidator.royalty.max, 'Too much')
             .required('Royalties are required')
         : Yup.number().notRequired(),
+      startAuction: props.isFixedPrice ? Yup.date().notRequired() : Yup.date().required(),
+      endAuction: props.isFixedPrice ? Yup.date().notRequired() : Yup.date().required(),
       tag: Yup.string().required('Category is required'),
+      hashtags: Yup.array().min(1, 'Hashtags are required').required(),
     }),
     handleSubmit: (values) => {
       const formData = new FormData();

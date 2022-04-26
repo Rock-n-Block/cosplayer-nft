@@ -31,13 +31,13 @@ export const TokenPreview: FC = () => {
         ))}
       {format === 'audio' &&
         (media && animation ? (
-          <>
+          <div className={s.token_preview_with_audio}>
             <img src={media} className={s.token_image} alt="audio token preview" />
             <audio className={s.token_audio} controls autoPlay>
               <source src={animation} />
               <track kind="captions" />
             </audio>
-          </>
+          </div>
         ) : (
           <Skeleton width={300} height={300} />
         ))}

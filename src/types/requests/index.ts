@@ -67,6 +67,11 @@ export type LikeCommentReq = {
   tokenId: number | string;
 };
 
+export type DeleteCommentReq = {
+  comment_id: number | string;
+  tokenId: number | string;
+};
+
 export type BidReq = {
   id: number | string;
   amount: number;

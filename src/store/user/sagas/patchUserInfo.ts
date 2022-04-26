@@ -4,6 +4,7 @@ import { updateUserState } from '../reducer';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
+import { closeModal, setActiveModal } from 'store/modals/reducer';
 
 import { logger } from 'utils';
 import { camelize } from 'utils/camelize';
@@ -22,13 +23,19 @@ export function* patchUserInfoSaga({ type, payload }: ReturnType<typeof patchUse
     if (data?.display_name === 'this display_name is occupied') {
       toast.error('This name is occupied');
       yield put(error(type));
-      throw Error();
+      return;
     }
 
     if (data?.custom_url[0] === 'user with this custom url already exists.') {
       toast.error('This username is occupied');
       yield put(error(type));
-      throw Error();
+      return;
+    }
+
+    if (!camelize(data).avatar) {
+      yield put(setActiveModal({ activeModal: 'AvatarRequired' }));
+    } else {
+      yield put(closeModal());
     }
 
     yield put(updateUserState({ ...camelize(data) }));

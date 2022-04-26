@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useMemo, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
 
 import actionTypes from '../../../store/nfts/actionTypes';
 import { useDispatch } from 'react-redux';
@@ -29,7 +29,7 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
     new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
   );
   const { props } = useShallowSelector(modalSelector.getProp('modalState'));
-  const [currency, setCurrency] = useState<Currencies | string>(props.currency);
+  const [currency, setCurrency] = useState<Currencies | string>(props.currency || 'bnb');
   const { rates, fee } = useShallowSelector(userSelector.getUser);
   const { detailedNft } = useShallowSelector(nftsSelector.getNfts);
   const { [actionTypes.PATCH_NFT_DATA]: patchNftDataRequestStatus } = useShallowSelector(
@@ -71,6 +71,10 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
     }
   };
 
+  useEffect(() => {
+    if (detailedNft.standart === 'ERC1155') setActiveTab('Fixed Price');
+  }, [detailedNft.standart]);
+
   return (
     <Modal onClose={handleCloseModal} visible={isVisibleModal}>
       <Button className="modal-close-btn" onClick={handleCloseModal}>
@@ -79,12 +83,14 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
       <div className="modal-box">
         <div className="modal-title">Change price</div>
         <div className="modal-switcher">
-          <Switcher
-            firstTab="Fixed Price"
-            secondTab="Time Auction"
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-          />
+          {detailedNft.standart !== 'ERC1155' && (
+            <Switcher
+              firstTab="Fixed Price"
+              secondTab="Time Auction"
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
+          )}
         </div>
         <FormInput
           color="white"

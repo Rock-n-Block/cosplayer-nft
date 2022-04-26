@@ -7,6 +7,7 @@ const initialState: ModalsInitialState = {
     activeModal: '',
     props: {
       tokenId: '',
+      itemId: 0,
       amount: 0,
       quantity: 0,
       sellerId: '',

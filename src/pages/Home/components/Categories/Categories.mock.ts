@@ -26,12 +26,12 @@ export const sorts: IDropdownItem[] = [
     icon: TrendingImg,
   },
   {
-    value: '+date',
+    value: '-date',
     label: 'Latest',
     icon: LatestImg,
   },
   {
-    value: '-date',
+    value: '+date',
     label: 'Earliest',
     icon: EarliestImg,
   },

@@ -83,6 +83,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
 
   const handleAddHashtag = () => {
     if (
+      hashtag.includes(' ') ||
       hashtag.trim() === '#' ||
       hashtag.trim() === '' ||
       /#/.test(hashtag[0] === '#' ? hashtag.slice(1) : hashtag)
@@ -442,7 +443,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                 handleChooseCategory={handleSetCategory}
                 name="tag"
                 value={values.tag}
-                error={touched.tag && errors.tag ? errors.tag : ''}
+                error={(touched.tag && errors.tag) || ''}
                 onChange={handleChange}
                 disabled
                 onBlur={(e: SyntheticEvent) => handleBlur(e)}
@@ -484,6 +485,9 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                     </Button>
                   )
                 }
+                error={
+                  touched.hashtags && typeof errors.hashtags === 'string' ? errors.hashtags : ''
+                }
                 value={hashtag}
                 onChange={(e) => setHashtag(e.target.value)}
                 disabled={isSubmitting}
@@ -511,7 +515,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
           <Button
             color="blue"
             disabled={
-              values.isLoading ||
+              createTokenRequestStatus === RequestStatus.REQUEST ||
               Object.keys(errors).length !== 0 ||
               !values.media ||
               (values.format !== 'image' && !values.cover)

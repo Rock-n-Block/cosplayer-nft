@@ -30,30 +30,32 @@ const BuyModal: FC<StoreModalProps> = ({ id }) => {
   const { detailedNft } = useShallowSelector(nftsSelector.getNfts);
   const currentBalance = currency === 'bnb' ? balance.bnb : balance.rec;
 
-  const finalPrice = new BigNumber(amount).times(quantity).toString(10);
+  const finalPrice = new BigNumber(amount || 0).times(quantity || 0).toString(10);
 
   const handleSubmit = () => {
-    dispatch(
-      buy(
-        detailedNft.standart === 'ERC1155'
-          ? {
-              id: tokenId,
-              currency,
-              amount,
-              tokenAmount: quantity,
-              sellerId,
-              web3Provider: walletService.Web3(),
-            }
-          : {
-              id: tokenId,
-              currency,
-              amount,
-              tokenAmount: '0',
-              sellerId,
-              web3Provider: walletService.Web3(),
-            },
-      ),
-    );
+    if (tokenId && sellerId && quantity && currency && amount) {
+      dispatch(
+        buy(
+          detailedNft.standart === 'ERC1155'
+            ? {
+                id: tokenId,
+                currency,
+                amount,
+                tokenAmount: quantity,
+                sellerId,
+                web3Provider: walletService.Web3(),
+              }
+            : {
+                id: tokenId,
+                currency,
+                amount,
+                tokenAmount: '0',
+                sellerId,
+                web3Provider: walletService.Web3(),
+              },
+        ),
+      );
+    }
   };
 
   return (
@@ -68,7 +70,7 @@ const BuyModal: FC<StoreModalProps> = ({ id }) => {
         <div className="modal-box-option">
           <div className="modal-box-option-name">Your balance:</div>
           <div className="modal-box-option-value">
-            {currentBalance}&nbsp;{currency.toUpperCase()}
+            {currentBalance}&nbsp;{currency?.toUpperCase() || 'bnb'}
           </div>
         </div>
         <div className="modal-box-option">
@@ -76,14 +78,15 @@ const BuyModal: FC<StoreModalProps> = ({ id }) => {
           <div className="modal-box-option-value">
             {finalPrice}
             &nbsp;
-            {currency.toUpperCase()}
+            {currency?.toUpperCase() || 'bnb'}
           </div>
         </div>
         <Button
           className="modal-box-button"
           disabled={
             buyRequestStatus === RequestStatus.REQUEST ||
-            new BigNumber(finalPrice).isGreaterThanOrEqualTo(currentBalance)
+            new BigNumber(finalPrice).isGreaterThanOrEqualTo(currentBalance) ||
+            finalPrice === '0'
           }
           color="blue"
           onClick={handleSubmit}

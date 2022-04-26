@@ -9,6 +9,7 @@ import {
   LoginModal,
   PlaceBidModal,
   ProfilePictureRequiredModal,
+  RemoveCommentModal,
   RemoveTokenModal,
   ReportModal,
   ShareNftModal,
@@ -33,6 +34,7 @@ const ModalsManager: FC = () => (
     <SupportTicketModal id="SupportTicket" />
     <BuyModal id="Buy" />
     <AcceptBidModal id="AcceptBid" />
+    <RemoveCommentModal id="RemoveComment" />
   </>
 );
 

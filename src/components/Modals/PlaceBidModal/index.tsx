@@ -35,7 +35,7 @@ const PlaceBidModal: FC<StoreModalProps> = ({ id }) => {
   const currentCurrency: Currencies = currency === 'bnb' ? 'bnb' : 'rec';
 
   const handleChangeBid = (e: ChangeEvent<HTMLInputElement>) => {
-    if (+e.target.value < +minBid) {
+    if (+e.target.value < Number(minBid || 0)) {
       setError(`Bid can't be lower then ${minBid}`);
     } else if (+e.target.value > +currentBalance) {
       setError("Bid can't be greater then your balance");
@@ -44,14 +44,16 @@ const PlaceBidModal: FC<StoreModalProps> = ({ id }) => {
   };
 
   const handleSubmit = () => {
-    dispatch(
-      bid({
-        id: tokenId,
-        amount: +amount,
-        currency: currentCurrency,
-        web3Provider: walletService.Web3(),
-      }),
-    );
+    if (tokenId) {
+      dispatch(
+        bid({
+          id: tokenId,
+          amount: +amount,
+          currency: currentCurrency,
+          web3Provider: walletService.Web3(),
+        }),
+      );
+    }
   };
 
   return (
@@ -92,7 +94,7 @@ const PlaceBidModal: FC<StoreModalProps> = ({ id }) => {
         <div className="modal-box-option">
           <div className="modal-box-option-name">Your balance:</div>
           <div className="modal-box-option-value">
-            {currentBalance}&nbsp;{currency.toUpperCase()}
+            {currentBalance}&nbsp;{currency?.toUpperCase() || 'bnb'}
           </div>
         </div>
         <div className="modal-box-option">

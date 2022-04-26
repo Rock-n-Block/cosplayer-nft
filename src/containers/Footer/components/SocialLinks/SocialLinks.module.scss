@@ -4,6 +4,10 @@
   margin-top: 12px;
   @include flex(column, flex-end, flex-start, no-wrap);
 
+  @include b(mobile) {
+    align-items: center;
+  }
+
   &_list {
     margin-bottom: 10px;
     @include flex(row, center, flex-end, no-wrap);

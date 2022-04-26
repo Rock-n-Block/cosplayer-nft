@@ -90,16 +90,7 @@
       margin-top: 11px;
 
       &_text {
-        @include flex(row, center, flex-start, no-wrap);
-
-        .title {
-          font-weight: 700;
-          white-space: nowrap;
-        }
-      }
-
-      &_descr {
-        @include ellipsis;
+        @include ellipsis();
       }
 
       .tags {
@@ -107,9 +98,7 @@
         @include flex(row, center, flex-start);
         gap: 5px;
 
-        button {
-          border-radius: 0;
-
+        a {
           span {
             font-weight: 400;
             color: $grey;

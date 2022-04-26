@@ -20,6 +20,7 @@ export type SupportFormProps = {
   message: string;
   transaction: string;
   userId: string;
+  token: string;
 };
 
 const SupportForm: FC = () => {
@@ -29,6 +30,7 @@ const SupportForm: FC = () => {
     message: '',
     transaction: '',
     userId: customUrl || '',
+    token: '',
   };
 
   const dispatch = useDispatch();
@@ -39,9 +41,13 @@ const SupportForm: FC = () => {
     validationSchema: Yup.object().shape({
       email: Yup.string()
         .trim()
-        .matches(editProfileValidator.socials.email.reg, 'Is not correct email')
-        .required(),
-      customUrl: Yup.string().min(3, 'Too short!').max(20, 'Too long!'),
+        .matches(editProfileValidator.socials.email.reg, 'Not valid email address')
+        .required('Email is required'),
+      transaction: Yup.string().min(10, 'Too short').max(50, 'Too long').notRequired(),
+      message: Yup.string()
+        .min(3, 'Too short!')
+        .max(100, 'Too long!')
+        .required('Message is required'),
     }),
 
     handleSubmit: async (values) => {

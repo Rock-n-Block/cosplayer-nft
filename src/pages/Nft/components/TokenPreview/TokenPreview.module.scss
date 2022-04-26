@@ -12,6 +12,15 @@
       height: unset;
       @include flex(row, center, center);
     }
+
+    &_with_audio {
+      position: relative;
+      height: 100%;
+
+      @include b(tablet) {
+        height: unset;
+      }
+    }
   }
 
   &_image {

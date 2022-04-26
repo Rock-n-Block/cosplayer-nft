@@ -2,6 +2,7 @@ import { disconnectWalletState, updateUserState } from '../reducer';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
+import { setActiveModal } from 'store/modals/reducer';
 
 import { logger } from 'utils';
 import { camelize } from 'utils/camelize';
@@ -18,6 +19,12 @@ export function* updateUserInfoSaga({
   try {
     const { data } = yield call(baseApi.getSelfInfo);
     const { data: fee } = yield call(baseApi.getFee);
+
+    if (!camelize(data).customUrl) {
+      yield put(setActiveModal({ activeModal: 'Login' }));
+    } else if (!camelize(data).avatar) {
+      yield put(setActiveModal({ activeModal: 'AvatarRequired' }));
+    }
 
     yield put(updateUserState({ ...camelize(data), fee: +fee }));
     yield put(getBalance({ web3Provider }));

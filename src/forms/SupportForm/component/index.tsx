@@ -1,4 +1,5 @@
 import { FC, SyntheticEvent } from 'react';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 import actionTypes from 'store/nfts/actionTypes';
 import uiSelector from 'store/ui/selectors';
@@ -7,6 +8,7 @@ import { Field, FieldProps, Form, FormikProps } from 'formik';
 import { SupportFormProps } from 'forms/SupportForm/container';
 
 import { Button, FormInput, Spinner, TextArea } from 'components';
+import { RECAPTCHA_SITE_KEY } from 'config';
 
 import { useShallowSelector } from 'hooks';
 import { RequestStatus } from 'types';
@@ -20,8 +22,13 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
   handleBlur,
   values,
   handleSubmit,
+  setFieldValue,
 }) => {
   const { [actionTypes.SUPPORT]: supportRequestStatus } = useShallowSelector(uiSelector.getUI);
+
+  const handleCompleteRecaptcha = (token: string | null) => {
+    if (token) setFieldValue('token', token);
+  };
 
   return (
     <Form name="support-form" className={s.support_form}>
@@ -39,7 +46,7 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
             value={values.email}
             onChange={handleChange}
             onBlur={(e: SyntheticEvent) => handleBlur(e)}
-            error={touched.email && errors.email ? 'Not valid email address' : ''}
+            error={(touched.email && errors.email) || ''}
           />
         )}
       />
@@ -54,6 +61,7 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
             label="Transaction hash"
             placeholder="Paste txn hash"
             disabled={isSubmitting}
+            error={(touched.transaction && errors.transaction) || ''}
             value={values.transaction}
             onChange={handleChange}
             onBlur={(e: SyntheticEvent) => handleBlur(e)}
@@ -67,32 +75,34 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
           <TextArea
             label="Message"
             name="message"
+            error={(touched.message && errors.message) || ''}
             disabled={isSubmitting}
             onChange={handleChange}
             placeholder="Type your issue"
           />
         )}
       />
-      <Button
-        disabled={
-          supportRequestStatus === RequestStatus.REQUEST ||
-          !values.email ||
-          !values.userId ||
-          !values.message ||
-          !!errors.email ||
-          !!errors.userId ||
-          !!errors.message
-        }
-        className="modal-box-button"
-        color="blue"
-        onClick={handleSubmit}
-      >
-        {supportRequestStatus === RequestStatus.REQUEST ? (
-          <Spinner color="blue" size="sm" />
-        ) : (
-          'Send ticket'
-        )}
-      </Button>
+      {!values.token ? (
+        <ReCAPTCHA
+          sitekey={RECAPTCHA_SITE_KEY}
+          onChange={(token) => handleCompleteRecaptcha(token)}
+        />
+      ) : (
+        <Button
+          disabled={
+            supportRequestStatus === RequestStatus.REQUEST || Object.keys(errors).length !== 0
+          }
+          className="modal-box-button"
+          color="blue"
+          onClick={handleSubmit}
+        >
+          {supportRequestStatus === RequestStatus.REQUEST ? (
+            <Spinner color="blue" size="sm" />
+          ) : (
+            'Send ticket'
+          )}
+        </Button>
+      )}
     </Form>
   );
 };

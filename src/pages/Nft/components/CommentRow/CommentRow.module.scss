@@ -24,14 +24,21 @@
   }
 
   &_text {
+    width: 300px;
     @include text-control(14px, 21px);
+    overflow-x: hidden;
   }
 
   &_footer {
     color: $grey;
   }
 
-  .like {
+  .actions {
+    @include flex(row, center, flex-end, no-wrap);
+    gap: 10px;
+  }
+
+  .action {
     width: 28px;
     height: 28px;
     @include flex(row, center, center);
@@ -45,6 +52,10 @@
     &_active {
       margin-top: 1px;
       margin-left: 1px;
+    }
+
+    img {
+      width: 14px;
     }
   }
 }

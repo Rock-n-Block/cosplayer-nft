@@ -42,10 +42,18 @@ const Connect: FC<{ children: any }> = ({ children }) => {
       }
 
       if (data.name === 'accountsChanged') {
-        disconnect();
+        logger('login params:', [data.address, WalletProvider]);
+        dispatch(
+          login({
+            address: data.address,
+            providerName: WalletProvider || 'MetaMask',
+            web3Provider: walletService.Web3(),
+          }),
+        );
+        toast.info('Please sign login message at MetaMask');
       }
     },
-    [disconnect],
+    [WalletProvider, disconnect, dispatch, walletService],
   );
 
   const subscriberError = useCallback(
@@ -64,7 +72,7 @@ const Connect: FC<{ children: any }> = ({ children }) => {
   );
 
   const connect = useCallback(
-    async (chainName: ChainsEnum, providerName: TAvailableProviders): Promise<boolean> => {
+    async (chainName: ChainsEnum, providerName: TAvailableProviders) => {
       const connected = await walletService.initWalletConnect(chainName, providerName);
       if (connected) {
         try {
@@ -75,13 +83,13 @@ const Connect: FC<{ children: any }> = ({ children }) => {
             setCurrentSubscriber(sub);
           }
 
-          const accountInfo = await walletService.getAccount();
-          if (key?.length && 'address' in accountInfo && address === accountInfo.address) {
+          const accountInfo: any = await walletService.getAccount();
+          if (key?.length && address === accountInfo?.address) {
             dispatch(updateUserInfo({ web3Provider: walletService.Web3() }));
-            return true;
+            return;
           }
 
-          if ('address' in accountInfo) {
+          if (accountInfo?.address) {
             dispatch(
               login({
                 address: accountInfo.address,
@@ -90,7 +98,6 @@ const Connect: FC<{ children: any }> = ({ children }) => {
               }),
             );
           }
-          return true;
         } catch (err: any) {
           logger('Getting address or balance error', err, 'error');
           if (err.code === 4) {
@@ -100,27 +107,19 @@ const Connect: FC<{ children: any }> = ({ children }) => {
               }/?utm_source=mm`,
             );
           }
-          return false;
         }
       }
-      return false;
     },
-    [
-      address,
-      currentSubscriber,
-      dispatch,
-      key?.length,
-      subscriberError,
-      subscriberSuccess,
-      walletService,
-    ],
+    [address, currentSubscriber, dispatch, key, subscriberError, subscriberSuccess, walletService],
   );
 
   useEffect(() => {
-    if (WalletProvider && !address) {
+    if (WalletProvider) {
+      logger('autoconnect');
       connect(ChainsEnum['Binance-Smart-Chain'], WalletProvider);
     }
-  }, [WalletProvider, address, connect]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const WalletConnectValues = useMemo(
     () => ({

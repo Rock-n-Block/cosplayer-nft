@@ -13,16 +13,18 @@ export type ActiveModal =
   | 'PlaceBid'
   | 'AcceptBid'
   | 'SupportTicket'
+  | 'RemoveComment'
   | '';
 
 export interface ModalState {
   activeModal: ActiveModal;
   props: {
-    tokenId: number | string;
-    amount: number | string;
-    sellerId: string;
-    quantity: number | string;
-    currency: string;
+    tokenId?: number | string;
+    itemId?: number | string;
+    amount?: number | string;
+    sellerId?: string;
+    quantity?: number | string;
+    currency?: string;
   };
 }
 

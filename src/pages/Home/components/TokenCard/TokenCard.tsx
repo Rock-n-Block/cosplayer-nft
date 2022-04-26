@@ -133,17 +133,17 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
           </div>
         </div>
         <div className={s.description}>
-          <div className={s.description_text}>
-            <span className={s.title}>{name}&nbsp;</span>
-            <span className={s.description_descr}>{description}</span>
-          </div>
+          <p className={s.description_text}>
+            <b>{name}&nbsp;</b>
+            {description}
+          </p>
           <div className={s.tags}>
             {hashtags &&
               hashtags.map((tag) => {
                 return tag.name === '#' || tag.name === ' ' ? (
                   Fragment
                 ) : (
-                  <Button key={tag.name} onClick={() => {}}>
+                  <Button key={tag.name} href={`/search/hashtag/${tag.name}`}>
                     <span>#{tag.name}</span>
                   </Button>
                 );

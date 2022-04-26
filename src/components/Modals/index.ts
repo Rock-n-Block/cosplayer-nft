@@ -12,3 +12,4 @@ export { default as PlaceBidModal } from './PlaceBidModal';
 export { default as SupportTicketModal } from './SupportTicketModal';
 export { default as BuyModal } from './BuyModal';
 export { default as AcceptBidModal } from './AcceptBidModal';
+export { default as RemoveCommentModal } from './RemoveCommentModal';

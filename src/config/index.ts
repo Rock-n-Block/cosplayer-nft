@@ -7,6 +7,7 @@ import { erc20Abi, erc721Abi, erc1155Abi, exchangeAbi } from './abi';
 export const IS_PRODUCTION = false;
 
 export const IP_API_KEY = '9440a3014b0b37f2a8798536eeb357504e2973ee1fa2a41af5caceab';
+export const RECAPTCHA_SITE_KEY = '6LdRv6MfAAAAAPShY9lDAscSkQ8Zocxq_fJHhAHF';
 
 const OPTIONS = {
   rpc: {

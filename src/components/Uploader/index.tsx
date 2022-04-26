@@ -49,7 +49,11 @@ const Uploader: FC<IProps> = ({
 
   const handleChange = <T extends File>(acceptedFiles: T[], fileRejections: FileRejection[]) => {
     if (!acceptedFiles.length) {
-      toast.error(fileRejections[0].errors[0].message);
+      toast.error(
+        fileRejections[0].errors[0].message === 'File type must be image/*'
+          ? 'File type must be image or GIF'
+          : 'File type must be image, GIF, audio or video',
+      );
       return;
     }
     const currentFile = acceptedFiles[0];
@@ -57,7 +61,6 @@ const Uploader: FC<IProps> = ({
     if (handleUpload) {
       handleUpload(currentFile);
     }
-    // add preview to formik
     if (!formikValue) {
       return;
     }

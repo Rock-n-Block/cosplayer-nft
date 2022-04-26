@@ -43,8 +43,8 @@ const TextArea: FC<ITextAreaProps> = ({
   };
   return (
     <div className={cn(s.field, className)}>
-      {label && <div className={s.label}>{label}</div>}
-      {error && <div className={s.error}>{error}</div>}
+      {label && <span className={s.label}>{label}</span>}
+      {error && <span className={s.error}>{error}</span>}
       <div className={s.wrap}>
         <textarea
           disabled={disabled}

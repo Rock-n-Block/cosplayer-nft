@@ -7,6 +7,7 @@ import {
   BuyReq,
   CommentReq,
   CreateNftReq,
+  DeleteCommentReq,
   EndAuctionReq,
   GetHotNftsReq,
   GetNftDataReq,
@@ -29,6 +30,7 @@ export const searchCountries = createAction<SearchCountriesReq>(actionTypes.SEAR
 export const getHotNfts = createAction<GetHotNftsReq>(actionTypes.HOT_NFTS);
 export const likeNft = createAction<LikeNftReq>(actionTypes.LIKE);
 export const likeComment = createAction<LikeCommentReq>(actionTypes.LIKE_COMMENT);
+export const deleteComment = createAction<DeleteCommentReq>(actionTypes.DELETE_COMMENT);
 export const comment = createAction<CommentReq>(actionTypes.COMMENT);
 export const getNftData = createAction<GetNftDataReq>(actionTypes.GET_NFT_DATA);
 export const patchNftData = createAction<PatchNftReq>(actionTypes.PATCH_NFT_DATA);

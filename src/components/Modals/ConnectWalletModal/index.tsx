@@ -1,5 +1,8 @@
 import { FC, memo, useState } from 'react';
 
+import { useDispatch } from 'react-redux';
+import { closeModal } from 'store/modals/reducer';
+
 import { Button, Modal } from 'components';
 
 import { useModal } from 'hooks';
@@ -16,15 +19,19 @@ const ConnectWalletModal: FC<StoreModalProps> = ({ id }) => {
   const [connectError, setConnectError] = useState<TAvailableProviders | ''>('');
   const [isVisibleModal, handleCloseModal] = useModal(id);
   const { connect } = useWalletConnectorContext();
+  const dispatch = useDispatch();
 
   const errorWallet = wallets.find((wallet) => wallet.provider === connectError);
 
   const handleConnect = (provider: TAvailableProviders) => {
-    return async () => {
-      const isConnected = await connect(ChainsEnum['Binance-Smart-Chain'], provider);
-      if (!isConnected) {
-        setConnectError(provider);
-      } else handleCloseModal();
+    return () => {
+      connect(ChainsEnum['Binance-Smart-Chain'], provider)
+        .then(() => {
+          dispatch(closeModal());
+        })
+        .catch(() => {
+          setConnectError(provider);
+        });
     };
   };
 
