@@ -43,11 +43,12 @@ const SupportForm: FC = () => {
         .trim()
         .matches(editProfileValidator.socials.email.reg, 'Not valid email address')
         .required('Email is required'),
-      transaction: Yup.string().min(10, 'Too short').max(50, 'Too long').notRequired(),
+      transaction: Yup.string().min(30, 'Too short').max(70, 'Too long').notRequired(),
       message: Yup.string()
         .min(3, 'Too short!')
         .max(100, 'Too long!')
         .required('Message is required'),
+      token: Yup.string().required(),
     }),
 
     handleSubmit: async (values) => {
@@ -57,6 +58,7 @@ const SupportForm: FC = () => {
         formData.append('message', values.message);
         formData.append('user_id', values.userId);
         formData.append('tx', values.transaction);
+        formData.append('token', values.token);
         dispatch(support(formData));
       } catch (e) {
         logger('submit login form', e);

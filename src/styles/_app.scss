@@ -310,3 +310,7 @@ button {
     @include text-control(13px, 20px);
   }
 }
+
+.grecaptcha-badge {
+  visibility: hidden;
+}

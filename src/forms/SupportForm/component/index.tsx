@@ -1,5 +1,6 @@
 import { FC, SyntheticEvent } from 'react';
-import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { toast } from 'react-toastify';
 
 import actionTypes from 'store/nfts/actionTypes';
 import uiSelector from 'store/ui/selectors';
@@ -8,6 +9,7 @@ import { Field, FieldProps, Form, FormikProps } from 'formik';
 import { SupportFormProps } from 'forms/SupportForm/container';
 
 import { Button, FormInput, Spinner, TextArea } from 'components';
+import { logger } from 'utils';
 
 import { useShallowSelector } from 'hooks';
 import { RequestStatus } from 'types';
@@ -24,8 +26,16 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
   setFieldValue,
 }) => {
   const { [actionTypes.SUPPORT]: supportRequestStatus } = useShallowSelector(uiSelector.getUI);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
-  const handleCompleteRecaptcha = (token: string) => {
+  logger('verified token:', values.token);
+
+  const handleCompleteRecaptcha = async () => {
+    if (!executeRecaptcha) {
+      toast.error('Execute recaptcha not yet available');
+      return;
+    }
+    const token = await executeRecaptcha('submit');
     setFieldValue('token', token);
   };
 
@@ -82,7 +92,17 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
         )}
       />
       {!values.token ? (
-        <GoogleReCaptcha onVerify={handleCompleteRecaptcha} />
+        <Button
+          className="modal-box-button"
+          color="blue"
+          disabled={
+            supportRequestStatus === RequestStatus.REQUEST ||
+            Object.keys(errors).filter((key) => key !== 'token').length !== 0
+          }
+          onClick={handleCompleteRecaptcha}
+        >
+          Verify
+        </Button>
       ) : (
         <Button
           disabled={
