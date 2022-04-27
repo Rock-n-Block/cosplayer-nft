@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
+import { closeModal } from 'store/modals/reducer';
 
 import { logger } from 'utils';
 
@@ -22,6 +23,7 @@ export function* deleteCommentSaga({
     yield call(getNftDataSaga, { type: actionTypes.GET_NFT_DATA, payload: { id: tokenId } });
 
     yield put(success(type));
+    yield put(closeModal());
     toast.success('Comment has been removed');
   } catch (e) {
     logger('Delete comment', e);

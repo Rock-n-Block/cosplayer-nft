@@ -125,7 +125,12 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
           render={() => {
             return values.preview ? (
               <div className={s.preview}>
-                <Button color="blue" className={s.delete_btn} onClick={handleClearMedia}>
+                <Button
+                  disabled={isCreateTokenLoading}
+                  color="blue"
+                  className={s.delete_btn}
+                  onClick={handleClearMedia}
+                >
                   <div className={s.delete_btn_content}>
                     <span>Delete</span>
                     <CloseImg />
@@ -153,7 +158,6 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             ) : (
               <Uploader
                 setFormat={(format) => setFieldValue('format', format)}
-                isLoading={isCreateTokenLoading}
                 className={s.uploader}
                 formikValue="media"
               >
@@ -176,7 +180,12 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             render={() => {
               return values.coverPreview ? (
                 <div className={s.preview}>
-                  <Button color="blue" className={s.delete_btn_cover} onClick={handleClearCover}>
+                  <Button
+                    color="blue"
+                    disabled={isCreateTokenLoading}
+                    className={s.delete_btn_cover}
+                    onClick={handleClearCover}
+                  >
                     <div className={s.delete_btn_content}>
                       <span>Delete Cover</span>
                       <CloseImg />
