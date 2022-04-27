@@ -18,7 +18,6 @@ import Login from '../component';
 export type UserFormProps = UserSlim & {
   isLoading: boolean;
   isAgeEnough: boolean;
-  termsAccepted: boolean;
 };
 
 const LoginForm: FC = () => {
@@ -28,7 +27,6 @@ const LoginForm: FC = () => {
     country: '',
     isLoading: false,
     isAgeEnough: false,
-    termsAccepted: false,
   };
 
   const dispatch = useDispatch();

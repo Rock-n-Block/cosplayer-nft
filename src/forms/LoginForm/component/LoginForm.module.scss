@@ -1,19 +1,16 @@
 @import 'src/styles/mixins';
 
 .login_form {
+  width: 100%;
   margin-top: 10px;
 
   .inputs {
+    min-width: 100%;
     @include grid(1fr, auto auto, 20px);
   }
 
-  .terms {
-    margin: 14px 0 20px;
-    @include text-control(13px, 20px);
-  }
-
   .checkers {
-    margin-bottom: 30px;
+    margin: 20px 0 30px;
     @include grid(1fr, 1fr 1fr, 14px);
 
     .checker {

@@ -7,6 +7,4 @@ export default {
   component: SearchMenu,
 };
 
-export const Default: FC = () => (
-  <SearchMenu clearInput={() => {}} closeMenu={() => {}} searchInput="ttt" />
-);
+export const Default: FC = () => <SearchMenu closeMenu={() => {}} searchInput="ttt" />;

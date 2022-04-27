@@ -36,8 +36,11 @@ export const profileReducer = createSlice({
       ...state,
       posted: action.payload,
     }),
+    clearProfile: () => ({
+      ...initialState,
+    }),
   },
 });
 
-export const { updateProfile, setPosted } = profileReducer.actions;
+export const { updateProfile, setPosted, clearProfile } = profileReducer.actions;
 export default profileReducer.reducer;

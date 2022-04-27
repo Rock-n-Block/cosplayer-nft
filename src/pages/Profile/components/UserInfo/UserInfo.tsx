@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { getProfileById } from 'store/profile/actions';
+import { clearProfile } from 'store/profile/reducer';
 import profileSelector from 'store/profile/selectors';
 
 import cn from 'classnames';
@@ -26,6 +27,12 @@ export const UserInfo: FC = () => {
       dispatch(getProfileById({ id: userId }));
     }
   }, [dispatch, userId]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearProfile());
+    };
+  }, [dispatch]);
 
   return (
     <div className={s.info}>

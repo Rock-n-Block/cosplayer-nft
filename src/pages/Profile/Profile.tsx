@@ -1,7 +1,9 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
+import { useDispatch } from 'react-redux';
 import actionTypes from 'store/nfts/actionTypes';
+import { clearNfts } from 'store/nfts/reducer';
 import nftsSelector from 'store/nfts/selectors';
 import uiSelector from 'store/ui/selectors';
 
@@ -21,6 +23,13 @@ export const Profile: FC = () => {
   const { [actionTypes.SEARCH_NFTS]: searchNftsRequestStatus } = useShallowSelector(
     uiSelector.getUI,
   );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearNfts());
+    };
+  }, [dispatch]);
 
   return (
     <div className={s.profile_wrapper}>

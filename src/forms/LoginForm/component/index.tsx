@@ -1,17 +1,12 @@
 import { FC, SyntheticEvent } from 'react';
-import { Link } from 'react-router-dom';
 
-import { useDispatch } from 'react-redux';
-import { closeModal } from 'store/modals/reducer';
 import uiSelector from 'store/ui/selectors';
 import actionTypes from 'store/user/actionTypes';
-import { disconnectWalletState } from 'store/user/reducer';
 
 import { Field, FieldProps, Form, FormikProps } from 'formik';
 
 import { Button, Checkbox, FormInput, Spinner } from 'components';
 
-import { routes } from 'appConstants';
 import { useShallowSelector } from 'hooks';
 import { RequestStatus } from 'types';
 
@@ -27,15 +22,9 @@ const Login: FC<FormikProps<UserFormProps>> = ({
   values,
   handleSubmit,
 }) => {
-  const dispatch = useDispatch();
   const { [actionTypes.PATCH_USER_INFO]: patchUserInfoRequestStatus } = useShallowSelector(
     uiSelector.getUI,
   );
-
-  const handleNavigate = () => {
-    dispatch(closeModal());
-    dispatch(disconnectWalletState());
-  };
 
   return (
     <Form name="form-login" className={s.login_form}>
@@ -83,13 +72,6 @@ const Login: FC<FormikProps<UserFormProps>> = ({
           )}
         />
       </div>
-      <div className={s.terms}>
-        Please take a few minutes to read and understand CosplayerNFT&nbsp;
-        <Link className="text-blue" to={routes.privacy.root} onClick={handleNavigate}>
-          Terms of Service
-        </Link>
-        . To continue, you’ll need to accept the Terms of Service by checking the box.
-      </div>
       <div className={s.checkers}>
         <Field
           id="isAgeEnough"
@@ -107,28 +89,11 @@ const Login: FC<FormikProps<UserFormProps>> = ({
             />
           )}
         />
-        <Field
-          id="termsAccepted"
-          name="termsAccepted"
-          render={({ form: { isSubmitting } }: FieldProps) => (
-            <Checkbox
-              id="termsAccepted"
-              name="termsAccepted"
-              className={s.checkbox}
-              disabled={isSubmitting}
-              checked={values.termsAccepted}
-              onChange={handleChange}
-              onBlur={(e: SyntheticEvent) => handleBlur(e)}
-              text="I accept the CosplayerNFT Terms of Service"
-            />
-          )}
-        />
       </div>
       <Button
         type="submit"
         disabled={
           !values.isAgeEnough ||
-          !values.termsAccepted ||
           values.isLoading ||
           !values.displayName ||
           !values.customUrl ||

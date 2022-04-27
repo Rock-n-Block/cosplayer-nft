@@ -21,9 +21,10 @@ const Search: FC<{ isMobile: boolean }> = ({ isMobile }) => {
     setInput(e.target.value);
   };
 
-  const handleCloseMenu = () => setIsOpenSearchMenu(false);
-
-  const clearInput = () => setInput('');
+  const closeMenu = () => {
+    setIsOpenSearchMenu(false);
+    setInput('');
+  };
 
   return (
     <div className={cn(s.search_container, isMobile && s.search_hidden)} ref={ref}>
@@ -36,9 +37,7 @@ const Search: FC<{ isMobile: boolean }> = ({ isMobile }) => {
           onChange={handleInput}
         />
       </div>
-      {isOpenSearchMenu && (
-        <SearchMenu clearInput={clearInput} closeMenu={handleCloseMenu} searchInput={input} />
-      )}
+      {isOpenSearchMenu && <SearchMenu closeMenu={closeMenu} searchInput={input} />}
     </div>
   );
 };

@@ -14,6 +14,7 @@ import s from './Owners.module.scss';
 export const Owners: FC = () => {
   const {
     owners,
+    creator,
     sellers,
     isSelling,
     isAucSelling,
@@ -39,7 +40,7 @@ export const Owners: FC = () => {
           <InfoCard
             type={sellers?.find((seller) => seller.id === owner.id) ? 'offered' : 'Owned'}
             date={
-              owner.price
+              owner.price || owner.id === creator.id
                 ? new Date(
                     history?.find(
                       (item) => item.method === 'Listing' && item.oldOwner.id === owner.id,

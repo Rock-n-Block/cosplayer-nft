@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { setActiveModal } from 'store/modals/reducer';
@@ -43,6 +44,7 @@ export const TokenMenu: FC = () => {
     hashtags,
   } = useShallowSelector(nftsSelector.getProp('detailedNft'));
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOpenShareNftModal = () => {
     dispatch(setActiveModal({ activeModal: 'ShareNft' }));
@@ -52,10 +54,14 @@ export const TokenMenu: FC = () => {
     setActiveTab('owners');
   };
 
+  const handleCreatorNavigate = (route: string) => {
+    return () => navigate(route);
+  };
+
   return (
     <div className={s.token_menu}>
       <div className={s.token_menu_header}>
-        <CreatorCard creator={creator} />
+        <CreatorCard handleNavigate={handleCreatorNavigate} creator={creator} />
         <Button className={s.purchase_btn} color="orange" onClick={handlePurchase}>
           Purchase
         </Button>

@@ -18,10 +18,9 @@ type AvailableTabs = 'User' | '#Tag' | 'Location';
 type SearchMenuProps = {
   searchInput: string;
   closeMenu: () => void;
-  clearInput: () => void;
 };
 
-const SearchMenu: FC<SearchMenuProps> = ({ searchInput, closeMenu, clearInput }) => {
+const SearchMenu: FC<SearchMenuProps> = ({ searchInput, closeMenu }) => {
   const [activeTab, setActiveTab] = useState<AvailableTabs>('User');
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,11 +32,10 @@ const SearchMenu: FC<SearchMenuProps> = ({ searchInput, closeMenu, clearInput })
     };
   };
 
-  const handleNavigate = (link: string) => {
+  const handleNavigate = (route: string) => {
     return () => {
-      navigate(link);
+      navigate(route);
       closeMenu();
-      clearInput();
     };
   };
 
@@ -78,7 +76,9 @@ const SearchMenu: FC<SearchMenuProps> = ({ searchInput, closeMenu, clearInput })
       </div>
       <div className={s.result}>
         {activeTab === 'User' &&
-          searchedUsers.map((user) => <CreatorCard key={user.id} creator={user} />)}
+          searchedUsers.map((user) => (
+            <CreatorCard handleNavigate={handleNavigate} key={user.id} creator={user} />
+          ))}
         {activeTab === '#Tag' &&
           hashtags.map((hashtag) => (
             <Button

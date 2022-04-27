@@ -9,4 +9,6 @@ export default {
   component: CreatorCard,
 };
 
-export const Default: FC = () => <CreatorCard creator={{} as Creator} />;
+export const Default: FC = () => (
+  <CreatorCard handleNavigate={() => () => {}} creator={{} as Creator} />
+);

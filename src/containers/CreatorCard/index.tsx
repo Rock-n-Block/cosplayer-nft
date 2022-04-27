@@ -14,19 +14,27 @@ import s from './CreatorCard.module.scss';
 
 type CreatorCardProps = {
   creator: Creator;
+  handleNavigate: (route: string) => () => void;
 };
 
-const CreatorCard: FC<CreatorCardProps> = ({ creator }) => {
+const CreatorCard: FC<CreatorCardProps> = ({ creator, handleNavigate }) => {
   const { address, avatar, isVerificated, customUrl, country, displayName, id } =
     creator || ({} as Creator);
+
   return (
     <div className={s.creator_card}>
-      <Button className={s.owner_logo} href={routes.profile.link(customUrl || id || '')}>
+      <Button
+        className={s.owner_logo}
+        onClick={handleNavigate(routes.profile.link(customUrl || id || ''))}
+      >
         <ImgLoader url={avatar || DefaultAvatarImg} alt="creator avatar" />
       </Button>
       <div className={s.owner_info}>
         {customUrl || displayName || address ? (
-          <Button className={s.owner_info_name} href={routes.profile.link(customUrl || id || '')}>
+          <Button
+            className={s.owner_info_name}
+            onClick={handleNavigate(routes.profile.link(customUrl || id || ''))}
+          >
             {customUrl || displayName || (address && addressWithDots(address))}
             {isVerificated && (
               <img src={VerifiedImg} className={s.owner_info_verified} alt="verified icon" />
@@ -36,7 +44,10 @@ const CreatorCard: FC<CreatorCardProps> = ({ creator }) => {
           <Skeleton width={100} height={18} />
         )}
         {typeof country !== 'undefined' ? (
-          <Button className={s.owner_info_location} href={`/search/country/${country}`}>
+          <Button
+            className={s.owner_info_location}
+            onClick={handleNavigate(`/search/country/${country}`)}
+          >
             {country || 'No country'}
           </Button>
         ) : (

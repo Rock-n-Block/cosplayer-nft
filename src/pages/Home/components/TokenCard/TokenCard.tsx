@@ -82,6 +82,12 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
     if (id) navigate(routes.nft.link(id));
   };
 
+  const handleCreatorNavigate = (route: string) => {
+    return () => {
+      navigate(route);
+    };
+  };
+
   const handleClick = () => {
     if (clickTimeout !== null) {
       logger('double click executes');
@@ -102,7 +108,7 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
   return (
     <div className={s.token_card}>
       <div className={s.header}>
-        <CreatorCard creator={creator} />
+        <CreatorCard handleNavigate={handleCreatorNavigate} creator={creator} />
       </div>
       <Button className={s.preview} onClick={handleClick}>
         <ImgLoader url={media || ''} alt="token preview" />
