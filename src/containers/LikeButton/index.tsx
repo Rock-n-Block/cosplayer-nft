@@ -25,11 +25,13 @@ const LikeButton: FC<LikeButtonProps> = ({ isLiked, likesNumber, artId, setLikes
 
   const successCallback = useCallback(() => {
     if (isLike) {
-      if (likesNumber) setLikesCount(isLiked ? likesNumber - 1 : likesNumber);
+      if (typeof likesNumber !== 'undefined')
+        setLikesCount(isLiked ? likesNumber - 1 : likesNumber);
       if (setLikesNumber) setLikesNumber('dislike');
       setIsLike(false);
     } else {
-      if (likesNumber) setLikesCount(isLiked ? likesNumber : likesNumber + 1);
+      if (typeof likesNumber !== 'undefined')
+        setLikesCount(isLiked ? likesNumber : likesNumber + 1);
       if (setLikesNumber) setLikesNumber('like');
       setIsLike(true);
     }
