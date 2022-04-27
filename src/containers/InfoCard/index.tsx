@@ -136,9 +136,8 @@ const InfoCard: FC<InfoCardProps> = ({
           <span className={s.action_description}>
             {type !== 'Owned' && price > 0 && currency && (
               <div className={s.text_blue}>
-                {new BigNumber(price).times(+quantity || 1).toString(10)}&nbsp;
-                {currency.toUpperCase()}
-                {quantity > 1 && ` (${quantity})`}&nbsp;
+                {new BigNumber(price).toString(10)}&nbsp;
+                {currency.toUpperCase()}&nbsp;({quantity})&nbsp;
               </div>
             )}
             {type}&nbsp;by&nbsp;

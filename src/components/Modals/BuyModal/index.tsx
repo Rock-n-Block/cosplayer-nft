@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 import modalSelector from 'store/modals/selectors';
@@ -10,7 +10,7 @@ import userSelector from 'store/user/selectors';
 
 import BigNumber from 'bignumber.js/bignumber';
 
-import { Button, Modal, Spinner } from 'components';
+import { Button, FormInput, Modal, Spinner } from 'components';
 
 import { useModal, useShallowSelector } from 'hooks';
 import { useWalletConnectorContext } from 'services';
@@ -20,6 +20,8 @@ import { CloseImg } from 'assets/img/icons';
 
 const BuyModal: FC<StoreModalProps> = ({ id }) => {
   const [isVisibleModal, handleCloseModal] = useModal(id);
+  const [tokenAmount, setTokenAmount] = useState('1');
+  const [error, setError] = useState('');
   const dispatch = useDispatch();
   const { walletService } = useWalletConnectorContext();
   const { balance } = useShallowSelector(userSelector.getUser);
@@ -30,7 +32,20 @@ const BuyModal: FC<StoreModalProps> = ({ id }) => {
   const { detailedNft } = useShallowSelector(nftsSelector.getNfts);
   const currentBalance = currency === 'bnb' ? balance.bnb : balance.rec;
 
-  const finalPrice = new BigNumber(amount || 0).times(quantity || 0).toString(10);
+  const finalPrice = new BigNumber(amount || 0).times(tokenAmount).toString(10);
+
+  const handleChangeAmount = (e: ChangeEvent<HTMLInputElement>) => {
+    if (+e.target.value < 1) {
+      setError('Quantity cannot be lower then 1');
+    } else if (+e.target.value > Number(quantity)) {
+      setError(`Quantity cannot be greater then ${quantity}`);
+    } else if (
+      new BigNumber(amount || 0).times(e.target.value).isGreaterThanOrEqualTo(currentBalance)
+    ) {
+      setError('Amount cannot be greater then your balance');
+    } else setError('');
+    setTokenAmount(e.target.value);
+  };
 
   const handleSubmit = () => {
     if (tokenId && sellerId && quantity && currency && amount) {
@@ -41,7 +56,7 @@ const BuyModal: FC<StoreModalProps> = ({ id }) => {
                 id: tokenId,
                 currency,
                 amount,
-                tokenAmount: quantity,
+                tokenAmount,
                 sellerId,
                 web3Provider: walletService.Web3(),
               }
@@ -58,6 +73,10 @@ const BuyModal: FC<StoreModalProps> = ({ id }) => {
     }
   };
 
+  useEffect(() => {
+    if (detailedNft.standart === 'ERC721') setTokenAmount('1');
+  }, [detailedNft.standart]);
+
   return (
     <Modal onClose={handleCloseModal} visible={isVisibleModal}>
       <Button className="modal-close-btn" onClick={handleCloseModal}>
@@ -67,6 +86,18 @@ const BuyModal: FC<StoreModalProps> = ({ id }) => {
         <div className="modal-box-header">
           <div className="modal-title">Buy token</div>
         </div>
+        {detailedNft.standart === 'ERC1155' && (
+          <FormInput
+            type="number"
+            label="Token amount"
+            placeholder="Enter amount of token to buy"
+            integer
+            max={Number(quantity)}
+            value={tokenAmount.toString()}
+            error={error}
+            onChange={handleChangeAmount}
+          />
+        )}
         <div className="modal-box-option">
           <div className="modal-box-option-name">Your balance:</div>
           <div className="modal-box-option-value">
@@ -83,11 +114,7 @@ const BuyModal: FC<StoreModalProps> = ({ id }) => {
         </div>
         <Button
           className="modal-box-button"
-          disabled={
-            buyRequestStatus === RequestStatus.REQUEST ||
-            new BigNumber(finalPrice).isGreaterThanOrEqualTo(currentBalance) ||
-            finalPrice === '0'
-          }
+          disabled={buyRequestStatus === RequestStatus.REQUEST || !!error}
           color="blue"
           onClick={handleSubmit}
         >

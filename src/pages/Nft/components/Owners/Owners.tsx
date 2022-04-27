@@ -39,10 +39,16 @@ export const Owners: FC = () => {
           <InfoCard
             type={sellers?.find((seller) => seller.id === owner.id) ? 'offered' : 'Owned'}
             date={
-              new Date(
-                history?.find((item) => item.method === 'Listing' && item.oldOwner.id === owner.id)
-                  ?.date || '',
-              )
+              owner.price
+                ? new Date(
+                    history?.find(
+                      (item) => item.method === 'Listing' && item.oldOwner.id === owner.id,
+                    )?.date || '',
+                  )
+                : new Date(
+                    history?.find((item) => item.method === 'Buy' && item.newOwner.id === owner.id)
+                      ?.date || '',
+                  )
             }
             key={`${index + 1}`}
             avatar={owner.avatar || DefaultAvatarImg}

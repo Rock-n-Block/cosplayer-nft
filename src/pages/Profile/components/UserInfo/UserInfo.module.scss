@@ -42,6 +42,10 @@
     @include text-control(14px, 21px);
     color: $grey;
     text-align: center;
+
+    @include b(mobile) {
+      width: 90vw;
+    }
   }
 
   .avatar {

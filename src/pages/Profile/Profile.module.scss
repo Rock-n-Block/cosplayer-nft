@@ -11,6 +11,8 @@
   }
 
   @include b(mobile) {
+    margin: 0 -5px;
+    width: calc(100% + 10px);
     @include flex(column, center, flex-start);
   }
 }

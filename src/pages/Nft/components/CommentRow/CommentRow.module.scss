@@ -1,12 +1,16 @@
 @import 'src/styles/mixins';
 
 .comment {
+  width: 100%;
+  min-width: 100%;
   @include flex(row, flex-start, space-between, no-wrap);
 
   &_content {
     @include flex(row, flex-start, flex-start, no-wrap);
 
     img {
+      min-width: 32px;
+      min-height: 32px;
       width: 32px;
       height: 32px;
       border-radius: 50%;
@@ -15,6 +19,7 @@
 
   &_info {
     margin-left: 11px;
+    width: fit-content;
     @include flex(column, flex-start, flex-start, no-wrap);
     gap: 4px;
   }
@@ -27,6 +32,10 @@
     width: 300px;
     @include text-control(14px, 21px);
     word-wrap: break-word;
+
+    @include b(mobile) {
+      width: 60vw;
+    }
   }
 
   &_footer {
