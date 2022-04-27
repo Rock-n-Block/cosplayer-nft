@@ -39,9 +39,11 @@
 
   &_text {
     margin-top: 5px;
+    width: 220px;
     @include text-control(14px, 21px);
     color: $grey;
     text-align: center;
+    word-wrap: break-word;
 
     @include b(mobile) {
       width: 90vw;
