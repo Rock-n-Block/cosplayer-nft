@@ -19,14 +19,28 @@ import s from './ActionSelect.module.scss';
 
 export const ActionSelect: FC = () => {
   const [isOpenActions, setOpenActions] = useState(false);
-  const { standart, owners, sellers, isSelling, selling, isAucSelling, ownerAuction } =
-    useShallowSelector(nftsSelector.getProp('detailedNft'));
+  const {
+    standart,
+    endAuction,
+    bids,
+    owners,
+    sellers,
+    isSelling,
+    selling,
+    isAucSelling,
+    ownerAuction,
+  } = useShallowSelector(nftsSelector.getProp('detailedNft'));
   const userId = useShallowSelector(userSelector.getProp('id'));
   const dispatch = useDispatch();
+
+  const isEndedAuc = Date.now() - new Date(endAuction || '').getTime() > 0;
 
   const filterActions = () => {
     if (standart === 'ERC721' && !Array.isArray(owners) && owners?.id === userId) {
       if (selling) {
+        if (isAucSelling && !isEndedAuc && bids?.length) {
+          return actions.filter((action) => action.value === 'report' || action.value === 'burn');
+        }
         return actions;
       }
       return actions.filter((action) => action.value !== 'remove');

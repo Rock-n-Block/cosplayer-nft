@@ -16,6 +16,7 @@ export const Bids: FC = () => {
         (bid) =>
           bid.state === 'Committed' && (
             <InfoCard
+              key={bid.bidder}
               type=""
               avatar={bid.bidderAvatar}
               id={String(bid.bidderId)}

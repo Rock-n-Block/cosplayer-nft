@@ -37,6 +37,9 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
   );
   const dispatch = useDispatch();
 
+  const isActiveAuc =
+    !!detailedNft.isAucSelling && Date.now() - new Date(detailedNft.endAuction || '').getTime() < 0;
+
   const isPatchNftDataLoading = useMemo(
     () => patchNftDataRequestStatus === RequestStatus.REQUEST,
     [patchNftDataRequestStatus],
@@ -59,12 +62,17 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
       if (activeTab === 'Fixed Price') {
         formData.append('price', price);
       } else {
+        if (!isActiveAuc) {
+          formData.append(
+            'start_auction',
+            new BigNumber(startAuction.getTime()).div(1000).toFixed(0, 1),
+          );
+          formData.append(
+            'end_auction',
+            new BigNumber(endAuction.getTime()).div(1000).toFixed(0, 1),
+          );
+        }
         formData.append('minimal_bid', price);
-        formData.append(
-          'start_auction',
-          new BigNumber(startAuction.getTime()).div(1000).toFixed(0, 1),
-        );
-        formData.append('end_auction', new BigNumber(endAuction.getTime()).div(1000).toFixed(0, 1));
       }
 
       dispatch(patchNftData({ id: detailedNft.id, formData }));
@@ -120,7 +128,7 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
             </div>
           }
         />
-        {activeTab === 'Time Auction' && (
+        {activeTab === 'Time Auction' && !isActiveAuc && (
           <div className="modal-row">
             <Calendar
               name="startAuction"
