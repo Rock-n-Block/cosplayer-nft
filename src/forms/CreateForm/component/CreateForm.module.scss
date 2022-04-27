@@ -19,6 +19,7 @@
   &_grey {
     margin: 30px auto;
     max-width: 400px;
+    width: 100%;
     @include grid(1fr, repeat(auto-fill, min-content), 30px);
     align-content: flex-start;
     justify-items: left;
@@ -26,6 +27,7 @@
 
     @include b(tablet) {
       margin: 30px;
+      width: unset;
     }
 
     @include b(mobile) {

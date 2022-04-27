@@ -7,7 +7,7 @@ import { patchUserInfo } from 'store/user/actions';
 import actionTypes from 'store/user/actionTypes';
 import userSelector from 'store/user/selectors';
 
-import { Field, FieldProps, Form, FormikProps } from 'formik';
+import { Field, Form, FormikProps } from 'formik';
 
 import { Button, FormInput, Spinner, TextArea, Uploader } from 'components';
 import { logger } from 'utils';
@@ -78,7 +78,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
       <Field
         id="displayName"
         name="displayName"
-        render={({ form: { isSubmitting } }: FieldProps) => (
+        render={() => (
           <FormInput
             name="displayName"
             type="text"
@@ -89,7 +89,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
             value={values.displayName || ''}
             onChange={handleChange}
             onBlur={(e: SyntheticEvent) => handleBlur(e)}
-            disabled={isSubmitting}
+            disabled={isPatchUserInfoLoading}
             description="You can enter your full name, business name, or brand name (maximum 20 characters)."
           />
         )}
@@ -97,7 +97,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
       <Field
         id="customUrl"
         name="customUrl"
-        render={({ form: { isSubmitting } }: FieldProps) => (
+        render={() => (
           <FormInput
             name="customUrl"
             type="text"
@@ -108,7 +108,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
             value={values.customUrl || ''}
             onChange={handleChange}
             onBlur={(e: SyntheticEvent) => handleBlur(e)}
-            disabled={isSubmitting}
+            disabled={isPatchUserInfoLoading}
             description="Choose a username for your profile (maximum 20 characters)."
           />
         )}
@@ -116,7 +116,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
       <Field
         id="bio"
         name="bio"
-        render={({ form: { isSubmitting } }: FieldProps) => (
+        render={() => (
           <TextArea
             name="bio"
             label="Account Bio"
@@ -125,7 +125,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
             value={values.bio || ''}
             onChange={handleChange}
             onBlur={(e: SyntheticEvent) => handleBlur(e)}
-            disabled={isSubmitting}
+            disabled={isPatchUserInfoLoading}
           />
         )}
       />
@@ -148,7 +148,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
       <Field
         id="email"
         name="email"
-        render={({ form: { isSubmitting } }: FieldProps) => (
+        render={() => (
           <FormInput
             name="email"
             type="email"
@@ -159,7 +159,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
             value={values.email || ''}
             onChange={handleChange}
             onBlur={(e: SyntheticEvent) => handleBlur(e)}
-            disabled={isSubmitting}
+            disabled={isPatchUserInfoLoading}
             description="This is where push notifications and account updates will be sent."
           />
         )}
@@ -167,7 +167,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
       <Field
         id="site"
         name="site"
-        render={({ form: { isSubmitting } }: FieldProps) => (
+        render={() => (
           <FormInput
             name="site"
             type="text"
@@ -179,14 +179,14 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
             value={values.site || ''}
             onChange={handleChange}
             onBlur={(e: SyntheticEvent) => handleBlur(e)}
-            disabled={isSubmitting}
+            disabled={isPatchUserInfoLoading}
           />
         )}
       />
       <Field
         id="twitter"
         name="twitter"
-        render={({ form: { isSubmitting } }: FieldProps) => (
+        render={() => (
           <FormInput
             name="twitter"
             type="text"
@@ -197,7 +197,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
             value={values.twitter || ''}
             onChange={handleChange}
             onBlur={(e: SyntheticEvent) => handleBlur(e)}
-            disabled={isSubmitting}
+            disabled={isPatchUserInfoLoading}
             prefix="@"
             suffix={
               <a
@@ -215,7 +215,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
       <Field
         id="instagram"
         name="instagram"
-        render={({ form: { isSubmitting } }: FieldProps) => (
+        render={() => (
           <FormInput
             name="instagram"
             type="text"
@@ -226,7 +226,7 @@ export const EditProfileFormComponent: FC<FormikProps<EditProfileFormProps>> = (
             value={values.instagram || ''}
             onChange={handleChange}
             onBlur={(e: SyntheticEvent) => handleBlur(e)}
-            disabled={isSubmitting}
+            disabled={isPatchUserInfoLoading}
             prefix="@"
             suffix={
               <a

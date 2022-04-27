@@ -99,7 +99,7 @@ const CreateForm: FC = () => {
       formData.append('name', values.name);
       formData.append('standart', values.totalSupply === 1 ? 'ERC721' : 'ERC1155');
       formData.append('total_supply', values.totalSupply.toString());
-      formData.append('currency', values.currency);
+      formData.append('currency', values.isFixedPrice ? values.currency : 'rec');
       if (values.description) {
         formData.append('description', values.description);
       }

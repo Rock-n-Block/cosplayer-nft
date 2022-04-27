@@ -26,7 +26,7 @@
   &_text {
     width: 300px;
     @include text-control(14px, 21px);
-    overflow-x: hidden;
+    word-wrap: break-word;
   }
 
   &_footer {

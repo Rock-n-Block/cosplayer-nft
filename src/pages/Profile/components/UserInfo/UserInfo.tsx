@@ -71,7 +71,9 @@ export const UserInfo: FC = () => {
               rel="noreferrer"
             >
               <TwitterGreyImg className={s.link_img} />
-              <span className={s.link_name}>@{twitter}</span>
+              <span className={s.link_name}>
+                @{twitter.length > 20 ? `${twitter.slice(0, 19)}...` : twitter}
+              </span>
             </a>
           )}
           {instagram && (
@@ -82,7 +84,7 @@ export const UserInfo: FC = () => {
               rel="noreferrer"
             >
               <InstagramGreyImg className={s.link_img} />
-              <span>@{instagram}</span>
+              <span>@{instagram.length > 20 ? `${instagram.slice(0, 19)}...` : instagram}</span>
             </a>
           )}
           {site && (

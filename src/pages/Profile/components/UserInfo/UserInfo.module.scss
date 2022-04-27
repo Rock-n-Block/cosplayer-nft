@@ -3,13 +3,18 @@
 .info {
   padding: 10px 27px;
   min-width: 275px;
+  max-width: 275px;
   height: calc(100vh - 70px);
+  overflow-y: scroll;
+  overflow-x: hidden;
   background: #fff;
   border-right: 1px solid $border-line;
 
   @include b(mobile) {
     padding: 0 5px;
     width: 100%;
+    min-width: unset;
+    max-width: unset;
     height: fit-content;
     border-right: none;
   }
@@ -20,6 +25,7 @@
 }
 
 .block {
+  width: 100%;
   padding: 20px 0;
   @include flex(column, center, flex-start, no-wrap);
 

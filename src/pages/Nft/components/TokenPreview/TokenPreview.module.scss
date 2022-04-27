@@ -34,10 +34,8 @@
   }
 
   &_audio {
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
-    width: calc(100% - 10px);
+    margin-top: 5px;
+    width: 100%;
   }
 
   &_video {

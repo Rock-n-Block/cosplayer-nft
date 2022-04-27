@@ -1,4 +1,4 @@
-import React, { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { FC, Fragment, SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import actionTypes from 'store/nfts/actionTypes';
@@ -7,7 +7,7 @@ import userSelector from 'store/user/selectors';
 
 import BigNumber from 'bignumber.js';
 import { CategorySelector, PriceSelector } from 'containers';
-import { Field, FieldProps, Form, FormikProps } from 'formik';
+import { Field, Form, FormikProps } from 'formik';
 
 import {
   Button,
@@ -46,6 +46,11 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
   const { rates, fee } = useShallowSelector(userSelector.getUser);
   const { [actionTypes.CREATE_TOKEN]: createTokenRequestStatus } = useShallowSelector(
     uiSelector.getUI,
+  );
+
+  const isCreateTokenLoading = useMemo(
+    () => createTokenRequestStatus === RequestStatus.REQUEST,
+    [createTokenRequestStatus],
   );
 
   const handleClearMedia = () => {
@@ -107,9 +112,8 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
   };
 
   useEffect(() => {
-    if (!values.selling) setFieldValue('price', 0.001);
     validateForm(values).then((data) => logger('validateForm res:', data));
-  }, [setFieldValue, validateForm, values]);
+  }, [validateForm, values]);
 
   return (
     <Form name="create-form" className={s.create_form}>
@@ -118,7 +122,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
           id="media"
           name="media"
           required
-          render={({ form: { isSubmitting } }: FieldProps) => {
+          render={() => {
             return values.preview ? (
               <div className={s.preview}>
                 <Button color="blue" className={s.delete_btn} onClick={handleClearMedia}>
@@ -149,7 +153,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             ) : (
               <Uploader
                 setFormat={(format) => setFieldValue('format', format)}
-                isLoading={isSubmitting}
+                isLoading={isCreateTokenLoading}
                 className={s.uploader}
                 formikValue="media"
               >
@@ -169,7 +173,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             id="cover"
             name="cover"
             required
-            render={({ form: { isSubmitting } }: FieldProps) => {
+            render={() => {
               return values.coverPreview ? (
                 <div className={s.preview}>
                   <Button color="blue" className={s.delete_btn_cover} onClick={handleClearCover}>
@@ -185,7 +189,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
               ) : (
                 <Uploader
                   isImgOnly
-                  isLoading={isSubmitting}
+                  isLoading={isCreateTokenLoading}
                   className={s.uploader}
                   formikValue="cover"
                 >
@@ -206,7 +210,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
         <Field
           id="selling"
           name="selling"
-          render={({ form: { isSubmitting } }: FieldProps) => (
+          render={() => (
             <div className={s.selling}>
               <div className={s.selling_text}>
                 <span className={s.title}>List post on marketplace</span>
@@ -216,7 +220,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
               </div>
               <Checker
                 isChecked={values.selling}
-                disabled={isSubmitting}
+                disabled={isCreateTokenLoading}
                 handleClick={handleCheck}
               />
             </div>
@@ -226,7 +230,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
           id="totalSupply"
           name="totalSupply"
           required
-          render={({ form: { isSubmitting } }: FieldProps) => (
+          render={() => (
             <FormInput
               name="totalSupply"
               type="number"
@@ -235,9 +239,10 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
               placeholder="Enter number of copies you want to create"
               positiveOnly
               integer
+              max={values.isFixedPrice ? 100 : 1}
               value={values.totalSupply.toString()}
               onChange={handleChange}
-              disabled={isSubmitting}
+              disabled={isCreateTokenLoading}
               error={(touched.totalSupply && errors.totalSupply) || ''}
               onBlur={(e: SyntheticEvent) => handleBlur(e)}
             />
@@ -249,13 +254,15 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
               id="isFixedPrice"
               name="isFixedPrice"
               required
-              render={({ form: { isSubmitting } }: FieldProps) => (
+              render={() => (
                 <Switcher
                   firstTab="$ Fixed Price"
                   secondTab="Time Auction"
                   activeTab={values.isFixedPrice ? '$ Fixed Price' : 'Time Auction'}
                   setActiveTab={
-                    isSubmitting || +values.totalSupply > 1 ? handleBlockedSwitcher : handleSwitch
+                    isCreateTokenLoading || +values.totalSupply > 1
+                      ? handleBlockedSwitcher
+                      : handleSwitch
                   }
                 />
               )}
@@ -265,7 +272,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                 <Field
                   id="price"
                   name="price"
-                  render={({ form: { isSubmitting } }: FieldProps) => (
+                  render={() => (
                     <FormInput
                       name="price"
                       type="number"
@@ -290,7 +297,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                         </div>
                       }
                       onChange={handleChange}
-                      disabled={isSubmitting}
+                      disabled={isCreateTokenLoading}
                       error={(touched.price && errors.price) || ''}
                       onBlur={(e: SyntheticEvent) => handleBlur(e)}
                     />
@@ -313,7 +320,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                 <Field
                   id="price"
                   name="price"
-                  render={({ form: { isSubmitting } }: FieldProps) => (
+                  render={() => (
                     <FormInput
                       name="price"
                       type="number"
@@ -340,7 +347,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                         </div>
                       }
                       onChange={handleChange}
-                      disabled={isSubmitting}
+                      disabled={isCreateTokenLoading}
                       error={(touched.price && errors.price) || ''}
                       onBlur={(e: SyntheticEvent) => handleBlur(e)}
                     />
@@ -351,7 +358,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                     id="startAuction"
                     name="startAuction"
                     required
-                    render={({ form: { isSubmitting } }: FieldProps) => (
+                    render={() => (
                       <Calendar
                         name="startAuction"
                         date={values.startAuction}
@@ -359,7 +366,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                         handleChange={(date) => setFieldValue('startAuction', date)}
                         label="Starting date"
                         placeholder="Enter Date"
-                        disabled={isSubmitting}
+                        disabled={isCreateTokenLoading}
                       />
                     )}
                   />
@@ -367,7 +374,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                     id="endAuction"
                     name="endAuction"
                     required
-                    render={({ form: { isSubmitting } }: FieldProps) => (
+                    render={() => (
                       <Calendar
                         name="endAuction"
                         date={values.endAuction}
@@ -376,7 +383,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                         handleChange={(date) => setFieldValue('endAuction', date)}
                         label="Expiration date"
                         placeholder="Enter Date"
-                        disabled={isSubmitting}
+                        disabled={isCreateTokenLoading}
                       />
                     )}
                   />
@@ -387,7 +394,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
               id="creatorRoyalty"
               name="creatorRoyalty"
               required
-              render={({ form: { isSubmitting } }: FieldProps) => (
+              render={() => (
                 <FormInput
                   name="creatorRoyalty"
                   type="number"
@@ -400,7 +407,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                   max={100}
                   suffix="%"
                   onChange={handleChange}
-                  disabled={isSubmitting}
+                  disabled={isCreateTokenLoading}
                   error={(touched.creatorRoyalty && errors.creatorRoyalty) || ''}
                   onBlur={(e: SyntheticEvent) => handleBlur(e)}
                 />
@@ -419,7 +426,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             id="name"
             name="name"
             required
-            render={({ form: { isSubmitting } }: FieldProps) => (
+            render={() => (
               <FormInput
                 name="name"
                 type="text"
@@ -428,7 +435,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                 placeholder="Enter title about your art..."
                 value={values.name}
                 onChange={handleChange}
-                disabled={isSubmitting}
+                disabled={isCreateTokenLoading}
                 error={(touched.name && errors.name) || ''}
                 onBlur={(e: SyntheticEvent) => handleBlur(e)}
               />
@@ -440,7 +447,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             required
             render={() => (
               <CategorySelector
-                handleChooseCategory={handleSetCategory}
+                handleChooseCategory={isCreateTokenLoading ? () => {} : handleSetCategory}
                 name="tag"
                 value={values.tag}
                 error={(touched.tag && errors.tag) || ''}
@@ -454,14 +461,14 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             id="description"
             name="description"
             required
-            render={({ form: { isSubmitting } }: FieldProps) => (
+            render={() => (
               <TextArea
                 name="description"
                 label="Caption"
                 placeholder="Enter description about your art..."
                 value={values.description}
                 onChange={handleChange}
-                disabled={isSubmitting}
+                disabled={isCreateTokenLoading}
                 error={(touched.description && errors.description) || ''}
                 onBlur={(e: SyntheticEvent) => handleBlur(e)}
               />
@@ -470,7 +477,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
           <Field
             id="hashtags"
             name="hashtags"
-            render={({ form: { isSubmitting } }: FieldProps) => (
+            render={() => (
               <FormInput
                 name="hashtags"
                 type="text"
@@ -490,7 +497,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                 }
                 value={hashtag}
                 onChange={(e) => setHashtag(e.target.value)}
-                disabled={isSubmitting}
+                disabled={isCreateTokenLoading}
                 onBlur={(e: SyntheticEvent) => handleBlur(e)}
               />
             )}
@@ -502,6 +509,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                   key={item}
                   color="bordered"
                   className={s.hashtags_btn}
+                  disabled={isCreateTokenLoading}
                   onClick={handleRemoveHashtag(item)}
                 >
                   <span>{item}</span>
@@ -510,12 +518,12 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
               ))}
             </div>
           ) : (
-            React.Fragment
+            Fragment
           )}
           <Button
             color="blue"
             disabled={
-              createTokenRequestStatus === RequestStatus.REQUEST ||
+              isCreateTokenLoading ||
               Object.keys(errors).length !== 0 ||
               !values.media ||
               (values.format !== 'image' && !values.cover)
@@ -523,11 +531,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
             className={s.submit}
             onClick={handleSubmit}
           >
-            {createTokenRequestStatus === RequestStatus.REQUEST ? (
-              <Spinner color="blue" size="sm" />
-            ) : (
-              'Create Item'
-            )}
+            {isCreateTokenLoading ? <Spinner color="blue" size="sm" /> : 'Create Item'}
           </Button>
         </div>
       </div>

@@ -25,12 +25,9 @@ const NavLinks: FC<NavLinksProps> = ({ isModal, handleNavigate }) => {
 
   return (
     <div className={cn(s.nav_links, isModal && s.black_links)}>
-      <Button onClick={() => handleNavigate('/')}>Staking Pools</Button>
       <Button onClick={() => handleNavigate(routes.privacy.root)}>Terms & Conditions</Button>
-      <Button onClick={() => handleNavigate(routes.privacy.root)}>Disclaimers</Button>
       <Button onClick={handleOpenSupport}>Technical Support</Button>
       <Button onClick={() => handleNavigate(routes.privacy.root)}>Privacy Policy</Button>
-      <Button onClick={() => handleNavigate('/')}>About</Button>
     </div>
   );
 };

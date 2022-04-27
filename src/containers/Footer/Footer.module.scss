@@ -9,7 +9,7 @@
   height: 100px;
   background: #ffffff;
   border-top: 1px solid $border-line;
-  @include flex(row, flex-start, space-between, no-wrap);
+  @include flex(row, center, space-between, no-wrap);
   gap: 15px;
 
   @include b(desktop) {
