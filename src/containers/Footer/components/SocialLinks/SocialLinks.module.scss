@@ -10,8 +10,9 @@
 
   &_list {
     margin-bottom: 10px;
-    @include flex(row, center, flex-end, no-wrap);
-    gap: 15px;
+    width: 100%;
+    @include flex(row, center, center, no-wrap);
+    gap: 20px;
   }
 
   .copyright {
@@ -35,4 +36,21 @@
 
 .copyright {
   margin-bottom: 20px;
+}
+
+.rec {
+  width: 16px;
+  height: 16px;
+
+  &_blue {
+    path {
+      fill: $blue;
+    }
+  }
+
+  &_grey {
+    path {
+      fill: $dark-logo;
+    }
+  }
 }

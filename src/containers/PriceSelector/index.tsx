@@ -44,11 +44,7 @@ const PriceSelector: FC<PriceSelectorProps> = ({
       optionsClassname={s.currencies_list}
       handleClickOnOption={handleChooseCurrency}
     >
-      {currency.icon ? (
-        <img src={currency.icon} alt="currency logo" />
-      ) : (
-        <div className="default-currency-icon" />
-      )}
+      <img src={currency.icon} alt="currency logo" />
       <div className={s.currency_name}>{currency.label}</div>
       {isStatic ? Fragment : <ArrowDownBlueImg className={isOpen ? s.arrow_up : s.arrow} />}
     </Dropdown>

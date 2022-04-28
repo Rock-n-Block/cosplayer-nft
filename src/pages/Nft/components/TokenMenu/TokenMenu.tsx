@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { setActiveModal } from 'store/modals/reducer';
 import nftsSelector from 'store/nfts/selectors';
 
+import BigNumber from 'bignumber.js';
 import { CreatorCard, LikeButton } from 'containers';
 import Tabs, { TabPane } from 'rc-tabs';
 
@@ -45,6 +46,18 @@ export const TokenMenu: FC = () => {
   } = useShallowSelector(nftsSelector.getProp('detailedNft'));
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const getUSDPrice = useMemo(() => {
+    if (usdPrice) return usdPrice;
+    if (minimalBidUsd) return minimalBidUsd;
+    if (price && currency?.rate)
+      return new BigNumber(new BigNumber(price).times(currency.rate).toFixed(5, 1)).toString(10);
+    if (minimalBid && currency?.rate)
+      return new BigNumber(new BigNumber(minimalBid).times(currency.rate).toFixed(5, 1)).toString(
+        10,
+      );
+    return 0;
+  }, [currency?.rate, minimalBid, minimalBidUsd, price, usdPrice]);
 
   const handleOpenShareNftModal = () => {
     dispatch(setActiveModal({ activeModal: 'ShareNft' }));
@@ -94,7 +107,7 @@ export const TokenMenu: FC = () => {
                       {currency.symbol?.toUpperCase()}
                     </span>
                   )}
-                  <span className={s.grey_text}>&nbsp;${isSelling ? usdPrice : minimalBidUsd}</span>
+                  <span className={s.grey_text}>&nbsp;${getUSDPrice}</span>
                 </div>
               ) : (
                 <span className={s.not_for_sale}>Not for sale</span>

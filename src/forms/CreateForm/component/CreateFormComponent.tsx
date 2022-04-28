@@ -503,9 +503,6 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                     </Button>
                   )
                 }
-                error={
-                  touched.hashtags && typeof errors.hashtags === 'string' ? errors.hashtags : ''
-                }
                 value={hashtag}
                 onChange={(e) => setHashtag(e.target.value)}
                 disabled={isCreateTokenLoading}

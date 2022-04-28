@@ -47,8 +47,11 @@ export const Owners: FC = () => {
                     )?.date || '',
                   )
                 : new Date(
-                    history?.find((item) => item.method === 'Buy' && item.newOwner.id === owner.id)
-                      ?.date || '',
+                    history?.find(
+                      (item) =>
+                        (item.method === 'Buy' || item.method === 'Transfer') &&
+                        item.newOwner.id === owner.id,
+                    )?.date || '',
                   )
             }
             key={`${index + 1}`}

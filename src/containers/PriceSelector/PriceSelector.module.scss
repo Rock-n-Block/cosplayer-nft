@@ -5,6 +5,11 @@
   @include flex(row, center, flex-start, no-wrap);
   gap: 5px;
   background: transparent !important;
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .static {

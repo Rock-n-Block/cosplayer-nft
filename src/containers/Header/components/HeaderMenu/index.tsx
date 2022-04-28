@@ -22,7 +22,7 @@ import { useWalletConnectorContext } from 'services';
 
 import { ConnectButton, NewPost } from '..';
 
-import { BnbImg, CopyImg } from 'assets/img/icons';
+import { BnbImg, CopyImg, RecImg } from 'assets/img/icons';
 
 import 'react-loading-skeleton/dist/skeleton.css';
 import s from './HeaderMenu.module.scss';
@@ -90,7 +90,7 @@ const HeaderMenu: FC<HeaderMenuProps> = ({ isModal, closeMenu }) => {
               </div>
             </div>
             <div className={s.balance}>
-              <div className={s.default_currency_icon} />
+              <img src={RecImg} alt="rec logo" />
               <div className={s.balance_content}>
                 <div className={s.balance_title}>Balance</div>
                 <div className={s.balance_value}>

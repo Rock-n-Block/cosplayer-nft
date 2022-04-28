@@ -1,10 +1,11 @@
-import { FC, Fragment, useCallback, useState } from 'react';
+import { FC, Fragment, useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
 import { likeNft } from 'store/nfts/actions';
 
+import BigNumber from 'bignumber.js/bignumber';
 import { CreatorCard } from 'containers';
 
 import { Button, ImgLoader } from 'components';
@@ -55,6 +56,18 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
   const [isLike, setLike] = useState(isLiked);
   const [likesCount, setLikesCount] = useState(likeCount || 0);
   const dispatch = useDispatch();
+
+  const getUSDPrice = useMemo(() => {
+    if (usdPrice) return usdPrice;
+    if (minimalBidUsd) return minimalBidUsd;
+    if (price && currency.rate)
+      return new BigNumber(new BigNumber(price).times(currency.rate).toFixed(5, 1)).toString(10);
+    if (minimalBid && currency.rate)
+      return new BigNumber(new BigNumber(minimalBid).times(currency.rate).toFixed(5, 1)).toString(
+        10,
+      );
+    return 0;
+  }, [currency?.rate, minimalBid, minimalBidUsd, price, usdPrice]);
 
   const successCallback = useCallback(() => {
     if (isLike) {
@@ -135,7 +148,7 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
                 {price || minimalBid} {currency.symbol?.toUpperCase()}
               </div>
             </div>
-            <div className={s.price_usd}>${usdPrice || minimalBidUsd}</div>
+            <div className={s.price_usd}>${getUSDPrice}</div>
           </div>
         </div>
         <div className={s.description}>

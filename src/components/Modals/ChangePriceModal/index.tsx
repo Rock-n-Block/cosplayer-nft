@@ -106,7 +106,7 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
           positiveOnly
           placeholder={activeTab === 'Fixed Price' ? 'Enter price' : 'Enter minimal bid'}
           value={price}
-          max={currency === 'bnb' ? 100000 : 1000000000}
+          max={currency === 'bnb' && activeTab === 'Fixed Price' ? 100000 : 1000000000}
           onChange={handleChangePrice}
           error={error}
           suffix={
@@ -162,7 +162,7 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
           <span className="modal-box-option-name">You will receive:</span>
           <span className="modal-box-option-value">
             {new BigNumber(price).times(new BigNumber(1).minus(fee / 100)).toString(10)}&nbsp;
-            {currency.toUpperCase()}
+            {activeTab === 'Fixed Price' ? currency.toUpperCase() : 'REC'}
           </span>
         </div>
         <Button

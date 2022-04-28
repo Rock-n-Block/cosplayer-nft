@@ -1,6 +1,8 @@
 export { default as SearchImg } from './search.svg';
 export { default as SearchBlackImg } from './search-black.svg';
 export { default as BnbImg } from './bnb-logo.svg';
+export { default as RecImg } from './rec-icon.svg';
+export { ReactComponent as RecLogoImg } from './rec-icon.svg';
 export { ReactComponent as BurgerImg } from './burger.svg';
 export { ReactComponent as CloseImg } from './close.svg';
 export { ReactComponent as MoreImg } from './more.svg';

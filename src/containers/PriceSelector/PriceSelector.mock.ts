@@ -1,6 +1,6 @@
 import { IDropdownCurrency } from 'types';
 
-import { BnbImg } from 'assets/img/icons';
+import { BnbImg, RecImg } from 'assets/img/icons';
 
 export const currencies: IDropdownCurrency[] = [
   {
@@ -10,7 +10,7 @@ export const currencies: IDropdownCurrency[] = [
   },
   {
     value: 'rec',
-    icon: '',
+    icon: RecImg,
     label: 'REC',
   },
 ];
