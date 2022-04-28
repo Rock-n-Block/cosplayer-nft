@@ -74,6 +74,7 @@ const PlaceBidModal: FC<StoreModalProps> = ({ id }) => {
           positiveOnly
           placeholder="Enter bid"
           value={amount}
+          max={currentCurrency === 'bnb' ? 100000 : 1000000000}
           onChange={handleChangeBid}
           error={error}
           suffix={

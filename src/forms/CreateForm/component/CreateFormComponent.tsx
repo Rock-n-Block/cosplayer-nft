@@ -289,6 +289,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                       color="white"
                       placeholder="Enter price for one piece"
                       value={values.price}
+                      max={values.currency === 'bnb' ? 100000 : 1000000000}
                       suffix={
                         <div className="modal-suffix">
                           <PriceSelector
@@ -338,6 +339,7 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
                       color="white"
                       placeholder="Enter Minimum Bid"
                       value={values.price}
+                      max={values.currency === 'bnb' ? 100000 : 1000000000}
                       suffix={
                         <div className="modal-suffix">
                           <PriceSelector

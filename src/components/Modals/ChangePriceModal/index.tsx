@@ -106,6 +106,7 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
           positiveOnly
           placeholder={activeTab === 'Fixed Price' ? 'Enter price' : 'Enter minimal bid'}
           value={price}
+          max={currency === 'bnb' ? 100000 : 1000000000}
           onChange={handleChangePrice}
           error={error}
           suffix={
