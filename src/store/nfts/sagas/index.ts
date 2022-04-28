@@ -2,6 +2,7 @@
 import { fork } from 'redux-saga/effects';
 
 import approveSaga from './approve';
+import approveNftSaga from './approveNft';
 import bidNftSaga from './bid';
 import burnSaga from './burn';
 import buySaga from './buy';
@@ -39,4 +40,5 @@ export default function* nftSagas() {
   yield fork(searchNftsSaga);
   yield fork(searchHashtagsSaga);
   yield fork(searchCountriesSaga);
+  yield fork(approveNftSaga);
 }

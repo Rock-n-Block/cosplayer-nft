@@ -22,6 +22,11 @@ export type ApproveReq = {
   tokenAddress: string;
 };
 
+export type ApproveNftReq = {
+  isSingle: boolean;
+  web3Provider: Web3;
+};
+
 export type GetTokenBalanceReq = {
   web3Provider: Web3;
 };
@@ -114,8 +119,10 @@ export type BurnReq = {
 };
 
 export type PatchNftReq = {
+  patchType: 'change-price' | 'remove';
   id: number | string;
   formData: FormData;
+  web3Provider: Web3;
 };
 
 export type TransferReq = {

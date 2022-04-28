@@ -1,26 +1,43 @@
 import { toast } from 'react-toastify';
 
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
 import { closeModal } from 'store/modals/reducer';
+import nftsSelector from 'store/nfts/selectors';
 
 import { logger } from 'utils';
 
 import { patchNftData } from '../actions';
 import actionTypes from '../actionTypes';
+import { approveNftSaga } from './approveNft';
 import { getNftDataSaga } from './getNftData';
 
-export function* patchNftDataSaga({ type, payload }: ReturnType<typeof patchNftData>) {
+export function* patchNftDataSaga({
+  type,
+  payload: { id, formData, web3Provider, patchType },
+}: ReturnType<typeof patchNftData>) {
   yield put(request(type));
 
+  const { standart } = yield select(nftsSelector.getProp('detailedNft'));
+
   try {
-    yield call(baseApi.patchNftInfo, payload);
+    if (patchType === 'change-price') {
+      yield call(approveNftSaga, {
+        type: actionTypes.APPROVE_NFT,
+        payload: {
+          isSingle: standart === 'ERC721',
+          web3Provider,
+        },
+      });
+    }
+
+    yield call(baseApi.patchNftInfo, { id, formData });
 
     yield call(getNftDataSaga, {
       type: actionTypes.GET_NFT_DATA,
       payload: {
-        id: payload.id,
+        id,
       },
     });
 

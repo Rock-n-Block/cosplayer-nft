@@ -10,6 +10,7 @@ const COMMENT = 'COMMENT' as const;
 const GET_NFT_DATA = 'GET_NFT_DATA' as const;
 const PATCH_NFT_DATA = 'PATCH_NFT_DATA' as const;
 const APPROVE = 'APPROVE' as const;
+const APPROVE_NFT = 'APPROVE_NFT' as const;
 const BUY = 'BUY' as const;
 const BID = 'BID' as const;
 const END_AUCTION = 'END_AUCTION' as const;
@@ -31,6 +32,7 @@ export default {
   GET_NFT_DATA,
   PATCH_NFT_DATA,
   APPROVE,
+  APPROVE_NFT,
   BUY,
   BID,
   END_AUCTION,

@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 
 import {
+  ApproveNftReq,
   ApproveReq,
   BidReq,
   BurnReq,
@@ -35,6 +36,7 @@ export const comment = createAction<CommentReq>(actionTypes.COMMENT);
 export const getNftData = createAction<GetNftDataReq>(actionTypes.GET_NFT_DATA);
 export const patchNftData = createAction<PatchNftReq>(actionTypes.PATCH_NFT_DATA);
 export const approve = createAction<ApproveReq>(actionTypes.APPROVE);
+export const approveNft = createAction<ApproveNftReq>(actionTypes.APPROVE_NFT);
 export const buy = createAction<BuyReq>(actionTypes.BUY);
 export const bid = createAction<BidReq>(actionTypes.BID);
 export const endAuction = createAction<EndAuctionReq>(actionTypes.END_AUCTION);

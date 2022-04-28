@@ -46,6 +46,8 @@ export const store = configureStore({
           userActionTypes.GET_BALANCE,
           userActionTypes.PATCH_USER_INFO,
           nftsActionTypes.CREATE_TOKEN,
+          nftsActionTypes.APPROVE_NFT,
+          nftsActionTypes.APPROVE,
           nftsActionTypes.BUY,
           nftsActionTypes.PATCH_NFT_DATA,
           nftsActionTypes.BURN,

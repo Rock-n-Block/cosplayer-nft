@@ -12,6 +12,7 @@ import { AbiItem } from 'web3-utils';
 
 import { contracts } from 'config';
 import { erc20Abi } from 'config/abi';
+import { logger } from 'utils';
 
 import { buy } from '../actions';
 import actionTypes from '../actionTypes';
@@ -26,9 +27,9 @@ export function* buySaga({
   yield put(apiActions.request(type));
 
   const address: string = yield select(userSelector.getProp('address'));
+
   try {
     const exchangeAddress = params.EXCHANGE[networkType].address;
-
     const tokenAddress = params.REC[networkType].address;
 
     if (currency !== 'bnb') {
@@ -83,7 +84,7 @@ export function* buySaga({
       toast.success('You have successfully bought token');
     } else {
       yield put(apiActions.error(type));
-      toast.error('Something went wrong');
+      toast.error('No initial tx');
     }
   } catch (e: any) {
     if (typeof e === 'number') {
@@ -91,7 +92,7 @@ export function* buySaga({
     } else {
       toast.error(e.code === 4001 ? 'You have rejected confirmation' : 'Something went wrong');
     }
-
+    logger('Buy token', e);
     yield put(apiActions.error(type, e));
   }
 }

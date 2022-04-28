@@ -1,9 +1,9 @@
 import { ChangeEvent, FC, useEffect, useMemo, useState } from 'react';
 
-import actionTypes from '../../../store/nfts/actionTypes';
 import { useDispatch } from 'react-redux';
 import modalSelector from 'store/modals/selectors';
 import { patchNftData } from 'store/nfts/actions';
+import actionTypes from 'store/nfts/actionTypes';
 import nftsSelector from 'store/nfts/selectors';
 import uiSelector from 'store/ui/selectors';
 import userSelector from 'store/user/selectors';
@@ -14,6 +14,7 @@ import { PriceSelector } from 'containers';
 import { Button, Calendar, FormInput, Modal, Spinner, Switcher } from 'components';
 
 import { useModal, useShallowSelector } from 'hooks';
+import { useWalletConnectorContext } from 'services';
 import { Currencies, RequestStatus, StoreModalProps } from 'types';
 
 import { CloseImg } from 'assets/img/icons';
@@ -36,6 +37,7 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
     uiSelector.getUI,
   );
   const dispatch = useDispatch();
+  const web3Provider = useWalletConnectorContext().walletService.Web3();
 
   const isActiveAuc =
     !!detailedNft.isAucSelling && Date.now() - new Date(detailedNft.endAuction || '').getTime() < 0;
@@ -75,7 +77,9 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
         formData.append('minimal_bid', price);
       }
 
-      dispatch(patchNftData({ id: detailedNft.id, formData }));
+      dispatch(
+        patchNftData({ patchType: 'change-price', id: detailedNft.id, formData, web3Provider }),
+      );
     }
   };
 

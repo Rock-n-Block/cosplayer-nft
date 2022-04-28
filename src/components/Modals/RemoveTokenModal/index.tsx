@@ -9,6 +9,7 @@ import uiSelector from 'store/ui/selectors';
 import { Button, Modal, Spinner } from 'components';
 
 import { useModal, useShallowSelector } from 'hooks';
+import { useWalletConnectorContext } from 'services';
 import { RequestStatus, StoreModalProps } from 'types';
 
 import { CloseImg } from 'assets/img/icons';
@@ -20,13 +21,14 @@ const RemoveTokenModal: FC<StoreModalProps> = ({ id }) => {
   const { [actionTypes.PATCH_NFT_DATA]: patchNftDataRequestStatus } = useShallowSelector(
     uiSelector.getUI,
   );
+  const web3Provider = useWalletConnectorContext().walletService.Web3();
 
   const handleRemoveToken = () => {
     if (detailedNft.id) {
       const formData = new FormData();
       formData.append('selling', 'False');
 
-      dispatch(patchNftData({ id: detailedNft.id, formData }));
+      dispatch(patchNftData({ patchType: 'remove', id: detailedNft.id, formData, web3Provider }));
     }
   };
 
