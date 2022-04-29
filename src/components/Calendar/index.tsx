@@ -36,7 +36,6 @@ const Calendar: FC<CalendarProps> = ({
         selected={date}
         onChange={handleChange}
         minDate={minDate}
-        showTimeSelect
         disabled={disabled}
         placeholderText={placeholder}
         allowSameDay={allowSameDay}
