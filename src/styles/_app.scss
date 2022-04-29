@@ -228,6 +228,18 @@ button {
   }
 }
 
+.Toastify {
+  &__toast {
+    border-radius: 32px;
+    font-family: Poppins, sans-serif;
+    font-weight: 700;
+  }
+
+  &__close-button {
+    visibility: hidden;
+  }
+}
+
 .default-currency-icon {
   width: 32px;
   height: 32px;
