@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
 import { likeNft } from 'store/nfts/actions';
+import userSelector from 'store/user/selectors';
 
 import BigNumber from 'bignumber.js/bignumber';
 import { CreatorCard } from 'containers';
@@ -12,6 +13,7 @@ import { Button, ImgLoader } from 'components';
 import { logger } from 'utils';
 
 import { routes } from 'appConstants';
+import { useShallowSelector } from 'hooks';
 import { Creator, Currency, TokenFull } from 'types';
 
 import { DefaultAvatarImg, LikeActiveImg, LikeImg } from 'assets/img/icons';
@@ -55,6 +57,7 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
   } = data;
   const [isLike, setLike] = useState(isLiked);
   const [likesCount, setLikesCount] = useState(likeCount || 0);
+  const address = useShallowSelector(userSelector.getProp('address'));
   const dispatch = useDispatch();
 
   const getUSDPrice = useMemo(() => {
@@ -88,8 +91,10 @@ export const TokenCard: FC<TokenCardProps> = ({ data }) => {
   }, [isLike]);
 
   const handleLike = useCallback(() => {
-    dispatch(likeNft({ id: id || 0, successCallback, errorCallback }));
-  }, [dispatch, errorCallback, id, successCallback]);
+    if (address) {
+      dispatch(likeNft({ id: id || 0, successCallback, errorCallback }));
+    }
+  }, [address, dispatch, errorCallback, id, successCallback]);
 
   const handleNavigate = () => {
     if (id) navigate(routes.nft.link(id));

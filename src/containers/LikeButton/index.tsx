@@ -3,8 +3,11 @@ import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
 import { likeNft } from 'store/nfts/actions';
+import userSelector from 'store/user/selectors';
 
 import { Button } from 'components';
+
+import { useShallowSelector } from 'hooks';
 
 import { LikeActiveImg, LikeImg } from 'assets/img/icons';
 
@@ -20,6 +23,7 @@ type LikeButtonProps = {
 const LikeButton: FC<LikeButtonProps> = ({ isLiked, likesNumber, artId, setLikesNumber }) => {
   const [isLike, setIsLike] = useState(isLiked);
   const [likesCount, setLikesCount] = useState(likesNumber || (isLiked ? 1 : 0));
+  const address = useShallowSelector(userSelector.getProp('address'));
 
   const dispatch = useDispatch();
 
@@ -59,8 +63,10 @@ const LikeButton: FC<LikeButtonProps> = ({ isLiked, likesNumber, artId, setLikes
   );
 
   const handleLike = useCallback(() => {
-    likeAction(artId);
-  }, [artId, likeAction]);
+    if (address) {
+      likeAction(artId);
+    }
+  }, [address, artId, likeAction]);
 
   return (
     <Button color="white" className={s.like_nft} onClick={handleLike}>

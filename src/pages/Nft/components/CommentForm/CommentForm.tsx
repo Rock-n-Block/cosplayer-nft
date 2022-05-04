@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { comment } from 'store/nfts/actions';
 import actionTypes from 'store/nfts/actionTypes';
 import uiSelector from 'store/ui/selectors';
+import userSelector from 'store/user/selectors';
 
 import { EmojiPicker } from 'containers';
 
@@ -19,6 +20,7 @@ export const CommentForm: FC = () => {
   const [value, setValue] = useState('');
   const { id } = useParams();
   const dispatch = useDispatch();
+  const address = useShallowSelector(userSelector.getProp('address'));
   const { [actionTypes.COMMENT]: commentRequestStatus } = useShallowSelector(uiSelector.getUI);
 
   const handleComment = () => {
@@ -44,7 +46,7 @@ export const CommentForm: FC = () => {
       <Button
         color="orange"
         className={s.form_submit}
-        disabled={commentRequestStatus === RequestStatus.REQUEST || !value}
+        disabled={commentRequestStatus === RequestStatus.REQUEST || !value || !address}
         onClick={handleComment}
       >
         {commentRequestStatus === RequestStatus.REQUEST ? (
