@@ -133,7 +133,7 @@ const CreateForm: FC = () => {
         }
       }
       formData.append('creator_royalty', values.creatorRoyalty.toString());
-      formData.append('collection', values.totalSupply === 1 ? '3' : '4');
+      formData.append('collection', values.totalSupply === 1 ? '7' : '8');
       formData.append('selling', values.selling.toString());
       formData.append('media', values.media);
       if (values.format !== 'image') {
