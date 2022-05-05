@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ICountry, IHashtag, NftsState, User } from 'types';
+import { CollectionSlim, ICountry, IHashtag, NftsState, User } from 'types';
 import { TokenFull } from 'types/api/TokenFull';
 
 const initialState: NftsState = {
   nfts: [],
+  collections: [],
   hashtags: [],
   countries: [],
   searchedUsers: [],
@@ -16,6 +17,10 @@ export const nftsReducer = createSlice({
   name: 'nfts',
   initialState,
   reducers: {
+    setCollections: (state, action: PayloadAction<CollectionSlim[]>) => ({
+      ...state,
+      collections: action.payload,
+    }),
     setNfts: (state, action: PayloadAction<TokenFull[]>) => ({
       ...state,
       nfts: action.payload,
@@ -60,6 +65,7 @@ export const nftsReducer = createSlice({
 });
 
 export const {
+  setCollections,
   setNfts,
   setHashtags,
   setCountries,

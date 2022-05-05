@@ -8,6 +8,7 @@
 export interface CollectionSlim {
   address?: string;
   avatar?: string;
+  standart?: string;
   id?: string;
   name?: string;
 }

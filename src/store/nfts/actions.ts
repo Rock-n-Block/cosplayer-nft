@@ -25,6 +25,7 @@ import {
 import actionTypes from './actionTypes';
 
 export const createToken = createAction<CreateNftReq>(actionTypes.CREATE_TOKEN);
+export const getCollections = createAction(actionTypes.GET_COLLECTIONS);
 export const searchNfts = createAction<SearchNftReq>(actionTypes.SEARCH_NFTS);
 export const searchHashtags = createAction<SearchHashtagsReq>(actionTypes.SEARCH_HASHTAGS);
 export const searchCountries = createAction<SearchCountriesReq>(actionTypes.SEARCH_COUNTRIES);

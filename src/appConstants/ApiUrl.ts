@@ -8,6 +8,7 @@ const accountURLs = {
   metamaskLogin: 'account/metamask_login/',
   getProfileInfo: (id: string | number) => `/account/${id}/`,
   getSelfInfo: '/account/self/',
+  getCollections: '/account/self/collections/',
   comment: '/account/comment/',
   like: '/account/self/like/',
   likeComment: '/account/self/like_comment/',

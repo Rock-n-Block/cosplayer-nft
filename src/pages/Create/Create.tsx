@@ -1,6 +1,8 @@
 import { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useDispatch } from 'react-redux';
+import { getCollections } from 'store/nfts/actions';
 import userSelector from 'store/user/selectors';
 
 import { CreateForm } from 'forms';
@@ -12,6 +14,7 @@ import s from './Create.module.scss';
 
 export const Create: FC = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { address, avatar } = useShallowSelector(userSelector.getUser);
 
   useEffect(() => {
@@ -19,6 +22,12 @@ export const Create: FC = () => {
       navigate(routes.home.root);
     }
   }, [address, avatar, navigate]);
+
+  useEffect(() => {
+    if (address) {
+      dispatch(getCollections());
+    }
+  }, [address, dispatch]);
 
   return (
     <div className={s.create_wrapper}>

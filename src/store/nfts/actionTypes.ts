@@ -1,4 +1,5 @@
 const CREATE_TOKEN = 'CREATE_TOKEN' as const;
+const GET_COLLECTIONS = 'GET_COLLECTIONS' as const;
 const SEARCH_NFTS = 'SEARCH_NFTS' as const;
 const SEARCH_HASHTAGS = 'SEARCH_HASHTAGS' as const;
 const SEARCH_COUNTRIES = 'SEARCH_COUNTRIES' as const;
@@ -21,6 +22,7 @@ const SUPPORT = 'SUPPORT' as const;
 
 export default {
   CREATE_TOKEN,
+  GET_COLLECTIONS,
   SEARCH_NFTS,
   SEARCH_HASHTAGS,
   SEARCH_COUNTRIES,

@@ -1,14 +1,5 @@
 export default [
-  {
-    inputs: [
-      { internalType: 'string', name: '_name', type: 'string' },
-      { internalType: 'string', name: '_baseUri', type: 'string' },
-      { internalType: 'address', name: 'signer', type: 'address' },
-      { internalType: 'address', name: '_exchange', type: 'address' },
-    ],
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-  },
+  { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   {
     anonymous: false,
     inputs: [
@@ -97,13 +88,6 @@ export default [
     type: 'function',
   },
   {
-    inputs: [{ internalType: 'uint256', name: 'value', type: 'uint256' }],
-    name: '_toString',
-    outputs: [{ internalType: 'string', name: '', type: 'string' }],
-    stateMutability: 'pure',
-    type: 'function',
-  },
-  {
     inputs: [
       { internalType: 'address', name: 'account', type: 'address' },
       { internalType: 'uint256', name: 'id', type: 'uint256' },
@@ -124,31 +108,9 @@ export default [
     type: 'function',
   },
   {
-    inputs: [
-      { internalType: 'address', name: 'account', type: 'address' },
-      { internalType: 'uint256', name: 'id', type: 'uint256' },
-      { internalType: 'uint256', name: 'value', type: 'uint256' },
-    ],
-    name: 'burn',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      { internalType: 'address', name: 'account', type: 'address' },
-      { internalType: 'uint256[]', name: 'ids', type: 'uint256[]' },
-      { internalType: 'uint256[]', name: 'values', type: 'uint256[]' },
-    ],
-    name: 'burnBatch',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'exchange',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    inputs: [{ internalType: 'uint256', name: 'id', type: 'uint256' }],
+    name: 'exists',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function',
   },
@@ -191,13 +153,22 @@ export default [
   },
   {
     inputs: [
-      { internalType: 'uint256', name: 'amount', type: 'uint256' },
+      { internalType: 'uint256', name: 'mintID', type: 'uint256' },
+      { internalType: 'address', name: 'account', type: 'address' },
       { internalType: 'string', name: '_tokenURI', type: 'string' },
+      { internalType: 'uint256', name: 'amount', type: 'uint256' },
       { internalType: 'bytes', name: 'signature', type: 'bytes' },
     ],
     name: 'mint',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    name: 'mintIDUsed',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -264,13 +235,6 @@ export default [
     type: 'function',
   },
   {
-    inputs: [{ internalType: 'address', name: '_exchange', type: 'address' }],
-    name: 'setExchange',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     inputs: [{ internalType: 'bytes4', name: 'interfaceId', type: 'bytes4' }],
     name: 'supportsInterface',
     outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
@@ -278,9 +242,23 @@ export default [
     type: 'function',
   },
   {
-    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
-    name: 'tokenURI',
+    inputs: [],
+    name: 'symbol',
     outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'totalIds',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'id', type: 'uint256' }],
+    name: 'totalSupply',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function',
   },

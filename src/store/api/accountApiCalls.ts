@@ -30,4 +30,10 @@ export default {
       data,
     });
   },
+  getCollections() {
+    return ajax({
+      method: 'get',
+      url: ApiUrl.getCollections,
+    });
+  },
 };

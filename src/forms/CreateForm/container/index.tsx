@@ -3,12 +3,14 @@ import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
 import { createToken } from 'store/nfts/actions';
+import nftsSelector from 'store/nfts/selectors';
 
 import BigNumber from 'bignumber.js';
 import { withFormik } from 'formik';
 import * as Yup from 'yup';
 
 import { createValidator } from 'appConstants';
+import { useShallowSelector } from 'hooks';
 import { useWalletConnectorContext } from 'services';
 import { Currencies } from 'types';
 
@@ -63,6 +65,7 @@ const CreateForm: FC = () => {
 
   const dispatch = useDispatch();
   const { walletService } = useWalletConnectorContext();
+  const collections = useShallowSelector(nftsSelector.getProp('collections'));
 
   const FormWithFormik = withFormik<any, CreateFormProps>({
     enableReinitialize: true,
@@ -95,6 +98,13 @@ const CreateForm: FC = () => {
       hashtags: Yup.array().min(1, 'Hashtags are required').required(),
     }),
     handleSubmit: (values) => {
+      const currentCollectionId =
+        collections.find(
+          (collection) =>
+            (values.totalSupply === 1 && collection?.standart === 'ERC721') ||
+            (values.totalSupply !== 1 && collection?.standart === 'ERC1155'),
+        )?.id || 0;
+
       const formData = new FormData();
       formData.append('name', values.name);
       formData.append('standart', values.totalSupply === 1 ? 'ERC721' : 'ERC1155');
@@ -133,7 +143,7 @@ const CreateForm: FC = () => {
         }
       }
       formData.append('creator_royalty', values.creatorRoyalty.toString());
-      formData.append('collection', values.totalSupply === 1 ? '7' : '8');
+      formData.append('collection', currentCollectionId.toString());
       formData.append('selling', values.selling.toString());
       formData.append('media', values.media);
       if (values.format !== 'image') {

@@ -1,15 +1,5 @@
 export default [
-  {
-    inputs: [
-      { internalType: 'string', name: '_name', type: 'string' },
-      { internalType: 'string', name: '_symbol', type: 'string' },
-      { internalType: 'string', name: 'baseURI_', type: 'string' },
-      { internalType: 'address', name: 'signer', type: 'address' },
-      { internalType: 'address', name: '_exchange', type: 'address' },
-    ],
-    stateMutability: 'nonpayable',
-    type: 'constructor',
-  },
+  { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
   {
     anonymous: false,
     inputs: [
@@ -102,27 +92,6 @@ export default [
     type: 'function',
   },
   {
-    inputs: [],
-    name: 'baseURI',
-    outputs: [{ internalType: 'string', name: '', type: 'string' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
-    name: 'burn',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'exchange',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
     inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'getApproved',
     outputs: [{ internalType: 'address', name: '', type: 'address' }],
@@ -168,12 +137,21 @@ export default [
   },
   {
     inputs: [
+      { internalType: 'uint256', name: 'mintID', type: 'uint256' },
+      { internalType: 'address', name: 'account', type: 'address' },
       { internalType: 'string', name: '_tokenURI', type: 'string' },
       { internalType: 'bytes', name: 'signature', type: 'bytes' },
     ],
     name: 'mint',
     outputs: [],
     stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    name: 'mintIDUsed',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
     type: 'function',
   },
   {
@@ -239,13 +217,6 @@ export default [
       { internalType: 'bool', name: 'approved', type: 'bool' },
     ],
     name: 'setApprovalForAll',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [{ internalType: 'address', name: '_exchange', type: 'address' }],
-    name: 'setExchange',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
