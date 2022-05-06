@@ -81,19 +81,15 @@ const CreateForm: FC = () => {
         .max(createValidator.totalSupply.max, 'Too much')
         .required('Number of copies is required'),
       description: Yup.string().max(createValidator.description.max, 'Too long'),
-      price: props.selling
-        ? Yup.number()
-            .min(createValidator.minPrice, 'Minimal value equals to 0.001')
-            .required(props.isFixedPrice ? 'Price is required' : 'Minimal bid is required')
-        : Yup.number().notRequired(),
-      creatorRoyalty: props.selling
-        ? Yup.number()
-            .min(createValidator.royalty.min, 'Minimal royalties equal to 0')
-            .max(createValidator.royalty.max, 'Too much')
-            .required('Royalties are required')
-        : Yup.number().notRequired(),
-      startAuction: props.isFixedPrice ? Yup.date().notRequired() : Yup.date().required(),
-      endAuction: props.isFixedPrice ? Yup.date().notRequired() : Yup.date().required(),
+      price: Yup.number()
+        .min(createValidator.minPrice, 'Minimal value equals to 0.001')
+        .required('Value is required'),
+      creatorRoyalty: Yup.number()
+        .min(createValidator.royalty.min, 'Minimal royalties equal to 0')
+        .max(createValidator.royalty.max, 'Too much')
+        .required('Royalties are required'),
+      startAuction: Yup.date().required(),
+      endAuction: Yup.date().required(),
       tag: Yup.string().required('Category is required'),
       hashtags: Yup.array().min(1, 'Hashtags are required').required(),
     }),

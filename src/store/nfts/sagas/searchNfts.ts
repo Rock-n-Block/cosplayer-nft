@@ -27,7 +27,8 @@ export function* searchNftsSaga({ type, payload }: ReturnType<typeof searchNfts>
     }
 
     if (payload.props.creator && Array.isArray(data.items)) {
-      yield put(setPosted(data.items.length));
+      const tokens = data.items.filter((item: TokenFull) => item.selling);
+      yield put(setPosted(tokens.length));
     }
 
     yield put(success(type));

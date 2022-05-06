@@ -112,8 +112,12 @@ export const CreateFormComponent: FC<FormikProps<CreateFormProps>> = ({
   };
 
   useEffect(() => {
+    if (!values.selling) {
+      setFieldValue('price', 1);
+      setFieldValue('creatorRoyalty', 10);
+    }
     validateForm(values).then((data) => logger('validateForm res:', data));
-  }, [validateForm, values]);
+  }, [setFieldValue, validateForm, values]);
 
   return (
     <Form name="create-form" className={s.create_form}>
