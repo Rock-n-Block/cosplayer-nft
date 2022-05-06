@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { toast } from 'react-toastify';
 
 import { useDispatch } from 'react-redux';
-import { createToken } from 'store/nfts/actions';
+import { approveNft, createToken } from 'store/nfts/actions';
 import nftsSelector from 'store/nfts/selectors';
 
 import BigNumber from 'bignumber.js';
@@ -154,6 +154,11 @@ const CreateForm: FC = () => {
         formData.append('cover', values.cover);
       }
       formData.append('format', values.format);
+      if (values.selling) {
+        dispatch(
+          approveNft({ isSingle: values.totalSupply === 1, web3Provider: walletService.Web3() }),
+        );
+      }
       dispatch(createToken({ formData, web3Provider: walletService.Web3() }));
     },
     displayName: 'create-nft',
