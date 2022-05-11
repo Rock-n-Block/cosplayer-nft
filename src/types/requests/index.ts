@@ -20,6 +20,7 @@ export type ApproveReq = {
   spender: string;
   amount: string;
   tokenAddress: string;
+  isBid: boolean;
 };
 
 export type ApproveNftReq = {
@@ -94,6 +95,10 @@ export type SearchNftReq = {
     page?: number | string;
   };
   props: ISearchProps;
+};
+
+export type GetPostedReq = {
+  creator: string;
 };
 
 export type GetHotNftsReq = {

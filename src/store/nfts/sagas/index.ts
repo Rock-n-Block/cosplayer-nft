@@ -12,6 +12,7 @@ import deleteCommentSaga from './deleteComment';
 import endAuctionSaga from './endAuction';
 import getCollectionsSaga from './getCollections';
 import getNftDataSaga from './getNftData';
+import getPostedSaga from './getPosted';
 import likeCommentSaga from './likeComment';
 import likeNftSaga from './likeNft';
 import patchNftDataSaga from './patchNftData';
@@ -43,4 +44,5 @@ export default function* nftSagas() {
   yield fork(searchHashtagsSaga);
   yield fork(searchCountriesSaga);
   yield fork(approveNftSaga);
+  yield fork(getPostedSaga);
 }

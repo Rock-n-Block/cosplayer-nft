@@ -44,6 +44,7 @@ export function* bidNftSaga({
           amount: new BigNumber(amount).times(10 ** +decimals).toFixed(0, 1),
           spender: exchangeAddress,
           tokenAddress,
+          isBid: true,
         },
       });
     }

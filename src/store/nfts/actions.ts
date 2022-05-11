@@ -10,8 +10,8 @@ import {
   CreateNftReq,
   DeleteCommentReq,
   EndAuctionReq,
-  GetHotNftsReq,
   GetNftDataReq,
+  GetPostedReq,
   LikeCommentReq,
   LikeNftReq,
   PatchNftReq,
@@ -29,7 +29,7 @@ export const getCollections = createAction(actionTypes.GET_COLLECTIONS);
 export const searchNfts = createAction<SearchNftReq>(actionTypes.SEARCH_NFTS);
 export const searchHashtags = createAction<SearchHashtagsReq>(actionTypes.SEARCH_HASHTAGS);
 export const searchCountries = createAction<SearchCountriesReq>(actionTypes.SEARCH_COUNTRIES);
-export const getHotNfts = createAction<GetHotNftsReq>(actionTypes.HOT_NFTS);
+export const getPosted = createAction<GetPostedReq>(actionTypes.GET_POSTED);
 export const likeNft = createAction<LikeNftReq>(actionTypes.LIKE);
 export const likeComment = createAction<LikeCommentReq>(actionTypes.LIKE_COMMENT);
 export const deleteComment = createAction<DeleteCommentReq>(actionTypes.DELETE_COMMENT);

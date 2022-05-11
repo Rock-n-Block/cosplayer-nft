@@ -3,6 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 import { useParams } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
+import { getPosted } from 'store/nfts/actions';
 import { getProfileById } from 'store/profile/actions';
 import { clearProfile } from 'store/profile/reducer';
 import profileSelector from 'store/profile/selectors';
@@ -25,6 +26,7 @@ export const UserInfo: FC = () => {
   useEffect(() => {
     if (userId) {
       dispatch(getProfileById({ id: userId }));
+      dispatch(getPosted({ creator: userId }));
     }
   }, [dispatch, userId]);
 

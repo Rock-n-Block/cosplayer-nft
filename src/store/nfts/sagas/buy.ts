@@ -50,6 +50,7 @@ export function* buySaga({
             .toFixed(0, 1),
           spender: exchangeAddress,
           tokenAddress,
+          isBid: false,
         },
       });
     }

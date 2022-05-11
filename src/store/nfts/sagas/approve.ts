@@ -16,7 +16,7 @@ import actionTypes from '../actionTypes';
 
 export function* approveSaga({
   type,
-  payload: { amount, spender, tokenAddress, web3Provider },
+  payload: { amount, spender, tokenAddress, web3Provider, isBid },
 }: ReturnType<typeof approve>) {
   yield put(apiActions.request(type));
 
@@ -30,11 +30,17 @@ export function* approveSaga({
 
     const allowance: string = yield call(tokenContract.methods.allowance(myAddress, spender).call);
 
-    if (new BigNumber(allowance).isLessThan(new BigNumber(amount))) {
+    if ((!isBid && new BigNumber(allowance).isLessThan(new BigNumber(amount))) || isBid) {
       try {
-        yield call(tokenContract.methods.approve(spender, amount).send, {
-          from: myAddress,
-        });
+        yield call(
+          tokenContract.methods.approve(
+            spender,
+            new BigNumber(amount).plus(allowance).toFixed(0, 1),
+          ).send,
+          {
+            from: myAddress,
+          },
+        );
         yield put(apiActions.success(type));
       } catch (e: any) {
         yield put(apiActions.error(type, e));
