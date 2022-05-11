@@ -35,6 +35,7 @@
 
   &_title {
     @include text-control(14px, 21px, 700);
+    text-align: center;
   }
 
   &_text {
@@ -60,6 +61,7 @@
     margin-top: 10px;
     @include flex(row, center, center, no-wrap);
     @include text-control(18px, 27px, 700);
+    text-align: center;
 
     img {
       margin-left: 10px;

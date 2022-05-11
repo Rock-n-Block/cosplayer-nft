@@ -43,10 +43,13 @@ const SupportForm: FC = () => {
         .trim()
         .matches(editProfileValidator.socials.email.reg, 'Not valid email address')
         .required('Email is required'),
-      transaction: Yup.string().min(30, 'Too short').max(70, 'Too long').notRequired(),
+      transaction: Yup.string()
+        .trim()
+        .matches(/^0x([A-Fa-f\d]{64})$/, 'Not valid transaction hash')
+        .notRequired(),
       message: Yup.string()
         .min(3, 'Too short!')
-        .max(100, 'Too long!')
+        .max(500, 'Too long!')
         .required('Message is required'),
       token: Yup.string().required(),
     }),
