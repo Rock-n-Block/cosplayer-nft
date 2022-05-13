@@ -39,7 +39,7 @@ export const ActionSelect: FC = () => {
     if (standart === 'ERC721' && !Array.isArray(owners) && owners?.id === userId) {
       if (selling) {
         if (isAucSelling && !isEndedAuc && bids?.length) {
-          return actions.filter((action) => action.value === 'report' || action.value === 'burn');
+          return actions.filter((action) => action.value === 'report');
         }
         return actions;
       }
@@ -73,10 +73,6 @@ export const ActionSelect: FC = () => {
       }
       case 'remove': {
         dispatch(setActiveModal({ activeModal: 'RemoveToken' }));
-        break;
-      }
-      case 'burn': {
-        dispatch(setActiveModal({ activeModal: 'BurnToken' }));
         break;
       }
       case 'report': {

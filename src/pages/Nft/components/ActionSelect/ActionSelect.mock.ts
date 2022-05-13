@@ -1,12 +1,6 @@
 import { IDropdownItem } from 'types';
 
-import {
-  BurnImg,
-  ChangePriceImg,
-  RemoveImg,
-  ReportImg,
-  TransferImg,
-} from 'assets/img/icons/actions';
+import { ChangePriceImg, RemoveImg, ReportImg, TransferImg } from 'assets/img/icons/actions';
 
 export const actions: IDropdownItem[] = [
   {
@@ -23,11 +17,6 @@ export const actions: IDropdownItem[] = [
     icon: RemoveImg,
     label: 'Remove from sale',
     value: 'remove',
-  },
-  {
-    icon: BurnImg,
-    label: 'Burn token',
-    value: 'burn',
   },
   {
     icon: ReportImg,
