@@ -14,7 +14,7 @@ import { routes } from 'appConstants';
 import { useShallowSelector } from 'hooks';
 import { IComment } from 'types';
 
-import { LikeActiveImg, LikeImg } from 'assets/img/icons';
+import { DefaultAvatarImg, LikeActiveImg, LikeImg } from 'assets/img/icons';
 import { RemoveImg } from 'assets/img/icons/actions';
 
 import s from './CommentRow.module.scss';
@@ -47,7 +47,7 @@ export const CommentRow: FC<CommentRowProps> = ({ comment, isLiked }) => {
     <div className={s.comment}>
       <div className={s.comment_content}>
         <Button href={routes.profile.link(comment.user.customUrl || '')}>
-          <img src={comment.user.avatar} alt="comment author avatar" />
+          <img src={comment.user.avatar || DefaultAvatarImg} alt="comment author avatar" />
         </Button>
         <div className={s.comment_info}>
           <span className={s.comment_author}>{comment.user.customUrl}</span>

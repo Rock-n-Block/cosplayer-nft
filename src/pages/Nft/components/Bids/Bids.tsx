@@ -6,6 +6,8 @@ import { InfoCard } from 'containers';
 
 import { useShallowSelector } from 'hooks';
 
+import { DefaultAvatarImg } from 'assets/img/icons';
+
 import s from './Bids.module.scss';
 
 export const Bids: FC = () => {
@@ -18,7 +20,7 @@ export const Bids: FC = () => {
             <InfoCard
               key={bid.bidder}
               type=""
-              avatar={bid.bidderAvatar}
+              avatar={bid.bidderAvatar || DefaultAvatarImg}
               id={String(bid.bidderId)}
               name={bid.bidder}
               quantity={bid.quantity}

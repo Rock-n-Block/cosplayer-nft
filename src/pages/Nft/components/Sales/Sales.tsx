@@ -7,6 +7,8 @@ import { InfoCard } from 'containers';
 
 import { useShallowSelector } from 'hooks';
 
+import { DefaultAvatarImg } from 'assets/img/icons';
+
 import s from './Sales.module.scss';
 
 export const Sales: FC = () => {
@@ -19,7 +21,7 @@ export const Sales: FC = () => {
         <InfoCard
           key={`${index + 1}`}
           type="Purchased"
-          avatar={sale.newOwner.avatar || ''}
+          avatar={sale.newOwner.avatar || DefaultAvatarImg}
           id={sale.newOwner.id || ''}
           name={sale.newOwner.customUrl || ''}
           quantity={sale.amount}

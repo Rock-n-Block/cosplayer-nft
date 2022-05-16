@@ -31,16 +31,28 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
   );
   const { props } = useShallowSelector(modalSelector.getProp('modalState'));
   const [currency, setCurrency] = useState<Currencies | string>(props.currency || 'bnb');
-  const { rates, fee } = useShallowSelector(userSelector.getUser);
-  const { detailedNft } = useShallowSelector(nftsSelector.getNfts);
+  const { rates, fee, id: userId } = useShallowSelector(userSelector.getUser);
+  const {
+    isAucSelling,
+    standart,
+    royalty,
+    creator,
+    id: tokenId,
+  } = useShallowSelector(nftsSelector.getProp('detailedNft'));
   const { [actionTypes.PATCH_NFT_DATA]: patchNftDataRequestStatus } = useShallowSelector(
     uiSelector.getUI,
   );
   const dispatch = useDispatch();
   const web3Provider = useWalletConnectorContext().walletService.Web3();
 
-  const isActiveAuc =
-    !!detailedNft.isAucSelling && Date.now() - new Date(detailedNft.endAuction || '').getTime() < 0;
+  const isActiveAuc = useMemo(
+    () => !!isAucSelling && Date.now() - new Date(endAuction || '').getTime() < 0,
+    [endAuction, isAucSelling],
+  );
+
+  const totalFee = useMemo(() => {
+    return userId === creator?.id ? fee / 100 : (fee + +(royalty || 0)) / 100;
+  }, [creator?.id, fee, royalty, userId]);
 
   const isPatchNftDataLoading = useMemo(
     () => patchNftDataRequestStatus === RequestStatus.REQUEST,
@@ -57,7 +69,7 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
   };
 
   const handleSubmit = () => {
-    if (detailedNft.id) {
+    if (tokenId) {
       const formData = new FormData();
       formData.append('selling', 'True');
       formData.append('currency', activeTab === 'Fixed Price' ? currency : 'rec');
@@ -77,15 +89,13 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
         formData.append('minimal_bid', price);
       }
 
-      dispatch(
-        patchNftData({ patchType: 'change-price', id: detailedNft.id, formData, web3Provider }),
-      );
+      dispatch(patchNftData({ patchType: 'change-price', id: tokenId, formData, web3Provider }));
     }
   };
 
   useEffect(() => {
-    if (detailedNft.standart === 'ERC1155') setActiveTab('Fixed Price');
-  }, [detailedNft.standart]);
+    if (standart === 'ERC1155') setActiveTab('Fixed Price');
+  }, [standart]);
 
   return (
     <Modal onClose={handleCloseModal} visible={isVisibleModal}>
@@ -95,7 +105,7 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
       <div className="modal-box">
         <div className="modal-title">Change price</div>
         <div className="modal-switcher">
-          {detailedNft.standart !== 'ERC1155' && (
+          {standart !== 'ERC1155' && (
             <Switcher
               firstTab="Fixed Price"
               secondTab="Time Auction"
@@ -162,10 +172,19 @@ const ChangePriceModal: FC<StoreModalProps> = ({ id }) => {
           <span className="modal-box-option-name">Service fee:</span>
           <span className="modal-box-option-value">{fee}%</span>
         </div>
+        {userId !== creator?.id && (
+          <div className="modal-box-option">
+            <span className="modal-box-option-name">Creator royalties:</span>
+            <span className="modal-box-option-value">{royalty || 0}%</span>
+          </div>
+        )}
         <div className="modal-box-option">
           <span className="modal-box-option-name">You will receive:</span>
           <span className="modal-box-option-value">
-            {new BigNumber(price).times(new BigNumber(1).minus(fee / 100)).toString(10)}&nbsp;
+            {new BigNumber(price || 0)
+              .times(new BigNumber(1).minus(totalFee).toString(10))
+              .toString(10)}
+            &nbsp;
             {activeTab === 'Fixed Price' ? currency.toUpperCase() : 'REC'}
           </span>
         </div>
