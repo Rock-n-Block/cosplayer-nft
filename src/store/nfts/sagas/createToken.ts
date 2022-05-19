@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { error, request, success } from 'store/api/actions';
 import { baseApi } from 'store/api/apiRequestBuilder';
+import { setActiveModal } from 'store/modals/reducer';
 import userSelector from 'store/user/selectors';
 
 import { logger } from 'utils';
@@ -36,8 +37,9 @@ export function* createTokenSaga({
           from: address,
         });
 
+        yield put(setActiveModal({ activeModal: 'MintSuccess', props: { tokenId: token.id } }));
+
         yield put(success(type));
-        toast.success('You have successfully created your NFT. Please wait for minting');
       } catch (e) {
         logger('Send tx', e);
         yield call(baseApi.removeRejected, { id: token.id || 0, type: 'token' });

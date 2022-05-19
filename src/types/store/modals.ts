@@ -14,6 +14,7 @@ export type ActiveModal =
   | 'AcceptBid'
   | 'SupportTicket'
   | 'RemoveComment'
+  | 'MintSuccess'
   | '';
 
 export interface ModalState {

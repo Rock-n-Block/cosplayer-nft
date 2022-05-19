@@ -7,6 +7,7 @@ import {
   ChangePriceModal,
   ConnectWalletModal,
   LoginModal,
+  MintSuccessModal,
   PlaceBidModal,
   ProfilePictureRequiredModal,
   RemoveCommentModal,
@@ -35,6 +36,7 @@ const ModalsManager: FC = () => (
     <BuyModal id="Buy" />
     <AcceptBidModal id="AcceptBid" />
     <RemoveCommentModal id="RemoveComment" />
+    <MintSuccessModal id="MintSuccess" />
   </>
 );
 
