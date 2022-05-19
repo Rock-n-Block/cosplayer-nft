@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 
 import actionTypes from 'store/nfts/actionTypes';
 import uiSelector from 'store/ui/selectors';
+import userSelector from 'store/user/selectors';
 
 import { Field, FieldProps, Form, FormikProps } from 'formik';
 import { SupportFormProps } from 'forms/SupportForm/container';
@@ -26,6 +27,7 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
   setFieldValue,
 }) => {
   const { [actionTypes.SUPPORT]: supportRequestStatus } = useShallowSelector(uiSelector.getUI);
+  const userAddress = useShallowSelector(userSelector.getProp('address'));
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   logger('verified token:', values.token);
@@ -106,7 +108,9 @@ const SupportFormComponent: FC<FormikProps<SupportFormProps>> = ({
       ) : (
         <Button
           disabled={
-            supportRequestStatus === RequestStatus.REQUEST || Object.keys(errors).length !== 0
+            !userAddress ||
+            supportRequestStatus === RequestStatus.REQUEST ||
+            Object.keys(errors).length !== 0
           }
           className="modal-box-button"
           color="blue"
